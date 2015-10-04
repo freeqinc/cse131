@@ -3,6 +3,7 @@ import java_cup.runtime.*;
 import java.util.Vector;
 import types.*;
 import STO.*;
+import operators.*;
 
 //--------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
@@ -157,11 +158,14 @@ non terminal
     Array
     ;
 
-non terminal String    
-    AddOp,
+non terminal String
     MulOp,
     IncDecOp,
     ParamDecl
+    ;
+
+non terminal Operator
+    AddOp
     ;
 
 non terminal STO
@@ -718,7 +722,7 @@ Expr6 ::=           Expr6:_1 Relation Expr7
 
 Expr7 ::=           Expr7:_1 AddOp:_2 Expr8:_3
                     {:
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
                     :}
     |               Expr8:_1
                     {:
@@ -752,11 +756,11 @@ Relation ::=        T_LT
 
 AddOp ::=           T_PLUS
                     {:
-                        RESULT = "+";
+                        RESULT = new AddOp();
                     :}
     |               T_MINUS
                     {:
-                        RESULT = "-";
+                        RESULT = new MinusOp();
                     :}
     ;
 
@@ -860,11 +864,11 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_INT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, null, 0);    // fix me!
+                        RESULT = new ConstSTO (_1, new IntType(), Integer.parseInt(_1));
                     :}
     |               T_FLOAT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, null, 0.00);  // fix me!
+                        RESULT = new ConstSTO (_1, new FloatType(), Float.parseFloat(_1));
                     :}
     |               T_STR_LITERAL:_1
                     {:

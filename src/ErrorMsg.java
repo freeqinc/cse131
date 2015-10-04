@@ -11,7 +11,7 @@
 // C/C++ printf-like conventions.
 /////////////////////////////////////////////////////////////////
 
-class ErrorMsg
+public class ErrorMsg
 {
     // Contains return at end to remind that header appears on its own line.
     public static final String errorHeader = "Error, \"%F\", line %D:\n";

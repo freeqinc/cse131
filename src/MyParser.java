@@ -8,6 +8,7 @@ import STO.*;
 import java_cup.runtime.*;
 import types.ErrorType;
 import types.Type;
+import operators.*;
 
 import java.util.Vector;
 
@@ -183,7 +184,6 @@ class MyParser extends parser
 			sto = new VarSTO(id, t);
 		}
 
-		System.out.println(sto.getType());
 		m_symtab.insert(sto);
 	}
 
@@ -390,14 +390,21 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-//	STO DoBinaryExpr(STO a, Operator o, STO b) {
-//		STO result = o.checkOperands(a, b);
-//
-//		if (result instanceof ErrorSTO) {
-//			// handle propagating errors
-//		}
-//		//do stuff...
-//		return result ;
-//	}
+	STO DoBinaryExpr(STO a, Operator o, STO b) {
+		STO result = o.checkOperands(a, b);
+
+		if (result instanceof ErrorSTO) {
+			m_nNumErrors++;
+			switch (result.getName()) {
+				case "error1b_Expr":
+					m_errors.print(Formatter.toString(ErrorMsg.error1b_Expr, a.getType().getName(), o.getName(), b.getType().getName()));
+					break;
+
+			}
+
+		}
+
+		return result ;
+	}
 
 }

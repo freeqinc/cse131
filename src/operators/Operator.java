@@ -1,4 +1,5 @@
 package operators;
+import STO.*;
 
 /**
  * Created by FreeQinC on 10/3/15.
@@ -18,4 +19,6 @@ public abstract class Operator {
     public void setName(String opName) {
         m_opName = opName;
     }
+
+    public abstract STO checkOperands(STO a, STO b);
 }

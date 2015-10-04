@@ -1,12 +1,13 @@
 int cat = 5;
 float dog = 5;
-bool frog = 10;
+bool frog = true;
 
 int x;
 float y;
 function : void main()
 {
     x = 1; // OK
-    y = x + 2.2; // OK
+    y = x + frog;
+    y = 2 + 2.2;
     x = y; // ERROR
 }
