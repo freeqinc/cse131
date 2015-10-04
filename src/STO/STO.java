@@ -1,10 +1,12 @@
-//---------------------------------------------------------------------
+package STO;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
 //---------------------------------------------------------------------
 
-abstract class STO
+import types.Type;
+
+public abstract class STO
 {
 	private String m_strName;
 	private Type m_type;

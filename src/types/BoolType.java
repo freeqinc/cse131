@@ -1,3 +1,5 @@
+package types;
+
 /**
  * Created by FreeQinC on 10/3/15.
  */

@@ -4,6 +4,9 @@
 // University of California, San Diego
 //---------------------------------------------------------------------
 
+import STO.FuncSTO;
+import STO.STO;
+
 import java.util.*;
 
 class SymbolTable

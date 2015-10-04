@@ -1,12 +1,14 @@
-//---------------------------------------------------------------------
+package STO;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
 //---------------------------------------------------------------------
 
+import types.Type;
+
 import java.math.BigDecimal;
 
-class ConstSTO extends STO
+public class ConstSTO extends STO
 {
     //----------------------------------------------------------------
     //	Constants have a value, so you should store them here.

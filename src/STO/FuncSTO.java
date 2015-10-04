@@ -1,10 +1,12 @@
-//---------------------------------------------------------------------
+package STO;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
 //---------------------------------------------------------------------
 
-class FuncSTO extends STO
+import types.Type;
+
+public class FuncSTO extends STO
 {
 	private Type m_returnType;
 

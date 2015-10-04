@@ -4,6 +4,8 @@
 // University of California, San Diego
 //---------------------------------------------------------------------
 
+import STO.STO;
+
 import java.util.Vector;
 
 class Scope

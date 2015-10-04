@@ -4,7 +4,11 @@
 // University of California, San Diego
 //---------------------------------------------------------------------
 
+import STO.*;
 import java_cup.runtime.*;
+import types.ErrorType;
+import types.Type;
+
 import java.util.Vector;
 
 class MyParser extends parser
@@ -168,7 +172,6 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void DoVarDecl(String id, Type t)
 	{
-		System.out.println(t);
 		if (m_symtab.accessLocal(id) != null)
 		{
 			m_nNumErrors++;
@@ -176,6 +179,11 @@ class MyParser extends parser
 		}
 
 		VarSTO sto = new VarSTO(id);
+		if (t != null) {
+			sto = new VarSTO(id, t);
+		}
+
+		System.out.println(sto.getType());
 		m_symtab.insert(sto);
 	}
 
@@ -378,4 +386,18 @@ class MyParser extends parser
 
 		return sto.getType();
 	}
+
+	//----------------------------------------------------------------
+	//
+	//----------------------------------------------------------------
+//	STO DoBinaryExpr(STO a, Operator o, STO b) {
+//		STO result = o.checkOperands(a, b);
+//
+//		if (result instanceof ErrorSTO) {
+//			// handle propagating errors
+//		}
+//		//do stuff...
+//		return result ;
+//	}
+
 }

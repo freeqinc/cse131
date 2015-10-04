@@ -1,9 +1,6 @@
-// CSE 131 Reduced-C Compiler Project
-// Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
-// University of California, San Diego
-//---------------------------------------------------------------------
+package types;//---------------------------------------------------------------------
 
-class ErrorType extends Type
+public class ErrorType extends Type
 {
 	//----------------------------------------------------------------
 	//

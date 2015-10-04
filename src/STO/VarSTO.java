@@ -1,10 +1,12 @@
-//---------------------------------------------------------------------
+package STO;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
 //---------------------------------------------------------------------
 
-class VarSTO extends STO
+import types.Type;
+
+public class VarSTO extends STO
 {
 	//----------------------------------------------------------------
 	//

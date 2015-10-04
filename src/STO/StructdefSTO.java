@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------
+package STO;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
@@ -8,7 +8,9 @@
 // For structdefs
 //---------------------------------------------------------------------
 
-class StructdefSTO extends STO
+import types.Type;
+
+public class StructdefSTO extends STO
 {
 	//----------------------------------------------------------------
 	//
