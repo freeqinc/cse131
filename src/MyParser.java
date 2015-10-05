@@ -6,8 +6,8 @@
 
 import STO.*;
 import java_cup.runtime.*;
-import types.ErrorType;
-import types.Type;
+
+import types.*;
 import operators.*;
 
 import java.util.Vector;
@@ -393,18 +393,27 @@ class MyParser extends parser
 	STO DoBinaryExpr(STO a, Operator o, STO b) {
 		STO result = o.checkOperands(a, b);
 
+		Type intType = new IntType();
+
 		if (result instanceof ErrorSTO) {
 			m_nNumErrors++;
 			switch (result.getName()) {
 				case "error1b_Expr":
 					m_errors.print(Formatter.toString(ErrorMsg.error1b_Expr, a.getType().getName(), o.getName(), b.getType().getName()));
 					break;
-
+				case "error1w_Expr_left":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), intType.getName()));
+					break;
+				case "error1w_Expr_right":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), intType.getName()));
+					break;
 			}
 
 		}
 
-		return result ;
+		System.out.println(a.getType().getName() + " " + o.getName() + " " + b.getType().getName() + ": " + result.getType().getName());
+
+		return result;
 	}
 
 }

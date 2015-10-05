@@ -1,13 +1,14 @@
 package operators;
+
 import STO.*;
 import types.*;
 
 /**
- * Created by FreeQinC on 10/3/15.
+ * Created by FreeQinC on 10/4/15.
  */
-public class AddOp extends ArithmeticOp {
+public class SlashOp extends ArithmeticOp {
 
-    public AddOp() { super("add"); }
+    public SlashOp() { super("slash"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();
@@ -16,9 +17,9 @@ public class AddOp extends ArithmeticOp {
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
             return new ErrorSTO("error1b_Expr");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ConstSTO("add_result", new IntType());
+            return new ConstSTO("slash_result", new IntType());
         } else {
-            return new ConstSTO("add_result", new FloatType());
+            return new ConstSTO("slash_result", new FloatType());
         }
     }
 }

@@ -7,7 +7,31 @@ float y;
 function : void main()
 {
     x = 1; // OK
-    y = x + frog;
-    y = 2 + 2.2;
+
+    y = x + cat;        // int
+    y = x + dog;        // float
+    y = x + frog;       // error
+
+    y = x - cat;        // int
+    y = x - dog;        // float
+    y = x - frog;       // error
+
+    y = x * cat;        // int
+    y = x * dog;        // float
+    y = x * frog;       // error
+
+    y = x / cat;        // int
+    y = x / dog;        // float
+    y = x / frog;       // error
+
+    y = x % cat;        // int
+    y = x % dog;        // float
+    y = x % frog;       // error
+    y = frog % x;       // error
+
+    y = 2 + 2;          // int
+    y = 2 + 2.2;        // float
+
+
     x = y; // ERROR
 }
