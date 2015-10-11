@@ -1,3 +1,5 @@
+int myX;
+
 int cat = 5;
 float dog = 5;
 bool frog = true;
@@ -13,6 +15,13 @@ bool z;
 float f = 5.5;
 function : void main()
 {
+    int xTest;
+    int iTest = 5 + ::xTest;    // Error, cannot find x in the global scope
+    int jTest = 5 + ::myX;      // No Error
+
+    /*  CHECK 0 ====================================== */
+
+
     /*  CHECK 1 ====================================== */
 
     x = 1; // OK
@@ -20,31 +29,31 @@ function : void main()
     y = 2 + 2;           // int
     y = 2 + 2.2;         // float
 
-    y = x + cat;        // int
-    y = x + dog;        // float
-    y = x + frog;       // error
-    y = frog + x;       // error
+    y = x + cat;         // int
+    y = x + dog;         // float
+    y = x + frog;        // error
+    y = frog + x;        // error
 
-    y = x - cat;        // int
-    y = x - dog;        // float
-    y = x - frog;       // error
+    y = x - cat;         // int
+    y = x - dog;         // float
+    y = x - frog;        // error
 
-    y = x * cat;        // int
-    y = x * dog;        // float
-    y = x * frog;       // error
+    y = x * cat;         // int
+    y = x * dog;         // float
+    y = x * frog;        // error
 
-    y = x / cat;        // int
-    y = x / dog;        // float
-    y = x / frog;       // error
+    y = x / cat;         // int
+    y = x / dog;         // float
+    y = x / frog;        // error
 
-    y = x % cat;        // int
-    y = x % dog;        // float
-    y = x % frog;       // error
-    y = frog % x;       // error
+    y = x % cat;         // int
+    y = x % dog;         // float
+    y = x % frog;        // error
+    y = frog % x;        // error
 
-    frog = cat < dog;   // ok
-    frog = cat < frog;  // error
-    frog = frog < cat;  // error
+    frog = cat < dog;    // ok
+    frog = cat < frog;   // error
+    frog = frog < cat;   // error
 
     frog = cat <= dog;   // ok
     frog = cat <= frog;  // error

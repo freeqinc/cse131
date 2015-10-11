@@ -418,6 +418,10 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	STO DoBinaryExpr(STO a, Operator o, STO b) {
+		if (b instanceof ErrorSTO) return b;
+		if (a instanceof ErrorSTO) return a;
+
+
 		STO result = ((BinaryOp) o).checkOperands(a, b);
 
 		if (result instanceof ErrorSTO) {
