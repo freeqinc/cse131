@@ -1,66 +1,81 @@
-Error, "phase1_1.rc", line 16:
-  Incompatible type bool to binary operator +, numeric expected.
-Error, "phase1_1.rc", line 17:
-  Incompatible type bool to binary operator +, numeric expected.
 Error, "phase1_1.rc", line 21:
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1_1.rc", line 22:
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1_1.rc", line 26:
   Incompatible type bool to binary operator -, numeric expected.
-Error, "phase1_1.rc", line 25:
+Error, "phase1_1.rc", line 30:
   Incompatible type bool to binary operator *, numeric expected.
-Error, "phase1_1.rc", line 29:
-  Incompatible type bool to binary operator /, numeric expected.
-Error, "phase1_1.rc", line 32:
-  Incompatible type float to binary operator %, equivalent to int expected.
-Error, "phase1_1.rc", line 33:
-  Incompatible type bool to binary operator %, equivalent to int expected.
 Error, "phase1_1.rc", line 34:
-  Incompatible type bool to binary operator %, equivalent to int expected.
+  Incompatible type bool to binary operator /, numeric expected.
 Error, "phase1_1.rc", line 37:
-  Incompatible type bool to binary operator <, numeric expected.
+  Incompatible type float to binary operator %, equivalent to int expected.
 Error, "phase1_1.rc", line 38:
+  Incompatible type bool to binary operator %, equivalent to int expected.
+Error, "phase1_1.rc", line 39:
+  Incompatible type bool to binary operator %, equivalent to int expected.
+Error, "phase1_1.rc", line 42:
   Incompatible type bool to binary operator <, numeric expected.
-Error, "phase1_1.rc", line 41:
+Error, "phase1_1.rc", line 43:
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1_1.rc", line 46:
   Incompatible type bool to binary operator <=, numeric expected.
-Error, "phase1_1.rc", line 44:
+Error, "phase1_1.rc", line 49:
   Incompatible type bool to binary operator >, numeric expected.
-Error, "phase1_1.rc", line 48:
+Error, "phase1_1.rc", line 53:
   Incompatible type bool to binary operator >=, numeric expected.
-Error, "phase1_1.rc", line 52:
+Error, "phase1_1.rc", line 57:
   Incompatible types to operator: int == bool;
   both must be numeric, or both equivalent to bool.
-Error, "phase1_1.rc", line 56:
+Error, "phase1_1.rc", line 61:
   Incompatible types to operator: int != bool;
   both must be numeric, or both equivalent to bool.
-Error, "phase1_1.rc", line 58:
-  Incompatible type int to binary operator &&, equivalent to bool expected.
-Error, "phase1_1.rc", line 59:
-  Incompatible type float to binary operator &&, equivalent to bool expected.
-Error, "phase1_1.rc", line 62:
-  Incompatible type int to binary operator ||, equivalent to bool expected.
 Error, "phase1_1.rc", line 63:
+  Incompatible type int to binary operator &&, equivalent to bool expected.
+Error, "phase1_1.rc", line 64:
+  Incompatible type float to binary operator &&, equivalent to bool expected.
+Error, "phase1_1.rc", line 67:
+  Incompatible type int to binary operator ||, equivalent to bool expected.
+Error, "phase1_1.rc", line 68:
   Incompatible type float to binary operator ||, equivalent to bool expected.
-Error, "phase1_1.rc", line 66:
+Error, "phase1_1.rc", line 71:
   Incompatible type int to unary operator !, equivalent to bool expected.
-Error, "phase1_1.rc", line 69:
-  Incompatible type bool to binary operator &, equivalent to int expected.
-Error, "phase1_1.rc", line 70:
-  Incompatible type float to binary operator &, equivalent to int expected.
-Error, "phase1_1.rc", line 73:
-  Incompatible type bool to binary operator |, equivalent to int expected.
 Error, "phase1_1.rc", line 74:
-  Incompatible type float to binary operator |, equivalent to int expected.
-Error, "phase1_1.rc", line 77:
-  Incompatible type bool to binary operator ^, equivalent to int expected.
+  Incompatible type bool to binary operator &, equivalent to int expected.
+Error, "phase1_1.rc", line 75:
+  Incompatible type float to binary operator &, equivalent to int expected.
 Error, "phase1_1.rc", line 78:
+  Incompatible type bool to binary operator |, equivalent to int expected.
+Error, "phase1_1.rc", line 79:
+  Incompatible type float to binary operator |, equivalent to int expected.
+Error, "phase1_1.rc", line 82:
+  Incompatible type bool to binary operator ^, equivalent to int expected.
+Error, "phase1_1.rc", line 83:
   Incompatible type float to binary operator ^, equivalent to int expected.
-Error, "phase1_1.rc", line 81:
+Error, "phase1_1.rc", line 86:
   Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
-Error, "phase1_1.rc", line 84:
+Error, "phase1_1.rc", line 89:
   Operand to ++ is not a modifiable L-value.
-Error, "phase1_1.rc", line 85:
-  Operand to ++ is not a modifiable L-value.
-Error, "phase1_1.rc", line 87:
-  Incompatible type bool to operator --, equivalent to int, float, or pointer expected.
 Error, "phase1_1.rc", line 90:
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1_1.rc", line 92:
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1_1.rc", line 92:
   Operand to -- is not a modifiable L-value.
-Error, "phase1_1.rc", line 91:
+Error, "phase1_1.rc", line 96:
+  Incompatible type bool to operator --, equivalent to int, float, or pointer expected.
+Error, "phase1_1.rc", line 99:
   Operand to -- is not a modifiable L-value.
+Error, "phase1_1.rc", line 100:
+  Operand to -- is not a modifiable L-value.
+Error, "phase1_1.rc", line 107:
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1_1.rc", line 108:
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1_1.rc", line 109:
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1_1.rc", line 111:
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "phase1_1.rc", line 112:
+  Operand to ++ is not a modifiable L-value.
+Compile: failure.

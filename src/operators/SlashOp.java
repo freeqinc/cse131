@@ -20,9 +20,9 @@ public class SlashOp extends ArithmeticOp {
             else
                 return new ErrorSTO("error1n_Expr_right");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ExprSTO("add_result", new IntType());
+            return new ExprSTO("add_result", new IntType(), false, false);
         } else {
-            return new ExprSTO("add_result", new FloatType());
+            return new ExprSTO("add_result", new FloatType(), false, false);
         }
     }
 }

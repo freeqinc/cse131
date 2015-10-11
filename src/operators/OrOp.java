@@ -20,7 +20,7 @@ public class OrOp extends BooleanOp {
             else
                 return new ErrorSTO("error1w_Expr_right_boolean");
         } else {
-            return new ExprSTO("or_result", new BoolType());
+            return new ExprSTO("or_result", new BoolType(), false, false);
         }
     }
 }

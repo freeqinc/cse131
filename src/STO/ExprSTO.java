@@ -29,6 +29,15 @@ public class ExprSTO extends STO
 		setIsModifiable(true);
 	}
 
+	public ExprSTO(String strName, Type typ, boolean address, boolean mod)
+	{
+		super(strName, typ);
+		// You may want to change the isModifiable and isAddressable
+		// fields as necessary
+		setIsAddressable(address);
+		setIsModifiable(mod);
+	}
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

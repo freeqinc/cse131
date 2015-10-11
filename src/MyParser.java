@@ -295,11 +295,21 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	STO DoAssignExpr(STO stoDes)
+	STO DoAssignExpr(STO stoDes, STO stoExpr)
 	{
+
+		if (stoExpr instanceof ErrorSTO) {
+			return stoExpr;
+		}
+
 		if (!stoDes.isModLValue())
 		{
-			// Good place to do the assign checks
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error3a_Assign);
+
+			if (PRINT_1) System.out.println(stoDes.getName());
+
+			stoDes =  new ErrorSTO("Left is not a modifiable l-value");
 		}
 
 		return stoDes;

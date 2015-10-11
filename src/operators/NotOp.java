@@ -16,7 +16,7 @@ public class NotOp extends UnaryOp {
         if (!(aType instanceof BoolType)) {
                 return new ErrorSTO("error1u_Expr");
         } else {
-            return new ExprSTO("not_result", new BoolType());
+            return new ExprSTO("not_result", new BoolType(), false, false);
         }
     }
 

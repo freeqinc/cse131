@@ -108,7 +108,8 @@ public abstract class STO
 	{
 		return getIsModifiable() && getIsAddressable();
 	}
-
+	public boolean isNonModLValue() { return !getIsModifiable() && getIsAddressable(); }
+	public boolean isRValue() { return !getIsModifiable() && !getIsAddressable(); }
 	//----------------------------------------------------------------
 	//	It will be helpful to ask a STO what specific STO it is.
 	//	The Java operator instanceof will do this, but these methods 

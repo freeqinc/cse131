@@ -20,7 +20,7 @@ public class GTEOp extends ComparisonOp {
             else
                 return new ErrorSTO("error1n_Expr_right");
         } else {
-            return new ExprSTO("GTE_result", new BoolType());
+            return new ExprSTO("GTE_result", new BoolType(), false, false);
         }
     }
 

@@ -20,7 +20,7 @@ public class AndOp extends BooleanOp {
             else
                 return new ErrorSTO("error1w_Expr_right_boolean");
         } else {
-            return new ExprSTO("and_result", new BoolType());
+            return new ExprSTO("and_result", new BoolType(), false, false);
         }
     }
 }

@@ -20,7 +20,7 @@ public class ModOp extends ArithmeticOp {
             else
                 return new ErrorSTO("error1w_Expr_right_mod");
         } else {
-            return new ExprSTO("mod_result", new IntType());
+            return new ExprSTO("mod_result", new IntType(), false, false);
         }
     }
 }

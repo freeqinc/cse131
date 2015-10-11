@@ -20,7 +20,7 @@ public class LTOp extends ComparisonOp {
             else
                 return new ErrorSTO("error1n_Expr_right");
         } else {
-            return new ExprSTO("LT_result", new BoolType());
+            return new ExprSTO("LT_result", new BoolType(), false, false);
         }
     }
 

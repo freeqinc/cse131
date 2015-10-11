@@ -17,10 +17,10 @@ public class DecOp extends UnaryOp {
         if (!(aType instanceof NumericType)) {
             return new ErrorSTO("error2_Type");
         } else {
-            if (!a.getIsAddressable() || !a.getIsModifiable())
+            if (!a.isModLValue())
                 return new ErrorSTO("error2_Lval");
             else
-                return new ExprSTO("dec_result", a.getType());
+                return new ExprSTO("dec_result", a.getType(), false, false);
         }
     }
 

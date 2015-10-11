@@ -15,9 +15,9 @@ public class NEQOp extends ComparisonOp {
         Type bType = b.getType();
 
         if ((aType instanceof NumericType) && (bType instanceof NumericType)) {
-            return new ExprSTO("NEQ_result", new BoolType());
+            return new ExprSTO("NEQ_result", new BoolType(), false, false);
         } else if ((aType instanceof BoolType) && (bType instanceof BoolType)) {
-            return new ExprSTO("NEQ_result", new BoolType());
+            return new ExprSTO("NEQ_result", new BoolType(), false, false);
         } else {
             return new ErrorSTO("error1b_Expr");
         }
