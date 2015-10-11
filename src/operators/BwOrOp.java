@@ -19,7 +19,7 @@ public class BwOrOp extends BitwiseOp {
             else
                 return new ErrorSTO("error1w_Expr_right_bw");
         } else {
-            return new ExprSTO("bw_or_result", new BoolType(), false, false);
+            return new ExprSTO("bw_or_result", new IntType(), false, false);
         }
     }
 }

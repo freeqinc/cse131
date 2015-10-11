@@ -302,6 +302,10 @@ class MyParser extends parser
 			return stoExpr;
 		}
 
+		Type a = stoDes.getType();
+		Type b = stoExpr.getType();
+
+
 		if (!stoDes.isModLValue())
 		{
 			m_nNumErrors++;
@@ -309,7 +313,18 @@ class MyParser extends parser
 
 			if (PRINT_1) System.out.println(stoDes.getName());
 
-			stoDes =  new ErrorSTO("Left is not a modifiable l-value");
+			return  new ErrorSTO("Left is not a modifiable l-value");
+		}
+
+		if (!a.getClass().equals(b.getClass())) {
+			if (a instanceof FloatType && b instanceof IntType) {
+				// something
+			} else {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error3b_Assign, b.getName(), a.getName()));
+				return new ErrorSTO("types not assignable");
+			}
+
 		}
 
 		return stoDes;

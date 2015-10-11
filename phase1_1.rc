@@ -3,10 +3,14 @@ float dog = 5;
 bool frog = true;
 
 const int log = 5;
+const float flog = 5.5;
+const bool blog = true;
 
 int x;
 float y;
 bool z;
+
+float f = 5.5;
 function : void main()
 {
     /*  CHECK 1 ====================================== */
@@ -111,5 +115,15 @@ function : void main()
     1 = 3 = 4 = 2;       // error at 4 = 2 first
     5 = log++;           // error at log++ first
 
-    x = y;               // error
+
+    x = y;               // error int <- float
+    x = 2.2;             // error int <- float
+    z = x;               // error bool <- int
+    y = x;               // ok float <- int
+    log = 5.5;           // error const int <- float type conflict first
+    blog = blog++;       // error const bool <- const bool ++, ++ type error first
+
+
+    int f = 5;           // ok
+    f = ::f;             // error int <- float (global)
 }
