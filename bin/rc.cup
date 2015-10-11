@@ -258,12 +258,12 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
 
 ConstDecl ::=       OptStatic:_1 T_CONST BasicType:_2 T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoConstDecl (_3);
+                        ((MyParser) parser).DoConstDecl (_2, _3);
                     :}
                     T_SEMI
     |               OptStatic:_1 T_CONST T_AUTO T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoConstDecl (_3);
+                        ((MyParser) parser).DoConstDecl (null, _3);
                     :}
                     T_SEMI
     ;
@@ -791,7 +791,7 @@ IncDecOp ::=        T_PLUSPLUS
                     :}
     |               T_MINUSMINUS
                     {:
-                        RESULT = new IncOp();
+                        RESULT = new DecOp();
                     :}
     ;
 
@@ -824,9 +824,9 @@ Designator ::=      T_STAR Designator:_1
                     {:
                         RESULT = _2;
                     :}
-    |               IncDecOp Designator:_2
+    |               IncDecOp:_1 Designator:_2
                     {:
-                        RESULT = ((MyParser) parser).DoUnaryExpr (new IncOp(), _2);
+                        RESULT = ((MyParser) parser).DoUnaryExpr (_1, _2);
                     :}
     |               Designator2:_1
                     {:
@@ -847,9 +847,9 @@ Designator2 ::=     Designator2:_1 T_DOT T_ID:_3
                     {:
                         RESULT = _1;
                     :}
-    |               Designator2:_1 IncDecOp
+    |               Designator2:_1 IncDecOp:_2
                     {:
-                        RESULT = ((MyParser) parser).DoUnaryExpr (new IncOp(), _1);
+                        RESULT = ((MyParser) parser).DoUnaryExpr (_2, _1);
                     :}
     |               Designator2:_1 T_LPAREN OptExprList T_RPAREN
                     {:

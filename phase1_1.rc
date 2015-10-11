@@ -2,6 +2,8 @@ int cat = 5;
 float dog = 5;
 bool frog = true;
 
+const int log = 5;
+
 int x;
 float y;
 bool z;
@@ -76,12 +78,19 @@ function : void main()
     x = (dog ^ frog);    // error
     x = (cat ^ cat);     // ok
 
-    x = frog++;          // error
-    x = ++dog;           // ok
-    x = cat++;           // ok
-    /*
-    x = 123++;           // error
-    */
+    y = frog++;          // error
+    y = ++dog;           // ok
+    y = cat++;           // ok
+    y = 123++;           // error
+    y = log++;           // error
+
+    y = frog--;          // error
+    y = --dog;           // ok
+    y = cat--;           // ok
+    y = 123--;           // error
+    y = log--;           // error
+
+    y = dog++ + --dog;   // ok
 
     y = 2 + 2;           // int
     y = 2 + 2.2;         // float

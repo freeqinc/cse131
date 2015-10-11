@@ -207,7 +207,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoConstDecl(String id)
+	void DoConstDecl(Type t, String id)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
@@ -215,7 +215,7 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
 
-		ConstSTO sto = new ConstSTO(id, null, 0);   // fix me
+		ConstSTO sto = new ConstSTO(id, t, 0);   // fix me
 		m_symtab.insert(sto);
 	}
 
@@ -445,6 +445,9 @@ class MyParser extends parser
 					break;
 				case "error2_Type":
 					m_errors.print(Formatter.toString(ErrorMsg.error2_Type, a.getType().getName(), o.getName()));
+					break;
+				case "error2_Lval":
+					m_errors.print(Formatter.toString(ErrorMsg.error2_Lval, o.getName()));
 					break;
 			}
 		}
