@@ -89,7 +89,7 @@ class MyParser extends parser
 			//	It is possible that the error was detected
 			//	at the end of a line - in which case, s will
 			//	be null.  Instead, we saved the last token
-			//	read in to give a more meaningful error 
+			//	read in to give a more meaningful error
 			//	message.
 			m_errors.print(Formatter.toString(ErrorMsg.syntax_error, m_strLastLexeme));
 		}
@@ -212,7 +212,7 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
-		
+
 		ConstSTO sto = new ConstSTO(id, null, 0);   // fix me
 		m_symtab.insert(sto);
 	}
@@ -227,7 +227,7 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
-		
+
 		StructdefSTO sto = new StructdefSTO(id);
 		m_symtab.insert(sto);
 	}
@@ -242,7 +242,7 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
-	
+
 		FuncSTO sto = new FuncSTO(id);
 		m_symtab.insert(sto);
 
@@ -299,7 +299,7 @@ class MyParser extends parser
 		{
 			// Good place to do the assign checks
 		}
-		
+
 		return stoDes;
 	}
 
@@ -391,9 +391,7 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	STO DoBinaryExpr(STO a, Operator o, STO b) {
-		STO result = o.checkOperands(a, b);
-
-		Type intType = new IntType();
+		STO result = ((BinaryOp) o).checkOperands(a, b);
 
 		if (result instanceof ErrorSTO) {
 			m_nNumErrors++;
@@ -401,17 +399,46 @@ class MyParser extends parser
 				case "error1b_Expr":
 					m_errors.print(Formatter.toString(ErrorMsg.error1b_Expr, a.getType().getName(), o.getName(), b.getType().getName()));
 					break;
-				case "error1w_Expr_left":
-					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), intType.getName()));
+				case "error1w_Expr_left_mod":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "int"));
 					break;
-				case "error1w_Expr_right":
-					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), intType.getName()));
+				case "error1w_Expr_right_mod":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "int"));
+					break;
+				case "error1w_Expr_left_comparison":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "numeric"));
+					break;
+				case "error1w_Expr_right_comparison":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "numeric"));
+					break;
+				case "error1w_Expr_left_boolean":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "boolean"));
+					break;
+				case "error1w_Expr_right_boolean":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "boolean"));
 					break;
 			}
 
 		}
 
 		System.out.println(a.getType().getName() + " " + o.getName() + " " + b.getType().getName() + ": " + result.getType().getName());
+
+		return result;
+	}
+
+	STO DoUnaryExpr(Operator o, STO a) {
+		STO result = ((UnaryOp) o).checkOperand(a);
+
+		if (result instanceof ErrorSTO) {
+			m_nNumErrors++;
+			switch (result.getName()) {
+				case "error1u_Expr":
+					m_errors.print(Formatter.toString(ErrorMsg.error1u_Expr, a.getType().getName(), o.getName()));
+					break;
+			}
+		}
+
+		System.out.println(o.getName() + " " + a.getType().getName() + ": " + result.getType().getName());
 
 		return result;
 	}

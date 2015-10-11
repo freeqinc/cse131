@@ -19,6 +19,4 @@ public abstract class Operator {
     public void setName(String opName) {
         m_opName = opName;
     }
-
-    public abstract STO checkOperands(STO a, STO b);
 }

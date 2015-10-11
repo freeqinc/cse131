@@ -17,9 +17,9 @@ public class StarOp extends ArithmeticOp {
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
             return new ErrorSTO("error1b_Expr");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ConstSTO("star_result", new IntType());
+            return new ExprSTO("star_result", new IntType());
         } else {
-            return new ConstSTO("star_result", new FloatType());
+            return new ExprSTO("star_result", new FloatType());
         }
     }
 }

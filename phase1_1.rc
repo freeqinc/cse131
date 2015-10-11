@@ -4,6 +4,7 @@ bool frog = true;
 
 int x;
 float y;
+bool z;
 function : void main()
 {
     x = 1; // OK
@@ -29,9 +30,41 @@ function : void main()
     y = x % frog;       // error
     y = frog % x;       // error
 
-    y = 2 + 2;          // int
-    y = 2 + 2.2;        // float
+    frog = cat < dog;   // ok
+    frog = cat < frog;  // error
+    frog = frog < cat;  // error
 
+    frog = cat <= dog;   // ok
+    frog = cat <= frog;  // error
+
+    frog = cat > dog;    // ok
+    frog = cat > frog;   // error
+
+    frog = cat >= dog;   // ok
+    frog = cat >= cat;   // ok
+    frog = cat >= frog;  // error
+
+    z = (cat == dog);    // ok
+    z = (frog == frog);  // ok
+    z = (cat == frog);   // error
+
+    z = (cat != dog);    // ok
+    z = (frog != frog);  // ok
+    z = (cat != frog);   // error
+
+    z = cat && frog;     // error
+    z = frog && dog;     // error
+    z = frog && frog;    // ok
+
+    z = cat || frog;     // error
+    z = frog || dog;     // error
+    z = frog || frog;    // ok
+
+    z = !cat;            // error
+    z = !frog;           // ok
+
+    y = 2 + 2;           // int
+    y = 2 + 2.2;         // float
 
     x = y; // ERROR
 }

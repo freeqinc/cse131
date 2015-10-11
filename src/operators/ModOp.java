@@ -16,11 +16,11 @@ public class ModOp extends ArithmeticOp {
 
         if (!(aType instanceof IntType) || !(bType instanceof IntType)) {
             if (!(aType instanceof IntType))
-                return new ErrorSTO("error1w_Expr_left");
+                return new ErrorSTO("error1w_Expr_left_mod");
             else
-                return new ErrorSTO("error1w_Expr_right");
+                return new ErrorSTO("error1w_Expr_right_mod");
         } else {
-            return new ConstSTO("mode_result", new IntType());
+            return new ExprSTO("mod_result", new IntType());
         }
     }
 }

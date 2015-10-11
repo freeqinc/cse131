@@ -16,9 +16,9 @@ public class MinusOp extends ArithmeticOp {
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
             return new ErrorSTO("error1b_Expr");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ConstSTO("minus_result", new IntType());
+            return new ExprSTO("minus_result", new IntType());
         } else {
-            return new ConstSTO("minus_result", new FloatType());
+            return new ExprSTO("minus_result", new FloatType());
         }
     }
 }

@@ -17,9 +17,9 @@ public class SlashOp extends ArithmeticOp {
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
             return new ErrorSTO("error1b_Expr");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ConstSTO("slash_result", new IntType());
+            return new ExprSTO("slash_result", new IntType());
         } else {
-            return new ConstSTO("slash_result", new FloatType());
+            return new ExprSTO("slash_result", new FloatType());
         }
     }
 }
