@@ -63,6 +63,10 @@ function : void main()
     z = !cat;            // error
     z = !frog;           // ok
 
+    x = (frog & dog);       // error
+    x = (dog & frog);       // error
+    x = (cat & cat);       // ok
+
     y = 2 + 2;           // int
     y = 2 + 2.2;         // float
 

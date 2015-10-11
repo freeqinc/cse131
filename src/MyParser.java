@@ -417,6 +417,12 @@ class MyParser extends parser
 				case "error1w_Expr_right_boolean":
 					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "boolean"));
 					break;
+				case "error1w_Expr_left_bw":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "int"));
+					break;
+				case "error1w_Expr_right_bw":
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "int"));
+					break;
 			}
 
 		}

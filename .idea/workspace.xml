@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="14182e9f-0c6e-4ffa-9334-e52f78055438" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/AddOp.class" afterPath="$PROJECT_DIR$/bin/operators/AddOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BinaryOp.class" afterPath="$PROJECT_DIR$/bin/operators/BinaryOp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/CUP$parser$actions.class" afterPath="$PROJECT_DIR$/bin/CUP$parser$actions.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/MinusOp.class" afterPath="$PROJECT_DIR$/bin/operators/MinusOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/ModOp.class" afterPath="$PROJECT_DIR$/bin/operators/ModOp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MyParser.class" afterPath="$PROJECT_DIR$/bin/MyParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/Operator.class" afterPath="$PROJECT_DIR$/bin/operators/Operator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/SlashOp.class" afterPath="$PROJECT_DIR$/bin/operators/SlashOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/StarOp.class" afterPath="$PROJECT_DIR$/bin/operators/StarOp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/parser.class" afterPath="$PROJECT_DIR$/bin/parser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/AddOp.java" afterPath="$PROJECT_DIR$/src/operators/AddOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/BinaryOp.java" afterPath="$PROJECT_DIR$/src/operators/BinaryOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/MinusOp.java" afterPath="$PROJECT_DIR$/src/operators/MinusOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/ModOp.java" afterPath="$PROJECT_DIR$/src/operators/ModOp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MyParser.java" afterPath="$PROJECT_DIR$/src/MyParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/Operator.java" afterPath="$PROJECT_DIR$/src/operators/Operator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/SlashOp.java" afterPath="$PROJECT_DIR$/src/operators/SlashOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/StarOp.java" afterPath="$PROJECT_DIR$/src/operators/StarOp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/parser.java" afterPath="$PROJECT_DIR$/src/parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phase1_1.rc" afterPath="$PROJECT_DIR$/phase1_1.rc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/rc.cup" afterPath="$PROJECT_DIR$/bin/rc.cup" />
@@ -50,40 +36,28 @@
       <file leaf-file-name="rc.cup" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rc.cup">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.740741">
-              <caret line="164" column="10" selection-start-line="164" selection-start-column="10" selection-end-line="164" selection-end-column="10" />
+            <state vertical-scroll-proportion="-9.296296">
+              <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NotOp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/operators/NotOp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="phase1_1.rc" pinned="false" current-in-tab="false">
+      <file leaf-file-name="phase1_1.rc" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/phase1_1.rc">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.7902098">
+              <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MyParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.1559634">
-              <caret line="443" column="5" selection-start-line="443" selection-start-column="5" selection-end-line="443" selection-end-column="5" />
+            <state vertical-scroll-proportion="-17.407408">
+              <caret line="423" column="117" selection-start-line="423" selection-start-column="117" selection-end-line="423" selection-end-column="117" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -91,12 +65,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UnaryOp.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/operators/UnaryOp.java">
+      <file leaf-file-name="BwAndOp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/operators/BwAndOp.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
-              <folding />
+              <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GTOp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/operators/GTOp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="23" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,7 +116,7 @@
         <entry file="file://$PROJECT_DIR$/src/ErrorMsg.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="56" column="43" selection-start-line="56" selection-start-column="31" selection-end-line="56" selection-end-column="43" />
+              <caret line="53" column="43" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -154,8 +142,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Types/BasicType.java" />
-        <option value="$PROJECT_DIR$/src/FloatType.java" />
         <option value="$PROJECT_DIR$/src/Types/FloatType.java" />
         <option value="$PROJECT_DIR$/src/Types/ErrorType.java" />
         <option value="$PROJECT_DIR$/src/Types/IntType.java" />
@@ -179,7 +165,6 @@
         <option value="$PROJECT_DIR$/src/types/Type.java" />
         <option value="$PROJECT_DIR$/src/operators/ArithmeticOp.java" />
         <option value="$PROJECT_DIR$/src/Formatter.java" />
-        <option value="$PROJECT_DIR$/src/ErrorMsg.java" />
         <option value="$PROJECT_DIR$/src/STO/ConstSTO.java" />
         <option value="$PROJECT_DIR$/src/operators/ComparisonOp.java" />
         <option value="$PROJECT_DIR$/src/operators/ModOp.java" />
@@ -202,9 +187,12 @@
         <option value="$PROJECT_DIR$/src/operators/Operator.java" />
         <option value="$PROJECT_DIR$/src/operators/NotOp.java" />
         <option value="$PROJECT_DIR$/src/operators/UnaryOp.java" />
-        <option value="$PROJECT_DIR$/phase1_1.rc" />
         <option value="$PROJECT_DIR$/src/parser.java" />
+        <option value="$PROJECT_DIR$/src/operators/BitwiseOp.java" />
+        <option value="$PROJECT_DIR$/src/ErrorMsg.java" />
+        <option value="$PROJECT_DIR$/src/operators/BwAndOp.java" />
         <option value="$PROJECT_DIR$/src/MyParser.java" />
+        <option value="$PROJECT_DIR$/phase1_1.rc" />
       </list>
     </option>
   </component>
@@ -509,7 +497,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="RC" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="phase1_1.rc" />
+      <option name="PROGRAM_PARAMETERS" value="-debug phase1_1.rc" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -624,20 +612,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/new.rc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scope.rc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3409091">
-          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/unary.rc">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3409091">
@@ -814,14 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/AddOp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.43209878">
-          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/operators/ArithmeticOp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08230453">
@@ -851,16 +817,6 @@
         <state vertical-scroll-proportion="0.37037036">
           <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/GTOp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36713287">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -970,16 +926,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/rc.cup">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.740741">
-          <caret line="164" column="10" selection-start-line="164" selection-start-column="10" selection-end-line="164" selection-end-column="10" />
+        <state vertical-scroll-proportion="-9.296296">
+          <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/BinaryOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35331905">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/NotOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/BitwiseOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15734266">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/operators/BooleanOp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07867133">
-          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="4" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.18356644">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/UnaryOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28846154">
+          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -995,55 +985,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ErrorMsg.java">
+    <entry file="file://$PROJECT_DIR$/src/operators/AddOp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="43" selection-start-line="56" selection-start-column="31" selection-end-line="56" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/BinaryOp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35331905">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/phase1_1.rc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="30" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/NotOp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.23601398">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="22" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/UnaryOp.java">
+    <entry file="file://$PROJECT_DIR$/src/ErrorMsg.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="42" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+          <caret line="53" column="43" selection-start-line="53" selection-start-column="31" selection-end-line="53" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MyParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.1559634">
-          <caret line="443" column="5" selection-start-line="443" selection-start-column="5" selection-end-line="443" selection-end-column="5" />
+        <state vertical-scroll-proportion="-17.407408">
+          <caret line="423" column="117" selection-start-line="423" selection-start-column="117" selection-end-line="423" selection-end-column="117" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/BwAndOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/GTOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="23" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phase1_1.rc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7902098">
+          <caret line="72" column="19" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>

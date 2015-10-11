@@ -166,6 +166,7 @@ non terminal Operator
     MulOp,
     BooleanOp,
     Relation,
+    BitwiseOp,
     Equality
     ;
 
@@ -177,8 +178,6 @@ non terminal STO
     Expr4,
     Expr5,
     Expr6,
-    Expr7,
-    Expr8,
     Designator,
     Designator2,
     Designator3
@@ -653,9 +652,9 @@ Expr1 ::=           Expr1:_1 BooleanOp:_2 Expr2:_3
     ;
 
 
-Expr2 ::=           Expr2:_1 T_BAR Expr3
+Expr2 ::=           Expr2:_1 BitwiseOp:_2 Expr3:_3
                     {:
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
                     :}
     |               Expr3:_1
                     {:
@@ -663,10 +662,9 @@ Expr2 ::=           Expr2:_1 T_BAR Expr3
                     :}
     ;
 
-
-Expr3 ::=           Expr3:_1 T_CARET Expr4
+Expr3 ::=           Expr3:_1 Equality:_2 Expr4:_3
                     {:
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
                     :}
     |               Expr4:_1
                     {:
@@ -675,9 +673,9 @@ Expr3 ::=           Expr3:_1 T_CARET Expr4
     ;
 
 
-Expr4 ::=           Expr4:_1 T_AMPERSAND Expr5
+Expr4 ::=           Expr4:_1 Relation:_2 Expr5:_3
                     {:
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
                     :}
     |               Expr5:_1
                     {:
@@ -686,7 +684,7 @@ Expr4 ::=           Expr4:_1 T_AMPERSAND Expr5
     ;
 
 
-Expr5 ::=           Expr5:_1 Equality:_2 Expr6:_3
+Expr5 ::=           Expr5:_1 AddOp:_2 Expr6:_3
                     {:
                         RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
                     :}
@@ -697,29 +695,7 @@ Expr5 ::=           Expr5:_1 Equality:_2 Expr6:_3
     ;
 
 
-Expr6 ::=           Expr6:_1 Relation:_2 Expr7:_3
-                    {:
-                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
-                    :}
-    |               Expr7:_1
-                    {:
-                        RESULT = _1;
-                    :}
-    ;
-
-
-Expr7 ::=           Expr7:_1 AddOp:_2 Expr8:_3
-                    {:
-                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
-                    :}
-    |               Expr8:_1
-                    {:
-                        RESULT = _1;
-                    :}
-    ;
-
-
-Expr8 ::=           Expr8:_1 MulOp:_2 Designator:_3
+Expr6 ::=           Expr6:_1 MulOp:_2 Designator:_3
                     {:
                         RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
                     :}
@@ -793,6 +769,20 @@ BooleanOp ::=       T_AND
                     {:
                         RESULT = new OrOp();
                     :}
+    ;
+
+BitwiseOp ::=       T_AMPERSAND
+                    {:
+                        RESULT = new BwAndOp();
+                    :}/*
+    |               T_BAR:
+                    {:
+                        RESULT = new BwAndOp();
+                    :}
+    |               T_CARET:
+                    {:
+                        RESULT = new BwAndOp();
+                    :}*/
     ;
 
 IncDecOp ::=        T_PLUSPLUS
