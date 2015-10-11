@@ -774,15 +774,15 @@ BooleanOp ::=       T_AND
 BitwiseOp ::=       T_AMPERSAND
                     {:
                         RESULT = new BwAndOp();
-                    :}/*
-    |               T_BAR:
-                    {:
-                        RESULT = new BwAndOp();
                     :}
-    |               T_CARET:
+    |               T_BAR
                     {:
-                        RESULT = new BwAndOp();
-                    :}*/
+                        RESULT = new BwOrOp();
+                    :}
+    |               T_CARET
+                    {:
+                        RESULT = new BwXorOp();
+                    :}
     ;
 
 IncDecOp ::=        T_PLUSPLUS
