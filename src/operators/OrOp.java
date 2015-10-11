@@ -8,7 +8,7 @@ import types.*;
  */
 public class OrOp extends BooleanOp {
 
-    public OrOp() { super("or"); }
+    public OrOp() { super("||"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();

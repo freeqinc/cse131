@@ -12,6 +12,7 @@ function : void main()
     y = x + cat;        // int
     y = x + dog;        // float
     y = x + frog;       // error
+    y = frog + x;       // error
 
     y = x - cat;        // int
     y = x - dog;        // float
@@ -63,17 +64,24 @@ function : void main()
     z = !cat;            // error
     z = !frog;           // ok
 
-    x = (frog & dog);       // error
-    x = (dog & frog);       // error
-    x = (cat & cat);       // ok
+    x = (frog & dog);    // error
+    x = (dog & frog);    // error
+    x = (cat & cat);     // ok
 
-    x = (frog | dog);       // error
-    x = (dog | frog);       // error
-    x = (cat | cat);       // ok
+    x = (frog | dog);    // error
+    x = (dog | frog);    // error
+    x = (cat | cat);     // ok
 
-    x = (frog ^ dog);       // error
-    x = (dog ^ frog);       // error
-    x = (cat ^ cat);       // ok
+    x = (frog ^ dog);    // error
+    x = (dog ^ frog);    // error
+    x = (cat ^ cat);     // ok
+
+    x = frog++;          // error
+    x = ++dog;           // ok
+    x = cat++;           // ok
+    /*
+    x = 123++;           // error
+    */
 
     y = 2 + 2;           // int
     y = 2 + 2.2;         // float

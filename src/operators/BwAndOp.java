@@ -7,7 +7,7 @@ import types.*;
  */
 public class BwAndOp extends BitwiseOp {
 
-    public BwAndOp() { super("bw_and"); }
+    public BwAndOp() { super("&"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();

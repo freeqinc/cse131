@@ -8,7 +8,7 @@ import types.*;
  */
 public class NotOp extends UnaryOp {
 
-    public NotOp() { super("not"); }
+    public NotOp() { super("!"); }
 
     public STO checkOperand(STO a) {
         Type aType = a.getType();

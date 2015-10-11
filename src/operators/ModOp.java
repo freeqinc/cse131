@@ -8,7 +8,7 @@ import types.*;
  */
 public class ModOp extends ArithmeticOp {
 
-    public ModOp() { super("mod"); }
+    public ModOp() { super("%"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();

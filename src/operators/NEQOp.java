@@ -8,7 +8,7 @@ import types.*;
  */
 public class NEQOp extends ComparisonOp {
 
-    public NEQOp() { super("NEQ"); }
+    public NEQOp() { super("!="); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();

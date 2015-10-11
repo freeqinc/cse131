@@ -22,6 +22,8 @@ class MyParser extends parser
 	private boolean m_bSyntaxError = true;
 	private int m_nSavedLineNum;
 
+	private final static boolean PRINT_1 = !true;
+
 	private SymbolTable m_symtab;
 
 	//----------------------------------------------------------------
@@ -399,23 +401,23 @@ class MyParser extends parser
 				case "error1b_Expr":
 					m_errors.print(Formatter.toString(ErrorMsg.error1b_Expr, a.getType().getName(), o.getName(), b.getType().getName()));
 					break;
+				case "error1n_Expr_left":
+					m_errors.print(Formatter.toString(ErrorMsg.error1n_Expr, a.getType().getName(), o.getName()));
+					break;
+				case "error1n_Expr_right":
+					m_errors.print(Formatter.toString(ErrorMsg.error1n_Expr, b.getType().getName(), o.getName()));
+					break;
 				case "error1w_Expr_left_mod":
 					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "int"));
 					break;
 				case "error1w_Expr_right_mod":
 					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "int"));
 					break;
-				case "error1w_Expr_left_comparison":
-					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "numeric"));
-					break;
-				case "error1w_Expr_right_comparison":
-					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "numeric"));
-					break;
 				case "error1w_Expr_left_boolean":
-					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "boolean"));
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "bool"));
 					break;
 				case "error1w_Expr_right_boolean":
-					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "boolean"));
+					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "bool"));
 					break;
 				case "error1w_Expr_left_bw":
 					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, a.getType().getName(), o.getName(), "int"));
@@ -427,7 +429,7 @@ class MyParser extends parser
 
 		}
 
-		System.out.println(a.getType().getName() + " " + o.getName() + " " + b.getType().getName() + ": " + result.getType().getName());
+		if (PRINT_1) System.out.println(a.getType().getName() + " " + o.getName() + " " + b.getType().getName() + ": " + result.getType().getName());
 
 		return result;
 	}
@@ -439,12 +441,15 @@ class MyParser extends parser
 			m_nNumErrors++;
 			switch (result.getName()) {
 				case "error1u_Expr":
-					m_errors.print(Formatter.toString(ErrorMsg.error1u_Expr, a.getType().getName(), o.getName()));
+					m_errors.print(Formatter.toString(ErrorMsg.error1u_Expr, a.getType().getName(), o.getName(), "bool"));
+					break;
+				case "error2_Type":
+					m_errors.print(Formatter.toString(ErrorMsg.error2_Type, a.getType().getName(), o.getName()));
 					break;
 			}
 		}
 
-		System.out.println(o.getName() + " " + a.getType().getName() + ": " + result.getType().getName());
+		if (PRINT_1) System.out.println(o.getName() + " " + a.getType().getName() + ": " + result.getType().getName());
 
 		return result;
 	}

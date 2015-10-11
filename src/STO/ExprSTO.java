@@ -16,6 +16,8 @@ public class ExprSTO extends STO
 		super(strName);
         // You may want to change the isModifiable and isAddressable
         // fields as necessary
+		setIsAddressable(true);
+		setIsModifiable(true);
 	}
 
 	public ExprSTO(String strName, Type typ)
@@ -23,6 +25,8 @@ public class ExprSTO extends STO
 		super(strName, typ);
         // You may want to change the isModifiable and isAddressable
         // fields as necessary
+		setIsAddressable(true);
+		setIsModifiable(true);
 	}
 
 	//----------------------------------------------------------------

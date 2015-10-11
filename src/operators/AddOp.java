@@ -7,14 +7,17 @@ import types.*;
  */
 public class AddOp extends ArithmeticOp {
 
-    public AddOp() { super("add"); }
+    public AddOp() { super("+"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();
         Type bType = b.getType();
 
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
-            return new ErrorSTO("error1b_Expr");
+            if (!(aType instanceof NumericType))
+                return new ErrorSTO("error1n_Expr_left");
+            else
+                return new ErrorSTO("error1n_Expr_right");
         } else if (aType instanceof IntType && bType instanceof IntType) {
             return new ExprSTO("add_result", new IntType());
         } else {

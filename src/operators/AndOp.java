@@ -8,7 +8,7 @@ import types.*;
  */
 public class AndOp extends BooleanOp {
 
-    public AndOp() { super("and"); }
+    public AndOp() { super("&&"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();

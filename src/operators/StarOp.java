@@ -8,18 +8,21 @@ import types.*;
  */
 public class StarOp extends ArithmeticOp {
 
-    public StarOp() { super("star"); }
+    public StarOp() { super("*"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();
         Type bType = b.getType();
 
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
-            return new ErrorSTO("error1b_Expr");
+            if (!(aType instanceof NumericType))
+                return new ErrorSTO("error1n_Expr_left");
+            else
+                return new ErrorSTO("error1n_Expr_right");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ExprSTO("star_result", new IntType());
+            return new ExprSTO("add_result", new IntType());
         } else {
-            return new ExprSTO("star_result", new FloatType());
+            return new ExprSTO("add_result", new FloatType());
         }
     }
 }

@@ -1,0 +1,56 @@
+Error, "phase1_1.rc", line 14:
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1_1.rc", line 15:
+  Incompatible type bool to binary operator +, numeric expected.
+Error, "phase1_1.rc", line 19:
+  Incompatible type bool to binary operator -, numeric expected.
+Error, "phase1_1.rc", line 23:
+  Incompatible type bool to binary operator *, numeric expected.
+Error, "phase1_1.rc", line 27:
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "phase1_1.rc", line 30:
+  Incompatible type float to binary operator %, equivalent to int expected.
+Error, "phase1_1.rc", line 31:
+  Incompatible type bool to binary operator %, equivalent to int expected.
+Error, "phase1_1.rc", line 32:
+  Incompatible type bool to binary operator %, equivalent to int expected.
+Error, "phase1_1.rc", line 35:
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1_1.rc", line 36:
+  Incompatible type bool to binary operator <, numeric expected.
+Error, "phase1_1.rc", line 39:
+  Incompatible type bool to binary operator <=, numeric expected.
+Error, "phase1_1.rc", line 42:
+  Incompatible type bool to binary operator >, numeric expected.
+Error, "phase1_1.rc", line 46:
+  Incompatible type bool to binary operator >=, numeric expected.
+Error, "phase1_1.rc", line 50:
+  Incompatible types to operator: int == bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1_1.rc", line 54:
+  Incompatible types to operator: int != bool;
+  both must be numeric, or both equivalent to bool.
+Error, "phase1_1.rc", line 56:
+  Incompatible type int to binary operator &&, equivalent to bool expected.
+Error, "phase1_1.rc", line 57:
+  Incompatible type float to binary operator &&, equivalent to bool expected.
+Error, "phase1_1.rc", line 60:
+  Incompatible type int to binary operator ||, equivalent to bool expected.
+Error, "phase1_1.rc", line 61:
+  Incompatible type float to binary operator ||, equivalent to bool expected.
+Error, "phase1_1.rc", line 64:
+  Incompatible type int to unary operator !, equivalent to bool expected.
+Error, "phase1_1.rc", line 67:
+  Incompatible type bool to binary operator &, equivalent to int expected.
+Error, "phase1_1.rc", line 68:
+  Incompatible type float to binary operator &, equivalent to int expected.
+Error, "phase1_1.rc", line 71:
+  Incompatible type bool to binary operator |, equivalent to int expected.
+Error, "phase1_1.rc", line 72:
+  Incompatible type float to binary operator |, equivalent to int expected.
+Error, "phase1_1.rc", line 75:
+  Incompatible type bool to binary operator ^, equivalent to int expected.
+Error, "phase1_1.rc", line 76:
+  Incompatible type float to binary operator ^, equivalent to int expected.
+Error, "phase1_1.rc", line 79:
+  Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.

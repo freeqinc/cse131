@@ -8,18 +8,21 @@ import types.*;
  */
 public class SlashOp extends ArithmeticOp {
 
-    public SlashOp() { super("slash"); }
+    public SlashOp() { super("/"); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();
         Type bType = b.getType();
 
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
-            return new ErrorSTO("error1b_Expr");
+            if (!(aType instanceof NumericType))
+                return new ErrorSTO("error1n_Expr_left");
+            else
+                return new ErrorSTO("error1n_Expr_right");
         } else if (aType instanceof IntType && bType instanceof IntType) {
-            return new ExprSTO("slash_result", new IntType());
+            return new ExprSTO("add_result", new IntType());
         } else {
-            return new ExprSTO("slash_result", new FloatType());
+            return new ExprSTO("add_result", new FloatType());
         }
     }
 }

@@ -8,7 +8,7 @@ import types.*;
  */
 public class EQUOp extends ComparisonOp {
 
-    public EQUOp() { super("EQU"); }
+    public EQUOp() { super("=="); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();

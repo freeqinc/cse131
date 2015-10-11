@@ -8,7 +8,7 @@ import types.*;
  */
 public class LTEOp extends ComparisonOp {
 
-    public LTEOp() { super("LTE"); }
+    public LTEOp() { super("<="); }
 
     public STO checkOperands(STO a, STO b) {
         Type aType = a.getType();
@@ -16,9 +16,9 @@ public class LTEOp extends ComparisonOp {
 
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
             if (!(aType instanceof NumericType))
-                return new ErrorSTO("error1w_Expr_left_comparison");
+                return new ErrorSTO("error1n_Expr_left");
             else
-                return new ErrorSTO("error1w_Expr_right_comparison");
+                return new ErrorSTO("error1n_Expr_right");
         } else {
             return new ExprSTO("LTE_result", new BoolType());
         }
