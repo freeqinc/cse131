@@ -108,4 +108,10 @@ Error, "phase1.rc", line 155:
   Operand to ++ is not a modifiable L-value.
 Error, "phase1.rc", line 156:
   Incompatible type bool to operator --, equivalent to int, float, or pointer expected.
+Error, "phase1.rc", line 166:
+  Operand to -- is not a modifiable L-value.
+Error, "phase1.rc", line 167:
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1.rc", line 167:
+  Incompatible type bool to operator --, equivalent to int, float, or pointer expected.
 Compile: failure.
