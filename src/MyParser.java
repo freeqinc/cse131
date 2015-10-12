@@ -289,6 +289,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void DoBlockClose()
 	{
+		// Close a scope.
 		m_symtab.closeScope();
 	}
 
@@ -484,6 +485,17 @@ class MyParser extends parser
 		if (PRINT_1) System.out.println(o.getName() + " " + a.getType().getName() + ": " + result.getType().getName());
 
 		return result;
+	}
+
+	void checkConditionalExpr(STO expr) {
+		if (expr instanceof ErrorSTO) {
+			return;
+		}
+
+		if (!(expr.getType() instanceof BoolType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error4_Test, expr.getType().getName()));
+		}
 	}
 
 }

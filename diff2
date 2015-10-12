@@ -1,4 +1,4 @@
-Error, "phase1.rc", line 19:
+Error, "phase1.rc", line 22:
   Identifier xTest is undeclared in the global scope.
 Error, "phase1.rc", line 34:
   Incompatible type bool to binary operator +, numeric expected.
@@ -92,4 +92,20 @@ Error, "phase1.rc", line 133:
   Incompatible type bool to operator ++, equivalent to int, float, or pointer expected.
 Error, "phase1.rc", line 137:
   Value of type float not assignable to variable of type int.
+Error, "phase1.rc", line 142:
+  bool required for conditional test, int found.
+Error, "phase1.rc", line 143:
+  bool required for conditional test, float found.
+Error, "phase1.rc", line 146:
+  bool required for conditional test, int found.
+Error, "phase1.rc", line 149:
+  bool required for conditional test, int found.
+Error, "phase1.rc", line 150:
+  bool required for conditional test, float found.
+Error, "phase1.rc", line 153:
+  bool required for conditional test, int found.
+Error, "phase1.rc", line 155:
+  Operand to ++ is not a modifiable L-value.
+Error, "phase1.rc", line 156:
+  Incompatible type bool to operator --, equivalent to int, float, or pointer expected.
 Compile: failure.

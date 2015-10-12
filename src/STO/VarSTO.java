@@ -16,8 +16,7 @@ public class VarSTO extends STO
 		super(strName);
 		// You may want to change the isModifiable and isAddressable 
 		// fields as necessary
-		setIsAddressable(true);
-		setIsModifiable(true);
+		setModLValue();
 	}
 
 	public VarSTO(String strName, Type typ)
@@ -25,8 +24,7 @@ public class VarSTO extends STO
 		super(strName, typ);
 		// You may want to change the isModifiable and isAddressable 
 		// fields as necessary
-		setIsAddressable(true);
-		setIsModifiable(true);
+		setModLValue();
 	}
 
 	//----------------------------------------------------------------

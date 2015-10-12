@@ -557,7 +557,12 @@ CtorCall ::=        T_COLON T_LPAREN OptExprList T_RPAREN
     ;
 
 
-IfStmt ::=          T_IF Expr CodeBlock OptElse
+IfStmt ::=          T_IF Expr:_1
+                    {:
+                    ((MyParser) parser).checkConditionalExpr(_1);
+                    :}
+                    CodeBlock
+                    OptElse
     ;
 
 
@@ -566,7 +571,11 @@ OptElse ::=         T_ELSE CodeBlock
     ;
 
 
-WhileStmt ::=       T_WHILE Expr CodeBlock
+WhileStmt ::=       T_WHILE Expr:_1
+                    {:
+                        ((MyParser) parser).checkConditionalExpr(_1);
+                    :}
+                    CodeBlock
     ;
 
 
@@ -869,11 +878,15 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_INT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, new IntType(), Integer.parseInt(_1));
+                        ConstSTO res =  new ConstSTO (_1, new IntType(), Integer.parseInt(_1));
+                        res.setLiteral();
+                        RESULT = res;
                     :}
     |               T_FLOAT_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1, new FloatType(), Float.parseFloat(_1));
+                        ConstSTO res =  new ConstSTO (_1, new FloatType(), Float.parseFloat(_1));
+                        res.setLiteral();
+                        RESULT = res;
                     :}
     |               T_STR_LITERAL:_1
                     {:
@@ -881,11 +894,15 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_TRUE
                     {:
-                        RESULT = new ConstSTO ("true", null, 1);    // fix me!
+                        ConstSTO res =  new ConstSTO ("true", new BoolType(), 1);
+                        res.setLiteral();
+                        RESULT = res;
                     :}
     |               T_FALSE
                     {:
-                        RESULT = new ConstSTO ("false", null, 0);   // fix me!
+                        ConstSTO res =  new ConstSTO ("false", new BoolType(), 0);
+                        res.setLiteral();
+                        RESULT = res;
                     :}
     |               T_NULLPTR
                     {:

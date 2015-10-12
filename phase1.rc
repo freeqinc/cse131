@@ -2,11 +2,11 @@ int myX;
 
 int cat = 5;
 float dog = 5;
-bool frog = true;
+bool frog = false;
 
 const int log = 5;
 const float flog = 5.5;
-const bool blog = true;
+const bool blog = false;
 
 int x;
 float y;
@@ -15,12 +15,12 @@ bool z;
 float f = 5.5;
 function : void main()
 {
+
+
+    /*  CHECK 0 ====================================== */
     int xTest;
     int iTest = 5 + ::xTest;    // Error, cannot find x in the global scope
     int jTest = 5 + ::myX;      // No Error
-
-    /*  CHECK 0 ====================================== */
-
 
     /*  CHECK 1 ====================================== */
 
@@ -135,4 +135,28 @@ function : void main()
 
     int f = 5;           // ok
     f = ::f;             // error int <- float (global)
+
+    /*  CHECK 4 ====================================== */
+
+    if (false) {}        // ok
+    if (5) {}            // error
+    if (flog) {}         // error
+    if (frog) {}         // ok
+    if (blog) {}         // ok
+    if (cat) {}          // error
+
+    while (false) {}     // ok
+    while (5) {}         // error
+    while (flog) {}      // error
+    while (frog) {}      // ok
+    while (blog) {}      // ok
+    while (cat) {}       // error
+
+    while (5++) {}       // error on 5++ first
+    while (--blog) {}    // error on type dec first
+
+    /*  CHECK 5 ====================================== */
+
+
+    /*  CHECK 6 ====================================== */
 }
