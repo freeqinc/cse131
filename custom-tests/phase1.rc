@@ -13,6 +13,41 @@ float y;
 bool z;
 
 float f = 5.5;
+
+
+function : void fun1(int a, int b, float c) {}
+function : void fun2(float &a, int b, bool c) {}
+function : void fun3(float &a, bool &z, int g) {}
+
+function : int fun4() { return; }
+function : bool fun5() { return flog++; }
+function : bool fun6() { return log; }
+function : int & fun7() { return 5.5; }
+function : bool & fun8() { return true; }
+function : float & fun9() {
+    float booboo = 5.5;
+    return booboo;
+}
+function : int & fun10() {
+    int zeezee = 5;
+    return zeezee;
+}
+function : int & fun11() {}
+function : bool & fun12() {
+    if (true) {
+        return true;
+    }
+}
+function : bool & fun13() {
+    if (true) {
+        return true;
+    }
+    return true;
+}
+
+
+int* intPtr;
+
 function : void main()
 {
 
@@ -157,16 +192,41 @@ function : void main()
 
     /*  CHECK 5 ====================================== */
 
+    fun1(1, 2);                     // error 2 vs 3
+    fun1(1, 2, 3);                  // ok
+    fun1(1, 2, true);               // error assignable
+    fun1(1.1, 2.2, true);           // error assignable, 3.3 first @@@@@@@@@@@@ UNSURE ABOUT THIS ONE? REF PRINTS ALL THREE
+    fun1(1.1, 2.2);                 // error args first
+
+    fun2(5.5, 5.5, true);           // error, arg 1 should MLV
+    fun2(log, 5.5, true);           // error, not a float
+    fun2(flog, 5.5, true);          // error, float, but not MLV
+    fun2(dog, 5.5, false);          // error, int on 2nd arg
+    fun2(dog, 5, false);            // ok!
+
 
     /*  CHECK 6 ====================================== */
 
+
+    /*  CHECK 7 ====================================== */
+
+    exit(5);        // ok
+    exit(log);      // ok
+    exit(cat);      // ok
+
+    exit(5.5);      // bad
+    exit(dog);      // bad
+    exit(flog);     // bad
+    exit(flog++);   // bad on flog++ first
 
     /*  CRAZY CASES ====================================== */
 
     while (1 = 3 = 5 = (true + --5.5) ) {}
     true = 5.5++ - --false;
+    fun3(flog, true, 5.5);
 }
 
-function : bool poop() {
-
+function : float & fun69(float &a, bool &z) {
+    if (true + 5) return 5.5++;
+    return 5.5;
 }

@@ -12,6 +12,7 @@ public abstract class STO
 	private Type m_type;
 	private boolean m_isAddressable;
 	private boolean m_isModifiable;
+	private boolean m_isReference = false;
 
 	//----------------------------------------------------------------
 	//
@@ -113,6 +114,14 @@ public abstract class STO
 	public void setRValue() {
 		setIsAddressable(false);
 		setIsModifiable(false);
+	}
+
+	public void setReference() {
+		m_isReference = true;
+	}
+
+	public boolean isReference() {
+		return m_isReference;
 	}
 	//----------------------------------------------------------------
 	// A modifiable L-value is an object that is both addressable and

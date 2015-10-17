@@ -237,7 +237,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoFuncDecl_1(String id)
+	void DoFuncDecl_1(String id, Type returnType, boolean optRef)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
@@ -246,10 +246,76 @@ class MyParser extends parser
 		}
 
 		FuncSTO sto = new FuncSTO(id);
+		sto.setReturnType(returnType);
+		if (optRef) {
+			sto.setReturnsByReference();
+		}
 		m_symtab.insert(sto);
 
 		m_symtab.openScope();
 		m_symtab.setFunc(sto);
+	}
+
+	STO DoVoidReturnStmt() {
+		FuncSTO func = m_symtab.getFunc();
+
+		if (!(func.getReturnType() instanceof VoidType)) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error6a_Return_expr);
+			return new ErrorSTO("missing return");
+		}
+
+		return null;
+	}
+
+	STO DoReturnStmt(STO returnExpr) {
+		if (returnExpr instanceof ErrorSTO) return returnExpr;
+
+		FuncSTO func = m_symtab.getFunc();
+		Type returnType = returnExpr.getType();
+		Type funcType = func.getReturnType();
+
+		// if function returns by value
+		if (!func.returnsByReference()) {
+			if (!isAssignable(funcType, returnType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error6a_Return_type, returnType.getName(), funcType.getName()));
+				return new ErrorSTO("return type not assignable");
+			}
+		} else { // if function returns by reference
+			// not equivalent
+			if (!isEquivalent(funcType, returnType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error6b_Return_equiv, returnType.getName(), funcType.getName()));
+				return new ErrorSTO("return type not equivalent");
+			}
+
+			// not modLValue
+			if (!returnExpr.isModLValue()) {
+				m_nNumErrors++;
+				m_errors.print(ErrorMsg.error6b_Return_modlval);
+				return new ErrorSTO("return type not modlvalue");
+			}
+		}
+
+
+		return null;
+	}
+
+	STO DoReturnCheck(Vector<String> vec) {
+
+		FuncSTO func = m_symtab.getFunc();
+
+		if (!(func.getReturnType() instanceof VoidType)) {
+			if (vec == null || !vec.contains("ReturnStmt")) {
+				m_nNumErrors++;
+				m_errors.print(ErrorMsg.error6c_Return_missing);
+
+				return new ErrorSTO("no return type found");
+			}
+		}
+
+		return null;
 	}
 
 	//----------------------------------------------------------------
@@ -264,7 +330,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoFormalParams(Vector<String> params)
+	void DoFormalParams(Vector<STO> params)
 	{
 		if (m_symtab.getFunc() == null)
 		{
@@ -273,6 +339,8 @@ class MyParser extends parser
 		}
 
 		// insert parameters here
+		FuncSTO func = m_symtab.getFunc();
+		func.setParams(params);
 	}
 
 	//----------------------------------------------------------------
@@ -296,6 +364,29 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+	boolean isAssignable(Type aType, Type bType) {
+
+		if (!aType.getClass().equals(bType.getClass())) {
+			if (aType instanceof FloatType && bType instanceof IntType) {
+				// something
+			} else {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	boolean isEquivalent(Type aType, Type bType) {
+
+		if (!aType.getClass().equals(bType.getClass())) {
+			return false;
+		}
+
+		return true;
+	}
+
+
 	STO DoAssignExpr(STO stoDes, STO stoExpr)
 	{
 
@@ -317,16 +408,48 @@ class MyParser extends parser
 			return  new ErrorSTO("Left is not a modifiable l-value");
 		}
 
-		if (!a.getClass().equals(b.getClass())) {
-			if (a instanceof FloatType && b instanceof IntType) {
-				// something
-			} else {
+		if (!isAssignable(a, b)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error3b_Assign, b.getName(), a.getName()));
+			return new ErrorSTO("types not assignable");
+		}
+
+		return stoDes;
+	}
+
+	STO DoArgAssignExpr(STO stoDes, STO stoExpr) {
+		if (stoExpr instanceof ErrorSTO) {
+			return stoExpr;
+		}
+
+		Type a = stoDes.getType();
+		Type b = stoExpr.getType();
+
+		// pass-by-value, check if assignable
+		if (!stoDes.isReference()) {
+			if (!isAssignable(a, b)){
 				m_nNumErrors++;
-				m_errors.print(Formatter.toString(ErrorMsg.error3b_Assign, b.getName(), a.getName()));
+				m_errors.print(Formatter.toString(ErrorMsg.error5a_Call, b.getName(), stoDes.getName(), a.getName()));
 				return new ErrorSTO("types not assignable");
 			}
+		} else { // pass-by-reference check equivalence & MLV
 
+			// check arg equivalence to param
+			if(!isEquivalent(a, b)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error5r_Call, b.getName(), stoDes.getName(), a.getName()));
+				return new ErrorSTO("types not equivalent");
+			}
+
+			// check that arg is MLV
+			if (!stoExpr.isModLValue()) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error5c_Call, stoDes.getName(), b.getName()));
+				return new ErrorSTO("argument not a modlval");
+			}
 		}
+
+
 
 		return stoDes;
 	}
@@ -334,7 +457,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	STO DoFuncCall(STO sto)
+	STO DoFuncCall(STO sto, Vector<STO> args)
 	{
 		if (!sto.isFunc())
 		{
@@ -342,6 +465,29 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(ErrorMsg.not_function, sto.getName()));
 			return new ErrorSTO(sto.getName());
 		}
+
+		Vector<STO> params = ((FuncSTO) sto).getParams();
+		int numArgs = 0;
+		int numParams = params.size();
+
+		if (args != null) {
+			numArgs = args.size();
+		}
+
+		// check if num of args and params match
+		if (numArgs != numParams) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error5n_Call, numArgs, numParams));
+			return new ErrorSTO(sto.getName());
+		} else {
+			for (int i = 0; i < numArgs; i += 1) {
+				DoArgAssignExpr(params.get(i), args.get(i));
+			}
+		}
+
+		// check if pass by reference params
+
+
 
 		return sto;
 	}
@@ -496,6 +642,17 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error4_Test, expr.getType().getName()));
 		}
+	}
+
+	STO DoExitStmt(STO expr) {
+		if (expr instanceof ErrorSTO) return expr;
+
+		if (!isAssignable(new IntType(), expr.getType())) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error7_Exit, expr.getType().getName()));
+		}
+
+		return null;
 	}
 
 }
