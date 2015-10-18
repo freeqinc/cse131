@@ -176,6 +176,8 @@ Error, "output.rc", line 226:
   Argument of type float not assignable to value parameter g, of type int.
 Error, "output.rc", line 230: 
   Incompatible type bool to binary operator +, numeric expected.
-Error, "output.rc", line 230: 
-  syntax error near "output.rc".
+Error, "output.rc", line 231: 
+  Operand to ++ is not a modifiable L-value.
+Error, "output.rc", line 234: 
+  Return expression is not a modifiable L-value for function that returns by reference.
 Compile: failure.

@@ -219,7 +219,7 @@ function : void main()
     exit(flog);     // bad
     exit(flog++);   // bad on flog++ first
 
-    /*  CRAZY CASES ====================================== */
+    /*  CRAZY CASES =================================== */
 
     while (1 = 3 = 5 = (true + --5.5) ) {}
     true = 5.5++ - --false;
@@ -227,6 +227,8 @@ function : void main()
 }
 
 function : float & fun69(float &a, bool &z) {
-    if (true + 5) return 5.5++;
+    if (true + 5) {
+        return 5.5++;
+    }
     return 5.5;
 }

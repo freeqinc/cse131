@@ -13,13 +13,23 @@ public class BwAndOp extends BitwiseOp {
         Type aType = a.getType();
         Type bType = b.getType();
 
+        STO retSTO;
+        boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();
+
         if (!(aType instanceof IntType) || !(bType instanceof IntType)) {
             if (!(aType instanceof IntType))
                 return new ErrorSTO("error1w_Expr_left_bw");
             else
                 return new ErrorSTO("error1w_Expr_right_bw");
         } else {
-            return new ExprSTO("bw_and_result", new IntType(), false, false);
+            if (operableConsts) {
+                retSTO = new ConstSTO("bw_and_result", new IntType(), ((ConstSTO) a).getIntValue() & ((ConstSTO) b).getIntValue());
+            } else {
+                retSTO = new ExprSTO("bw_and_result", new IntType());
+            }
         }
+
+        retSTO.setRValue();
+        return retSTO;
     }
 }

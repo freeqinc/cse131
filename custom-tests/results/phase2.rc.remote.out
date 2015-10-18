@@ -1,0 +1,27 @@
+Error, "output.rc", line 18: 
+  Initialization value of constant named c8_1 not known at compile time.
+Error, "output.rc", line 19: 
+  Initialization value of constant named c8_1_2 not known at compile time.
+Error, "output.rc", line 20: 
+  Initialization value of type float not assignable to constant/variable of type int.
+Error, "output.rc", line 21: 
+  Initialization value of type float not assignable to constant/variable of type int.
+Error, "output.rc", line 22: 
+  Initialization value of type int not assignable to constant/variable of type bool.
+Error, "output.rc", line 23: 
+  redeclared identifier 'c8_3'.
+Error, "output.rc", line 23: 
+  Initialization value of constant named c8_3 not known at compile time.
+Error, "output.rc", line 25: 
+  Arithmetic exception occurred during constant folding.
+Error, "output.rc", line 26: 
+  Arithmetic exception occurred during constant folding.
+Error, "output.rc", line 27: 
+  Arithmetic exception occurred during constant folding.
+Error, "output.rc", line 28: 
+  Incompatible type bool to binary operator /, numeric expected.
+Error, "output.rc", line 29: 
+  Arithmetic exception occurred during constant folding.
+Error, "output.rc", line 30: 
+  Arithmetic exception occurred during constant folding.
+Compile: failure.

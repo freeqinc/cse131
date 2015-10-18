@@ -1,0 +1,56 @@
+int intVar = 5;
+float floatVar = 5.5;
+bool boolVar = true;
+
+const int intConst = 10;
+const float floatConst = 99.9;
+const bool boolConst = false;
+
+
+function : void main()
+{
+
+
+    /*  CHECK 8 ====================================== */
+    int nonValueInt;
+    float nonValueFloat;
+
+    const int c8_1 = nonValueInt + 5;           // value of constant not known at compile
+    const int c8_1_2 = floatVar;                // not known at compile
+    const int c8_1_3 = 5.5;                     // type not assignable
+    int c8_2 = nonValueFloat;                   // type not assignable
+    bool c8_3 = 5;                              // type not assignable
+    const bool c8_3 = nonValueFloat;            // both constant and bad type, not known should happen first
+
+    const int c8_4 = 10/0;                      // folding on div by 0
+    const int c8_5 = 10.5/0;                    // also folding
+    const float c8_6 = floatConst/0.0;          // folding
+    const bool c8_7 = boolVar/0.0;              // incompatible to operator
+    const int c8_8 = 5.5/0.0;                   // folding
+    int c8_9 = 5/0;                             // bad div
+
+    int c8_zz = nonValueInt + 5;
+
+    /*  CHECK 9 ====================================== */
+
+    /*  CHECK 10 ===================================== */
+
+
+    /*  CHECK 11 ===================================== */
+
+
+    /*  CHECK 12 ===================================== */
+
+
+
+
+    /*  CHECK 13 ===================================== */
+
+
+    /*  CHECK 14 ===================================== */
+
+
+
+    /*  CRAZY CASES =================================== */
+
+}

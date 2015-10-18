@@ -173,12 +173,21 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoVarDecl(String id, Type t)
+	void DoVarDecl(String id, Type t, STO expr)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
+		}
+
+		if (expr instanceof ErrorSTO) {
+			return;
+		}
+
+		if (expr != null && !isAssignable(t, expr.getType())) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error8_Assign, expr.getType().getName(), t.getName()));
 		}
 
 		VarSTO sto = new VarSTO(id);
@@ -207,7 +216,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoConstDecl(Type t, String id)
+	void DoConstDecl(Type t, String id, STO expr)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
@@ -215,8 +224,23 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
 		}
 
-		ConstSTO sto = new ConstSTO(id, t, 0);   // fix me
-		m_symtab.insert(sto);
+		if (expr instanceof ErrorSTO) {
+			return;
+		}
+
+		if (!((expr instanceof ConstSTO) && ((ConstSTO) expr).hasValue())) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error8_CompileTime, id));
+		} else if (!isAssignable(t, expr.getType())) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error8_Assign, expr.getType().getName(), t.getName()));
+		} else {
+			ConstSTO sto = new ConstSTO(id, t, ((ConstSTO) expr).getValue());
+			m_symtab.insert(sto);
+		}
+
+
+
 	}
 
 	//----------------------------------------------------------------
@@ -600,6 +624,9 @@ class MyParser extends parser
 					break;
 				case "error1w_Expr_right_bw":
 					m_errors.print(Formatter.toString(ErrorMsg.error1w_Expr, b.getType().getName(), o.getName(), "int"));
+					break;
+				case "error8_Arithmetic":
+					m_errors.print(ErrorMsg.error8_Arithmetic);
 					break;
 			}
 

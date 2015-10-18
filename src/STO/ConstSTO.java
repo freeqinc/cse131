@@ -18,7 +18,7 @@ public class ConstSTO extends STO
     //	type. Booleans/Ptrs can easily be handled by ints.
     //	Feel free to change this if you don't like it!
     //----------------------------------------------------------------
-    private BigDecimal		m_value;
+    private BigDecimal	m_value;
 
 	//----------------------------------------------------------------
 	//
@@ -41,6 +41,15 @@ public class ConstSTO extends STO
 		setNonModLValue();
 	}
 
+	public ConstSTO(String strName, Type typ, BigDecimal val)
+	{
+		super(strName, typ);
+		m_value = val;
+		// You may want to change the isModifiable and isAddressable
+		// fields as necessary
+		setNonModLValue();
+	}
+
 	public ConstSTO(String strName, Type typ, int val)
 	{
 		super(strName, typ);
@@ -58,6 +67,21 @@ public class ConstSTO extends STO
 		// fields as necessary
 		setNonModLValue();
 	}
+
+	public ConstSTO(String strName, Type typ, boolean val)
+	{
+		super(strName, typ);
+		if (val) {
+			m_value = new BigDecimal(1);
+		} else {
+			m_value = new BigDecimal(0);
+		}
+		// You may want to change the isModifiable and isAddressable
+		// fields as necessary
+		setNonModLValue();
+	}
+
+
 
 	public void setLiteral() {
 		setRValue();
@@ -101,4 +125,6 @@ public class ConstSTO extends STO
 	{
 		return !BigDecimal.ZERO.equals(m_value);
 	}
+
+	public boolean hasValue() { return m_value != null; }
 }

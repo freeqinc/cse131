@@ -138,9 +138,7 @@ non terminal
     WriteStmt,
     WritePairList,
     WritePair,
-    ConstExpr,
     UnarySign,
-    OptInit,
     OptCtorCall,
     CtorCall,
     OptPointerList,
@@ -179,7 +177,9 @@ non terminal STO
     Designator,
     Designator2,
     Designator3,
-    ParamDecl
+    ParamDecl,
+    ConstExpr,
+    OptInit
     ;
 
 non terminal Type
@@ -243,17 +243,17 @@ ExternDecl ::=      T_EXTERN DecoratedBasicType:_2 T_ID:_3 OptArrayList:_4
 
 VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptInit:_5
                     {:
-                        ((MyParser) parser).DoVarDecl (_3, _2);
+                        ((MyParser) parser).DoVarDecl (_3, _2, _5);
                     :}
                     T_SEMI
     |               OptStatic:_1 T_AUTO T_ID:_3 T_ASSIGN Expr:_5
                     {:
-                        ((MyParser) parser).DoVarDecl (_3, null);
+                        ((MyParser) parser).DoVarDecl (_3, null, _5);
                     :}
                     T_SEMI
     |               OptStatic:_1 StructType:_2 T_ID:_3 OptArrayList:_4 OptCtorCall:_5
                     {:
-                        ((MyParser) parser).DoVarDecl (_3, _2);
+                        ((MyParser) parser).DoVarDecl (_3, _2, null);
                     :}
                     T_SEMI
     ;
@@ -261,12 +261,12 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
 
 ConstDecl ::=       OptStatic:_1 T_CONST BasicType:_2 T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoConstDecl (_2, _3);
+                        ((MyParser) parser).DoConstDecl (_2, _3, _5);
                     :}
                     T_SEMI
     |               OptStatic:_1 T_CONST T_AUTO T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoConstDecl (null, _3);
+                        ((MyParser) parser).DoConstDecl (null, _3, _5);
                     :}
                     T_SEMI
     ;
@@ -566,7 +566,10 @@ OptRef ::=          T_AMPERSAND
     ;
 
 
-OptInit ::=         T_ASSIGN Expr
+OptInit ::=         T_ASSIGN Expr:_1
+                    {:
+                        RESULT = _1;
+                    :}
     |               /* empty */
     ;
 
@@ -613,7 +616,7 @@ WhileStmt ::=       T_WHILE Expr:_1
 ForeachStmt ::=     T_FOREACH T_LPAREN Type OptRef T_ID:_3 T_COLON Expr T_RPAREN
                     {:
                         ((MyParser) parser).DoBlockOpen();
-                        ((MyParser) parser).DoVarDecl (_3, null);
+                        ((MyParser) parser).DoVarDecl (_3, null, null);
                     :}
                     CodeBlock
                     {:
@@ -666,7 +669,10 @@ WritePair ::=       Expr
     ;
 
 
-ConstExpr ::=       Expr
+ConstExpr ::=       Expr:_1
+                    {:
+                        RESULT = _1;
+                    :}
     ;
 
 
