@@ -52,6 +52,11 @@ class SymbolTable
 		return scope.accessLocal(strName);
 	}
 
+	public Vector<STO> accessLocalList(String strName) {
+		Scope scope = m_stkScopes.peek();
+		return scope.accessLocalList(strName);
+	}
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -69,6 +74,24 @@ class SymbolTable
 		}
 
 		return stoReturn;
+	}
+
+	public Vector<STO> accessList(String strName) {
+		Stack stk = new Stack();
+		Scope scope;
+		Vector<STO> stoList = null;
+		Vector<STO> res = new Vector<STO>();
+
+		for (Enumeration<Scope> e = m_stkScopes.elements(); e.hasMoreElements();)
+		{
+			scope = e.nextElement();
+			if (scope.accessLocalList(strName).size() > 0) {
+				stoList = scope.accessLocalList(strName);
+				res.addAll(0, stoList);
+			}
+		}
+
+		return res;
 	}
 
 	//----------------------------------------------------------------

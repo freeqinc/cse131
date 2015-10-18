@@ -11,8 +11,9 @@ import java.util.Vector;
 public class FuncSTO extends STO
 {
 	private Type m_returnType;
-	private Vector<STO> m_params;
+	private Vector<STO> m_params = null;
 	private boolean m_returnByRef = false;
+	private boolean m_overloaded = false;
 
 	//----------------------------------------------------------------
 	//
@@ -69,4 +70,7 @@ public class FuncSTO extends STO
 	public Vector<STO> getParams() {
 		return m_params;
 	}
+
+	public void setOverloaded() { m_overloaded = true; }
+	public boolean isOverloaded() { return m_overloaded; }
 }

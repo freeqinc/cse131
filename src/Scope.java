@@ -34,7 +34,6 @@ class Scope
 	public STO accessLocal(String strName)
 	{
 		STO sto = null;
-
 		for (int i = 0; i < m_lstLocals.size(); i++)
 		{
 			sto = m_lstLocals.elementAt(i);
@@ -46,6 +45,19 @@ class Scope
 		return null;
 	}
 
+	public Vector<STO> accessLocalList(String strName) {
+		Vector <STO> res = new Vector<STO>();
+		STO sto = null;
+
+		for (int i = 0; i < m_lstLocals.size(); i++) {
+			sto = m_lstLocals.elementAt(i);
+
+			if (sto.getName().equals(strName))
+				res.addElement(sto);
+		}
+
+		return res;
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

@@ -1,27 +1,69 @@
+Error, "output.rc", line 11: 
+  Return required in function, none found.
+Error, "output.rc", line 12: 
+  Duplicate declaration of overloaded function foo.
+Error, "output.rc", line 12: 
+  Return required in function, none found.
+Error, "output.rc", line 17: 
+  Duplicate declaration of overloaded function foo2.
 Error, "output.rc", line 18: 
-  Initialization value of constant named c8_1 not known at compile time.
+  Duplicate declaration of overloaded function foo2.
+Error, "output.rc", line 18: 
+  Return in function requires a result expression, none found.
 Error, "output.rc", line 19: 
-  Initialization value of constant named c8_1_2 not known at compile time.
-Error, "output.rc", line 20: 
-  Initialization value of type float not assignable to constant/variable of type int.
-Error, "output.rc", line 21: 
-  Initialization value of type float not assignable to constant/variable of type int.
+  Type of return expression (int), not assignment compatible with function's return type (void).
 Error, "output.rc", line 22: 
+  Duplicate declaration of overloaded function foo3.
+Error, "output.rc", line 36: 
+  Illegal call to overloaded function bar.
+Error, "output.rc", line 37: 
+  Illegal call to overloaded function bar.
+Error, "output.rc", line 39: 
+  Illegal call to overloaded function bar.
+Error, "output.rc", line 41: 
+  Illegal call to overloaded function bar.
+Error, "output.rc", line 42: 
+  Illegal call to overloaded function bar.
+Error, "output.rc", line 49: 
+  Initialization value of constant named c8_1 not known at compile time.
+Error, "output.rc", line 50: 
+  Initialization value of constant named c8_1_2 not known at compile time.
+Error, "output.rc", line 51: 
+  Initialization value of type float not assignable to constant/variable of type int.
+Error, "output.rc", line 52: 
+  Initialization value of type float not assignable to constant/variable of type int.
+Error, "output.rc", line 53: 
   Initialization value of type int not assignable to constant/variable of type bool.
-Error, "output.rc", line 23: 
+Error, "output.rc", line 54: 
   redeclared identifier 'c8_3'.
-Error, "output.rc", line 23: 
+Error, "output.rc", line 54: 
   Initialization value of constant named c8_3 not known at compile time.
-Error, "output.rc", line 25: 
+Error, "output.rc", line 56: 
   Arithmetic exception occurred during constant folding.
-Error, "output.rc", line 26: 
+Error, "output.rc", line 57: 
   Arithmetic exception occurred during constant folding.
-Error, "output.rc", line 27: 
+Error, "output.rc", line 58: 
   Arithmetic exception occurred during constant folding.
-Error, "output.rc", line 28: 
+Error, "output.rc", line 59: 
   Incompatible type bool to binary operator /, numeric expected.
-Error, "output.rc", line 29: 
+Error, "output.rc", line 60: 
   Arithmetic exception occurred during constant folding.
-Error, "output.rc", line 30: 
+Error, "output.rc", line 61: 
   Arithmetic exception occurred during constant folding.
+Error, "output.rc", line 69: 
+  Initialization value of constant named c8_14 not known at compile time.
+Error, "output.rc", line 71: 
+  Value of type float not assignable to variable of type int.
+Error, "output.rc", line 72: 
+  Left-hand operand is not assignable (not a modifiable L-value).
+Error, "output.rc", line 73: 
+  undeclared identifier 'c8_14'.
+Error, "output.rc", line 74: 
+  undeclared identifier 'c8_14'.
+Error, "output.rc", line 78: 
+  redeclared identifier 'c8_12'.
+Error, "output.rc", line 79: 
+  redeclared identifier 'c8_13'.
+Error, "output.rc", line 79: 
+  Initialization value of constant named c8_13 not known at compile time.
 Compile: failure.

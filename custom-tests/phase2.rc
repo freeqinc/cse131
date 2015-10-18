@@ -6,10 +6,41 @@ const int intConst = 10;
 const float floatConst = 99.9;
 const bool boolConst = false;
 
+// check 9a business
+
+function : float foo(float &x) {}
+function : int foo(float x) {}
+
+function : float foo2 (int &x) { return 5.5; }
+function : float foo2 (bool x) { return 5.5; }
+function : float foo2 (float x) { return 5.5; }
+function : float foo2 (int x) { return 5.5; }
+function : int foo2 (bool &x) { return; }
+function : void foo2 () { return 5; }
+function : void foo3 (int a, bool b, float c) {}
+function : void foo3 (bool a, int b, float c) {}
+function : void foo3 (int &z, bool &s, float &asdf) {}
+
+// check 9b business
+
+function : float bar(float x) { return 5.5; }
+function : float bar(float x, float y, float z) { return 5.5; }
+function : float bar(float &x, float &y) { return 5.5; }
+function : void bar(bool &x) {}
 
 function : void main()
 {
 
+    // check 9b business
+
+    bar(1);
+    bar(true);
+    bar(5.5);
+    bar(5.5, 5.5);
+    bar(floatVar, floatVar);
+    bar(5.5, floatVar);
+    bar(false);
+    bar(boolVar);
 
     /*  CHECK 8 ====================================== */
     int nonValueInt;
@@ -30,6 +61,22 @@ function : void main()
     int c8_9 = 5/0;                             // bad div
 
     int c8_zz = nonValueInt + 5;
+
+    auto c8_10 = nonValueInt;                   // is int
+    auto c8_11 = nonValueInt * 1.0;             // is float
+    const auto c8_12 = true;                    // is bool
+    auto c8_13 = 5;                             // is int
+    const auto c8_14 = c8_13;                   // value not known at compile time
+
+    c8_10 = 5.5;                                // bad int <- float
+    c8_12 = 5;                                  // bad bool <- int;
+    c8_14 = 10.5;                               // bad, the const not really declared
+    c8_14 = 5;                                  // bad, the const not really declared
+    c8_11 = 5;                                  // ok
+    c8_11 = c8_11 * c8_10;                      // ok
+
+    const float c8_12 = floatConst;             // ok
+    const float c8_13 = floatVar;               // bad
 
     /*  CHECK 9 ====================================== */
 
@@ -54,3 +101,22 @@ function : void main()
     /*  CRAZY CASES =================================== */
 
 }
+
+// packet example check 8c
+int c8_a;
+int c8_b;
+const int c8_c = 2 + 3 * 0 - 1;
+const int c8_d = c8_c * 7;
+const float c8_e = (c8_d + c8_c) * c8_c;
+
+function : int check8() {
+    c8_a = (c8_b + c8_c + c8_d);
+    return (c8_a % c8_c);
+}
+
+
+// recursion
+
+//function : int recurve(int x) {
+//    return recurve(5) + 5;
+//}

@@ -173,6 +173,14 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+	void DoAutoVarDecl(String id, STO expr) {
+		DoVarDecl(id, expr.getType(), expr);
+	}
+
+	void DoAutoConstDecl(String id, STO expr) {
+		DoConstDecl(expr.getType(), id, expr);
+	}
+
 	void DoVarDecl(String id, Type t, STO expr)
 	{
 		if (m_symtab.accessLocal(id) != null)
@@ -238,9 +246,6 @@ class MyParser extends parser
 			ConstSTO sto = new ConstSTO(id, t, ((ConstSTO) expr).getValue());
 			m_symtab.insert(sto);
 		}
-
-
-
 	}
 
 	//----------------------------------------------------------------
@@ -263,7 +268,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void DoFuncDecl_1(String id, Type returnType, boolean optRef)
 	{
-		if (m_symtab.accessLocal(id) != null)
+		if (m_symtab.accessLocal(id) != null && !(m_symtab.accessLocal(id) instanceof FuncSTO))
 		{
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
@@ -271,6 +276,12 @@ class MyParser extends parser
 
 		FuncSTO sto = new FuncSTO(id);
 		sto.setReturnType(returnType);
+
+		// if overloaded
+		if (m_symtab.accessLocal(id) != null) {
+			((FuncSTO )m_symtab.accessLocal(id)).setOverloaded();
+			sto.setOverloaded();
+		}
 		if (optRef) {
 			sto.setReturnsByReference();
 		}
@@ -354,7 +365,47 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoFormalParams(Vector<STO> params)
+	boolean hasSameParams(FuncSTO a, FuncSTO b) {
+		Vector <STO> aParams = a.getParams();
+		Vector <STO> bParams = b.getParams();
+
+		if (aParams == null && bParams == null) return true;
+		if (aParams == null || bParams == null) return false;
+		if (aParams.size() != bParams.size()) return false;
+
+		for (int i = 0; i < aParams.size(); i++) {
+			Type aType = aParams.elementAt(i).getType();
+			Type bType = bParams.elementAt(i).getType();
+			// System.out.println(aType.getName() + " " + bType.getName());
+			if (!aType.getClass().equals(bType.getClass())) return false;
+		}
+
+		return true;
+	}
+
+	boolean hasSameParamsExact(FuncSTO a, FuncSTO b) {
+		Vector <STO> aParams = a.getParams();
+		Vector <STO> bParams = b.getParams();
+
+		if (aParams == null && bParams == null) return true;
+		if (aParams == null || bParams == null) return false;
+		if (aParams.size() != bParams.size()) return false;
+
+		for (int i = 0; i < aParams.size(); i++) {
+			Type aType = aParams.elementAt(i).getType();
+			Type bType = bParams.elementAt(i).getType();
+			// System.out.println(aType.getName() + " " + bType.getName());
+			if (!aType.getClass().equals(bType.getClass()))
+				return false;
+			else if (aParams.elementAt(i).isReference() && !bParams.elementAt(i).isModLValue())
+				return false;
+		}
+
+		return true;
+	}
+
+
+	void DoFormalParams(Vector<STO> params, String id)
 	{
 		if (m_symtab.getFunc() == null)
 		{
@@ -365,6 +416,25 @@ class MyParser extends parser
 		// insert parameters here
 		FuncSTO func = m_symtab.getFunc();
 		func.setParams(params);
+
+		if (func.isOverloaded()) {
+			m_symtab.closeScope();
+			Vector <STO> funcList = m_symtab.accessLocalList(id);
+			m_symtab.openScope();
+
+			FuncSTO currFunc;
+		    // System.out.println("OBSERRVING " + id);
+
+			for (int i = 0; i < funcList.size() - 1; i++) {
+				currFunc = (FuncSTO) funcList.elementAt(i);
+				if (hasSameParams(currFunc, func)) {
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error9_Decl, id));
+					break;
+				}
+			}
+
+		}
 	}
 
 	//----------------------------------------------------------------
@@ -418,6 +488,10 @@ class MyParser extends parser
 			return stoExpr;
 		}
 
+		if (stoDes instanceof ErrorSTO) {
+			return stoDes;
+		}
+
 		Type a = stoDes.getType();
 		Type b = stoExpr.getType();
 
@@ -444,6 +518,10 @@ class MyParser extends parser
 	STO DoArgAssignExpr(STO stoDes, STO stoExpr) {
 		if (stoExpr instanceof ErrorSTO) {
 			return stoExpr;
+		}
+
+		if (stoDes instanceof ErrorSTO) {
+			return stoDes;
 		}
 
 		Type a = stoDes.getType();
@@ -481,6 +559,23 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+	STO findOverloadedFunction(String id, Vector<STO> args) {
+		Vector<STO> funcList = m_symtab.accessList(id);
+
+		FuncSTO tempFunc = new FuncSTO("id");
+		tempFunc.setParams(args);
+
+		for (int i = 0; i < funcList.size(); i++) {
+			FuncSTO currFunc = (FuncSTO )funcList.elementAt(i);
+
+			if (hasSameParamsExact(currFunc, tempFunc)) {
+				return currFunc;
+			}
+		}
+
+		return new ErrorSTO("illegal function");
+	}
+
 	STO DoFuncCall(STO sto, Vector<STO> args)
 	{
 		if (!sto.isFunc())
@@ -490,6 +585,19 @@ class MyParser extends parser
 			return new ErrorSTO(sto.getName());
 		}
 
+		// if overloaded function call, do some more business
+		if (((FuncSTO) sto).isOverloaded()) {
+			STO matched = findOverloadedFunction(sto.getName(), args);
+
+			if (matched instanceof ErrorSTO) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error9_Illegal, sto.getName()));
+				return matched;
+			}
+
+			sto = matched;
+		}
+
 		Vector<STO> params = ((FuncSTO) sto).getParams();
 		int numArgs = 0;
 		int numParams = params.size();
@@ -497,6 +605,7 @@ class MyParser extends parser
 		if (args != null) {
 			numArgs = args.size();
 		}
+
 
 		// check if num of args and params match
 		if (numArgs != numParams) {
@@ -508,8 +617,6 @@ class MyParser extends parser
 				DoArgAssignExpr(params.get(i), args.get(i));
 			}
 		}
-
-		// check if pass by reference params
 
 
 

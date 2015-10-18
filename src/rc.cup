@@ -248,7 +248,8 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
                     T_SEMI
     |               OptStatic:_1 T_AUTO T_ID:_3 T_ASSIGN Expr:_5
                     {:
-                        ((MyParser) parser).DoVarDecl (_3, null, _5);
+                        ((MyParser) parser).DoAutoVarDecl(_3, _5);
+                        // ((MyParser) parser).DoVarDecl (_3, null, _5);
                     :}
                     T_SEMI
     |               OptStatic:_1 StructType:_2 T_ID:_3 OptArrayList:_4 OptCtorCall:_5
@@ -266,7 +267,8 @@ ConstDecl ::=       OptStatic:_1 T_CONST BasicType:_2 T_ID:_3 T_ASSIGN ConstExpr
                     T_SEMI
     |               OptStatic:_1 T_CONST T_AUTO T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoConstDecl (null, _3, _5);
+                        ((MyParser) parser).DoAutoConstDecl(_3, _5);
+                        // ((MyParser) parser).DoConstDecl (null, _3, _5);
                     :}
                     T_SEMI
     ;
@@ -326,7 +328,7 @@ CtorDef ::=         T_ID_U:_3
                     :}
                     T_LPAREN OptParamList:_4 T_RPAREN
                     {:
-                        ((MyParser) parser).DoFormalParams(_4);
+                        ((MyParser) parser).DoFormalParams(_4, _3);
                     :}
                     T_LBRACE OptStmtList T_RBRACE
                     {:
@@ -368,7 +370,7 @@ FuncDef ::=         T_FUNCTION T_COLON ReturnType:_1 OptRef:_2 T_ID:_3
                     :}
                     T_LPAREN OptParamList:_4 T_RPAREN
                     {:
-                        ((MyParser) parser).DoFormalParams(_4);
+                        ((MyParser) parser).DoFormalParams(_4, _3);
                     :}
                     T_LBRACE OptStmtList:_5
                     {:
@@ -385,7 +387,7 @@ FuncDecl ::=        T_EXTERN T_FUNCTION T_COLON ReturnType:_1 T_ID:_3
                     :}
                     T_LPAREN OptParamList:_4 T_RPAREN
                     {:
-                        ((MyParser) parser).DoFormalParams(_4);
+                        ((MyParser) parser).DoFormalParams(_4, _3);
                         ((MyParser) parser).DoFuncDecl_2();
                     :}
                     T_SEMI
