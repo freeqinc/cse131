@@ -27,9 +27,25 @@ function : float bar(float x) { return 5.5; }
 function : float bar(float x, float y, float z) { return 5.5; }
 function : float bar(float &x, float &y) { return 5.5; }
 function : void bar(bool &x) {}
+function : int bar(bool z) { return 5; }
+
+
+// brandon's thing
+float ggez[5];
+float ggezz[6];
+int ggez2[5];
+function : int ggezez(float &a[5]) { return 4; }
+function : int ggezez(float &a[6]) { return 4; }
+function : int ggezez2(float &a[5]) { return 4; }
+function : int thebigez(float &a[true]) { return 4; }
 
 function : void main()
 {
+
+    ggezez(ggez);       // okay, structurally equivalent
+    ggezez(ggez2);      // bad
+    ggezez2(ggez2);     // bad
+    ggezez2(ggezz);     // bad
 
     // check 9b business
 
@@ -82,9 +98,90 @@ function : void main()
 
     /*  CHECK 10 ===================================== */
 
+    // int ten1[1++];
+    int ten1[1];
+    int ten1[2];
+    int ten2[intConst];
+    int ten3[intVar];
+    int ten4[nonValueInt];
+    int ten5[true];
+    int ten6[floatVar];
+    int ten7[-5];
+
+    int ten8[1][2][3][4][5];
+    int ten9[1][5.5][3][true];
+    int ten10[1][intVar][intConst][-5];
+    bool ten11[5][5][5][-intConst][intVar];
+
+    ten1 = ten2;
+
 
     /*  CHECK 11 ===================================== */
 
+
+    int elev1[5];
+    float elev2[5][3][5];
+    bool elev3[2][3][4][5][6];
+
+    elev1 = elev2;
+
+    int ind = 1;
+    int ind2 = 2;
+    int ind3 = 3;
+    int ind4 = 4;
+    int ind5 = 5;
+    float badInd = 1.1;
+    bool terribleInd = true;
+
+
+    ind2[1];
+    badInd[0];
+    floatConst[0];
+    ind2[true];
+    elev2[floatVar];
+    elev2[5.5];
+    elev2[true];
+    elev2[4][3];
+
+    int el1 = elev1[1];
+    int el2 = elev1[5];
+    int el3 = elev1[-5];
+    int el4 = elev1[0];
+    el4 = elev2[0][0];
+    el4 = elev2[0][0][0];
+    el4 = elev3;
+    el4 = elev2;
+    el4 = elev1;
+    el4 = elev1[4];
+    float el5 = elev2[4][2][4];
+    bool el6 = elev3[1][2][3][4][5];
+
+    elev2[4][3][true];
+    elev2[-5][true][true];
+    elev2[-5];
+    elev3[1][2][-10][true];
+
+    const int negTest = -5;
+    const int c11a = 1;
+    const int c11b = -1;
+    const float c11c = 2.2;
+
+    elev1[+negTest];
+    elev1[negTest];
+
+    elev1[+5];
+    elev1[+4];
+    elev1[5 + intConst];
+    elev1[0 + floatConst];
+    elev1[5 * c11b];
+    elev1[c11a / c11b];
+    elev1[c11c];
+    elev2[0][5 + 5 - 5 + 5 - 60];
+
+    elev1[elev1[0]];
+    elev1[elev2[0][0][0]];
+    elev1[elev3[false][-5]];
+    elev1[elev3[0]];
 
     /*  CHECK 12 ===================================== */
 
@@ -113,6 +210,7 @@ function : int check8() {
     c8_a = (c8_b + c8_c + c8_d);
     return (c8_a % c8_c);
 }
+
 
 
 // recursion

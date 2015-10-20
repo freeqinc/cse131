@@ -32,7 +32,7 @@ public class SlashOp extends ArithmeticOp {
             }
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("slash_result", new IntType(), ((ConstSTO) a).getFloatValue() / ((ConstSTO) b).getFloatValue());
+                retSTO = new ConstSTO("slash_result", new FloatType(), ((ConstSTO) a).getFloatValue() / ((ConstSTO) b).getFloatValue());
             } else {
                 retSTO = new ExprSTO("slash_result", new FloatType());
             }

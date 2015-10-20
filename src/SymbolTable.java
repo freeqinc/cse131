@@ -35,6 +35,11 @@ class SymbolTable
 		scope.InsertLocal(sto);
 	}
 
+	public void pop() {
+		Scope scope = m_stkScopes.peek();
+		scope.PopLocal();;
+	}
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

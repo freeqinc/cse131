@@ -206,6 +206,104 @@ class MyParser extends parser
 		m_symtab.insert(sto);
 	}
 
+	STO DoArrayParam(String id, Type t, Vector<STO> arrayList) {
+
+
+		ArrayType arrType = new ArrayType();
+		ArrayType insertType = arrType;
+
+		for (int i = 0; i < arrayList.size(); i ++) {
+			// System.out.print(arrayList.elementAt(i).getName() + " ");
+			STO curr = arrayList.elementAt(i);
+
+			// not equivalent to int
+			if (!(curr.getType() instanceof IntType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error10i_Array, curr.getType().getName()));
+				return new ErrorSTO("not equiv to int");
+			}
+			// not known at compile time
+			if (!((curr instanceof ConstSTO) && ((ConstSTO) curr).hasValue())) {
+				m_nNumErrors++;
+				m_errors.print(ErrorMsg.error10c_Array);
+				return new ErrorSTO("not known at compile time");
+			}
+
+			// index not greater than 0
+			if (((ConstSTO) curr).getIntValue() < 1) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error10z_Array,((ConstSTO) curr).getIntValue()));
+				return new ErrorSTO("index not graeter than 0");
+			}
+
+			// update arrayType to next
+			int dimSize = ((ConstSTO) curr).getIntValue();
+			arrType.setDimSize(dimSize);
+			if (i < arrayList.size() - 1) {
+				arrType.setNext(new ArrayType());
+				arrType = (ArrayType)arrType.next();
+			} else {
+				arrType.setNext(t);
+			}
+		}
+
+		VarSTO sto = new VarSTO(id, insertType);
+		sto.setNonModLValue();
+		return sto;
+	}
+
+	void DoArrayDecl(String id, Type t, Vector<STO> arrayList) {
+		if (m_symtab.accessLocal(id) != null)
+		{
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.redeclared_id, id));
+		}
+
+		ArrayType arrType = new ArrayType();
+		ArrayType insertType = arrType;
+
+		for (int i = 0; i < arrayList.size(); i ++) {
+			// System.out.print(arrayList.elementAt(i).getName() + " ");
+			STO curr = arrayList.elementAt(i);
+
+			// not equivalent to int
+			if (!(curr.getType() instanceof IntType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error10i_Array, curr.getType().getName()));
+				return;
+			}
+			// not known at compile time
+			if (!((curr instanceof ConstSTO) && ((ConstSTO) curr).hasValue())) {
+				m_nNumErrors++;
+				m_errors.print(ErrorMsg.error10c_Array);
+				return;
+			}
+
+			// index not greater than 0
+			if (((ConstSTO) curr).getIntValue() < 1) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error10z_Array,((ConstSTO) curr).getIntValue()));
+				return;
+			}
+
+			// update arrayType to next
+			int dimSize = ((ConstSTO) curr).getIntValue();
+			arrType.setDimSize(dimSize);
+			if (i < arrayList.size() - 1) {
+				arrType.setNext(new ArrayType());
+				arrType = (ArrayType)arrType.next();
+			} else {
+				arrType.setNext(t);
+			}
+		}
+		// System.out.println();
+
+		VarSTO sto = new VarSTO(id, insertType);
+		sto.setNonModLValue();
+		m_symtab.insert(sto);
+
+	}
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -378,6 +476,10 @@ class MyParser extends parser
 			Type bType = bParams.elementAt(i).getType();
 			// System.out.println(aType.getName() + " " + bType.getName());
 			if (!aType.getClass().equals(bType.getClass())) return false;
+
+			if (aType instanceof ArrayType && bType instanceof ArrayType) {
+				if (!aType.getName().equals(bType.getName())) return false;
+			}
 		}
 
 		return true;
@@ -395,10 +497,17 @@ class MyParser extends parser
 			Type aType = aParams.elementAt(i).getType();
 			Type bType = bParams.elementAt(i).getType();
 			// System.out.println(aType.getName() + " " + bType.getName());
+
 			if (!aType.getClass().equals(bType.getClass()))
 				return false;
+			else if (aType instanceof ArrayType && bType instanceof ArrayType) {
+				if (!aType.getName().equals(bType.getName())) return false;
+				return true;
+			}
 			else if (aParams.elementAt(i).isReference() && !bParams.elementAt(i).isModLValue())
 				return false;
+
+
 		}
 
 		return true;
@@ -414,6 +523,13 @@ class MyParser extends parser
 		}
 
 		// insert parameters here
+//		if (params != null) {
+//			for (int i = 0; i < params.size(); i++) {
+//				System.out.print(params.elementAt(i).getType().getName() + " ");
+//			}
+//			System.out.println();
+//		}
+
 		FuncSTO func = m_symtab.getFunc();
 		func.setParams(params);
 
@@ -430,6 +546,11 @@ class MyParser extends parser
 				if (hasSameParams(currFunc, func)) {
 					m_nNumErrors++;
 					m_errors.print(Formatter.toString(ErrorMsg.error9_Decl, id));
+
+					// if error, remove it
+					m_symtab.closeScope();
+					m_symtab.pop();
+					m_symtab.openScope();
 					break;
 				}
 			}
@@ -475,6 +596,10 @@ class MyParser extends parser
 
 		if (!aType.getClass().equals(bType.getClass())) {
 			return false;
+		}
+
+		if (aType instanceof ArrayType && bType instanceof ArrayType) {
+			if (!aType.getName().equals(bType.getName())) return false;
 		}
 
 		return true;
@@ -529,7 +654,7 @@ class MyParser extends parser
 
 		// pass-by-value, check if assignable
 		if (!stoDes.isReference()) {
-			if (!isAssignable(a, b)){
+			if (!isAssignable(a, b)) {
 				m_nNumErrors++;
 				m_errors.print(Formatter.toString(ErrorMsg.error5a_Call, b.getName(), stoDes.getName(), a.getName()));
 				return new ErrorSTO("types not assignable");
@@ -544,7 +669,7 @@ class MyParser extends parser
 			}
 
 			// check that arg is MLV
-			if (!stoExpr.isModLValue()) {
+			if (!stoExpr.isModLValue() && !(stoExpr.getType() instanceof ArrayType)) {
 				m_nNumErrors++;
 				m_errors.print(Formatter.toString(ErrorMsg.error5c_Call, stoDes.getName(), b.getName()));
 				return new ErrorSTO("argument not a modlval");
@@ -636,12 +761,52 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	STO DoDesignator2_Array(STO sto)
+	STO DoDesignator2_Array(STO sto, STO expr)
 	{
-		// Good place to do the array checks
+		if (expr instanceof ErrorSTO) return expr;
+		if (sto instanceof ErrorSTO) return sto;
 
+		Type preType = sto.getType();
+
+		// preceding bracket is not array or pointer type
+		if (!(preType instanceof ArrayType) && !(preType instanceof PointerType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp, preType.getName()));
+			return new ErrorSTO("bad preceeding type to bracket");
+		}
+
+		// if expression is not equivalent to int
+		if (!isEquivalent(expr.getType(), new IntType())) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11i_ArrExp, expr.getType().getName()));
+			return new ErrorSTO("not equiv to int");
+		}
+
+		// if index expr is constant and designator not pointer type, check bounds
+		int upperBound = ((ArrayType) sto.getType()).getDimSize();
+		int exprValue;
+		if (!(preType instanceof PointerType) && (expr instanceof ConstSTO) && ((ConstSTO) expr).hasValue()) {
+			exprValue = ((ConstSTO) expr).getIntValue();
+			if (exprValue < 0 || (exprValue > upperBound - 1)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error11b_ArrExp, exprValue, upperBound));
+				return new ErrorSTO("array out of bounds");
+			}
+		}
+
+		// if array, check if next is arraytype or other type
+		if (preType instanceof ArrayType) {
+			if (((ArrayType) preType).next() instanceof ArrayType) {
+				sto = new VarSTO(sto.getName(), ((ArrayType) preType).next());
+			} else {
+				sto = new ConstSTO(sto.getName(),((ArrayType) preType).next());
+			}
+		}
+
+		sto.setNonModLValue();
 		return sto;
 	}
+
 
 	//----------------------------------------------------------------
 	//
@@ -745,6 +910,9 @@ class MyParser extends parser
 	}
 
 	STO DoUnaryExpr(Operator o, STO a) {
+		if (o == null) return a;
+		if (a instanceof ErrorSTO) return a;
+
 		STO result = ((UnaryOp) o).checkOperand(a);
 
 		if (result instanceof ErrorSTO) {

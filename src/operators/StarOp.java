@@ -30,7 +30,7 @@ public class StarOp extends ArithmeticOp {
             }
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("star_result", new IntType(), ((ConstSTO) a).getFloatValue() * ((ConstSTO) b).getFloatValue());
+                retSTO = new ConstSTO("star_result", new FloatType(), ((ConstSTO) a).getFloatValue() * ((ConstSTO) b).getFloatValue());
             } else {
                 retSTO = new ExprSTO("star_result", new FloatType());
             }

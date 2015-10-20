@@ -65,4 +65,5 @@ class Scope
 	{
 		m_lstLocals.addElement(sto);
 	}
+	public void PopLocal() { m_lstLocals.remove(m_lstLocals.size() - 1); }
 }

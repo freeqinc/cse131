@@ -29,7 +29,7 @@ public class MinusOp extends ArithmeticOp {
             }
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("minus_result", new IntType(), ((ConstSTO) a).getFloatValue() - ((ConstSTO) b).getFloatValue());
+                retSTO = new ConstSTO("minus_result", new FloatType(), ((ConstSTO) a).getFloatValue() - ((ConstSTO) b).getFloatValue());
             } else {
                 retSTO = new ExprSTO("minus_result", new FloatType());
             }

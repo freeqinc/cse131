@@ -218,6 +218,11 @@ function : void main()
     exit(dog);      // bad
     exit(flog);     // bad
     exit(flog++);   // bad on flog++ first
+    exit(5.5);
+    exit(false);
+
+    float g = 1.0;
+    exit(g);
 
     /*  CRAZY CASES =================================== */
 

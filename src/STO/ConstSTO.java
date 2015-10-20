@@ -86,6 +86,11 @@ public class ConstSTO extends STO
 	public void setLiteral() {
 		setRValue();
 	}
+	public void makeValueNegative() {
+		if (hasValue()) {
+			m_value = m_value.multiply(new BigDecimal(-1));
+		}
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

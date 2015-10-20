@@ -146,4 +146,9 @@ public abstract class STO
 	public boolean isFunc() { return false; }
 	public boolean isStructdef() { return false; }
 	public boolean isError() { return false; }
+	public void setNegative() {
+		if (this instanceof ConstSTO && ((ConstSTO) this).hasValue()) {
+			((ConstSTO) this).makeValueNegative();
+		}
+	}
 }

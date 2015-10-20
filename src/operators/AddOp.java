@@ -29,7 +29,7 @@ public class AddOp extends ArithmeticOp {
             }
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("add_result", new IntType(), ((ConstSTO) a).getFloatValue() + ((ConstSTO) b).getFloatValue());
+                retSTO = new ConstSTO("add_result", new FloatType(), ((ConstSTO) a).getFloatValue() + ((ConstSTO) b).getFloatValue());
             } else {
                 retSTO = new ExprSTO("add_result", new FloatType());
             }
