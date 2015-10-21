@@ -21,6 +21,7 @@ class MyParser extends parser
 	private String m_strLastLexeme;
 	private boolean m_bSyntaxError = true;
 	private int m_nSavedLineNum;
+	private int loopLevel = 0;
 
 	private final static boolean PRINT_1 = !true;
 
@@ -29,6 +30,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+
 	public MyParser(Lexer lexer, ErrorPrinter errors, boolean debugMode)
 	{
 		m_lexer = lexer;
@@ -77,6 +79,10 @@ class MyParser extends parser
 	public void syntax_error(Symbol s)
 	{
 	}
+
+	public void openLoop() { loopLevel += 1; }
+	public void closeLoop() { loopLevel -= 1; }
+	public boolean inLoop() { return loopLevel > 0; }
 
 	//----------------------------------------------------------------
 	//
@@ -956,5 +962,48 @@ class MyParser extends parser
 
 		return null;
 	}
+
+	// For each business
+	void DoForEachStmt(Type type, String id , STO expr, boolean optRef) {
+		if (expr instanceof ErrorSTO) return;
+
+		if (!(expr.getType() instanceof ArrayType)) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error12a_Foreach);
+			return;
+		}
+
+		// if regular value check assignability
+		Type typeInArray = ((ArrayType) expr.getType()).next();
+		if (!optRef) {
+			if (!isAssignable(type, typeInArray)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error12v_Foreach, typeInArray.getName(), id, type.getName()));
+				return;
+			}
+		} else { // if by reference, check equivalence
+			if (!isEquivalent(type, ((ArrayType) expr.getType()).getBaseType())) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error12r_Foreach, typeInArray.getName(), id, type.getName()));
+				return;
+			}
+		}
+	}
+
+	// Check break and continue
+	void DoBreakStmt() {
+		if (!inLoop()) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error12_Break);
+		}
+	}
+
+	void DoContinueStmt() {
+		if (!inLoop()) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error12_Continue);
+		}
+	}
+
 
 }

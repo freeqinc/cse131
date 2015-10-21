@@ -39,6 +39,27 @@ function : int ggezez(float &a[6]) { return 4; }
 function : int ggezez2(float &a[5]) { return 4; }
 function : int thebigez(float &a[true]) { return 4; }
 
+
+// struct business!
+
+structdef MYS {
+    int x;
+    int y;
+    int x; // check13a_Struct dup id x, error #1
+    int z;
+    int x; // check13a_Struct dup id x, error #2
+    MYS * next; // recursive field – no error – will be tested
+    function : void y() {} // check13a_Struct dup id y, error #3
+    function : void f( int &x ) { // No error with x (inner scope)
+        x = x + 1;
+    }
+    function : void foo() {}
+    function : void foo() {} // error9_Decl dup overload, error #4
+    function : void bar() {}
+    function : void bar(int x) {} // OK, since legal overload
+};
+
+
 function : void main()
 {
 
@@ -46,6 +67,10 @@ function : void main()
     ggezez(ggez2);      // bad
     ggezez2(ggez2);     // bad
     ggezez2(ggezz);     // bad
+    ggezez(5);
+    ggezez(5, true, ggez);
+    ggezez2(5);
+    ggezez2(5, true, ggez);
 
     // check 9b business
 
@@ -160,6 +185,7 @@ function : void main()
     elev2[-5][true][true];
     elev2[-5];
     elev3[1][2][-10][true];
+    elev3[0][0][0][0][0][0];
 
     const int negTest = -5;
     const int c11a = 1;
@@ -185,11 +211,77 @@ function : void main()
 
     /*  CHECK 12 ===================================== */
 
+    int s12a;
+    int s12b[2];
+    float s12c[3];
+    float * s12d[4];
+    float s12e[3][4];
+    foreach (float x : s12a) {} // Error, 'a' is not an array type
+    foreach (bool x : s12b) {} // Error, int not assignable to bool
+    foreach (float x : s12b) {} // OK, int assignable to float
+    foreach (int x : s12b) {} // OK, int assignable to int
+    foreach (float &x : s12b) {} // Error, int not equivalent to float
+    foreach (float*&x : s12d) {} // OK, float* equivalent to float*
+    // foreach (float x : s12d) {} // Error, float* not assignable to float
+    foreach (float x : s12e) {} // Error, float[4] not assignable to float
+    foreach (float x : 5++) {}
+    foreach (bool z : s12e[0]) {}
+    foreach (float z : s12e[0]) {}
+    foreach (float z: s12e[2][3]) {}
+
+    int c12a[5];
+    float c12b[5][6][7];
+    bool c12c[6][5];
+
+    foreach (int x : c12a) {}
+    foreach (int x : c12a[4]) {}
+    foreach (int x : c12[-100]) {}
+    foreach (int x : c12b[0]) {}
+    foreach (float x : c12b[0]) {}
+    foreach (float x : c12b[0][0]) {}
+    foreach (float x : c12b[0][0][0]) {}
+    foreach (bool x : c12c) {}
+    foreach (bool x: c12c[4]) {}
+    foreach (float x: c12c[5][6][7][8]) {}
+
+    break;
+    continue;
+    foreach (int x : c12a) {
+        break;
+        continue;
+    }
+    break;
+    continue;
+
+    foreach (int x : c12a) {
+        break;
+        continue;
+        foreach (int x: c12a) {
+            break;
+            continue;
+        }
+        break;
+        continue;
+    }
+
+    break;
+    while (true) {
+        break;
+        while (true) {
+            break;
+            foreach (int x : c12a) {
+                break;
+            }
+            break;
+        }
+        break;
+    }
+    break;
+
 
 
 
     /*  CHECK 13 ===================================== */
-
 
     /*  CHECK 14 ===================================== */
 

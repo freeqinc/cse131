@@ -1,0 +1,9 @@
+Error, "output.rc", line 17: 
+  undeclared identifier 'MYS'.
+Error, "output.rc", line 20: 
+  undeclared identifier 'x'.
+Error, "output.rc", line 20: 
+  undeclared identifier 'x'.
+Error, "output.rc", line 23: 
+  Duplicate declaration of overloaded function foo.
+Compile: failure.

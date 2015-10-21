@@ -29,4 +29,12 @@ public class ArrayType extends CompositeType {
         name = next.getName() + name;
         return name;
     }
+
+    public Type getBaseType() {
+        Type next = m_nextType;
+
+        while (next instanceof ArrayType) next = ((ArrayType) next).next();
+
+        return next;
+    }
 }

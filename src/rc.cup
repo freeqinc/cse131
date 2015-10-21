@@ -633,28 +633,45 @@ OptElse ::=         T_ELSE CodeBlock
 WhileStmt ::=       T_WHILE Expr:_1
                     {:
                         ((MyParser) parser).checkConditionalExpr(_1);
+                        ((MyParser) parser).openLoop();
                     :}
                     CodeBlock
+                    {:
+                        ((MyParser) parser).closeLoop();
+                    :}
     ;
 
 
-ForeachStmt ::=     T_FOREACH T_LPAREN Type OptRef T_ID:_3 T_COLON Expr T_RPAREN
+ForeachStmt ::=     T_FOREACH T_LPAREN Type:_1 OptRef:_4 T_ID:_2 T_COLON Expr:_3 T_RPAREN
                     {:
                         ((MyParser) parser).DoBlockOpen();
-                        ((MyParser) parser).DoVarDecl (_3, null, null);
+                        ((MyParser) parser).openLoop();
+
+                        //((MyParser) parser).DoVarDecl (_3, null, null);
+                        ((MyParser) parser).DoForEachStmt(_1, _2, _3, _4);
                     :}
                     CodeBlock
                     {:
+                        ((MyParser) parser).closeLoop();
                         ((MyParser) parser).DoBlockClose();
                     :}
     ;
 
 
-BreakStmt ::=       T_BREAK T_SEMI
+BreakStmt ::=       T_BREAK
+                    {:
+                        // System.out.println("T_Break. In loop: " + ((MyParser) parser).inLoop() );
+                        ((MyParser) parser).DoBreakStmt();
+                    :}
+                    T_SEMI
     ;
 
 
-ContinueStmt ::=    T_CONTINUE T_SEMI
+ContinueStmt ::=    T_CONTINUE
+                    {:
+                        ((MyParser) parser).DoContinueStmt();
+                    :}
+                    T_SEMI
     ;
 
 
