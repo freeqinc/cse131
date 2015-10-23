@@ -25,6 +25,7 @@ public class StructdefSTO extends STO
 		super(strName, typ);
 	}
 
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -32,4 +33,5 @@ public class StructdefSTO extends STO
 	{
 		return true;
 	}
+
 }

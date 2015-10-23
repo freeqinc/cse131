@@ -6,6 +6,10 @@ const int intConst = 10;
 const float floatConst = 99.9;
 const bool boolConst = false;
 
+function : void boolConst() {}
+function : int boolConst() {}
+function : bool boolConst() {}
+
 // check 9a business
 
 function : float foo(float &x) {}
@@ -41,7 +45,7 @@ function : int thebigez(float &a[true]) { return 4; }
 
 
 // struct business!
-
+/*
 structdef MYS {
     int x;
     int y;
@@ -58,11 +62,11 @@ structdef MYS {
     function : void bar() {}
     function : void bar(int x) {} // OK, since legal overload
 };
+*/
 
 
 function : void main()
 {
-
     ggezez(ggez);       // okay, structurally equivalent
     ggezez(ggez2);      // bad
     ggezez2(ggez2);     // bad
@@ -197,6 +201,7 @@ function : void main()
 
     elev1[+5];
     elev1[+4];
+    elev1[0] = 5;
     elev1[5 + intConst];
     elev1[0 + floatConst];
     elev1[5 * c11b];
@@ -288,6 +293,23 @@ function : void main()
 
 
     /*  CRAZY CASES =================================== */
+
+
+    int mult1[5][true];
+    int mult1[5];
+
+    int mult2 = 5++;
+    int mult2 = 5;
+
+    const int cMult1 = 5++;
+    const int cMult1 = 5;
+}
+
+function : void mult2() {
+    return 5;
+}
+
+function : void mult2() {
 
 }
 

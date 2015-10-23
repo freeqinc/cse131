@@ -73,4 +73,6 @@ public class FuncSTO extends STO
 
 	public void setOverloaded() { m_overloaded = true; }
 	public boolean isOverloaded() { return m_overloaded; }
+
+	public Type getType () { return getReturnType(); }
 }

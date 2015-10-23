@@ -4,6 +4,7 @@ import java.util.Vector;
 import types.*;
 import STO.*;
 import operators.*;
+import scope.*;
 
 //--------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
@@ -116,8 +117,6 @@ non terminal
     DtorDef,
     FieldVarsList,
     FieldVarDecl,
-    OptCtorDtorList,
-    CtorDtorList,
     CtorDtorDecl,
     OptFieldFuncsList,
     FieldFuncsList,
@@ -138,8 +137,6 @@ non terminal
     WriteStmt,
     WritePairList,
     WritePair,
-    OptCtorCall,
-    CtorCall,
     OptPointerList,
     PointerList,
     Pointer,
@@ -190,6 +187,10 @@ non terminal Type
     ;
 
 non terminal Vector
+    OptCtorCall,
+    CtorCall,
+    OptCtorDtorList,
+    CtorDtorList,
     OptArrayList,
     ArrayList,
     OptStmtList,
@@ -258,7 +259,10 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
                     T_SEMI
     |               OptStatic:_1 StructType:_2 T_ID:_3 OptArrayList:_4 OptCtorCall:_5
                     {:
-                        ((MyParser) parser).DoVarDecl (_3, _2, null);
+                        if (_4 != null)
+                            ((MyParser) parser).DoStructArrayInst (_3, _2, _5, _4);
+                        else
+                            ((MyParser) parser).DoStructInst (_3, _2, _5);
                     :}
                     T_SEMI
     ;
@@ -285,17 +289,18 @@ OptStatic ::=       T_STATIC
 
 StructdefDecl ::=   T_STRUCTDEF T_ID_U:_1 T_LBRACE
                     {:
-                        ((MyParser) parser).DoBlockOpen();
+                        ((MyParser) parser).DoStructBlockOpen(_1);
                     :}
                     FieldVarsList
-                    OptCtorDtorList
+                    OptCtorDtorList:_2
                     {:
                         // Put logic here to create default ctor if needed
+                        ((MyParser) parser).DoDefaultCtor(_1);
                     :}
                     OptFieldFuncsList
                     {:
-                        ((MyParser) parser).DoBlockClose();
-                        ((MyParser) parser).DoStructdefDecl (_1);
+                        ((MyParser) parser).DoStructBlockClose(_1);
+                        // ((MyParser) parser).DoStructdefDecl (_1);
                     :}
                     T_RBRACE T_SEMI
     ;
@@ -305,23 +310,45 @@ FieldVarsList ::=   FieldVarDecl
     |               FieldVarsList FieldVarDecl
     ;
 
-
-FieldVarDecl ::=    DecoratedType T_ID OptArrayList T_SEMI
+FieldVarDecl ::=    DecoratedType:_2 T_ID:_3 OptArrayList:_4 T_SEMI
+                    {:
+                        if ( _4 != null)
+                            ((MyParser) parser).DoArrayDecl (_3, _2, _4);
+                        else
+                            ((MyParser) parser).DoVarDecl (_3, _2, null);
+                    :}
     ;
 
 
-OptCtorDtorList ::= CtorDtorList
+OptCtorDtorList ::= CtorDtorList:_1
+                    {:
+                        RESULT = _1;
+                    :}
     |               /* empty */
     ;
 
 
-CtorDtorList ::=    CtorDtorDecl
-    |               CtorDtorList CtorDtorDecl
+CtorDtorList ::=    CtorDtorDecl:_1
+                    {:
+                        RESULT = new Vector();
+                        RESULT.addElement(_1);
+                    :}
+    |               CtorDtorList:_1 CtorDtorDecl:_2
+                    {:
+                        RESULT = _1;
+                        RESULT.addElement(_2);
+                    :}
     ;
 
 
 CtorDtorDecl ::=    CtorDef
+                    {:
+                        RESULT = "ctor";
+                    :}
     |               DtorDef
+                    {:
+                        RESULT = "dtor";
+                    :}
     ;
 
 
@@ -345,6 +372,7 @@ DtorDef ::=         T_TILDE T_ID_U:_3
                     {:
                         ((MyParser) parser).SaveLineNum ();
                         ((MyParser) parser).DoFuncDecl_1("~" + _3, new VoidType(), false);
+                        ((MyParser) parser).DoFormalParams(new Vector(), "~" + _3);
                     :}
                     T_LPAREN T_RPAREN T_LBRACE OptStmtList T_RBRACE
                     {:
@@ -354,6 +382,9 @@ DtorDef ::=         T_TILDE T_ID_U:_3
 
 
 OptFieldFuncsList ::= FieldFuncsList
+                    {:
+
+                    :}
     |               /* empty */
     ;
 
@@ -607,12 +638,18 @@ DeleteStmt ::=      T_DELETE Designator T_SEMI
     ;
 
 
-OptCtorCall ::=     CtorCall
+OptCtorCall ::=     CtorCall:_1
+                    {:
+                        RESULT = _1;
+                    :}
     |               /* empty */
     ;
 
 
-CtorCall ::=        T_COLON T_LPAREN OptExprList T_RPAREN
+CtorCall ::=        T_COLON T_LPAREN OptExprList:_1 T_RPAREN
+                    {:
+                        RESULT = _1;
+                    :}
     ;
 
 
@@ -1012,7 +1049,7 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_THIS
                     {:
-                        RESULT = new ExprSTO ("this");              // fix me!
+                        RESULT = ((MyParser) parser).DoStructThis();   // fix me!
                     :}
     |               T_COLONCOLON T_ID:_1
                     {:

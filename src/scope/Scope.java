@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------
+package scope;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
@@ -8,7 +8,7 @@ import STO.STO;
 
 import java.util.Vector;
 
-class Scope
+public class Scope
 {
 	private Vector<STO> m_lstLocals;
 
@@ -28,6 +28,13 @@ class Scope
 		return accessLocal(strName);
 	}
 
+	public void printScope() {
+        System.out.print("SCOPE: ");
+        for (int i = 0; i < m_lstLocals.size(); i += 1) {
+            System.out.print(m_lstLocals.elementAt(i).getType().getName() + ": "  + m_lstLocals.elementAt(i).getName() + ", ");
+        }
+        System.out.println();
+    }
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -66,4 +73,6 @@ class Scope
 		m_lstLocals.addElement(sto);
 	}
 	public void PopLocal() { m_lstLocals.remove(m_lstLocals.size() - 1); }
+	public STO PeekLocal() { return m_lstLocals.elementAt(m_lstLocals.size() - 1); }
+	public void PopFront() { m_lstLocals.remove(0); }
 }

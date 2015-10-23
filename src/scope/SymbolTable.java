@@ -1,4 +1,4 @@
-//---------------------------------------------------------------------
+package scope;//---------------------------------------------------------------------
 // CSE 131 Reduced-C Compiler Project
 // Copyright (C) 2008-2015 Garo Bournoutian and Rick Ord
 // University of California, San Diego
@@ -9,7 +9,7 @@ import STO.STO;
 
 import java.util.*;
 
-class SymbolTable
+public class SymbolTable
 {
 	private Stack<Scope> m_stkScopes;
 	private int m_nLevel;
@@ -37,7 +37,17 @@ class SymbolTable
 
 	public void pop() {
 		Scope scope = m_stkScopes.peek();
-		scope.PopLocal();;
+		scope.PopLocal();
+	}
+
+	public STO peek() {
+		Scope scope = m_stkScopes.peek();
+		return scope.PeekLocal();
+	}
+
+	public void popFront() {
+		Scope scope = m_stkScopes.peek();
+		scope.PopFront();
 	}
 
 	//----------------------------------------------------------------
@@ -114,6 +124,11 @@ class SymbolTable
 		m_nLevel++;
 	}
 
+	public void pushScope(Scope s) {
+		m_stkScopes.push(s);
+		m_nLevel++;
+	}
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -122,6 +137,16 @@ class SymbolTable
 		m_stkScopes.pop();
 		m_nLevel--;
 	}
+
+	public Scope popScope() {
+		m_nLevel--;
+		return m_stkScopes.pop();
+	}
+
+	public Scope peekScope() {
+		return m_stkScopes.peek();
+	}
+
 
 	//----------------------------------------------------------------
 	//

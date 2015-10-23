@@ -13,6 +13,8 @@ public abstract class STO
 	private boolean m_isAddressable;
 	private boolean m_isModifiable;
 	private boolean m_isReference = false;
+	private boolean m_isThis = false;
+
 
 	//----------------------------------------------------------------
 	//
@@ -115,6 +117,10 @@ public abstract class STO
 		setIsAddressable(false);
 		setIsModifiable(false);
 	}
+
+
+	public void setIsThis() { m_isThis = true; }
+	public boolean isThis() { return m_isThis; }
 
 	public void setReference() {
 		m_isReference = true;
