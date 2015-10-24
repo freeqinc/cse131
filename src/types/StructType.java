@@ -30,6 +30,11 @@ public class StructType extends CompositeType {
         return m_scope;
     }
 
+
+    public int getSize() {
+        return getScope().getSize();
+    }
+
     public Vector<STO> getConstructors() {
         Vector<STO> list;
 

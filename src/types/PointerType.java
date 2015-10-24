@@ -37,6 +37,6 @@ public class PointerType extends CompositeType {
     }
 
 
-    public PointerType() { super("pointer", 0); }
+    public PointerType() { super("pointer", 4); }
     public PointerType(String name, int size) { super(name, size); }
 }

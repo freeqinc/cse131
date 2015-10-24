@@ -4,7 +4,7 @@ package scope;//----------------------------------------------------------------
 // University of California, San Diego
 //---------------------------------------------------------------------
 
-import STO.STO;
+import STO.*;
 
 import java.util.Vector;
 
@@ -31,7 +31,7 @@ public class Scope
 	public void printScope() {
         System.out.print("SCOPE: ");
         for (int i = 0; i < m_lstLocals.size(); i += 1) {
-            System.out.print(m_lstLocals.elementAt(i).getType().getName() + ": "  + m_lstLocals.elementAt(i).getName() + ", ");
+            System.out.print(m_lstLocals.elementAt(i).getClass() + ": " + m_lstLocals.elementAt(i).getType().getName() + " "  + m_lstLocals.elementAt(i).getName() + ", ");
         }
         System.out.println();
     }
@@ -64,6 +64,18 @@ public class Scope
 		}
 
 		return res;
+	}
+
+	public int getSize() {
+		Vector<STO> list = m_lstLocals;
+		int size = 0;
+
+		for (int i = 0; i < list.size(); i ++) {
+			if (list.elementAt(i) instanceof VarSTO)
+				size += list.elementAt(i).getType().getSize();
+		}
+
+		return size;
 	}
 	//----------------------------------------------------------------
 	//

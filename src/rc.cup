@@ -974,7 +974,7 @@ Designator ::=      T_STAR Designator:_1
                     :}
     |               T_AMPERSAND Designator:_1
                     {:
-                        RESULT = _1;
+                        RESULT = ((MyParser) parser).DoDesignator1_Ampersand(_1);
                     :}
     |               UnarySign:_1 Designator:_2
                     {:
@@ -988,15 +988,18 @@ Designator ::=      T_STAR Designator:_1
                     :}
     |               T_SIZEOF T_LPAREN Designator:_2 T_RPAREN
                     {:
-                        RESULT = new ConstSTO("sizeof variable - fix me", null, 0);
+                        RESULT = ((MyParser) parser).DoSizeOfSTO(_2);
                     :}
-    |               T_SIZEOF T_LPAREN Type:_2 OptArrayList T_RPAREN
+    |               T_SIZEOF T_LPAREN Type:_2 OptArrayList:_3 T_RPAREN
                     {:
-                        RESULT = new ConstSTO("sizeof type - fix me", null, 0);
+                        if (_3 != null)
+                            RESULT = ((MyParser) parser).DoSizeOfTypeArray(_2, _3);
+                        else
+                            RESULT = ((MyParser) parser).DoSizeOfType(_2);
                     :}
-    |               T_LPAREN DecoratedType T_RPAREN Designator:_2
+    |               T_LPAREN DecoratedType:_1 T_RPAREN Designator:_2
                     {:
-                        RESULT = _2;
+                        RESULT = ((MyParser) parser).DoTypeCast(_1, _2);
                     :}
     |               IncDecOp:_1 Designator:_2
                     {:

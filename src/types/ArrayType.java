@@ -17,6 +17,18 @@ public class ArrayType extends CompositeType {
     public void setDimSize(int size) { m_dimensionSize = size; }
     public int getDimSize() { return m_dimensionSize; }
 
+    public int getSize() {
+        int dimensions = m_dimensionSize;
+        Type next = m_nextType;
+
+        while(next instanceof ArrayType) {
+            dimensions *= ((ArrayType) next).getDimSize();
+            next = ((ArrayType) next).next();
+        }
+
+        return (dimensions * next.getSize());
+    }
+
     public String getName() {
         String name = "[" + m_dimensionSize + "]";
         Type next = m_nextType;

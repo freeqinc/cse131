@@ -36,6 +36,24 @@ function : MYS structFun() {
     return ret;
 }
 
+function : void check18() {
+    int x;
+    int y;
+    int *z;
+    const int w = 77;
+    z = &x; // &x in this example is simply an R-val
+    &x = nullptr; // Error, since not a modifiable L-val
+    y = *&x; // *&x is essentially just x, so OK.
+    *&x = y; // The * reverses the &x, making it a modifiable L-val
+    *&w = y; // The * reverses the &w, making it a modifiable L-val,
+    // even though w was originally a constant
+    &*z = z; // Error, result of address-of is not a modifiable L-val
+
+    &5;
+    &x++;
+    &5++;
+}
+
 function : int main() {
     int * x;
     int ** x2;
@@ -119,6 +137,29 @@ function : int main() {
     /*  CHECK 17 ===================================== */
 
 
+    bool check17;
+
+    check17 = intPtr == intPtr2;
+    check17 = intPtr == *intPtr2;
+    check17 = intPtr == nullptr;
+    check17 = intPtr2 == nullptr;
+
+    check17 = intPtr != intPtr2;
+    check17 = intPtr != *intPtr2;
+    check17 = intPtr != nullptr;
+    check17 = intPtr2 != nullptr;
+
+    nullptr++;
+    intPtr2 = intPtr2++;
+    intPtr = ++intPtr;
+
+    nullptr--;
+    intPtr2 = intPtr2--;
+    intPtr = --intPtr;
+    intPtr = intPtr2++;
+    ++intPtr2 = 5;
+
+
     /*  CHECK 18 ===================================== */
 
 
@@ -129,4 +170,31 @@ function : int main() {
     /*  CHECK 20 ===================================== */
 
     return 0;
+}
+
+
+int x20;
+float y20;
+float* z20;
+int* intPtr20;
+function : void check20() {
+    x20 = (int) y20;
+    x20 = (int) (x20 + 4.9);
+    y20 = (float) (int) (65.3);
+    y20 = 5.5;
+    intPtr20 = (int*) z20;
+
+    MYS2 myStruct;
+    myStruct = (MYS2 *) x20;
+
+    (int) nullptr;
+    (int) check18();
+}
+
+
+const bool x20_2 = true;
+int y20_2[10];
+int z20_2;
+function : void check20_2() {
+    z20_2 = y20_2[(int) x20_2]; // the index into the array will be 1
 }

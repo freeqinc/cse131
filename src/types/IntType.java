@@ -6,5 +6,5 @@ package types;
 public class IntType extends NumericType
 {
 
-    public IntType() { super("int", 0); }
+    public IntType() { super("int", 4); }
 }

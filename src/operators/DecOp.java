@@ -13,8 +13,12 @@ public class DecOp extends UnaryOp {
     public STO checkOperand(STO a) {
         Type aType = a.getType();
 
-
-        if (!(aType instanceof NumericType)) {
+        if (aType instanceof PointerType) {
+            if (!a.isModLValue())
+                return new ErrorSTO("error2_Lval");
+            else
+                return new ExprSTO("dec_result", a.getType(), false, false);
+        } else if (!(aType instanceof NumericType)) {
             return new ErrorSTO("error2_Type");
         } else {
             if (!a.isModLValue())

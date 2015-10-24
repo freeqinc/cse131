@@ -17,6 +17,8 @@ public class EQUOp extends ComparisonOp {
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();
 
+
+
         if ((aType instanceof NumericType) && (bType instanceof NumericType)) {
             if (operableConsts) {
                 retSTO = new ConstSTO("EQU_result", new BoolType(), ((ConstSTO) a).getFloatValue() == ((ConstSTO) b).getFloatValue());
@@ -29,6 +31,15 @@ public class EQUOp extends ComparisonOp {
             } else {
                 retSTO =  new ExprSTO("EQU_result", new BoolType());
             }
+        } else if ((aType instanceof PointerType) && (bType instanceof NullPointerType)) { // handling pointers
+            retSTO = new ExprSTO("EQU_result", new BoolType());
+        } else if ((aType instanceof PointerType) && (bType instanceof PointerType)) {
+            if (((PointerType) aType).isEqualToPointer(bType)) {
+                retSTO = new ExprSTO("EQU_result", new BoolType());
+            } else {
+                return new ErrorSTO("error17_Expr");
+            }
+
         } else {
             return new ErrorSTO("error1b_Expr");
         }

@@ -185,6 +185,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 
 	STO DoDesignator1_Star(STO sto) {
+		if (sto instanceof ErrorSTO) return sto;
 
 		// if is nullpointer
 		if (sto.getType() instanceof NullPointerType) {
@@ -208,6 +209,23 @@ class MyParser extends parser
 			sto.setModLValue();
 
 		return sto;
+	}
+
+	STO DoDesignator1_Ampersand(STO sto) {
+		if (sto instanceof ErrorSTO) return sto;
+
+		if (!sto.getIsAddressable()) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error18_AddressOf, sto.getType().getName()));
+			return new ErrorSTO(sto.getName());
+		}
+
+		PointerType pType = new PointerType();
+		pType.setPointsTo(sto.getType());
+		ExprSTO ret = new ExprSTO(sto.getName(), pType);
+		ret.setRValue();
+
+		return ret;
 	}
 
 	STO DoDesignator2_Arrow(STO sto, String id) {
@@ -327,6 +345,114 @@ class MyParser extends parser
 		return ret;
 	}
 
+
+	STO DoSizeOfSTO(STO sto) {
+		if (sto instanceof ErrorSTO) return sto;
+
+		if (!sto.getIsAddressable()) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error19_Sizeof);
+			return new ErrorSTO(sto.getName());
+		}
+
+		ConstSTO ret = new ConstSTO(sto.getName(), new IntType(), sto.getType().getSize());
+
+		// System.out.println("DoSizeOfSto " + sto.getName() + ": " + ret.getIntValue());
+		return ret;
+	}
+
+	STO DoSizeOfType(Type type) {
+
+
+		ConstSTO ret = new ConstSTO(type.getName(), new IntType(), type.getSize());
+
+		// System.out.println("DoSizeOfType " + type.getName() + ": " + ret.getIntValue());
+		return ret;
+	}
+
+	STO DoSizeOfTypeArray(Type type, Vector<STO> arrayList) {
+
+		int totalSize = 1;
+
+		for (int i = 0; i < arrayList.size(); i ++) {
+			// System.out.print(arrayList.elementAt(i).getName() + " ");
+			STO curr = arrayList.elementAt(i);
+
+			// not equivalent to int
+			if (!(curr.getType() instanceof IntType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error10i_Array, curr.getType().getName()));
+				return new ErrorSTO(type.getName());
+			}
+			// not known at compile time
+			else if (!((curr instanceof ConstSTO) && ((ConstSTO) curr).hasValue())) {
+				m_nNumErrors++;
+				m_errors.print(ErrorMsg.error10c_Array);
+				return new ErrorSTO(type.getName());
+			}
+			// index not greater than 0
+			else if (((ConstSTO) curr).getIntValue() < 1) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error10z_Array,((ConstSTO) curr).getIntValue()));
+				return new ErrorSTO(type.getName());
+			}
+			else {
+				// update arrayType to next
+				int dimSize = ((ConstSTO) curr).getIntValue();
+				totalSize *= dimSize;
+			}
+		}
+
+		totalSize *= type.getSize();
+
+		ConstSTO ret = new ConstSTO(type.getName(), new IntType(), totalSize);
+
+		// System.out.println("DoSizeOfTypeArray " + type.getName() + ": " + ret.getIntValue());
+		return ret;
+	}
+
+	STO DoTypeCast(Type type, STO sto) {
+		if (sto instanceof ErrorSTO) return sto;
+
+
+		if (!((sto.getType() instanceof BasicType) || (sto.getType() instanceof PointerType)) || (sto.getType() instanceof NullPointerType)  )  {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error20_Cast, sto.getType().getName(), type.getName()));
+			return new ErrorSTO(sto.getName());
+		}
+
+
+		STO ret = null;
+
+//		if (type instanceof PointerType) {
+//			ret.setType(type);
+
+		if (ret instanceof ConstSTO) {
+			if (!(type instanceof BasicType) || !(sto.getType() instanceof BasicType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error20_Cast, sto.getType().getName(), type.getName()));
+				return new ErrorSTO(sto.getName());
+			}
+
+			if (type instanceof BoolType) {
+				ret = new ConstSTO(ret.getName(), type, ((ConstSTO) ret).getBoolValue());
+			} else if (type instanceof FloatType) {
+				ret = new ConstSTO(ret.getName(), type, ((ConstSTO) ret).getFloatValue());
+			} else if (type instanceof IntType) {
+				ret = new ConstSTO(ret.getName(), type, ((ConstSTO) ret).getIntValue());
+			}
+		} else if (sto instanceof ExprSTO) {
+			ret = new ExprSTO(sto.getName(), type);
+		} else if (sto instanceof VarSTO) {
+			ret = new VarSTO(sto.getName(), type);
+		} else  {
+			ret = new VarSTO(sto.getName(), type);
+		}
+
+
+		ret.setRValue();
+		return ret;
+	}
 
 	//----------------------------------------------------------------
 	//
@@ -1293,6 +1419,9 @@ class MyParser extends parser
 					break;
 				case "error8_Arithmetic":
 					m_errors.print(ErrorMsg.error8_Arithmetic);
+					break;
+				case "error17_Expr":
+					m_errors.print(Formatter.toString(ErrorMsg.error17_Expr, o.getName(), a.getType().getName(), b.getType().getName()));
 					break;
 			}
 
