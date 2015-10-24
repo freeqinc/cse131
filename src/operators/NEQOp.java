@@ -29,15 +29,16 @@ public class NEQOp extends ComparisonOp {
             } else {
                 retSTO =  new ExprSTO("NEQ_result", new BoolType());
             }
-        } else if ((aType instanceof PointerType) && (bType instanceof NullPointerType)) { // handling pointers
-            retSTO = new ExprSTO("NWQ_result", new BoolType());
         } else if ((aType instanceof PointerType) && (bType instanceof PointerType)) {
-            if (((PointerType) aType).isEqualToPointer(bType)) {
-                retSTO = new ExprSTO("NEQ_result", new BoolType());
+            if (aType instanceof NullPointerType || bType instanceof NullPointerType) {
+                retSTO = new ExprSTO("EQU_result", new BoolType());
+            } else if (((PointerType) aType).isEqualToPointer(bType)) {
+                retSTO = new ExprSTO("EQU_result", new BoolType());
             } else {
                 return new ErrorSTO("error17_Expr");
             }
-
+        } else if ((aType instanceof PointerType) || (bType instanceof PointerType)) {
+            return new ErrorSTO("error17_Expr");
         } else {
             return new ErrorSTO("error1b_Expr");
         }

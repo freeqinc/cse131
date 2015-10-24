@@ -14,6 +14,7 @@ public class FuncSTO extends STO
 	private Vector<STO> m_params = null;
 	private boolean m_returnByRef = false;
 	private boolean m_overloaded = false;
+	private String m_memberOf = null;
 
 	//----------------------------------------------------------------
 	//
@@ -34,6 +35,14 @@ public class FuncSTO extends STO
 		return true;
 		// You may want to change the isModifiable and isAddressable                      
 		// fields as necessary
+	}
+
+	public String memberOf() {
+		return m_memberOf;
+	}
+
+	public void setMemberOf(String id) {
+		m_memberOf = id;
 	}
 
 	//----------------------------------------------------------------

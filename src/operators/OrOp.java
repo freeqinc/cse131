@@ -24,9 +24,10 @@ public class OrOp extends BooleanOp {
                 return new ErrorSTO("error1w_Expr_right_boolean");
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("or_result", new BoolType(), ((ConstSTO) a).getBoolValue() || ((ConstSTO) b).getBoolValue());
+                retSTO = new ConstSTO("and_result", new BoolType(), ((ConstSTO) a).getBoolValue() && ((ConstSTO) b).getBoolValue());
+            } else {
+                retSTO = new ExprSTO("and_result", new BoolType());
             }
-            retSTO = new ExprSTO("or_result", new BoolType());
         }
 
         retSTO.setRValue();

@@ -13,7 +13,7 @@ public class UnaryMinus extends UnaryOp {
     public STO checkOperand(STO a) {
         Type aType = a.getType();
 
-        STO retSTO = null;
+        STO retSTO = a;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue();
 
         if (operableConsts) {

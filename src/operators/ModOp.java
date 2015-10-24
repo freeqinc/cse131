@@ -22,6 +22,8 @@ public class ModOp extends ArithmeticOp {
                 return new ErrorSTO("error1w_Expr_left_mod");
             else
                 return new ErrorSTO("error1w_Expr_right_mod");
+        } else if (b instanceof ConstSTO && ((ConstSTO) b).getIntValue() == 0) {
+            return new ErrorSTO("error8_Arithmetic");
         } else {
             if (operableConsts) {
                 retSTO = new ConstSTO("mod_result", new IntType(), ((ConstSTO) a).getIntValue() % ((ConstSTO) b).getIntValue());

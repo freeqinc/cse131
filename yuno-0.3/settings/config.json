@@ -80,7 +80,7 @@
     // {testcase} - path/to/current/testcase.rc
     //
     "compiler_invocation":
-        "java -cp {classpath} {compiler_executable} {testcase} 2>&1 | tee {testcase}.out",
+        "java -cp {classpath} {compiler_executable} -debug {testcase}",
 
 
     // Message templates -------------------------------------------------------

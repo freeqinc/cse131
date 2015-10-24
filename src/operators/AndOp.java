@@ -25,8 +25,9 @@ public class AndOp extends BooleanOp {
         } else {
             if (operableConsts) {
                 retSTO = new ConstSTO("and_result", new BoolType(), ((ConstSTO) a).getBoolValue() && ((ConstSTO) b).getBoolValue());
+            } else {
+                retSTO = new ExprSTO("and_result", new BoolType());
             }
-            retSTO = new ExprSTO("and_result", new BoolType());
         }
 
         retSTO.setRValue();
