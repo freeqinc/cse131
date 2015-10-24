@@ -32,6 +32,7 @@ function : float bar(float x, float y, float z) { return 5.5; }
 function : float bar(float &x, float &y) { return 5.5; }
 function : void bar(bool &x) {}
 function : int bar(bool z) { return 5; }
+function : int bar(int x) { return x; } 
 
 
 // brandon's thing
@@ -283,7 +284,9 @@ function : void main()
     }
     break;
 
-
+    while (true) {
+          if (true) { if (true) { if (true) { break; } } }
+    }
 
 
     /*  CHECK 13 ===================================== */
@@ -329,6 +332,8 @@ function : int check8() {
 
 // recursion
 
-//function : int recurve(int x) {
-//    return recurve(5) + 5;
-//}
+function : int recurve(int x) {
+    return recurve(5) + 5;
+
+
+}

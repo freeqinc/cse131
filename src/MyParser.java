@@ -183,12 +183,217 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+
+	STO DoDesignator1_Star(STO sto) {
+
+		// if is nullpointer
+		if (sto.getType() instanceof NullPointerType) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error15_Nullptr);
+			return new ErrorSTO(sto.getName());
+		}
+
+		if (!(sto.getType() instanceof PointerType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error15_Receiver, sto.getType().getName()));
+			return new ErrorSTO(sto.getName());
+		}
+
+
+		sto = new VarSTO(sto.getName(), ((PointerType) sto.getType()).deReference());
+
+		if(sto.getType() instanceof ArrayType)
+			sto.setNonModLValue();
+		else
+			sto.setModLValue();
+
+		return sto;
+	}
+
+	STO DoDesignator2_Arrow(STO sto, String id) {
+
+		// if is nullpointer
+		if (sto.getType() instanceof NullPointerType) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error15_Nullptr);
+			return new ErrorSTO(sto.getName());
+		}
+
+		// check if pointer to struct
+		if ((sto.getType() instanceof PointerType) && (((PointerType) sto.getType()).deReference() instanceof StructType)) {
+
+		} else { // not pointer to a struct
+			m_nNumErrors++;
+			m_errors.print((Formatter.toString(ErrorMsg.error15_ReceiverArrow, sto.getType().getName())));
+			return new ErrorSTO(sto.getName());
+		}
+
+		VarSTO ret = new VarSTO(sto.getName(), ((PointerType) sto.getType()).deReference());
+
+		return DoDesignator2_Dot(ret, id);
+	}
+
+
+	STO DoDesignator2_Array(STO sto, STO expr)
+	{
+		if (expr instanceof ErrorSTO) return expr;
+		if (sto instanceof ErrorSTO) return sto;
+
+		Type preType = sto.getType();
+
+		// if is nullpointer
+		if (preType instanceof NullPointerType) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error15_Nullptr);
+			return new ErrorSTO(sto.getName());
+		}
+
+		// preceding bracket is not array or pointer type
+		if (!(preType instanceof ArrayType) && !(preType instanceof PointerType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp, preType.getName()));
+			return new ErrorSTO(sto.getName());
+		}
+
+		// if expression is not equivalent to int
+		if (!isEquivalent(expr.getType(), new IntType())) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error11i_ArrExp, expr.getType().getName()));
+			return new ErrorSTO(sto.getName());
+		}
+
+		// if we have a pointer at hand
+		if (preType instanceof PointerType) {
+
+			sto = new VarSTO(sto.getName(), ((PointerType) preType).deReference());
+
+		} else {
+			// if index expr is constant and designator not pointer type, check bounds
+			int upperBound = ((ArrayType) sto.getType()).getDimSize();
+			int exprValue;
+			if (!(preType instanceof PointerType) && (expr instanceof ConstSTO) && ((ConstSTO) expr).hasValue()) {
+				exprValue = ((ConstSTO) expr).getIntValue();
+				if (exprValue < 0 || (exprValue > upperBound - 1)) {
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error11b_ArrExp, exprValue, upperBound));
+					return new ErrorSTO(sto.getName());
+				}
+			}
+
+			// if array, check if next is arraytype or other type
+			if (preType instanceof ArrayType) {
+				if (((ArrayType) preType).next() instanceof ArrayType) {
+					sto = new VarSTO(sto.getName(), ((ArrayType) preType).next());
+				} else {
+					sto = new ConstSTO(sto.getName(), ((ArrayType) preType).next());
+				}
+			}
+		}
+
+		if(sto.getType() instanceof ArrayType)
+			sto.setNonModLValue();
+		else
+			sto.setModLValue();
+
+		return sto;
+	}
+
+	STO DoDesignator2_Dot(STO sto, String strID)
+	{
+		if (sto instanceof ErrorSTO) return sto;
+
+
+		// Good place to do the struct checks
+		// check if left is a struct
+		if (!(sto.getType() instanceof StructType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error14t_StructExp, sto.getType().getName()));
+			return new ErrorSTO(sto.getName());
+		}
+
+		// check if struct has member
+		Scope structScope = ((StructType) sto.getType()).getScope();
+		STO ret = structScope.accessLocal(strID);
+		if (ret == null) {
+			m_nNumErrors++;
+			if (sto.isThis())
+				m_errors.print(Formatter.toString(ErrorMsg.error14c_StructExpThis, strID));
+			else
+				m_errors.print(Formatter.toString(ErrorMsg.error14f_StructExp, strID, sto.getType().getName()));
+
+			return new ErrorSTO(sto.getName());
+		}
+
+		return ret;
+	}
+
+
+	//----------------------------------------------------------------
+	//
+	//----------------------------------------------------------------
+	Type DoDecoratedPointerType(Type baseType, Vector<String> pointers) {
+		PointerType ret = new PointerType();
+		Type copy = ret;
+
+		if (pointers != null) {
+			for (int i = 1; i < pointers.size(); i++) {
+				ret.setPointsTo(new PointerType());
+				ret = (PointerType) ret.deReference();
+			}
+		}
+
+		ret.setPointsTo(baseType);
+		return copy;
+	}
+
 	void DoAutoVarDecl(String id, STO expr) {
 		DoVarDecl(id, expr.getType(), expr);
 	}
 
 	void DoAutoConstDecl(String id, STO expr) {
 		DoConstDecl(expr.getType(), id, expr);
+	}
+
+
+	void DoNewStmt(STO sto, Vector<STO> args) {
+		// initial checks
+		if (sto instanceof ErrorSTO) return;
+		if (!sto.isModLValue()) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error16_New_var);
+			return;
+		}
+
+		if (!(sto.getType() instanceof PointerType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error16_New, sto.getType().getName()));
+			return;
+		}
+
+		if (args != null && args.size() > 0) {
+			if (args != null && !((((PointerType) sto.getType()).deReference()) instanceof StructType)) {
+				m_nNumErrors++;
+				m_errors.print(Formatter.toString(ErrorMsg.error16b_NonStructCtorCall, sto.getType().getName()));
+				return;
+			}
+		}
+
+	}
+
+	void DoDeleteStmt(STO sto) {
+		// initial checks
+		if (sto instanceof ErrorSTO) return;
+		if (!sto.isModLValue()) {
+			m_nNumErrors++;
+			m_errors.print(ErrorMsg.error16_Delete_var);
+			return;
+		}
+
+		if (!(sto.getType() instanceof PointerType)) {
+			m_nNumErrors++;
+			m_errors.print(Formatter.toString(ErrorMsg.error16_Delete, sto.getType().getName()));
+			return;
+		}
 	}
 
 	void DoStructInst(String id, Type structType, Vector<STO> args) {
@@ -205,7 +410,6 @@ class MyParser extends parser
 
 		} else {
 			Vector<STO> ctors = ((StructType) structType).getConstructors();
-
 
 			if (ctors.size() == 1) { // only one ctor
 				tryNonOverloadedCall(((FuncSTO) ctors.elementAt(0)).getParams(), args);
@@ -624,6 +828,7 @@ class MyParser extends parser
 			m_errors.print ("internal: DoFormalParams says no proc!");
 		}
 
+		boolean bad = false;
 
 
 		FuncSTO func;
@@ -642,6 +847,7 @@ class MyParser extends parser
 			for (int i = 0; i < funcList.size() - 1; i++) {
 				currFunc = (FuncSTO) funcList.elementAt(i);
 				if (hasSameParams(currFunc, func)) {
+					bad = true;
 					m_nNumErrors++;
 					m_errors.print(Formatter.toString(ErrorMsg.error9_Decl, id));
 
@@ -652,7 +858,12 @@ class MyParser extends parser
 					break;
 				}
 			}
+		}
 
+		if (!bad && params != null) {
+			for (int i = 0; i < params.size(); i++) {
+				m_symtab.insert(params.elementAt(i));
+			}
 		}
 	}
 
@@ -712,6 +923,11 @@ class MyParser extends parser
 	//
 	//----------------------------------------------------------------
 	boolean isAssignable(Type aType, Type bType) {
+		// System.out.println("ASSIGNABLE? : " + aType.getName() + " " + bType.getName());
+
+		// allow assignment of nullptr
+		if ((aType instanceof PointerType) && (bType instanceof NullPointerType))
+			return true;
 
 		if (!aType.getClass().equals(bType.getClass())) {
 			if (aType instanceof FloatType && bType instanceof IntType) {
@@ -719,6 +935,10 @@ class MyParser extends parser
 			} else {
 				return false;
 			}
+		} else if (aType instanceof PointerType) {
+
+			if (!(((PointerType) aType).isEqualToPointer(bType)))
+				return false;
 		}
 
 		return true;
@@ -732,6 +952,11 @@ class MyParser extends parser
 
 		if (aType instanceof ArrayType && bType instanceof ArrayType) {
 			if (!aType.getName().equals(bType.getName())) return false;
+		}
+
+		if (aType instanceof PointerType && bType instanceof PointerType) {
+			if (!(((PointerType) aType).isEqualToPointer(bType)))
+				return false;
 		}
 
 		return true;
@@ -934,86 +1159,11 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	STO DoDesignator2_Dot(STO sto, String strID)
-	{
-		if (sto instanceof ErrorSTO) return sto;
 
-		// Good place to do the struct checks
-		// check if left is a struct
-		if (!(sto.getType() instanceof StructType)) {
-			m_nNumErrors++;
-			m_errors.print(Formatter.toString(ErrorMsg.error14t_StructExp, sto.getType().getName()));
-			return new ErrorSTO(sto.getName());
-		}
-
-		// check if struct has member
-		Scope structScope = ((StructType) sto.getType()).getScope();
-		STO ret = structScope.accessLocal(strID);
-		if (ret == null) {
-			m_nNumErrors++;
-			if (sto.isThis())
-				m_errors.print(Formatter.toString(ErrorMsg.error14c_StructExpThis, strID));
-			else
-				m_errors.print(Formatter.toString(ErrorMsg.error14f_StructExp, strID, sto.getType().getName()));
-
-			return new ErrorSTO(sto.getName());
-		}
-
-		return ret;
-	}
 
 	//----------------------------------------------------------------
 	//
-	//----------------------------------------------------------------
-	STO DoDesignator2_Array(STO sto, STO expr)
-	{
-		if (expr instanceof ErrorSTO) return expr;
-		if (sto instanceof ErrorSTO) return sto;
-
-		Type preType = sto.getType();
-
-		// preceding bracket is not array or pointer type
-		if (!(preType instanceof ArrayType) && !(preType instanceof PointerType)) {
-			m_nNumErrors++;
-			m_errors.print(Formatter.toString(ErrorMsg.error11t_ArrExp, preType.getName()));
-			return new ErrorSTO("bad preceeding type to bracket");
-		}
-
-		// if expression is not equivalent to int
-		if (!isEquivalent(expr.getType(), new IntType())) {
-			m_nNumErrors++;
-			m_errors.print(Formatter.toString(ErrorMsg.error11i_ArrExp, expr.getType().getName()));
-			return new ErrorSTO("not equiv to int");
-		}
-
-		// if index expr is constant and designator not pointer type, check bounds
-		int upperBound = ((ArrayType) sto.getType()).getDimSize();
-		int exprValue;
-		if (!(preType instanceof PointerType) && (expr instanceof ConstSTO) && ((ConstSTO) expr).hasValue()) {
-			exprValue = ((ConstSTO) expr).getIntValue();
-			if (exprValue < 0 || (exprValue > upperBound - 1)) {
-				m_nNumErrors++;
-				m_errors.print(Formatter.toString(ErrorMsg.error11b_ArrExp, exprValue, upperBound));
-				return new ErrorSTO("array out of bounds");
-			}
-		}
-
-		// if array, check if next is arraytype or other type
-		if (preType instanceof ArrayType) {
-			if (((ArrayType) preType).next() instanceof ArrayType) {
-				sto = new VarSTO(sto.getName(), ((ArrayType) preType).next());
-			} else {
-				sto = new ConstSTO(sto.getName(),((ArrayType) preType).next());
-			}
-		}
-
-		if(sto.getType() instanceof ArrayType)
-			sto.setNonModLValue();
-		else
-			sto.setModLValue();
-
-		return sto;
-	}
+	//---------------------------------------------------------------
 
 
 	//----------------------------------------------------------------
@@ -1075,14 +1225,24 @@ class MyParser extends parser
 				m_errors.print(Formatter.toString(ErrorMsg.undeclared_id, strID));
 				return new ErrorType();
 			}
-			else {
-				sto = m_currStruct;
-			}
-
 		}
 
-		if (!sto.isStructdef())
+
+		if (strID.equals(m_currStructId)) {
+			Scope tempScope = m_symtab.popScope();
+
+			StructType sType = new StructType();
+			sType.setId(m_currStructId);
+			sType.setScope(m_symtab.peekScope());
+
+			m_symtab.pushScope(tempScope);
+
+			sto = new StructdefSTO(m_currStructId, sType);
+		}
+
+		if (!(sto instanceof StructdefSTO))
 		{
+			// System.out.println("Passsed: " + strID + " Current: " + m_currStructId + " " + sto.getClass());
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.not_type, sto.getName()));
 			return new ErrorType();

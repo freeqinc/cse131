@@ -1,0 +1,132 @@
+structdef MYS {
+    int x;
+    int y;
+    int z;
+    float * f;
+    int arr[5];
+    MYS * next; // recursive field – no error – will be tested
+    MYS() { // Ctor
+         this.x = 0;
+         this.y = 0;
+    }
+    function : void foo( int &x ) { // No error with x (inner scope)
+        x = x + 1;
+    }
+    function : void foo() {}
+    function : void bar() {}
+    function : void bar(int x) {} // OK, since legal overload
+};
+
+structdef MYS2 {
+    int x;
+    MYS2() {}
+    MYS2(int x) {}
+    function : void foo() {
+        MYS2 * myStruct;
+        new myStruct : (5);
+        delete myStruct;
+    }
+    function : void bar() {
+        MYS2 myStruct;
+    }
+};
+
+function : MYS structFun() {
+    MYS ret;
+    return ret;
+}
+
+function : int main() {
+    int * x;
+    int ** x2;
+    x[99] = x[-40] + x[*x]; // No errors
+    x2[0] = 5;
+    x2[0][0] = 5;
+    x[0][0];
+    x2[0][0][0];
+
+
+
+    /*  CHECK 15 ===================================== */
+
+    int i = 0;
+    int intArr[5];
+    int *intPtr;
+    int ** intPtr2;
+    auto intPtr3 = intPtr2;
+    auto intPtr4 = *intPtr2;
+    int * iptr = &i; // declaration - can initialize with address of object
+    int ****** iptr2 = iptr;
+
+
+    intPtr2 = &i;
+    intPtr2 = &intPtr;
+    intPtr2 = nullptr;
+    intPtr = nullptr;
+    intPtr2 = intPtr;
+    intPtr = intPtr2;
+    nullptr = intPtr;
+
+    intPtr3 = intPtr2;
+    intPtr3 = intPtr;
+    *intPtr3 = intPtr;
+    **intPtr3 = 5;
+    intPtr4 = 5;
+    *intPtr4 = 5;
+    intPtr4 = intPtr2;
+
+    MYS * structPtr;
+    MYS structVar;
+
+    *intArr = 5;
+    *i = 5;
+    *intPtr = 5;
+    *intPtr = 5.5;
+
+    structPtr->x;
+    structPtr->x = 5;
+    structPtr->x = 5.5;
+    structPtr->arr[3] = 3;
+    structPtr->arr[3] = true;
+    structVar->x;
+
+    *nullptr;
+    nullptr->a;
+    nullptr[0];
+    nullptr.a;
+
+
+    /*  CHECK 16 ===================================== */
+
+    const int intConst = 5;
+    int intVar = 5;
+
+    new intConst;
+    delete intConst;
+    new intVar;
+    delete intVar;
+
+    MYS2 * x16;
+    new x16; // okay - calls default constructor
+    new x16 : (69); // okay - calls 1-arg constructor
+    new x69;
+    new x69 : (69);
+    new intPtr : (69);
+    new intPtr;
+    new intPtr2 : (69);
+    new intPtr2;
+
+    /*  CHECK 17 ===================================== */
+
+
+    /*  CHECK 18 ===================================== */
+
+
+    /*  CHECK 19 ===================================== */
+
+
+
+    /*  CHECK 20 ===================================== */
+
+    return 0;
+}
