@@ -436,11 +436,26 @@ class MyParser extends parser
 
 		if (sto instanceof ConstSTO && type instanceof BasicType) {
 			if (type instanceof BoolType) {
-				ret = new ConstSTO(sto.getName(), type, ((ConstSTO) sto).getBoolValue());
+
+				if (((ConstSTO) sto).hasValue())
+					ret = new ConstSTO(sto.getName(), type, ((ConstSTO) sto).getBoolValue());
+				else
+					ret = new VarSTO(sto.getName(), type);
+
 			} else if (type instanceof FloatType) {
-				ret = new ConstSTO(sto.getName(), type, ((ConstSTO) sto).getFloatValue());
+
+				if (((ConstSTO) sto).hasValue())
+					ret = new ConstSTO(sto.getName(), type, ((ConstSTO) sto).getFloatValue());
+				else
+					ret = new VarSTO(sto.getName(), type);
+
 			} else if (type instanceof IntType) {
-				ret = new ConstSTO(sto.getName(), type, ((ConstSTO) sto).getIntValue());
+
+				if (((ConstSTO) sto).hasValue())
+					ret = new ConstSTO(sto.getName(), type, ((ConstSTO) sto).getIntValue());
+				else
+					ret = new VarSTO(sto.getName(), type);
+
 			} else {
 				ret = new ConstSTO(sto.getName(), type);
 			}
@@ -535,8 +550,23 @@ class MyParser extends parser
 		}
 
 
-		if (args != null && args.size() > 0) {
-			if (args != null && !((((PointerType) sto.getType()).deReference()) instanceof StructType)) {
+		if (args != null) {
+			if (args.size() > 0 && args.elementAt(0).getName().equals("empty ctor call")) {
+				if (!((((PointerType) sto.getType()).deReference()) instanceof StructType)) {
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error16b_NonStructCtorCall, sto.getType().getName()));
+					return;
+				}
+
+				StructType dereffed = ((StructType) ((PointerType) sto.getType()).deReference());
+
+				DoCtorCalls(dereffed.getId(), dereffed.getConstructors(), new Vector<STO>(), dereffed.getScope());
+
+				return;
+			}
+
+
+			if (!((((PointerType) sto.getType()).deReference()) instanceof StructType)) {
 				m_nNumErrors++;
 				m_errors.print(Formatter.toString(ErrorMsg.error16b_NonStructCtorCall, sto.getType().getName()));
 				return;
@@ -591,6 +621,9 @@ class MyParser extends parser
 			return;
 		}
 
+		if (args != null && args.size() > 0 && args.elementAt(0).getName().equals("empty ctor call")) {
+			args.remove(0);
+		}
 
 		if(!(structType instanceof StructType)) {
 
@@ -620,6 +653,7 @@ class MyParser extends parser
 			if (ctors.size() == 1) { // only one ctor
 				tryNonOverloadedCall(((FuncSTO) ctors.elementAt(0)).getParams(), args);
 			} else { // overloaded
+
 				STO match = findCtor(ctors, args);
 				if (match instanceof ErrorSTO) {
 					m_nNumErrors++;
@@ -637,6 +671,10 @@ class MyParser extends parser
 
 	void DoStructArrayInst(String id, Type structType, Vector<STO> args, Vector<STO> arrayList) {
 		DoArrayDecl(id, structType, arrayList);
+
+		if (args != null && args.size() > 0 && args.elementAt(0).getName().equals("empty ctor call")) {
+			args.remove(0);
+		}
 
 		if(!(structType instanceof StructType)) {
 
@@ -981,9 +1019,14 @@ class MyParser extends parser
 		Vector <STO> aParams = a.getParams();
 		Vector <STO> bParams = b.getParams();
 
-		if (aParams == null && bParams == null) return true;
-		if (aParams == null || bParams == null) return false;
-		if (aParams.size() != bParams.size()) return false;
+		int aSize = 0;
+		int bSize = 0;
+
+		if (aParams != null) aSize = aParams.size();
+		if (bParams != null) bSize = bParams.size();
+
+		if (aSize != bSize) return false;
+		if (aSize == 0 && bSize == 0) return true;
 
 		for (int i = 0; i < aParams.size(); i++) {
 			Type aType = aParams.elementAt(i).getType();
@@ -1012,9 +1055,14 @@ class MyParser extends parser
 		Vector <STO> aParams = a.getParams();
 		Vector <STO> bParams = b.getParams();
 
-		if (aParams == null && bParams == null) return true;
-		if (aParams == null || bParams == null) return false;
-		if (aParams.size() != bParams.size()) return false;
+		int aSize = 0;
+		int bSize = 0;
+
+		if (aParams != null) aSize = aParams.size();
+		if (bParams != null) bSize = bParams.size();
+
+		if (aSize != bSize) return false;
+		if (aSize == 0 && bSize == 0) return true;
 
 		for (int i = 0; i < aParams.size(); i++) {
 			Type aType = aParams.elementAt(i).getType();
@@ -1285,7 +1333,6 @@ class MyParser extends parser
 
 		for (int i = 0; i < ctorList.size(); i++) {
 			FuncSTO ctor = (FuncSTO)ctorList.elementAt(i);
-
 			if (hasSameParamsExact(ctor, tempFunc)) {
 				return ctor;
 			}

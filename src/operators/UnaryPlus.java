@@ -6,9 +6,9 @@ import types.*;
 /**
  * Created by FreeQinC on 10/20/15.
  */
-public class UnaryMinus extends UnaryOp {
+public class UnaryPlus extends UnaryOp {
 
-    public UnaryMinus() { super("-"); }
+    public UnaryPlus() { super("+"); }
 
     public STO checkOperand(STO a) {
         Type aType = a.getType();
@@ -17,8 +17,7 @@ public class UnaryMinus extends UnaryOp {
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue();
 
         if (operableConsts) {
-            retSTO = new ConstSTO("unary_minus_result", aType, ((ConstSTO) a).getValue());
-            retSTO.setNegative();
+            retSTO = new ConstSTO("unary_plus_result", aType, ((ConstSTO) a).getValue());
         }
 
         retSTO.setRValue();

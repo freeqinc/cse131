@@ -675,7 +675,13 @@ OptCtorCall ::=     CtorCall:_1
 
 CtorCall ::=        T_COLON T_LPAREN OptExprList:_1 T_RPAREN
                     {:
-                        RESULT = _1;
+                        if (_1 == null) {
+                            RESULT = new Vector();
+                            STO empty = new VarSTO("empty ctor call");
+                            RESULT.addElement(empty);
+                         }
+                        else
+                            RESULT = _1;
                     :}
     ;
 
@@ -978,7 +984,6 @@ Designator ::=      T_STAR Designator:_1
                     :}
     |               UnarySign:_1 Designator:_2
                     {:
-
                         //if (_1.equals("-")) _2.setNegative();
                         RESULT = ((MyParser) parser).DoUnaryExpr (_1, _2);
                     :}
@@ -1093,7 +1098,7 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
 
 UnarySign ::=       T_PLUS
                     {:
-                        RESULT = null;
+                        RESULT = new UnaryPlus();
                     :}
     |               T_MINUS
                     {:
