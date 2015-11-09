@@ -1,0 +1,3 @@
+Error, "(stdin)", line 1: 
+  syntax error near "ls".
+Compile: failure.

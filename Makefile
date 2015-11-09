@@ -20,6 +20,10 @@ new:
 rc: src/parser.java bin/RC.class $(SOURCES:src/%.java=bin/%.class)
 	chmod +x RC
 
+CC=cc
+compile:
+	$(CC) rc.s $(PUBLIC)/input.c $(PUBLIC)/output.s $(LINKOBJ)
+
 src/parser.java: src/rc.cup
 	cd src; java -jar $(JAVACUP) < rc.cup
 
