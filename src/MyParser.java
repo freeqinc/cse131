@@ -30,6 +30,7 @@ class MyParser extends parser
 	private boolean m_inStruct = false;
 	private String m_currStructId = "";
 	private StructdefSTO m_currStruct = null;
+	private AssemblyCodeGenerator m_asGenerator;
 
 	//----------------------------------------------------------------
 	//
@@ -42,6 +43,7 @@ class MyParser extends parser
 		m_errors = errors;
 		m_debugMode = debugMode;
 		m_nNumErrors = 0;
+		m_asGenerator = new AssemblyCodeGenerator("rc.s");
 	}
 
 	//----------------------------------------------------------------
@@ -700,8 +702,6 @@ class MyParser extends parser
 
 	void DoVarDecl(String id, Type t, STO expr)
 	{
-
-
 		if (m_symtab.accessLocal(id) != null)
 		{
 			m_nNumErrors++;
@@ -723,6 +723,31 @@ class MyParser extends parser
 		VarSTO sto = new VarSTO(id);
 		if (t != null) {
 			sto = new VarSTO(id, t);
+		}
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+		// Global Scope
+		if (m_symtab.inGlobalScope()) {
+
+			sto.setBase("%g0");
+			sto.setOffset(id);
+
+			// Initialization
+			if (expr != null) {
+				// Immediate value
+				if (expr instanceof ConstSTO && ((ConstSTO) expr).hasValue()) {
+					m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr);
+				// Buffer value
+				} else {
+					m_asGenerator.doUninitGlobalStatic(sto);
+				}
+			// Declaration
+			} else {
+				m_asGenerator.doUninitGlobalStatic(sto);
+			}
 		}
 
 		m_symtab.insert(sto);
@@ -1556,7 +1581,6 @@ class MyParser extends parser
 		if (b instanceof ErrorSTO) return b;
 		if (a instanceof ErrorSTO) return a;
 
-
 		STO result = ((BinaryOp) o).checkOperands(a, b);
 
 		if (result instanceof ErrorSTO) {
@@ -1599,7 +1623,8 @@ class MyParser extends parser
 
 		}
 
-		if (PRINT_1) System.out.println(a.getType().getName() + " " + o.getName() + " " + b.getType().getName() + ": " + result.getType().getName());
+
+		System.out.println(result.getName());
 
 		return result;
 	}
@@ -1625,7 +1650,7 @@ class MyParser extends parser
 			}
 		}
 
-		if (PRINT_1) System.out.println(o.getName() + " " + a.getType().getName() + ": " + result.getType().getName());
+		System.out.println(result.getName());
 
 		return result;
 	}

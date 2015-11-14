@@ -147,7 +147,6 @@ public class SymbolTable
 		return m_stkScopes.peek();
 	}
 
-
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -155,6 +154,7 @@ public class SymbolTable
 	{
 		return m_nLevel;
 	}
+	public boolean inGlobalScope() { return m_nLevel == 1; }
 
 
 	//----------------------------------------------------------------

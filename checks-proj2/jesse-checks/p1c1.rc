@@ -1,0 +1,24 @@
+int gInt;
+
+
+int var1 = 5;
+bool var2 = false;
+bool var3 = true;
+float var4 = 459.25;
+
+
+int temporary = 5;
+int temporary2 = 5 + temporary;
+int temporary3 = temporary2 + --temporary * 2;
+float gFloat;
+bool gBool;
+
+const int cgInt = 5;
+const float cgFloat = 5.5;
+const bool cgBool = false;
+
+function : void main () {
+    int local1 = 5;
+    int local2 = 6;
+    int local3 = 10;
+}

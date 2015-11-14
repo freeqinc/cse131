@@ -27,7 +27,13 @@ compile:
 src/parser.java: src/rc.cup
 	cd src; java -jar $(JAVACUP) < rc.cup
 
+# DON'T
+# FORGET
+# TO
+# CHANGE
+# THIS
 clean:
 	cd src; rm -f *.class parser.java sym.java *.o
-	rm -f rc.s a.out
+	rm -f a.out
+	> rc.s
 	rm -rf bin/

@@ -14,6 +14,8 @@ public class ModOp extends ArithmeticOp {
         Type aType = a.getType();
         Type bType = b.getType();
 
+        String name = a.getName() + getName() + b.getName();
+
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();
 
@@ -26,9 +28,9 @@ public class ModOp extends ArithmeticOp {
             return new ErrorSTO("error8_Arithmetic");
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("mod_result", new IntType(), ((ConstSTO) a).getIntValue() % ((ConstSTO) b).getIntValue());
+                retSTO = new ConstSTO(name, new IntType(), ((ConstSTO) a).getIntValue() % ((ConstSTO) b).getIntValue());
             } else {
-                retSTO = new ExprSTO("mod_result", new IntType());
+                retSTO = new ExprSTO(name, new IntType());
             }
         }
 

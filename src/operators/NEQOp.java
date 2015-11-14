@@ -14,26 +14,28 @@ public class NEQOp extends ComparisonOp {
         Type aType = a.getType();
         Type bType = b.getType();
 
+        String name = a.getName() + getName() + b.getName();
+
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();
 
         if ((aType instanceof NumericType) && (bType instanceof NumericType)) {
             if (operableConsts) {
-                retSTO = new ConstSTO("NEQ_result", new BoolType(), ((ConstSTO) a).getFloatValue() != ((ConstSTO) b).getFloatValue());
+                retSTO = new ConstSTO(name, new BoolType(), ((ConstSTO) a).getFloatValue() != ((ConstSTO) b).getFloatValue());
             } else {
-                retSTO =  new ExprSTO("NEQ_result", new BoolType());
+                retSTO =  new ExprSTO(name, new BoolType());
             }
         } else if ((aType instanceof BoolType) && (bType instanceof BoolType)) {
             if (operableConsts) {
-                retSTO = new ConstSTO("NEQ_result", new BoolType(), ((ConstSTO) a).getBoolValue() != ((ConstSTO) b).getBoolValue());
+                retSTO = new ConstSTO(name, new BoolType(), ((ConstSTO) a).getBoolValue() != ((ConstSTO) b).getBoolValue());
             } else {
-                retSTO =  new ExprSTO("NEQ_result", new BoolType());
+                retSTO =  new ExprSTO(name, new BoolType());
             }
         } else if ((aType instanceof PointerType) && (bType instanceof PointerType)) {
             if (aType instanceof NullPointerType || bType instanceof NullPointerType) {
-                retSTO = new ExprSTO("EQU_result", new BoolType());
+                retSTO = new ExprSTO(name, new BoolType());
             } else if (((PointerType) aType).isEqualToPointer(bType)) {
-                retSTO = new ExprSTO("EQU_result", new BoolType());
+                retSTO = new ExprSTO(name, new BoolType());
             } else {
                 return new ErrorSTO("error17_Expr");
             }

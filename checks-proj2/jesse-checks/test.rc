@@ -1,7 +1,12 @@
 int globalX;
+float globalY;
+bool globalZ;
 
 function : void main () {
     int x = 5;
+    int y = 10;
+    int z = 15;
     cout << x << endl;
     cout << globalX << endl;
+    cout << globalZ << endl;
 }

@@ -14,6 +14,8 @@ public abstract class STO
 	private boolean m_isModifiable;
 	private boolean m_isReference = false;
 	private boolean m_isThis = false;
+	private String m_base;
+	private String m_offset;
 
 
 	//----------------------------------------------------------------
@@ -35,6 +37,15 @@ public abstract class STO
 		setIsModifiable(false);
 	}
 
+	//----------------------------------------------------------------
+	//
+	//----------------------------------------------------------------
+
+	public String getBase() { return m_base; }
+	public String getOffset() { return m_offset; }
+
+	public void setBase(String str) { m_base = str; }
+	public void setOffset(String str) { m_offset = str; }
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

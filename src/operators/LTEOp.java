@@ -14,6 +14,8 @@ public class LTEOp extends ComparisonOp {
         Type aType = a.getType();
         Type bType = b.getType();
 
+        String name = a.getName() + getName() + b.getName();
+
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();
 
@@ -24,9 +26,9 @@ public class LTEOp extends ComparisonOp {
                 return new ErrorSTO("error1n_Expr_right");
         } else {
             if (operableConsts) {
-                retSTO = new ConstSTO("LTE_result", new BoolType(), ((ConstSTO) a).getFloatValue() <= ((ConstSTO) b).getFloatValue());
+                retSTO = new ConstSTO(name, new BoolType(), ((ConstSTO) a).getFloatValue() <= ((ConstSTO) b).getFloatValue());
             } else {
-                retSTO = new ExprSTO("LTE_result", new BoolType());
+                retSTO = new ExprSTO(name, new BoolType());
             }
         }
 

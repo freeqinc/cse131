@@ -13,11 +13,13 @@ public class UnaryPlus extends UnaryOp {
     public STO checkOperand(STO a) {
         Type aType = a.getType();
 
-        STO retSTO = new ConstSTO("unary_minus_result", aType);
+        String name = getName() + a.getName();
+
+        STO retSTO = new ConstSTO(name, aType);
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue();
 
         if (operableConsts) {
-            retSTO = new ConstSTO("unary_plus_result", aType, ((ConstSTO) a).getValue());
+            retSTO = new ConstSTO(name, aType, ((ConstSTO) a).getValue());
         }
 
         retSTO.setRValue();
