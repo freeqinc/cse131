@@ -9,6 +9,7 @@ import java.util.Date;
 import STO.*;
 import types.*;
 import operators.*;
+import java.util.*;
 
 public class AssemblyCodeGenerator {
 
@@ -27,7 +28,8 @@ public class AssemblyCodeGenerator {
     private FileWriter m_fileWriter;
 
     // buffer
-    private String m_buffer = "";
+    private ArrayList<String> m_buffer = new ArrayList<>();
+    private boolean m_isBuffering = false;
 
 
     // ctor
@@ -54,6 +56,14 @@ public class AssemblyCodeGenerator {
         m_indentLevel++;
     }
 
+    public void startBuffer() {
+        m_isBuffering = true;
+    }
+
+    public void stopBuffer() {
+        m_isBuffering = false;
+    }
+
     public void closeWriter() {
         try {
             m_fileWriter.close();
@@ -64,13 +74,9 @@ public class AssemblyCodeGenerator {
         }
     }
 
-    public void writeDirectly(String str) {
-        try {
-            m_fileWriter.write(str);
-            m_fileWriter.flush();
-        } catch (IOException e){
-            System.err.println(ERROR_IO_WRITE);
-            e.printStackTrace();
+    public void writeDirectly(ArrayList<String> buffer) {
+        for (int i = 0; i < buffer.size(); i += 1) {
+            writeAssembly(buffer.get(i));
         }
     }
 
@@ -81,31 +87,40 @@ public class AssemblyCodeGenerator {
             asStmt.append(ACGstrs.SEPARATOR);
         }
 
-        asStmt.append(String.format(template, (Object[]) params));
+        if (params.length == 0)
+            asStmt.append(template);
+        else
+            asStmt.append(String.format(template, (Object[]) params));
 
-        try {
-            m_fileWriter.write(asStmt.toString());
-            m_fileWriter.flush();
-        } catch (IOException e){
-            System.err.println(ERROR_IO_WRITE);
-            e.printStackTrace();
+
+        if (m_isBuffering) {
+            m_buffer.add(asStmt.toString());
+        } else {
+            try {
+                m_fileWriter.write(asStmt.toString());
+                m_fileWriter.flush();
+            } catch (IOException e){
+                System.err.println(ERROR_IO_WRITE);
+                e.printStackTrace();
+            }
         }
-    }
 
-    public void bufferAssembly(String template, String ... params) {
-        StringBuilder asStmt = new StringBuilder();
-
-        for (int i = 0; i < m_indentLevel; i++) {
-            asStmt.append(ACGstrs.SEPARATOR);
-        }
-
-        asStmt.append(String.format(template, (Object[]) params));
-
-        m_buffer += asStmt.toString();
     }
 
     public void clearBuffer() {
-        m_buffer = "";
+        m_buffer.clear();
+    }
+
+    public void writeBuffer() {
+        stopBuffer();
+        if (!bufferEmpty()) {
+            writeDirectly(m_buffer);
+        }
+        clearBuffer();
+    }
+
+    public boolean bufferEmpty() {
+        return m_buffer.size() == 0;
     }
 
     //----------------------------------------------------------------
@@ -204,16 +219,26 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
 
         writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.NEWLINE);
         decreaseIndent();
     }
 
 
-    public void doUninitGlobalStatic(STO sto) {
+    public void doSTOLoad(STO sto, String set, String load) {
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
+        writeAssembly(ACGstrs.LD, set, load);
+    }
+
+
+    //----------------------------------------------------------------
+
+    public void doUninitGlobalStatic(STO sto, boolean optStatic) {
         increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.SECTION, ".bss");
         writeAssembly(ACGstrs.ALIGN, "4");
-        writeAssembly(ACGstrs.GLOBAL, sto.getName());
+        if (!optStatic)
+            writeAssembly(ACGstrs.GLOBAL, sto.getName());
         decreaseIndent();
         writeAssembly(ACGstrs.LABEL, sto.getName());
         increaseIndent();
@@ -221,21 +246,57 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.SECTION, ".text");
         writeAssembly(ACGstrs.ALIGN, "4");
-        writeAssembly(ACGstrs.NEWLINE);
         decreaseIndent();
     }
 
-    public void doInitGlobalStatic(STO sto, ConstSTO expr) {
+    public void doAssignFlush(STO sto, STO expr) {
+        String functionName = ".$.init." + sto.getName();
+
+        writeAssembly(ACGstrs.LABEL, functionName);
         increaseIndent();
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+
+        writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getName(), "%o1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
+        doSTOLoad(expr, "%l7", "%o0");
+        writeAssembly(ACGstrs.ST, "%o0", "%o1");
+        decreaseIndent();
+
+
+        doFuncDecl_2(functionName);
+
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.SECTION, ".init");
+        writeAssembly(ACGstrs.ALIGN, "4");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.SECTION, ".text");
+        writeAssembly(ACGstrs.ALIGN, "4");
+        decreaseIndent();
+
+    }
+
+    public void doInitGlobalStatic(STO sto, ConstSTO expr, boolean optStatic) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.SECTION, ".data");
         writeAssembly(ACGstrs.ALIGN, "4");
-        writeAssembly(ACGstrs.GLOBAL, sto.getName());
+        if (!optStatic)
+            writeAssembly(ACGstrs.GLOBAL, sto.getName());
         decreaseIndent();
         writeAssembly(ACGstrs.LABEL, sto.getName());
         increaseIndent();
 
+
         // if value is float
-        if (expr.getType() instanceof FloatType) {
+        if (sto.getType() instanceof FloatType) {
             writeAssembly(ACGstrs.SINGLE, expr.getFloatValue()+"");
         // if value is int or bool
         } else {
@@ -245,12 +306,57 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.SECTION, ".text");
         writeAssembly(ACGstrs.ALIGN, "4");
-        writeAssembly(ACGstrs.NEWLINE);
         decreaseIndent();
+    }
+
+    public void doDesignatorID(STO sto) {
+        doSTOLoad(sto, "%l7", "%o0");
     }
 
     public void doBinaryExpr(STO a, Operator o, STO b) {
 
+    }
+
+    //----------------------------------------------------------------
+
+    public void doFuncDecl_1(String id, Type returnType, boolean optRef) {
+        String functionName = id + "." + returnType.getName();
+
+        increaseIndent();
+        writeAssembly(ACGstrs.GLOBAL, id);
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, id);
+        writeAssembly(ACGstrs.LABEL, functionName);
+        increaseIndent();
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
+    }
+
+    public void doFormalParams() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "Store params");
+        decreaseIndent();
+    }
+
+    public void doFuncDecl_2(String functionName) {
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "End of function " + functionName);
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName + ".fini");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
+        writeAssembly("SAVE." + functionName + " = -(92 + 0) & -8\n");
+        writeAssembly(ACGstrs.NEWLINE);
+
+        decreaseIndent();
+
+        writeAssembly(ACGstrs.LABEL, functionName + ".fini");
+        increaseIndent();
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "-96", "%sp");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
+        decreaseIndent();
     }
 
 

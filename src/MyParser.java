@@ -527,12 +527,12 @@ class MyParser extends parser
 		return copy;
 	}
 
-	void DoAutoVarDecl(String id, STO expr) {
-		DoVarDecl(id, expr.getType(), expr);
+	void DoAutoVarDecl(String id, STO expr, boolean optStatic) {
+		DoVarDecl(id, expr.getType(), expr, optStatic);
 	}
 
-	void DoAutoConstDecl(String id, STO expr) {
-		DoConstDecl(expr.getType(), id, expr);
+	void DoAutoConstDecl(String id, STO expr, boolean optStatic) {
+		DoConstDecl(expr.getType(), id, expr, optStatic);
 	}
 
 
@@ -672,7 +672,7 @@ class MyParser extends parser
 	}
 
 	void DoStructArrayInst(String id, Type structType, Vector<STO> args, Vector<STO> arrayList) {
-		DoArrayDecl(id, structType, arrayList);
+		DoArrayDecl(id, structType, arrayList, false);
 
 		if (args != null && args.size() > 0 && args.elementAt(0).getName().equals("empty ctor call")) {
 			args.remove(0);
@@ -700,7 +700,7 @@ class MyParser extends parser
 		}
 	}
 
-	void DoVarDecl(String id, Type t, STO expr)
+	void DoVarDecl(String id, Type t, STO expr, boolean optStatic)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
@@ -739,14 +739,15 @@ class MyParser extends parser
 			if (expr != null) {
 				// Immediate value
 				if (expr instanceof ConstSTO && ((ConstSTO) expr).hasValue()) {
-					m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr);
+					m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr, optStatic);
 				// Buffer value
 				} else {
-					m_asGenerator.doUninitGlobalStatic(sto);
+					m_asGenerator.doUninitGlobalStatic(sto, optStatic);
+					m_asGenerator.doAssignFlush(sto, expr);
 				}
 			// Declaration
 			} else {
-				m_asGenerator.doUninitGlobalStatic(sto);
+				m_asGenerator.doUninitGlobalStatic(sto, optStatic);
 			}
 		}
 
@@ -799,7 +800,7 @@ class MyParser extends parser
 		return sto;
 	}
 
-	void DoArrayDecl(String id, Type t, Vector<STO> arrayList) {
+	void DoArrayDecl(String id, Type t, Vector<STO> arrayList, boolean optStatic) {
 		if (m_symtab.accessLocal(id) != null)
 		{
 			m_nNumErrors++;
@@ -876,7 +877,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoConstDecl(Type t, String id, STO expr)
+	void DoConstDecl(Type t, String id, STO expr, boolean optStatic)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
@@ -898,7 +899,24 @@ class MyParser extends parser
 		} else {
 			ConstSTO sto = new ConstSTO(id, t, ((ConstSTO) expr).getValue());
 			m_symtab.insert(sto);
+
+
+			//----------------
+			// ASSEMBLY GEN
+			//----------------
+
+			// Global Scope
+			if (m_symtab.inGlobalScope()) {
+
+				sto.setBase("%g0");
+				sto.setOffset(id);
+
+				// Initialization
+				m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr, optStatic);
+			}
 		}
+
+
 	}
 
 	//----------------------------------------------------------------
@@ -950,9 +968,16 @@ class MyParser extends parser
 		}
 
 
+
 		m_symtab.insert(sto);
 		m_symtab.openScope();
 		m_symtab.setFunc(sto);
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+		m_asGenerator.doFuncDecl_1(id, returnType, optRef);
 	}
 
 	void DoDefaultCtor(String id) {
@@ -1033,7 +1058,12 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void DoFuncDecl_2()
 	{
+
 		m_symtab.closeScope();
+
+		FuncSTO curr = m_symtab.getFunc();
+		m_asGenerator.doFuncDecl_2(curr.getName() + "." + curr.getReturnType().getName());
+
 		m_symtab.setFunc(null);
 	}
 
@@ -1156,6 +1186,12 @@ class MyParser extends parser
 				m_symtab.insert(params.elementAt(i));
 			}
 		}
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+		m_asGenerator.doFormalParams();
 	}
 
 	//----------------------------------------------------------------
@@ -1499,6 +1535,14 @@ class MyParser extends parser
 			}
 		}
 
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+		m_asGenerator.startBuffer();
+		m_asGenerator.doDesignatorID(sto);
+		m_asGenerator.stopBuffer();
+
 		return sto;
 	}
 
@@ -1623,8 +1667,8 @@ class MyParser extends parser
 
 		}
 
-
-		System.out.println(result.getName());
+		// m_asGenerator.doBinaryExpr(a, o, b);
+		// System.out.println(result.getName());
 
 		return result;
 	}
@@ -1650,7 +1694,7 @@ class MyParser extends parser
 			}
 		}
 
-		System.out.println(result.getName());
+		// System.out.println(result.getName());
 
 		return result;
 	}
@@ -1703,7 +1747,7 @@ class MyParser extends parser
 			}
 		}
 
-		DoVarDecl(id, type, null);
+		DoVarDecl(id, type, null, false);
 	}
 
 	// Check break and continue

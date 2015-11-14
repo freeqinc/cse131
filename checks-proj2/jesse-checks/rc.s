@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Fri Nov 13 23:51:59 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Sat Nov 14 04:12:50 PST 2015
  */
 
 	
@@ -69,15 +69,6 @@
 	restore 
 	
 	
-	.section	".bss"
-	.align  	4
-	.global 	gInt
-gInt:
-	.skip   	4
-	
-	.section	".text"
-	.align  	4
-	
 	.section	".data"
 	.align  	4
 	.global 	var1
@@ -116,6 +107,42 @@ var4:
 	
 	.section	".data"
 	.align  	4
+	.global 	cgInt
+cgInt:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	cgFloat
+cgFloat:
+	.single 	0r5.5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	cgBool
+cgBool:
+	.word   	0
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	cgInt2
+cgInt2:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
 	.global 	temporary
 temporary:
 	.word   	5
@@ -131,11 +158,122 @@ temporary2:
 	
 	.section	".text"
 	.align  	4
+.$.init.temporary2:
+	set     	SAVE..$.init.temporary2, %g1
+	save    	%sp, %g1, %sp
+		
+		! temporary2 = temporary
+		set     	temporary2, %o1
+		add     	%g0, %o1, %o1
+		set     	temporary, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.temporary2
+	call    	.$.init.temporary2.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.temporary2 = -(92 + 0) & -8
+	
+.$.init.temporary2.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.temporary2
+	nop     
+	
+	.section	".text"
+	.align  	4
 	
 	.section	".bss"
 	.align  	4
 	.global 	temporary3
 temporary3:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.temporary3:
+	set     	SAVE..$.init.temporary3, %g1
+	save    	%sp, %g1, %sp
+		
+		! temporary3 = temporary2
+		set     	temporary3, %o1
+		add     	%g0, %o1, %o1
+		set     	temporary2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.temporary3
+	call    	.$.init.temporary3.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.temporary3 = -(92 + 0) & -8
+	
+.$.init.temporary3.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.temporary3
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	temporary4
+temporary4:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.temporary4:
+	set     	SAVE..$.init.temporary4, %g1
+	save    	%sp, %g1, %sp
+		
+		! temporary4 = temporary3
+		set     	temporary4, %o1
+		add     	%g0, %o1, %o1
+		set     	temporary3, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.temporary4
+	call    	.$.init.temporary4.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.temporary4 = -(92 + 0) & -8
+	
+.$.init.temporary4.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.temporary4
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	gInt
+gInt:
 	.skip   	4
 	
 	.section	".text"
@@ -159,3 +297,153 @@ gBool:
 	.section	".text"
 	.align  	4
 	
+	.section	".data"
+	.align  	4
+	.global 	var5
+var5:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	var6
+var6:
+	.single 	0r5.0
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+st1:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+st2:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+st3:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+st4:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+st5:
+	.word   	6
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+st6:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.st6:
+	set     	SAVE..$.init.st6, %g1
+	save    	%sp, %g1, %sp
+		
+		! st6 = st4
+		set     	st6, %o1
+		add     	%g0, %o1, %o1
+		set     	st4, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.st6
+	call    	.$.init.st6.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.st6 = -(92 + 0) & -8
+	
+.$.init.st6.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.st6
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+st7:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+st8:
+	.word   	6
+	
+	.section	".text"
+	.align  	4
+	.global 	main
+main:
+main.void:
+	set     	SAVE.main.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+	
+	! End of function main.void
+	call    	main.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.main.void = -(92 + 0) & -8
+	
+main.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	pain
+pain:
+pain.void:
+	set     	SAVE.pain.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+	
+	! End of function pain.void
+	call    	pain.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.pain.void = -(92 + 0) & -8
+	
+pain.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 

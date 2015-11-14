@@ -111,7 +111,6 @@ non terminal
     ExternDecl,
     VarDecl,
     ConstDecl,
-    OptStatic,
     StructdefDecl,
     CtorDef,
     DtorDef,
@@ -145,7 +144,8 @@ non terminal String
     ;
 
 non terminal Boolean
-    OptRef
+    OptRef,
+    OptStatic
     ;
 
 non terminal Operator
@@ -244,17 +244,20 @@ ExternDecl ::=      T_EXTERN DecoratedBasicType:_2 T_ID:_3 OptArrayList:_4
 
 VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptInit:_5
                     {:
+                        if (_1 == null) _1 = false;
+
                         if ( _4 != null)
-                            ((MyParser) parser).DoArrayDecl (_3, _2, _4);
+                            ((MyParser) parser).DoArrayDecl (_3, _2, _4, _1);
                         else
-                            ((MyParser) parser).DoVarDecl (_3, _2, _5);
+                            ((MyParser) parser).DoVarDecl (_3, _2, _5, _1);
 
                     :}
                     T_SEMI
     |               OptStatic:_1 T_AUTO T_ID:_3 T_ASSIGN Expr:_5
                     {:
-                        ((MyParser) parser).DoAutoVarDecl(_3, _5);
-                        // ((MyParser) parser).DoVarDecl (_3, null, _5);
+                        if (_1 == null) _1 = false;
+
+                        ((MyParser) parser).DoAutoVarDecl(_3, _5, _1);
                     :}
                     T_SEMI
     |               OptStatic:_1 StructType:_2 T_ID:_3 OptArrayList:_4 OptCtorCall:_5
@@ -270,19 +273,25 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
 
 ConstDecl ::=       OptStatic:_1 T_CONST BasicType:_2 T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoConstDecl (_2, _3, _5);
+                        if (_1 == null) _1 = false;
+
+                        ((MyParser) parser).DoConstDecl (_2, _3, _5, _1);
                     :}
                     T_SEMI
     |               OptStatic:_1 T_CONST T_AUTO T_ID:_3 T_ASSIGN ConstExpr:_5
                     {:
-                        ((MyParser) parser).DoAutoConstDecl(_3, _5);
-                        // ((MyParser) parser).DoConstDecl (null, _3, _5);
+                        if (_1 == null) _1 = false;
+
+                        ((MyParser) parser).DoAutoConstDecl(_3, _5, _1);
                     :}
                     T_SEMI
     ;
 
 
 OptStatic ::=       T_STATIC
+                    {:
+                        RESULT = true;
+                    :}
     |               /* empty */
     ;
 
@@ -313,9 +322,9 @@ FieldVarsList ::=   FieldVarDecl
 FieldVarDecl ::=    DecoratedType:_2 T_ID:_3 OptArrayList:_4 T_SEMI
                     {:
                         if ( _4 != null)
-                            ((MyParser) parser).DoArrayDecl (_3, _2, _4);
+                            ((MyParser) parser).DoArrayDecl (_3, _2, _4, false);
                         else
-                            ((MyParser) parser).DoVarDecl (_3, _2, null);
+                            ((MyParser) parser).DoVarDecl (_3, _2, null, false);
                     :}
     ;
 
@@ -717,7 +726,6 @@ ForeachStmt ::=     T_FOREACH T_LPAREN Type:_1 OptRef:_4 T_ID:_2 T_COLON Expr:_3
                         ((MyParser) parser).DoBlockOpen();
                         ((MyParser) parser).openLoop();
 
-                        //((MyParser) parser).DoVarDecl (_3, null, null);
                         ((MyParser) parser).DoForEachStmt(_1, _2, _3, _4);
                     :}
                     CodeBlock

@@ -7,6 +7,7 @@ import STO.*;
 public abstract class Operator {
 
     private String m_opName;
+    private String m_assemblyOp;
 
     public Operator(String opName) {
         setName(opName);

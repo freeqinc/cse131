@@ -1,24 +1,39 @@
-int gInt;
-
-
 int var1 = 5;
 bool var2 = false;
 bool var3 = true;
 float var4 = 459.25;
 
 
-int temporary = 5;
-int temporary2 = 5 + temporary;
-int temporary3 = temporary2 + --temporary * 2;
-float gFloat;
-bool gBool;
-
 const int cgInt = 5;
 const float cgFloat = 5.5;
 const bool cgBool = false;
+const int cgInt2 = cgInt;
+
+int temporary = 5;
+int temporary2 = temporary;
+int temporary3 = temporary2;
+int temporary4 = temporary3;
+int gInt;
+float gFloat;
+bool gBool;
+
+int var5 = cgInt;
+float var6 = cgInt;
+
+static int st1;
+static float st2;
+static bool st3;
+
+static int st4 = 5;
+static const int st5 = 6;
+static int st6 = st4;
+static int st7 = cgInt;
+static int st8 = st5;
 
 function : void main () {
-    int local1 = 5;
-    int local2 = 6;
-    int local3 = 10;
+
+}
+
+function : void pain () {
+
 }
