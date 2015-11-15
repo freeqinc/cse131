@@ -2,12 +2,16 @@ int var1 = 5;
 bool var2 = false;
 bool var3 = true;
 float var4 = 459.25;
+auto aVar1 = var2;
+auto aVar2 = var4;
 
 
 const int cgInt = 5;
 const float cgFloat = 5.5;
 const bool cgBool = false;
 const int cgInt2 = cgInt;
+const auto aVar3 = cgInt2;
+const auto aVar4 = cgFloat;
 
 int temporary = 5;
 int temporary2 = temporary;
@@ -31,9 +35,38 @@ static int st7 = cgInt;
 static int st8 = st5;
 
 function : void main () {
+    int local1;
+    int local11;
+    float local2 = 6.6;
+    float local2_2 = 6.6;
+    int local111;
+    float local3 = local2;
+    int local4 = local1;
+    int local5 = local11;
+    int local6 = cgInt;
+    int local7 = 5;
 
+    const int clocal = 5;
+    const int clocal2 = 5;
+    const float clocal3 = 4.4;
+    const float clocal4 = clocal3;
 }
 
 function : void pain () {
+    int pocal1;
+    int pocal11;
+    float pocal2 = 6.6;
+    int local111;
+    float pocal3 = pocal2;
+    int pocal4 = pocal1;
+    int pocal5 = pocal11;
 
+    auto var1 = ::var1;
+    auto var2 = pocal2;
+    const auto var3 = cgFloat;
+}
+
+function : void zain () {
+    int var1 = 6;
+    int var2 = ::var1;
 }

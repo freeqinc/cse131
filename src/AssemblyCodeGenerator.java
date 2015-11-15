@@ -31,6 +31,10 @@ public class AssemblyCodeGenerator {
     private ArrayList<String> m_buffer = new ArrayList<>();
     private boolean m_isBuffering = false;
 
+    // counters and trackers
+    private int m_floatCount = 1;
+    private String m_localStaticAppend = "";
+
 
     // ctor
     public AssemblyCodeGenerator(String fileToWrite) {
@@ -123,6 +127,7 @@ public class AssemblyCodeGenerator {
         return m_buffer.size() == 0;
     }
 
+    // Constants
     //----------------------------------------------------------------
     public void doAssemblyHeader() {
         increaseIndent();
@@ -222,76 +227,18 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-
-    public void doSTOLoad(STO sto, String set, String load) {
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
-        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
-        writeAssembly(ACGstrs.LD, set, load);
-    }
-
-
+    // Variables
     //----------------------------------------------------------------
 
-    public void doUninitGlobalStatic(STO sto, boolean optStatic) {
-        increaseIndent();
-        writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.SECTION, ".bss");
-        writeAssembly(ACGstrs.ALIGN, "4");
-        if (!optStatic)
-            writeAssembly(ACGstrs.GLOBAL, sto.getName());
-        decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, sto.getName());
-        increaseIndent();
-        writeAssembly(ACGstrs.SKIP, "4");
-        writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.SECTION, ".text");
-        writeAssembly(ACGstrs.ALIGN, "4");
-        decreaseIndent();
-    }
-
-    public void doAssignFlush(STO sto, STO expr) {
-        String functionName = ".$.init." + sto.getName();
-
-        writeAssembly(ACGstrs.LABEL, functionName);
-        increaseIndent();
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
-        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
-        increaseIndent();
-        writeAssembly(ACGstrs.NEWLINE);
-
-        writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getName(), "%o1");
-        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
-        doSTOLoad(expr, "%l7", "%o0");
-        writeAssembly(ACGstrs.ST, "%o0", "%o1");
-        decreaseIndent();
-
-
-        doFuncDecl_2(functionName);
-
-        increaseIndent();
-        writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.SECTION, ".init");
-        writeAssembly(ACGstrs.ALIGN, "4");
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName);
-        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
-
-        writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.SECTION, ".text");
-        writeAssembly(ACGstrs.ALIGN, "4");
-        decreaseIndent();
-
-    }
 
     public void doInitGlobalStatic(STO sto, ConstSTO expr, boolean optStatic) {
         increaseIndent();
-        writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.SECTION, ".data");
-        writeAssembly(ACGstrs.ALIGN, "4");
+        doSection(".data");
+
         if (!optStatic)
             writeAssembly(ACGstrs.GLOBAL, sto.getName());
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, sto.getName());
+        writeAssembly(ACGstrs.LABEL,  m_localStaticAppend + sto.getName());
         increaseIndent();
 
 
@@ -303,24 +250,141 @@ public class AssemblyCodeGenerator {
             writeAssembly(ACGstrs.WORD, expr.getIntValue()+"");
         }
 
-        writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.SECTION, ".text");
-        writeAssembly(ACGstrs.ALIGN, "4");
+        doSection(".text");
         decreaseIndent();
     }
 
+    public void doUninitGlobalStatic(STO sto, boolean optStatic) {
+        increaseIndent();
+        doSection(".bss");
+        if (!optStatic)
+            writeAssembly(ACGstrs.GLOBAL, sto.getName());
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, m_localStaticAppend + sto.getName());
+        increaseIndent();
+        writeAssembly(ACGstrs.SKIP, "4");
+
+        doSection(".text");
+        decreaseIndent();
+    }
+
+    public void doAssignFlush(STO sto, STO expr) {
+        String functionName = ".$.init." + sto.getName();
+
+        String loadRegister = "%o0";
+        if (sto.getType() instanceof FloatType)
+            loadRegister = "%f0";
+
+        writeAssembly(ACGstrs.LABEL, functionName);
+        increaseIndent();
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+
+        writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getName(), "%o1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
+        setAddressLoad(expr, "%l7", loadRegister);
+        writeAssembly(ACGstrs.ST, loadRegister, "%o1");
+        decreaseIndent();
+
+
+        doFuncDecl_2(functionName, new FuncSTO(""));
+
+        increaseIndent();
+        doSection(".init");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        doSection(".text");
+        decreaseIndent();
+
+    }
+
+    public void doLocalVariable(STO sto, STO expr, boolean optStatic) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
+        setAddress(sto, "%o1");
+
+
+        // Handle float register
+        String loadRegister = "%o0";
+        if (sto.getType() instanceof FloatType)
+            loadRegister = "%f0";
+
+        // Literal
+        if (expr.isRValue()) {
+
+            // Float
+            if (expr.getType() instanceof FloatType) {
+                loadFloat(expr.getName(), "%l7", "%f0");
+
+            // Non-float
+            } else {
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, expr.getName(), "%o0");
+            }
+
+        // Variable/Expression
+        } else {
+            setAddressLoad(expr, "%l7", loadRegister);
+        }
+
+        writeAssembly(ACGstrs.ST, loadRegister, "%o1");
+        decreaseIndent();
+    }
+
+    // Not sure yet here
+    //----------------------------------------------------------------
+
     public void doDesignatorID(STO sto) {
-        doSTOLoad(sto, "%l7", "%o0");
+        setAddressLoad(sto, "%l7", "%o0");
     }
 
     public void doBinaryExpr(STO a, Operator o, STO b) {
 
     }
 
+    // Helpers
+    //----------------------------------------------------------------
+    public void doSection(String section) {
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.SECTION, section);
+        writeAssembly(ACGstrs.ALIGN, "4");
+    }
+
+    public void setAddressLoad(STO sto, String set, String load) {
+        setAddress(sto, set);
+        writeAssembly(ACGstrs.LD, set, load);
+    }
+
+    public void setAddress(STO sto, String set) {
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
+    }
+
+    public void loadFloat(String f, String set, String load) {
+        String floatLabel = ".$$.float." + m_floatCount++;
+
+        doSection(".rodata");
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, floatLabel);
+        increaseIndent();
+        writeAssembly(ACGstrs.SINGLE, f);
+
+        doSection(".text");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, floatLabel, set);
+        writeAssembly(ACGstrs.LD, set, load);
+    }
+
+
+    // Functions
     //----------------------------------------------------------------
 
     public void doFuncDecl_1(String id, Type returnType, boolean optRef) {
         String functionName = id + "." + returnType.getName();
+        m_localStaticAppend = functionName + ".";
 
         increaseIndent();
         writeAssembly(ACGstrs.GLOBAL, id);
@@ -339,14 +403,14 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-    public void doFuncDecl_2(String functionName) {
+    public void doFuncDecl_2(String functionName, FuncSTO func) {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "End of function " + functionName);
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName + ".fini");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
-        writeAssembly("SAVE." + functionName + " = -(92 + 0) & -8\n");
+        writeAssembly("SAVE." + functionName + " = -(92 + " + func.stackSize() + ") & -8\n");
         writeAssembly(ACGstrs.NEWLINE);
 
         decreaseIndent();
@@ -357,6 +421,8 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
         decreaseIndent();
+
+        m_localStaticAppend = "";
     }
 
 

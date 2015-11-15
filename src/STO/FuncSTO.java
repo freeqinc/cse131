@@ -15,6 +15,7 @@ public class FuncSTO extends STO
 	private boolean m_returnByRef = false;
 	private boolean m_overloaded = false;
 	private String m_memberOf = null;
+	private int m_localVarPointer = 0;
 
 	//----------------------------------------------------------------
 	//
@@ -45,6 +46,7 @@ public class FuncSTO extends STO
 		m_memberOf = id;
 	}
 
+	public String stackSize() { return -m_localVarPointer + ""; }
 	//----------------------------------------------------------------
 	// This is the return type of the function. This is different from 
 	// the function's type (for function pointers - which we are not 
@@ -84,4 +86,10 @@ public class FuncSTO extends STO
 	public boolean isOverloaded() { return m_overloaded; }
 
 	public Type getType () { return getReturnType(); }
+
+
+	public void allocateLocalVar(STO sto) {
+		sto.setBase("%fp");
+		sto.setOffset( (m_localVarPointer -= sto.getType().getSize()) + "" );
+	}
 }

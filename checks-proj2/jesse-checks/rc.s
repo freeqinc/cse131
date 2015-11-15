@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Sat Nov 14 04:12:50 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Sun Nov 15 02:00:25 PST 2015
  */
 
 	
@@ -105,6 +105,86 @@ var4:
 	.section	".text"
 	.align  	4
 	
+	.section	".bss"
+	.align  	4
+	.global 	aVar1
+aVar1:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.aVar1:
+	set     	SAVE..$.init.aVar1, %g1
+	save    	%sp, %g1, %sp
+		
+		! aVar1 = var2
+		set     	aVar1, %o1
+		add     	%g0, %o1, %o1
+		set     	var2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.aVar1
+	call    	.$.init.aVar1.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.aVar1 = -(92 + 0) & -8
+	
+.$.init.aVar1.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.aVar1
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	aVar2
+aVar2:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.aVar2:
+	set     	SAVE..$.init.aVar2, %g1
+	save    	%sp, %g1, %sp
+		
+		! aVar2 = var4
+		set     	aVar2, %o1
+		add     	%g0, %o1, %o1
+		set     	var4, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.aVar2
+	call    	.$.init.aVar2.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.aVar2 = -(92 + 0) & -8
+	
+.$.init.aVar2.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.aVar2
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
 	.section	".data"
 	.align  	4
 	.global 	cgInt
@@ -137,6 +217,24 @@ cgBool:
 	.global 	cgInt2
 cgInt2:
 	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	aVar3
+aVar3:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	aVar4
+aVar4:
+	.single 	0r5.5
 	
 	.section	".text"
 	.align  	4
@@ -416,13 +514,116 @@ main.void:
 	save    	%sp, %g1, %sp
 		
 		! Store params
+		
+		! local2 = 6.6
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.1:
+		.single 	0r6.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.1, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! local2_2 = 6.6
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.2:
+		.single 	0r6.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.2, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! local3 = local2
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! local4 = local1
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local5 = local11
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local6 = cgInt
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		set     	cgInt, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local7 = 5
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! clocal = 5
+		set     	-44, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! clocal2 = 5
+		set     	-48, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! clocal3 = 4.4
+		set     	-52, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.3:
+		.single 	0r4.4
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.3, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! clocal4 = clocal3
+		set     	-56, %o1
+		add     	%fp, %o1, %o1
+		set     	-52, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
 	
 	! End of function main.void
 	call    	main.void.fini
 	nop     
 	ret     
 	restore 
-	SAVE.main.void = -(92 + 0) & -8
+	SAVE.main.void = -(92 + 56) & -8
 	
 main.void.fini:
 	save    	%sp, -96, %sp
@@ -435,15 +636,111 @@ pain.void:
 	save    	%sp, %g1, %sp
 		
 		! Store params
+		
+		! pocal2 = 6.6
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.4:
+		.single 	0r6.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.4, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! pocal3 = pocal2
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! pocal4 = pocal1
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! pocal5 = pocal11
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! var1 = var1
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		set     	var1, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! var2 = pocal2
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! var3 = cgFloat
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		set     	cgFloat, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
 	
 	! End of function pain.void
 	call    	pain.void.fini
 	nop     
 	ret     
 	restore 
-	SAVE.pain.void = -(92 + 0) & -8
+	SAVE.pain.void = -(92 + 40) & -8
 	
 pain.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	zain
+zain:
+zain.void:
+	set     	SAVE.zain.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		
+		! var1 = 6
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		set     	6, %o0
+		st      	%o0, [%o1]
+		
+		! var2 = var1
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		set     	var1, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function zain.void
+	call    	zain.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.zain.void = -(92 + 8) & -8
+	
+zain.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 

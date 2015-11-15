@@ -700,10 +700,8 @@ class MyParser extends parser
 		}
 	}
 
-	void DoVarDecl(String id, Type t, STO expr, boolean optStatic)
-	{
-		if (m_symtab.accessLocal(id) != null)
-		{
+	void DoVarDecl(String id, Type t, STO expr, boolean optStatic) {
+		if (m_symtab.accessLocal(id) != null) {
 			m_nNumErrors++;
 
 			String error = m_inStruct ? ErrorMsg.error13a_Struct : ErrorMsg.redeclared_id;
@@ -729,8 +727,10 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 
-		// Global Scope
-		if (m_symtab.inGlobalScope()) {
+
+
+		// Global Scope or Static
+		if (optStatic || m_symtab.inGlobalScope()) {
 
 			sto.setBase("%g0");
 			sto.setOffset(id);
@@ -748,6 +748,16 @@ class MyParser extends parser
 			// Declaration
 			} else {
 				m_asGenerator.doUninitGlobalStatic(sto, optStatic);
+			}
+		// Local Scope
+		} else {
+
+			m_symtab.getFunc().allocateLocalVar(sto);
+			// System.out.println(sto.getName() + " " + sto.getAddress());
+
+			// Initialization
+			if (expr != null) {
+				m_asGenerator.doLocalVariable(sto, expr, optStatic);
 			}
 		}
 
@@ -913,6 +923,12 @@ class MyParser extends parser
 
 				// Initialization
 				m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr, optStatic);
+			} else {
+
+				m_symtab.getFunc().allocateLocalVar(sto);
+
+				m_asGenerator.doLocalVariable(sto, expr, optStatic);
+
 			}
 		}
 
@@ -1062,7 +1078,7 @@ class MyParser extends parser
 		m_symtab.closeScope();
 
 		FuncSTO curr = m_symtab.getFunc();
-		m_asGenerator.doFuncDecl_2(curr.getName() + "." + curr.getReturnType().getName());
+		m_asGenerator.doFuncDecl_2(curr.getName() + "." + curr.getReturnType().getName(), m_symtab.getFunc());
 
 		m_symtab.setFunc(null);
 	}
