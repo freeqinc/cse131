@@ -13,7 +13,7 @@ public class NotOp extends UnaryOp {
     public STO checkOperand(STO a) {
         Type aType = a.getType();
 
-        String name = getName() + a.getName();
+        String name = getName() + "(" + a.getName() +  ")";
 
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue();

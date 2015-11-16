@@ -5,6 +5,9 @@ float var4 = 459.25;
 auto aVar1 = var2;
 auto aVar2 = var4;
 
+int arith1 = var1 + 5 + 5;
+// int arith2 = var1 + 5 + 5;
+
 
 const int cgInt = 5;
 const float cgFloat = 5.5;
@@ -34,6 +37,7 @@ static int st6 = st4;
 static int st7 = cgInt;
 static int st8 = st5;
 
+
 function : void main () {
     int local1;
     int local11;
@@ -50,6 +54,32 @@ function : void main () {
     const int clocal2 = 5;
     const float clocal3 = 4.4;
     const float clocal4 = clocal3;
+
+    const int c1 = 210;
+    const int c2 = sizeof(c1) + c1;
+
+
+    // int arith1 = 5 + 10 - local7 + -clocal2;
+    int arith2 = local7 + local7 + 5;
+    int arith3 = local7 - local7 - 5;
+
+
+    cout << c1 + 210 << endl; // outputs 420
+    cout << c2 << endl; // outputs 214
+    const float r1 = 420.25;
+    cout << r1 + 662.50 << "\n"; // outputs 1082.75
+    cout << sizeof(r1) << endl; // outputs 4
+    cout << sizeof(r1) + 7.8 + clocal3 << endl; // outputs something
+
+
+    cout << local7 << endl;
+    cout << local7 << 3 << endl;
+    cout << 1 << 2 << 3 << 4 << 5 << endl;
+    cout << 6.6 << 6.6666 << local2 << endl;
+    cout << true << cgBool << endl;
+    cout << 5 << 6.6 << true << "string" << endl;
+    cout << cgInt << cgFloat << cgBool << endl;
+    cout << "poop" << endl;
 }
 
 function : void pain () {

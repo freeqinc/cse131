@@ -33,6 +33,7 @@ public class AssemblyCodeGenerator {
 
     // counters and trackers
     private int m_floatCount = 1;
+    private int m_stringCount = 1;
     private String m_localStaticAppend = "";
 
 
@@ -315,15 +316,15 @@ public class AssemblyCodeGenerator {
             loadRegister = "%f0";
 
         // Literal
-        if (expr.isRValue()) {
+        if (!expr.hasAddress()) {
 
             // Float
             if (expr.getType() instanceof FloatType) {
-                loadFloat(expr.getName(), "%l7", "%f0");
+                loadFloat(((ConstSTO)expr).getFloatValue() + "", "%l7", "%f0");
 
             // Non-float
-            } else {
-                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, expr.getName(), "%o0");
+            } else if (expr instanceof ConstSTO){
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP,((ConstSTO)expr).getIntValue() + "", "%o0");
             }
 
         // Variable/Expression
@@ -335,16 +336,13 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-    // Not sure yet here
+    // Designators
     //----------------------------------------------------------------
 
     public void doDesignatorID(STO sto) {
         setAddressLoad(sto, "%l7", "%o0");
     }
 
-    public void doBinaryExpr(STO a, Operator o, STO b) {
-
-    }
 
     // Helpers
     //----------------------------------------------------------------
@@ -354,17 +352,38 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ALIGN, "4");
     }
 
-    public void setAddressLoad(STO sto, String set, String load) {
-        setAddress(sto, set);
-        writeAssembly(ACGstrs.LD, set, load);
-    }
-
     public void setAddress(STO sto, String set) {
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
     }
 
-    public void loadFloat(String f, String set, String load) {
+    public void setAddressLoad(STO sto, String set, String load) {
+        setAddress(sto, set);
+        writeAssembly(ACGstrs.LD, set, load);
+    }
+
+    public void storeIntoAddress(STO sto, String set, String store) {
+        setAddress(sto,set);
+        writeAssembly(ACGstrs.ST, store, set);
+    }
+
+    public void loadSTO(STO sto, String set, String load) {
+
+        // Variable
+        if (sto.hasAddress() ) {
+            setAddressLoad(sto, set, load);
+
+        // Constant to load
+        } else if (sto instanceof ConstSTO && ((ConstSTO) sto).hasValue()) {
+            if (sto.getType() instanceof FloatType) {
+
+            } else {
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO) sto).getIntValue() + "", load);
+            }
+        }
+    }
+
+    public String loadFloat(String f, String set, String load) {
         String floatLabel = ".$$.float." + m_floatCount++;
 
         doSection(".rodata");
@@ -376,6 +395,55 @@ public class AssemblyCodeGenerator {
         doSection(".text");
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, floatLabel, set);
         writeAssembly(ACGstrs.LD, set, load);
+
+        return floatLabel;
+    }
+
+    public String loadString(String s) {
+        String stringLabel = ".$$.str." + m_stringCount++;
+
+        doSection(".rodata");
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, stringLabel);
+        increaseIndent();
+        writeAssembly(ACGstrs.ASCIZ, s);
+
+        doSection(".text");
+
+        return stringLabel;
+    }
+
+
+    // Arithmetic
+    //----------------------------------------------------------------
+
+    public void doBinaryExpr(STO a, Operator o, STO b, STO expr) {
+
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, expr.getName());
+
+        // + - * / %
+        if (o instanceof ArithmeticOp) {
+            doIntArithmeticOp(a, o, b, expr);
+        }
+
+        decreaseIndent();
+    }
+
+    public void doIntArithmeticOp(STO a, Operator o, STO b, STO expr) {
+        loadSTO(a, "%l7", "%o0");
+        loadSTO(b, "%l7", "%o1");
+
+        if (o instanceof AddOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
+        } else if (o instanceof MinusOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o0");
+        }
+
+        storeIntoAddress(expr, "%o1", "%o0");
+
+        // System.out.println(a.getName() + " | " + b.getName());
     }
 
 
@@ -423,6 +491,82 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
 
         m_localStaticAppend = "";
+    }
+
+    // IO
+    //----------------------------------------------------------------
+
+    public void doEndLine() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "cout << endl");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ".$$.strEndl", "%o0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, "printf");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+    }
+
+
+    public void doCout(STO sto) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "cout << " + sto.getName());
+
+        printFmt(sto);
+        decreaseIndent();
+    }
+
+    public void doStringCout(ConstSTO sto) {
+        increaseIndent();
+
+        String label = loadString(sto.getStringLit());
+        writeAssembly(ACGstrs.COMMENT, "cout << " + sto.getName());
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ".$$.strFmt", "%o0" );
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, label, "%o1" );
+
+        printFmtCall(sto.getType());
+        decreaseIndent();
+    }
+
+    public void printFmt(STO sto) {
+        Type type = sto.getType();
+
+        // Variable
+        if (!sto.isRValue()) {
+            if (type instanceof IntType) {
+                setAddressLoad(sto, "%l7", "%o1");
+            } else if (type instanceof BoolType) {
+                setAddressLoad(sto, "%l7", "%o0");
+            } else if (type instanceof FloatType) {
+                setAddressLoad(sto, "%l7", "%f0");
+            }
+
+        // Constant
+        } else {
+            if (type instanceof IntType) {
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO)sto).getIntValue() + "", "%o1" );
+            } else if (type instanceof BoolType) {
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO)sto).getIntValue() + "", "%o0" );
+            } else if (type instanceof FloatType) {
+                loadFloat(((ConstSTO)sto).getFloatValue() + "", "%l7", "%f0");
+            }
+        }
+
+        printFmtCall(sto.getType());
+    }
+
+    public void printFmtCall(Type type) {
+        if (type instanceof IntType) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ".$$.intFmt", "%o0");
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, "printf");
+        } else if (type instanceof BoolType) {
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.printBool");
+        } else if (type instanceof FloatType) {
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, "printFloat");
+        } else if (type instanceof StringType) {
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, "printf");
+        }
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
     }
 
 

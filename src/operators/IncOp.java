@@ -13,7 +13,7 @@ public class IncOp extends UnaryOp {
     public STO checkOperand(STO a) {
         Type aType = a.getType();
 
-        String name = getName() + a.getName();
+        String name = getName() + "(" + a.getName() +  ")";
 
         if (aType instanceof PointerType) {
             if (!a.isModLValue())

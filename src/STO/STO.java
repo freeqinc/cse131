@@ -44,6 +44,9 @@ public abstract class STO
 	public String getBase() { return m_base; }
 	public String getOffset() { return m_offset; }
 	public String getAddress() { return getBase() + " " + getOffset(); }
+	public boolean hasAddress() {
+		return getBase() != null && getOffset() != null;
+	}
 
 	public void setBase(String str) { m_base = str; }
 	public void setOffset(String str) { m_offset = str; }

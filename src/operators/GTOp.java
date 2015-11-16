@@ -14,7 +14,7 @@ public class GTOp extends ComparisonOp {
         Type aType = a.getType();
         Type bType = b.getType();
 
-        String name = a.getName() + getName() + b.getName();
+        String name = "(" + a.getName() + ")" + getName() + "(" + b.getName() + ")";
 
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();

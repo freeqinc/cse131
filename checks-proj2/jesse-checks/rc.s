@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Sun Nov 15 02:00:25 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Mon Nov 16 03:08:46 PST 2015
  */
 
 	
@@ -180,6 +180,63 @@ aVar2:
 	.section	".init"
 	.align  	4
 	call    	.$.init.aVar2
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	! (var1)+(5)
+	set     	var1, %l7
+	add     	%g0, %l7, %l7
+	ld      	[%l7], %o0
+	set     	5, %o1
+	add     	%o0, %o1, %o0
+	set     	null, %o1
+	add     	null, %o1, %o1
+	st      	%o0, [%o1]
+	
+	! ((var1)+(5))+(5)
+	set     	5, %o1
+	add     	%o0, %o1, %o0
+	set     	null, %o1
+	add     	null, %o1, %o1
+	st      	%o0, [%o1]
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith1
+arith1:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith1:
+	set     	SAVE..$.init.arith1, %g1
+	save    	%sp, %g1, %sp
+		
+		! arith1 = ((var1)+(5))+(5)
+		set     	arith1, %o1
+		add     	%g0, %o1, %o1
+		set     	null, %l7
+		add     	null, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith1
+	call    	.$.init.arith1.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith1 = -(92 + 0) & -8
+	
+.$.init.arith1.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith1
 	nop     
 	
 	.section	".text"
@@ -617,13 +674,393 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
+		
+		! c1 = 210
+		set     	-60, %o1
+		add     	%fp, %o1, %o1
+		set     	210, %o0
+		st      	%o0, [%o1]
+		
+		! c2 = (sizeof(int))+(c1)
+		set     	-64, %o1
+		add     	%fp, %o1, %o1
+		set     	214, %o0
+		st      	%o0, [%o1]
+		
+		! (local7)+(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-68, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)+(local7))+(5)
+		set     	-68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-72, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith2 = ((local7)+(local7))+(5)
+		set     	-76, %o1
+		add     	%fp, %o1, %o1
+		set     	-72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! (local7)-(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-80, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)-(local7))-(5)
+		set     	-80, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		sub     	%o0, %o1, %o0
+		set     	-84, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith3 = ((local7)-(local7))-(5)
+		set     	-88, %o1
+		add     	%fp, %o1, %o1
+		set     	-84, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! cout << (c1)+(210)
+		set     	420, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << c2
+		set     	-64, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! r1 = 420.25
+		set     	-92, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.4:
+		.single 	0r420.25
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.4, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! cout << (r1)+(662.50)
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.5:
+		.single 	0r1082.75
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.5, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		.section	".rodata"
+		.align  	4
+	.$$.str.1:
+		.asciz  	"\n"
+		
+		.section	".text"
+		.align  	4
+		! cout << "\n"
+		set     	.$$.strFmt, %o0
+		set     	.$$.str.1, %o1
+		call    	printf
+		nop     
+		
+		! cout << sizeof(float)
+		set     	4, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << ((sizeof(float))+(7.8))+(clocal3)
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.6:
+		.single 	0r16.2
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.6, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << local7
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << local7
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << 3
+		set     	3, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << 1
+		set     	1, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << 2
+		set     	2, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << 3
+		set     	3, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << 4
+		set     	4, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << 5
+		set     	5, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << 6.6
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.7:
+		.single 	0r6.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.7, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << 6.6666
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.8:
+		.single 	0r6.6666
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.8, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << local2
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << true
+		set     	1, %o0
+		call    	.$$.printBool
+		nop     
+		
+		! cout << cgBool
+		set     	cgBool, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		call    	.$$.printBool
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << 5
+		set     	5, %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << 6.6
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.9:
+		.single 	0r6.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.9, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << true
+		set     	1, %o0
+		call    	.$$.printBool
+		nop     
+		
+		.section	".rodata"
+		.align  	4
+	.$$.str.2:
+		.asciz  	"string"
+		
+		.section	".text"
+		.align  	4
+		! cout << "string"
+		set     	.$$.strFmt, %o0
+		set     	.$$.str.2, %o1
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! cout << cgInt
+		set     	cgInt, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		set     	.$$.intFmt, %o0
+		call    	printf
+		nop     
+		
+		! cout << cgFloat
+		set     	cgFloat, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << cgBool
+		set     	cgBool, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		call    	.$$.printBool
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		.section	".rodata"
+		.align  	4
+	.$$.str.3:
+		.asciz  	"poop"
+		
+		.section	".text"
+		.align  	4
+		! cout << "poop"
+		set     	.$$.strFmt, %o0
+		set     	.$$.str.3, %o1
+		call    	printf
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
 	
 	! End of function main.void
 	call    	main.void.fini
 	nop     
 	ret     
 	restore 
-	SAVE.main.void = -(92 + 56) & -8
+	SAVE.main.void = -(92 + 92) & -8
 	
 main.void.fini:
 	save    	%sp, -96, %sp
@@ -643,12 +1080,12 @@ pain.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.4:
+	.$$.float.10:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.4, %l7
+		set     	.$$.float.10, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		

@@ -14,6 +14,10 @@ ssh jeqin@ieng9.ucsd.edu "cd ~/cse131-proj1-jeqin && /home/solaris/ieng9/cs131f/
 scp jeqin@ieng9.ucsd.edu:cse131-proj1-jeqin/rc.s $outputdir/.
 ssh jeqin@ieng9.ucsd.edu "cd ~/cse131-proj1-jeqin && /software/common/solstudio12/bin/cc rc.s ./input.c ./output.s && ./a.out" > $outputdir/rc.s.output
 
+# Move rc.s file to remote and run the output business on it
+scp rc.s jeqin@ieng9.ucsd.edu:cse131-proj1-jeqin/.
+ssh jeqin@ieng9.ucsd.edu "cd ~/cse131-proj1-jeqin && /software/common/solstudio12/bin/cc rc.s ./input.c ./output.s && ./a.out" > rc.s.output
+
 
 
 # run RC locally
@@ -37,3 +41,4 @@ ssh jeqin@ieng9.ucsd.edu "cd ~/cse131-proj1-jeqin && /software/common/solstudio1
 # echo ""
 # echo "Opening in opendiff"
 opendiff rc.s $outputdir/rc.s
+# opendiff rc.s.output $outputdir/rc.s.output

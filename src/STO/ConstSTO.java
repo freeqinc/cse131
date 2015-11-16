@@ -19,6 +19,7 @@ public class ConstSTO extends STO
     //	Feel free to change this if you don't like it!
     //----------------------------------------------------------------
     private BigDecimal	m_value;
+	private String m_strLit;
 
 	//----------------------------------------------------------------
 	//
@@ -81,6 +82,13 @@ public class ConstSTO extends STO
 		setNonModLValue();
 	}
 
+	public ConstSTO(String strName, Type typ, String lit) {
+		super("\"" + strName + "\"", typ);
+
+		m_strLit = lit;
+		setNonModLValue();
+	}
+
 
 
 	public void setLiteral() {
@@ -106,6 +114,7 @@ public class ConstSTO extends STO
 	{
 		return m_value;
 	}
+	public String getStringLit() { return m_strLit; }
 
 	//----------------------------------------------------------------
 	//

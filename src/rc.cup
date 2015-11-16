@@ -134,7 +134,6 @@ non terminal
     ReturnStmt,
     ReadStmt,
     WriteStmt,
-    WritePairList,
     WritePair,
     Pointer,
     Array
@@ -185,6 +184,7 @@ non terminal Type
     ;
 
 non terminal Vector
+    WritePairList,
     OptPointerList,
     PointerList,
     OptCtorCall,
@@ -775,17 +775,35 @@ ReadStmt ::=        T_CIN T_ISTREAM Designator T_SEMI
     ;
 
 
-WriteStmt ::=       T_COUT T_OSTREAM WritePairList T_SEMI
+WriteStmt ::=       T_COUT T_OSTREAM WritePairList:_1 T_SEMI
+                    {:
+                        ((MyParser) parser).DoWriteStmt(_1);
+                    :}
     ;
 
 
-WritePairList ::=   WritePair
-    |               WritePairList T_OSTREAM WritePair
+WritePairList ::=   WritePair:_1
+                    {:
+                        RESULT = new Vector();
+                        RESULT.addElement(_1);
+                    :}
+    |               WritePairList:_1 T_OSTREAM WritePair:_2
+                    {:
+                        RESULT = _1;
+                        RESULT.addElement(_2);
+                    :}
     ;
 
 
-WritePair ::=       Expr
+WritePair ::=       Expr:_1
+                    {:
+                        RESULT = _1;
+                        ((MyParser) parser).DoWritePair(_1);
+                    :}
     |               T_ENDL
+                    {:
+                        ((MyParser) parser).DoEndLine();
+                    :}
     ;
 
 
@@ -1071,7 +1089,9 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_STR_LITERAL:_1
                     {:
-                        RESULT = new ConstSTO (_1);
+                        ConstSTO res = new ConstSTO(_1, new StringType(), _1);
+                        res.setLiteral();
+                        RESULT = res;
                     :}
     |               T_TRUE
                     {:

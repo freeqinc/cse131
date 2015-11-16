@@ -360,7 +360,7 @@ class MyParser extends parser
 			return new ErrorSTO(sto.getName());
 		}
 
-		ConstSTO ret = new ConstSTO(sto.getName(), new IntType(), sto.getType().getSize());
+		ConstSTO ret = new ConstSTO("sizeof(" + sto.getType().getName() + ")", new IntType(), sto.getType().getSize());
 		ret.setRValue();
 
 		// System.out.println("DoSizeOfSto " + sto.getName() + ": " + ret.getIntValue());
@@ -370,9 +370,9 @@ class MyParser extends parser
 	STO DoSizeOfType(Type type) {
 
 
-		ConstSTO ret = new ConstSTO(type.getName(), new IntType(), type.getSize());
+		ConstSTO ret = new ConstSTO("sizeof(" + type.getName()+ ")", new IntType(), type.getSize());
+		ret.setReference();
 
-		// System.out.println("DoSizeOfType " + type.getName() + ": " + ret.getIntValue());
 		return ret;
 	}
 
@@ -413,7 +413,8 @@ class MyParser extends parser
 
 		totalSize *= type.getSize();
 
-		ConstSTO ret = new ConstSTO(type.getName(), new IntType(), totalSize);
+		ConstSTO ret = new ConstSTO("sizeof(" + type.getName() + ")", new IntType(), totalSize);
+		ret.setRValue();
 
 		// System.out.println("DoSizeOfTypeArray " + type.getName() + ": " + ret.getIntValue());
 		return ret;
@@ -753,7 +754,6 @@ class MyParser extends parser
 		} else {
 
 			m_symtab.getFunc().allocateLocalVar(sto);
-			// System.out.println(sto.getName() + " " + sto.getAddress());
 
 			// Initialization
 			if (expr != null) {
@@ -1067,6 +1067,21 @@ class MyParser extends parser
 		}
 
 		return null;
+	}
+
+	void DoWriteStmt(Vector<STO> writeList) {
+	}
+
+	void DoWritePair(STO expr) {
+		// System.out.println(expr.getName() + " " + expr.getType().getName());
+		if (expr.getType() instanceof StringType)
+			m_asGenerator.doStringCout((ConstSTO)expr);
+		else
+			m_asGenerator.doCout(expr);
+	}
+
+	void DoEndLine() {
+		m_asGenerator.doEndLine();
 	}
 
 	//----------------------------------------------------------------
@@ -1683,8 +1698,27 @@ class MyParser extends parser
 
 		}
 
-		// m_asGenerator.doBinaryExpr(a, o, b);
-		// System.out.println(result.getName());
+
+		// Folded early exit
+		// Constant folded
+		if (result instanceof ConstSTO && ((ConstSTO) result).hasValue()) {
+			return result;
+		}
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+		// Global
+		if (m_symtab.inGlobalScope()) {
+
+
+		// Function scope
+		} else {
+			m_symtab.getFunc().allocateLocalVar(result);
+		}
+		 m_asGenerator.doBinaryExpr(a, o, b, result);
+
+		 // System.out.println(result.getName());
 
 		return result;
 	}
