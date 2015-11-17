@@ -43,6 +43,7 @@ public final class ACGstrs {
     public static final String ADD_OP = "add     ";
     public static final String SUB_OP = "sub     ";
     public static final String AND_OP = "and     ";
+    public static final String NEG_OP = "neg     ";
     public static final String OR_OP = "or      ";
     public static final String XOR_OP = "xor     ";
     public static final String RET_OP = "ret     ";

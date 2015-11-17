@@ -31,6 +31,7 @@ class MyParser extends parser
 	private String m_currStructId = "";
 	private StructdefSTO m_currStruct = null;
 	private AssemblyCodeGenerator m_asGenerator;
+	private FuncSTO m_bufferFunc;
 
 	//----------------------------------------------------------------
 	//
@@ -743,8 +744,12 @@ class MyParser extends parser
 					m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr, optStatic);
 				// Buffer value
 				} else {
+					m_asGenerator.stopBuffer();
+
 					m_asGenerator.doUninitGlobalStatic(sto, optStatic);
-					m_asGenerator.doAssignFlush(sto, expr);
+					m_asGenerator.doAssignFlush(sto, expr, m_bufferFunc);
+
+					m_bufferFunc = null;
 				}
 			// Declaration
 			} else {
@@ -1570,9 +1575,9 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 
-		m_asGenerator.startBuffer();
-		m_asGenerator.doDesignatorID(sto);
-		m_asGenerator.stopBuffer();
+//		m_asGenerator.startBuffer();
+//		m_asGenerator.doDesignatorID(sto);
+//		m_asGenerator.stopBuffer();
 
 		return sto;
 	}
@@ -1710,7 +1715,12 @@ class MyParser extends parser
 		//----------------
 		// Global
 		if (m_symtab.inGlobalScope()) {
+			m_asGenerator.startBuffer();
 
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
+			m_bufferFunc.allocateLocalVar(result);
 
 		// Function scope
 		} else {
@@ -1743,6 +1753,31 @@ class MyParser extends parser
 					break;
 			}
 		}
+
+
+		// Folded early exit
+		// Constant folded
+		if (result instanceof ConstSTO && ((ConstSTO) result).hasValue()) {
+			return result;
+		}
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+		// Global
+		if (m_symtab.inGlobalScope()) {
+			m_asGenerator.startBuffer();
+
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
+			m_bufferFunc.allocateLocalVar(result);
+
+			// Function scope
+		} else {
+			m_symtab.getFunc().allocateLocalVar(result);
+		}
+		m_asGenerator.doUnaryExpr(o, a, result);
 
 		// System.out.println(result.getName());
 

@@ -5,8 +5,8 @@ float var4 = 459.25;
 auto aVar1 = var2;
 auto aVar2 = var4;
 
-int arith1 = var1 + 5 + 5;
-// int arith2 = var1 + 5 + 5;
+int garith1 = var1 + 5 + 5;
+int garith2 = var1 + 5 + 5;
 
 
 const int cgInt = 5;
@@ -59,9 +59,13 @@ function : void main () {
     const int c2 = sizeof(c1) + c1;
 
 
-    // int arith1 = 5 + 10 - local7 + -clocal2;
+    int arith1 = 5 + 10 - -local7 + -clocal2 + +local7 + +clocal2;
     int arith2 = local7 + local7 + 5;
     int arith3 = local7 - local7 - 5;
+    int arith4 = +local7;
+    int arith5 = local7 / clocal2 * local7 % clocal / 5 * 10 % 5;
+    int arith6 = local7 & 5 | clocal2 ^ local6 & 5 | 10 ^ 3 | local7 ^ local7 & local6;
+    int arith7 = 5 + 10 - --local7 + ++local7 + -clocal2 + arith6++ - arith5--;
 
 
     cout << c1 + 210 << endl; // outputs 420
@@ -100,3 +104,31 @@ function : void zain () {
     int var1 = 6;
     int var2 = ::var1;
 }
+
+int local1;
+int local11;
+float local2 = 6.6;
+float local2_2 = 6.6;
+int local111;
+float local3 = local2;
+int local4 = local1;
+int local5 = local11;
+int local6 = cgInt;
+int local7 = 5;
+
+const int clocal = 5;
+const int clocal2 = 5;
+const float clocal3 = 4.4;
+const float clocal4 = clocal3;
+
+const int c1 = 210;
+const int c2 = sizeof(c1) + c1;
+
+
+int arith1 = 5 + 10 - -local7 + -clocal2 + +local7 + +clocal2;
+int arith2 = local7 + local7 + 5;
+int arith3 = local7 - local7 - 5;
+int arith4 = +local7;
+int arith5 = local7 / clocal2 * local7 % clocal / 5 * 10 % 5;
+int arith6 = local7 & 5 | clocal2 ^ local6 & 5 | 10 ^ 3 | local7 ^ local7 & local6;
+int arith7 = 5 + 10 - --local7 + ++local7 + -clocal2 + arith6++ - arith5--;

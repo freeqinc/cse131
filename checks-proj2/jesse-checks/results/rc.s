@@ -1,6 +1,6 @@
 	
 /*
- * Generated Mon Nov 16 03:08:47 PST 2015
+ * Generated Tue Nov 17 03:32:59 PST 2015
  */
 
 	
@@ -187,14 +187,14 @@ aVar2:
 	
 	.section	".bss"
 	.align  	4
-	.global 	arith1
-arith1:
+	.global 	garith1
+garith1:
 	.skip   	4
 	
 	.section	".text"
 	.align  	4
-.$.init.arith1:
-	set     	SAVE..$.init.arith1, %g1
+.$.init.garith1:
+	set     	SAVE..$.init.garith1, %g1
 	save    	%sp, %g1, %sp
 		
 		! (var1)+(5)
@@ -217,29 +217,89 @@ arith1:
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! arith1 = ((var1)+(5))+(5)
-		set     	arith1, %o1
+		! garith1 = ((var1)+(5))+(5)
+		set     	garith1, %o1
 		add     	%g0, %o1, %o1
 		set     	-8, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 	
-	! End of function .$.init.arith1
-	call    	.$.init.arith1.fini
+	! End of function .$.init.garith1
+	call    	.$.init.garith1.fini
 	nop     
 	ret     
 	restore 
-	SAVE..$.init.arith1 = -(92 + 8) & -8
+	SAVE..$.init.garith1 = -(92 + 8) & -8
 	
-.$.init.arith1.fini:
+.$.init.garith1.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
 	
 	.section	".init"
 	.align  	4
-	call    	.$.init.arith1
+	call    	.$.init.garith1
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	garith2
+garith2:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.garith2:
+	set     	SAVE..$.init.garith2, %g1
+	save    	%sp, %g1, %sp
+		
+		! (var1)+(5)
+		set     	var1, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((var1)+(5))+(5)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! garith2 = ((var1)+(5))+(5)
+		set     	garith2, %o1
+		add     	%g0, %o1, %o1
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.garith2
+	call    	.$.init.garith2.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.garith2 = -(92 + 8) & -8
+	
+.$.init.garith2.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.garith2
 	nop     
 	
 	.section	".text"
@@ -690,6 +750,74 @@ main.void:
 		set     	214, %o0
 		st      	%o0, [%o1]
 		
+		! -(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		neg     	%o0, %o0
+		set     	-68, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((5)+(10))-(-(local7))
+		set     	15, %o0
+		set     	-68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-72, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((5)+(10))-(-(local7)))+(-(clocal2))
+		set     	-72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-5, %o1
+		add     	%o0, %o1, %o0
+		set     	-76, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! +(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		mov     	%o0, %o0
+		set     	-80, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7))
+		set     	-76, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-80, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-84, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7)))+(+(clocal2))
+		set     	-84, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-88, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith1 = (((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7)))+(+(clocal2))
+		set     	-92, %o1
+		add     	%fp, %o1, %o1
+		set     	-88, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
 		! (local7)+(local7)
 		set     	-40, %l7
 		add     	%fp, %l7, %l7
@@ -698,24 +826,24 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		add     	%o0, %o1, %o0
-		set     	-68, %o1
+		set     	-96, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((local7)+(local7))+(5)
-		set     	-68, %l7
+		set     	-96, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	5, %o1
 		add     	%o0, %o1, %o0
-		set     	-72, %o1
+		set     	-100, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! arith2 = ((local7)+(local7))+(5)
-		set     	-76, %o1
+		set     	-104, %o1
 		add     	%fp, %o1, %o1
-		set     	-72, %l7
+		set     	-100, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -728,24 +856,341 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		sub     	%o0, %o1, %o0
-		set     	-80, %o1
+		set     	-108, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((local7)-(local7))-(5)
-		set     	-80, %l7
+		set     	-108, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	5, %o1
 		sub     	%o0, %o1, %o0
-		set     	-84, %o1
+		set     	-112, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! arith3 = ((local7)-(local7))-(5)
-		set     	-88, %o1
+		set     	-116, %o1
 		add     	%fp, %o1, %o1
-		set     	-84, %l7
+		set     	-112, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! +(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		mov     	%o0, %o0
+		set     	-120, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith4 = +(local7)
+		set     	-124, %o1
+		add     	%fp, %o1, %o1
+		set     	-120, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! (local7)/(clocal2)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-48, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.div
+		nop     
+		mov     	%o0, %o0
+		set     	-128, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)/(clocal2))*(local7)
+		set     	-128, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o0
+		set     	-132, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((local7)/(clocal2))*(local7))%(clocal)
+		set     	-132, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-44, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.rem
+		nop     
+		mov     	%o0, %o0
+		set     	-136, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((local7)/(clocal2))*(local7))%(clocal))/(5)
+		set     	-136, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		call    	.div
+		nop     
+		mov     	%o0, %o0
+		set     	-140, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10)
+		set     	-140, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	10, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o0
+		set     	-144, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
+		set     	-144, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		call    	.rem
+		nop     
+		mov     	%o0, %o0
+		set     	-148, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith5 = ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
+		set     	-152, %o1
+		add     	%fp, %o1, %o1
+		set     	-148, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! (local7)&(5)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		and     	%o0, %o1, %o0
+		set     	-156, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local6)&(5)
+		set     	-36, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		and     	%o0, %o1, %o0
+		set     	-160, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (clocal2)^((local6)&(5))
+		set     	-48, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-160, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		xor     	%o0, %o1, %o0
+		set     	-164, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)&(5))|((clocal2)^((local6)&(5)))
+		set     	-156, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-164, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		or      	%o0, %o1, %o0
+		set     	-168, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3))
+		set     	-168, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	9, %o1
+		or      	%o0, %o1, %o0
+		set     	-172, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local7)&(local6)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-36, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		and     	%o0, %o1, %o0
+		set     	-176, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local7)^((local7)&(local6))
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-176, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		xor     	%o0, %o1, %o0
+		set     	-180, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		set     	-172, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-180, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		or      	%o0, %o1, %o0
+		set     	-184, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith6 = ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		set     	-188, %o1
+		add     	%fp, %o1, %o1
+		set     	-184, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! --(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		sub     	%o0, %o1, %o2
+		set     	-192, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! ((5)+(10))-(--(local7))
+		set     	15, %o0
+		set     	-192, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-196, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ++(local7)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o2
+		set     	-200, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! (((5)+(10))-(--(local7)))+(++(local7))
+		set     	-196, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-200, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-204, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2))
+		set     	-204, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-5, %o1
+		add     	%o0, %o1, %o0
+		set     	-208, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (arith6)++
+		set     	-188, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o2
+		set     	-212, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		set     	-188, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! (((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++)
+		set     	-208, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-212, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-216, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (arith5)--
+		set     	-152, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		sub     	%o0, %o1, %o2
+		set     	-220, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		set     	-152, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		set     	-216, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-220, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-224, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith7 = ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		set     	-228, %o1
+		add     	%fp, %o1, %o1
+		set     	-224, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -775,7 +1220,7 @@ main.void:
 		nop     
 		
 		! r1 = 420.25
-		set     	-92, %o1
+		set     	-232, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
@@ -1063,7 +1508,7 @@ main.void:
 	nop     
 	ret     
 	restore 
-	SAVE.main.void = -(92 + 92) & -8
+	SAVE.main.void = -(92 + 232) & -8
 	
 main.void.fini:
 	save    	%sp, -96, %sp
@@ -1184,3 +1629,909 @@ zain.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
+	
+	.section	".bss"
+	.align  	4
+	.global 	local1
+local1:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	local11
+local11:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	local2
+local2:
+	.single 	0r6.6
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	local2_2
+local2_2:
+	.single 	0r6.6
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	local111
+local111:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	local3
+local3:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.local3:
+	set     	SAVE..$.init.local3, %g1
+	save    	%sp, %g1, %sp
+		
+		! local3 = local2
+		set     	local3, %o1
+		add     	%g0, %o1, %o1
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.local3
+	call    	.$.init.local3.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.local3 = -(92 + 0) & -8
+	
+.$.init.local3.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.local3
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	local4
+local4:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.local4:
+	set     	SAVE..$.init.local4, %g1
+	save    	%sp, %g1, %sp
+		
+		! local4 = local1
+		set     	local4, %o1
+		add     	%g0, %o1, %o1
+		set     	local1, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.local4
+	call    	.$.init.local4.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.local4 = -(92 + 0) & -8
+	
+.$.init.local4.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.local4
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	local5
+local5:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.local5:
+	set     	SAVE..$.init.local5, %g1
+	save    	%sp, %g1, %sp
+		
+		! local5 = local11
+		set     	local5, %o1
+		add     	%g0, %o1, %o1
+		set     	local11, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.local5
+	call    	.$.init.local5.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.local5 = -(92 + 0) & -8
+	
+.$.init.local5.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.local5
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	local6
+local6:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	local7
+local7:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	clocal
+clocal:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	clocal2
+clocal2:
+	.word   	5
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	clocal3
+clocal3:
+	.single 	0r4.4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	clocal4
+clocal4:
+	.single 	0r4.4
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	c1
+c1:
+	.word   	210
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".data"
+	.align  	4
+	.global 	c2
+c2:
+	.word   	214
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith1
+arith1:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith1:
+	set     	SAVE..$.init.arith1, %g1
+	save    	%sp, %g1, %sp
+		
+		! -(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		neg     	%o0, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((5)+(10))-(-(local7))
+		set     	15, %o0
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((5)+(10))-(-(local7)))+(-(clocal2))
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-5, %o1
+		add     	%o0, %o1, %o0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! +(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		mov     	%o0, %o0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7))
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7)))+(+(clocal2))
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith1 = (((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7)))+(+(clocal2))
+		set     	arith1, %o1
+		add     	%g0, %o1, %o1
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith1
+	call    	.$.init.arith1.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith1 = -(92 + 24) & -8
+	
+.$.init.arith1.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith1
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith2
+arith2:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith2:
+	set     	SAVE..$.init.arith2, %g1
+	save    	%sp, %g1, %sp
+		
+		! (local7)+(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)+(local7))+(5)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith2 = ((local7)+(local7))+(5)
+		set     	arith2, %o1
+		add     	%g0, %o1, %o1
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith2
+	call    	.$.init.arith2.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith2 = -(92 + 8) & -8
+	
+.$.init.arith2.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith2
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith3
+arith3:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith3:
+	set     	SAVE..$.init.arith3, %g1
+	save    	%sp, %g1, %sp
+		
+		! (local7)-(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)-(local7))-(5)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		sub     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith3 = ((local7)-(local7))-(5)
+		set     	arith3, %o1
+		add     	%g0, %o1, %o1
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith3
+	call    	.$.init.arith3.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith3 = -(92 + 8) & -8
+	
+.$.init.arith3.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith3
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith4
+arith4:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith4:
+	set     	SAVE..$.init.arith4, %g1
+	save    	%sp, %g1, %sp
+		
+		! +(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		mov     	%o0, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith4 = +(local7)
+		set     	arith4, %o1
+		add     	%g0, %o1, %o1
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith4
+	call    	.$.init.arith4.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith4 = -(92 + 4) & -8
+	
+.$.init.arith4.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith4
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith5
+arith5:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith5:
+	set     	SAVE..$.init.arith5, %g1
+	save    	%sp, %g1, %sp
+		
+		! (local7)/(clocal2)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	clocal2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.div
+		nop     
+		mov     	%o0, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)/(clocal2))*(local7)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((local7)/(clocal2))*(local7))%(clocal)
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	clocal, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.rem
+		nop     
+		mov     	%o0, %o0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((local7)/(clocal2))*(local7))%(clocal))/(5)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		call    	.div
+		nop     
+		mov     	%o0, %o0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10)
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	10, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		call    	.rem
+		nop     
+		mov     	%o0, %o0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith5 = ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
+		set     	arith5, %o1
+		add     	%g0, %o1, %o1
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith5
+	call    	.$.init.arith5.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith5 = -(92 + 24) & -8
+	
+.$.init.arith5.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith5
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith6
+arith6:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith6:
+	set     	SAVE..$.init.arith6, %g1
+	save    	%sp, %g1, %sp
+		
+		! (local7)&(5)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		and     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local6)&(5)
+		set     	local6, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		and     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (clocal2)^((local6)&(5))
+		set     	clocal2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		xor     	%o0, %o1, %o0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)&(5))|((clocal2)^((local6)&(5)))
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		or      	%o0, %o1, %o0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3))
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	9, %o1
+		or      	%o0, %o1, %o0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local7)&(local6)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	local6, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		and     	%o0, %o1, %o0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local7)^((local7)&(local6))
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		xor     	%o0, %o1, %o0
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-28, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		or      	%o0, %o1, %o0
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith6 = ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		set     	arith6, %o1
+		add     	%g0, %o1, %o1
+		set     	-32, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith6
+	call    	.$.init.arith6.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith6 = -(92 + 32) & -8
+	
+.$.init.arith6.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith6
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith7
+arith7:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith7:
+	set     	SAVE..$.init.arith7, %g1
+	save    	%sp, %g1, %sp
+		
+		! --(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		sub     	%o0, %o1, %o2
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		set     	local7, %o1
+		add     	%g0, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! ((5)+(10))-(--(local7))
+		set     	15, %o0
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ++(local7)
+		set     	local7, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o2
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		set     	local7, %o1
+		add     	%g0, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! (((5)+(10))-(--(local7)))+(++(local7))
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2))
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-5, %o1
+		add     	%o0, %o1, %o0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (arith6)++
+		set     	arith6, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o2
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		set     	arith6, %o1
+		add     	%g0, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! (((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++)
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (arith5)--
+		set     	arith5, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		sub     	%o0, %o1, %o2
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		set     	arith5, %o1
+		add     	%g0, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		set     	-28, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-32, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith7 = ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		set     	arith7, %o1
+		add     	%g0, %o1, %o1
+		set     	-36, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function .$.init.arith7
+	call    	.$.init.arith7.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith7 = -(92 + 36) & -8
+	
+.$.init.arith7.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith7
+	nop     
+	
+	.section	".text"
+	.align  	4

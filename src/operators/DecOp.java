@@ -8,12 +8,21 @@ import types.*;
  */
 public class DecOp extends UnaryOp {
 
-    public DecOp() { super("--"); }
+    private boolean m_isPre = false;
+
+    public DecOp(boolean isPre) {
+        super("--");
+        m_isPre = isPre;
+    }
+
+    public boolean isPre() {
+        return m_isPre;
+    }
 
     public STO checkOperand(STO a) {
         Type aType = a.getType();
 
-        String name = getName() + "(" + a.getName() +  ")";
+        String name = m_isPre ? getName() + "(" + a.getName() +  ")" : "(" + a.getName() +  ")" + getName();
 
         if (aType instanceof PointerType) {
             if (!a.isModLValue())

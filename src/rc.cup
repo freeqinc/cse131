@@ -153,7 +153,8 @@ non terminal Operator
     BooleanOp,
     Relation,
     BitwiseOp,
-    IncDecOp,
+    IncDecOpPre,
+    IncDecOpPost,
     Equality,
     UnarySign
     ;
@@ -162,6 +163,8 @@ non terminal STO
     Expr,
     Expr1,
     Expr2,
+    Expr2_1,
+    Expr2_2,
     Expr3,
     Expr4,
     Expr5,
@@ -856,9 +859,30 @@ Expr1 ::=           Expr1:_1 BooleanOp:_2 Expr2:_3
     ;
 
 
-Expr2 ::=           Expr2:_1 BitwiseOp:_2 Expr3:_3
+
+Expr2 ::=           Expr2:_1 T_BAR Expr2_1:_3
                     {:
-                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, _2, _3);
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, new BwOrOp(), _3);
+                    :}
+    |               Expr2_2:_1
+                    {:
+                        RESULT = _1;
+                    :}
+    ;
+
+Expr2_1 ::=        Expr2_1:_1 T_CARET Expr2_2:_3
+                    {:
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, new BwXorOp(), _3);
+                    :}
+    |               Expr2_2:_1
+                    {:
+                        RESULT = _1;
+                    :}
+    ;
+
+Expr2_2 ::=         Expr2_2:_1 T_AMPERSAND Expr3:_3
+                    {:
+                        RESULT = ((MyParser) parser).DoBinaryExpr (_1, new BwAndOp(), _3);
                     :}
     |               Expr3:_1
                     {:
@@ -989,13 +1013,23 @@ BitwiseOp ::=       T_AMPERSAND
                     :}
     ;
 
-IncDecOp ::=        T_PLUSPLUS
+IncDecOpPre ::=     T_PLUSPLUS
                     {:
-                        RESULT = new IncOp();
+                        RESULT = new IncOp(true);
                     :}
     |               T_MINUSMINUS
                     {:
-                        RESULT = new DecOp();
+                        RESULT = new DecOp(true);
+                    :}
+    ;
+
+IncDecOpPost ::=    T_PLUSPLUS
+                    {:
+                        RESULT = new IncOp(false);
+                    :}
+    |               T_MINUSMINUS
+                    {:
+                        RESULT = new DecOp(false);
                     :}
     ;
 
@@ -1032,7 +1066,7 @@ Designator ::=      T_STAR Designator:_1
                     {:
                         RESULT = ((MyParser) parser).DoTypeCast(_1, _2);
                     :}
-    |               IncDecOp:_1 Designator:_2
+    |               IncDecOpPre:_1 Designator:_2
                     {:
                         RESULT = ((MyParser) parser).DoUnaryExpr (_1, _2);
                     :}
@@ -1055,7 +1089,7 @@ Designator2 ::=     Designator2:_1 T_DOT T_ID:_3
                     {:
                         RESULT = ((MyParser) parser).DoDesignator2_Arrow (_1, _2);
                     :}
-    |               Designator2:_1 IncDecOp:_2
+    |               Designator2:_1 IncDecOpPost:_2
                     {:
                         RESULT = ((MyParser) parser).DoUnaryExpr (_2, _1);
                     :}

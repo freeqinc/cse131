@@ -3,100 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="14182e9f-0c6e-4ffa-9334-e52f78055438" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/ACGstrs.class" afterPath="$PROJECT_DIR$/bin/ACGstrs.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/AddOp.class" afterPath="$PROJECT_DIR$/bin/operators/AddOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/AndOp.class" afterPath="$PROJECT_DIR$/bin/operators/AndOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/ArithmeticOp.class" afterPath="$PROJECT_DIR$/bin/operators/ArithmeticOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/ArrayType.class" afterPath="$PROJECT_DIR$/bin/types/ArrayType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/AssemblyCodeGenerator.class" afterPath="$PROJECT_DIR$/bin/AssemblyCodeGenerator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/BasicType.class" afterPath="$PROJECT_DIR$/bin/types/BasicType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BinaryOp.class" afterPath="$PROJECT_DIR$/bin/operators/BinaryOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BitwiseOp.class" afterPath="$PROJECT_DIR$/bin/operators/BitwiseOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/BoolType.class" afterPath="$PROJECT_DIR$/bin/types/BoolType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BooleanOp.class" afterPath="$PROJECT_DIR$/bin/operators/BooleanOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BwAndOp.class" afterPath="$PROJECT_DIR$/bin/operators/BwAndOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BwOrOp.class" afterPath="$PROJECT_DIR$/bin/operators/BwOrOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/BwXorOp.class" afterPath="$PROJECT_DIR$/bin/operators/BwXorOp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/CUP$parser$actions.class" afterPath="$PROJECT_DIR$/bin/CUP$parser$actions.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/ComparisonOp.class" afterPath="$PROJECT_DIR$/bin/operators/ComparisonOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/CompositeType.class" afterPath="$PROJECT_DIR$/bin/types/CompositeType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/ConstSTO.class" afterPath="$PROJECT_DIR$/bin/STO/ConstSTO.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/DecOp.class" afterPath="$PROJECT_DIR$/bin/operators/DecOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/EQUOp.class" afterPath="$PROJECT_DIR$/bin/operators/EQUOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/ErrorMsg.class" afterPath="$PROJECT_DIR$/bin/ErrorMsg.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/ErrorPrinter.class" afterPath="$PROJECT_DIR$/bin/ErrorPrinter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/ErrorSTO.class" afterPath="$PROJECT_DIR$/bin/STO/ErrorSTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/ErrorType.class" afterPath="$PROJECT_DIR$/bin/types/ErrorType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/ExprSTO.class" afterPath="$PROJECT_DIR$/bin/STO/ExprSTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/FloatType.class" afterPath="$PROJECT_DIR$/bin/types/FloatType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Formatter.class" afterPath="$PROJECT_DIR$/bin/Formatter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/FuncSTO.class" afterPath="$PROJECT_DIR$/bin/STO/FuncSTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/GTEOp.class" afterPath="$PROJECT_DIR$/bin/operators/GTEOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/GTOp.class" afterPath="$PROJECT_DIR$/bin/operators/GTOp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/IncOp.class" afterPath="$PROJECT_DIR$/bin/operators/IncOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/IntType.class" afterPath="$PROJECT_DIR$/bin/types/IntType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/LTEOp.class" afterPath="$PROJECT_DIR$/bin/operators/LTEOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/LTOp.class" afterPath="$PROJECT_DIR$/bin/operators/LTOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Lexer.class" afterPath="$PROJECT_DIR$/bin/Lexer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/LineNumberPushbackStream.class" afterPath="$PROJECT_DIR$/bin/LineNumberPushbackStream.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/MinusOp.class" afterPath="$PROJECT_DIR$/bin/operators/MinusOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/ModOp.class" afterPath="$PROJECT_DIR$/bin/operators/ModOp.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MyParser.class" afterPath="$PROJECT_DIR$/bin/MyParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/NEQOp.class" afterPath="$PROJECT_DIR$/bin/operators/NEQOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/NotOp.class" afterPath="$PROJECT_DIR$/bin/operators/NotOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/NullPointerType.class" afterPath="$PROJECT_DIR$/bin/types/NullPointerType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/NumericType.class" afterPath="$PROJECT_DIR$/bin/types/NumericType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/Operator.class" afterPath="$PROJECT_DIR$/bin/operators/Operator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/OrOp.class" afterPath="$PROJECT_DIR$/bin/operators/OrOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/PointerType.class" afterPath="$PROJECT_DIR$/bin/types/PointerType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/RC.class" afterPath="$PROJECT_DIR$/bin/RC.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/STO.class" afterPath="$PROJECT_DIR$/bin/STO/STO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/scope/Scope.class" afterPath="$PROJECT_DIR$/bin/scope/Scope.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/SlashOp.class" afterPath="$PROJECT_DIR$/bin/operators/SlashOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/StarOp.class" afterPath="$PROJECT_DIR$/bin/operators/StarOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/StructType.class" afterPath="$PROJECT_DIR$/bin/types/StructType.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/StructdefSTO.class" afterPath="$PROJECT_DIR$/bin/STO/StructdefSTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/scope/SymbolTable.class" afterPath="$PROJECT_DIR$/bin/scope/SymbolTable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/Token.class" afterPath="$PROJECT_DIR$/bin/Token.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/Type.class" afterPath="$PROJECT_DIR$/bin/types/Type.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/UnaryMinus.class" afterPath="$PROJECT_DIR$/bin/operators/UnaryMinus.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/UnaryOp.class" afterPath="$PROJECT_DIR$/bin/operators/UnaryOp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/operators/UnaryPlus.class" afterPath="$PROJECT_DIR$/bin/operators/UnaryPlus.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/VarSTO.class" afterPath="$PROJECT_DIR$/bin/STO/VarSTO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/types/VoidType.class" afterPath="$PROJECT_DIR$/bin/types/VoidType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/parser.class" afterPath="$PROJECT_DIR$/bin/parser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/sym.class" afterPath="$PROJECT_DIR$/bin/sym.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/AddOp.java" afterPath="$PROJECT_DIR$/src/operators/AddOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/AndOp.java" afterPath="$PROJECT_DIR$/src/operators/AndOp.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ACGstrs.java" afterPath="$PROJECT_DIR$/src/ACGstrs.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" afterPath="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/BwAndOp.java" afterPath="$PROJECT_DIR$/src/operators/BwAndOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/BwOrOp.java" afterPath="$PROJECT_DIR$/src/operators/BwOrOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/BwXorOp.java" afterPath="$PROJECT_DIR$/src/operators/BwXorOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/STO/ConstSTO.java" afterPath="$PROJECT_DIR$/src/STO/ConstSTO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/DecOp.java" afterPath="$PROJECT_DIR$/src/operators/DecOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/EQUOp.java" afterPath="$PROJECT_DIR$/src/operators/EQUOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/GTEOp.java" afterPath="$PROJECT_DIR$/src/operators/GTEOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/GTOp.java" afterPath="$PROJECT_DIR$/src/operators/GTOp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/IncOp.java" afterPath="$PROJECT_DIR$/src/operators/IncOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/LTEOp.java" afterPath="$PROJECT_DIR$/src/operators/LTEOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/LTOp.java" afterPath="$PROJECT_DIR$/src/operators/LTOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/MinusOp.java" afterPath="$PROJECT_DIR$/src/operators/MinusOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/ModOp.java" afterPath="$PROJECT_DIR$/src/operators/ModOp.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MyParser.java" afterPath="$PROJECT_DIR$/src/MyParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/NEQOp.java" afterPath="$PROJECT_DIR$/src/operators/NEQOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/NotOp.java" afterPath="$PROJECT_DIR$/src/operators/NotOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/OrOp.java" afterPath="$PROJECT_DIR$/src/operators/OrOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/STO/STO.java" afterPath="$PROJECT_DIR$/src/STO/STO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/SlashOp.java" afterPath="$PROJECT_DIR$/src/operators/SlashOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/StarOp.java" afterPath="$PROJECT_DIR$/src/operators/StarOp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/UnaryMinus.java" afterPath="$PROJECT_DIR$/src/operators/UnaryMinus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/operators/UnaryPlus.java" afterPath="$PROJECT_DIR$/src/operators/UnaryPlus.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/p1c1.rc" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/p1c1.rc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/parser.java" afterPath="$PROJECT_DIR$/src/parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rc.cup" afterPath="$PROJECT_DIR$/src/rc.cup" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s.output" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s.output" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s.output" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s.output" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/script.sh" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/script.sh" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sym.java" afterPath="$PROJECT_DIR$/src/sym.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -123,9 +46,35 @@
       <file leaf-file-name="rc.cup" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rc.cup">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.111111">
-              <caret line="998" column="22" selection-start-line="998" selection-start-column="22" selection-end-line="998" selection-end-column="22" />
+            <state vertical-scroll-proportion="-8.740741">
+              <caret line="1027" column="30" selection-start-line="1027" selection-start-column="30" selection-end-line="1027" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IncOp.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/operators/IncOp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
+              <folding>
+                <element signature="e#285#286#0" expanded="true" />
+                <element signature="e#315#316#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DecOp.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/operators/DecOp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.24193548">
+              <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+              <folding>
+                <element signature="e#285#286#0" expanded="true" />
+                <element signature="e#315#316#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -146,32 +95,34 @@
       <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MyParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.888889">
-              <caret line="1705" column="9" selection-start-line="1705" selection-start-column="9" selection-end-line="1705" selection-end-column="9" />
+            <state vertical-scroll-proportion="-10.888889">
+              <caret line="1735" column="15" selection-start-line="1735" selection-start-column="8" selection-end-line="1735" selection-end-column="15" />
               <folding>
-                <element signature="e#0#48452#0" expanded="true" />
+                <element signature="e#0#49230#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#14833#14834#0" expanded="true" />
-                <element signature="e#14886#14887#0" expanded="true" />
-                <element signature="e#14951#14952#0" expanded="true" />
-                <element signature="e#15006#15007#0" expanded="true" />
-                <element signature="e#29691#29692#0" expanded="true" />
-                <element signature="e#29723#29724#0" expanded="true" />
+                <element signature="e#14864#14865#0" expanded="true" />
+                <element signature="e#14917#14918#0" expanded="true" />
+                <element signature="e#14982#14983#0" expanded="true" />
+                <element signature="e#15037#15038#0" expanded="true" />
+                <element signature="e#29797#29798#0" expanded="true" />
+                <element signature="e#29829#29830#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AssemblyCodeGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AssemblyCodeGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36491936">
-              <caret line="318" column="13" selection-start-line="318" selection-start-column="13" selection-end-line="318" selection-end-column="13" />
+            <state vertical-scroll-proportion="-9.592592">
+              <caret line="462" column="37" selection-start-line="462" selection-start-column="37" selection-end-line="462" selection-end-column="37" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#11545#11546#0" expanded="true" />
-                <element signature="e#11594#11595#0" expanded="true" />
+                <element signature="e#2852#2853#0" expanded="true" />
+                <element signature="e#2884#2885#0" expanded="true" />
+                <element signature="e#11587#11588#0" expanded="true" />
+                <element signature="e#11636#11637#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -180,8 +131,8 @@
       <file leaf-file-name="ACGstrs.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="23" column="36" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="36" />
+            <state vertical-scroll-proportion="-5.0">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -239,9 +190,7 @@
         <option value="$PROJECT_DIR$/src/scope/SymbolTable.java" />
         <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/src/operators/Operator.java" />
-        <option value="$PROJECT_DIR$/src/ACGstrs.java" />
         <option value="$PROJECT_DIR$/src/STO/FuncSTO.java" />
-        <option value="$PROJECT_DIR$/src/rc.cup" />
         <option value="$PROJECT_DIR$/src/types/StringType.java" />
         <option value="$PROJECT_DIR$/src/STO/ConstSTO.java" />
         <option value="$PROJECT_DIR$/src/operators/AddOp.java" />
@@ -259,15 +208,17 @@
         <option value="$PROJECT_DIR$/src/operators/NEQOp.java" />
         <option value="$PROJECT_DIR$/src/operators/SlashOp.java" />
         <option value="$PROJECT_DIR$/src/operators/StarOp.java" />
-        <option value="$PROJECT_DIR$/src/operators/DecOp.java" />
-        <option value="$PROJECT_DIR$/src/operators/IncOp.java" />
         <option value="$PROJECT_DIR$/src/operators/NotOp.java" />
-        <option value="$PROJECT_DIR$/src/operators/UnaryMinus.java" />
-        <option value="$PROJECT_DIR$/src/operators/UnaryPlus.java" />
         <option value="$PROJECT_DIR$/src/operators/OrOp.java" />
         <option value="$PROJECT_DIR$/src/STO/STO.java" />
+        <option value="$PROJECT_DIR$/src/operators/UnaryMinus.java" />
+        <option value="$PROJECT_DIR$/src/operators/UnaryPlus.java" />
         <option value="$PROJECT_DIR$/src/MyParser.java" />
+        <option value="$PROJECT_DIR$/src/ACGstrs.java" />
+        <option value="$PROJECT_DIR$/src/operators/IncOp.java" />
         <option value="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/rc.cup" />
+        <option value="$PROJECT_DIR$/src/operators/DecOp.java" />
       </list>
     </option>
   </component>
@@ -358,7 +309,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="STO" />
+              <option name="myItemId" value="operators" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -639,13 +590,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/types/StructType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5506993">
-          <caret line="34" column="36" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/types/PointerType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -746,14 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.222221">
           <caret line="156" column="34" selection-start-line="156" selection-start-column="34" selection-end-line="156" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.037037">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -910,41 +846,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/DecOp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31451613">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/IncOp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3326613">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/operators/NotOp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39717743">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/UnaryMinus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4233871">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/operators/UnaryPlus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4233871">
           <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
           <folding />
         </state>
@@ -998,14 +902,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="36" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/STO/ConstSTO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8976546">
@@ -1025,11 +921,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rc.cup">
+    <entry file="file://$PROJECT_DIR$/src/operators/UnaryPlus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.111111">
-          <caret line="998" column="22" selection-start-line="998" selection-start-column="22" selection-end-line="998" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.5141129">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/UnaryMinus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45564517">
+          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.037037">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.0">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MyParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.888889">
+          <caret line="1735" column="15" selection-start-line="1735" selection-start-column="8" selection-end-line="1735" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#49230#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#14864#14865#0" expanded="true" />
+            <element signature="e#14917#14918#0" expanded="true" />
+            <element signature="e#14982#14983#0" expanded="true" />
+            <element signature="e#15037#15038#0" expanded="true" />
+            <element signature="e#29797#29798#0" expanded="true" />
+            <element signature="e#29829#29830#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.592592">
+          <caret line="462" column="37" selection-start-line="462" selection-start-column="37" selection-end-line="462" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2852#2853#0" expanded="true" />
+            <element signature="e#2884#2885#0" expanded="true" />
+            <element signature="e#11587#11588#0" expanded="true" />
+            <element signature="e#11636#11637#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1044,32 +996,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MyParser.java">
+    <entry file="file://$PROJECT_DIR$/src/rc.cup">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.888889">
-          <caret line="1705" column="9" selection-start-line="1705" selection-start-column="9" selection-end-line="1705" selection-end-column="9" />
+        <state vertical-scroll-proportion="-8.740741">
+          <caret line="1027" column="30" selection-start-line="1027" selection-start-column="30" selection-end-line="1027" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/operators/IncOp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="5" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
           <folding>
-            <element signature="e#0#48452#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#14833#14834#0" expanded="true" />
-            <element signature="e#14886#14887#0" expanded="true" />
-            <element signature="e#14951#14952#0" expanded="true" />
-            <element signature="e#15006#15007#0" expanded="true" />
-            <element signature="e#29691#29692#0" expanded="true" />
-            <element signature="e#29723#29724#0" expanded="true" />
+            <element signature="e#285#286#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/operators/DecOp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36491936">
-          <caret line="318" column="13" selection-start-line="318" selection-start-column="13" selection-end-line="318" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.24193548">
+          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#11545#11546#0" expanded="true" />
-            <element signature="e#11594#11595#0" expanded="true" />
+            <element signature="e#285#286#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -269,7 +269,7 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-    public void doAssignFlush(STO sto, STO expr) {
+    public void doAssignFlush(STO sto, STO expr, FuncSTO bufferFunc) {
         String functionName = ".$.init." + sto.getName();
 
         String loadRegister = "%o0";
@@ -280,9 +280,11 @@ public class AssemblyCodeGenerator {
         increaseIndent();
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
+
+        writeBuffer();
+
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
-
         writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getName(), "%o1");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
@@ -291,7 +293,8 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
 
 
-        doFuncDecl_2(functionName, new FuncSTO(""));
+
+        doFuncDecl_2(functionName, bufferFunc);
 
         increaseIndent();
         doSection(".init");
@@ -324,7 +327,7 @@ public class AssemblyCodeGenerator {
 
             // Non-float
             } else if (expr instanceof ConstSTO){
-                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP,((ConstSTO)expr).getIntValue() + "", "%o0");
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO) expr).getIntValue() + "", "%o0");
             }
 
         // Variable/Expression
@@ -414,9 +417,62 @@ public class AssemblyCodeGenerator {
     }
 
 
-    // Arithmetic
+    // Operators / Arithmetic
     //----------------------------------------------------------------
 
+    // Unary ----
+    public void doUnaryExpr(Operator o, STO a, STO expr) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, expr.getName());
+
+        // - +
+        if (o instanceof UnaryPlus || o instanceof UnaryMinus) {
+            doUnarySignOp(o, a, expr);
+
+        // -- ++
+        } else if (o instanceof IncOp || o instanceof DecOp) {
+            doIncDecOp(o, a, expr);
+        }
+
+        decreaseIndent();
+    }
+
+    public void doUnarySignOp(Operator o, STO a, STO expr) {
+        loadSTO(a, "%l7", "%o0");
+
+        if (o instanceof UnaryMinus) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.NEG_OP, "%o0", "%o0");
+        } else if (o instanceof UnaryPlus) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o0");
+        }
+
+        storeIntoAddress(expr, "%o1", "%o0");
+    }
+
+    public void doIncDecOp(Operator o, STO a, STO expr) {
+        String valueToStore = "%o0";
+
+        loadSTO(a, "%l7", "%o0");
+
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "1", "%o1");
+
+        if (o instanceof DecOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o2");
+            if (((DecOp) o).isPre())
+                valueToStore = "%o2";
+        } else if (o instanceof IncOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o2");
+            if (((IncOp) o).isPre())
+                valueToStore = "%o2";
+        }
+
+
+        storeIntoAddress(expr, "%o1", valueToStore);
+        storeIntoAddress(a, "%o1", "%o2");
+    }
+
+    // Binary ----
     public void doBinaryExpr(STO a, Operator o, STO b, STO expr) {
 
         increaseIndent();
@@ -425,6 +481,10 @@ public class AssemblyCodeGenerator {
 
         // + - * / %
         if (o instanceof ArithmeticOp) {
+            doIntArithmeticOp(a, o, b, expr);
+
+        // & | ^
+        } else if (o instanceof BitwiseOp) {
             doIntArithmeticOp(a, o, b, expr);
         }
 
@@ -439,6 +499,24 @@ public class AssemblyCodeGenerator {
             writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
         } else if (o instanceof MinusOp) {
             writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o0");
+        } else if (o instanceof StarOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".mul");
+        } else if (o instanceof SlashOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".div");
+        } else if (o instanceof ModOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".rem");
+        } else if (o instanceof BwAndOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.AND_OP, "%o0", "%o1", "%o0");
+        } else if (o instanceof BwOrOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.OR_OP, "%o0", "%o1", "%o0");
+        } else if (o instanceof BwXorOp) {
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.XOR_OP, "%o0", "%o1", "%o0");
+        }
+
+
+        if (o instanceof StarOp || o instanceof SlashOp || o instanceof ModOp) {
+            writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o0");
         }
 
         storeIntoAddress(expr, "%o1", "%o0");
@@ -472,13 +550,16 @@ public class AssemblyCodeGenerator {
     }
 
     public void doFuncDecl_2(String functionName, FuncSTO func) {
+        String stackSize = func == null ? "0" : func.stackSize();
+
+
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "End of function " + functionName);
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName + ".fini");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
-        writeAssembly("SAVE." + functionName + " = -(92 + " + func.stackSize() + ") & -8\n");
+        writeAssembly("SAVE." + functionName + " = -(92 + " + stackSize + ") & -8\n");
         writeAssembly(ACGstrs.NEWLINE);
 
         decreaseIndent();
@@ -532,7 +613,7 @@ public class AssemblyCodeGenerator {
         Type type = sto.getType();
 
         // Variable
-        if (!sto.isRValue()) {
+        if (sto.hasAddress()) {
             if (type instanceof IntType) {
                 setAddressLoad(sto, "%l7", "%o1");
             } else if (type instanceof BoolType) {
