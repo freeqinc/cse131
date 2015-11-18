@@ -1793,6 +1793,16 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.error4_Test, expr.getType().getName()));
 		}
+
+		m_asGenerator.doIfStmt(expr);
+	}
+
+	 void doIfCodeBlock() {
+		m_asGenerator.doIfStmt_2();
+	 }
+
+	void doIfElseBlock() {
+		m_asGenerator.doIfStmt_3();
 	}
 
 	STO DoExitStmt(STO expr) {

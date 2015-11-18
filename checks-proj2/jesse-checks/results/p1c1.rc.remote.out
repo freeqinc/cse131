@@ -1,1 +1,7 @@
-Compile: success.
+Error, "/tmp/cs131_testrunner_.ik4kN/file.rc", line 137: 
+  Return required in function, none found.
+Error, "/tmp/cs131_testrunner_.ik4kN/file.rc", line 141: 
+  Return required in function, none found.
+Error, "/tmp/cs131_testrunner_.ik4kN/file.rc", line 145: 
+  Return required in function, none found.
+Compile: failure.

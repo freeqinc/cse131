@@ -34,6 +34,8 @@ public class AssemblyCodeGenerator {
     // counters and trackers
     private int m_floatCount = 1;
     private int m_stringCount = 1;
+    private int m_ifStmtCount = 1;
+    private int m_cmpCount = 1;
     private String m_localStaticAppend = "";
 
 
@@ -479,21 +481,26 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, expr.getName());
 
+        loadSTO(a, "%l7", "%o0");
+        loadSTO(b, "%l7", "%o1");
+
         // + - * / %
         if (o instanceof ArithmeticOp) {
-            doIntArithmeticOp(a, o, b, expr);
+            doIntArithmeticOp(o, expr);
 
         // & | ^
         } else if (o instanceof BitwiseOp) {
-            doIntArithmeticOp(a, o, b, expr);
+            doIntArithmeticOp(o, expr);
+
+        // > < >= <= ==
+        } else if (o instanceof ComparisonOp) {
+            doComparisonOp(o, expr);
         }
 
         decreaseIndent();
     }
 
-    public void doIntArithmeticOp(STO a, Operator o, STO b, STO expr) {
-        loadSTO(a, "%l7", "%o0");
-        loadSTO(b, "%l7", "%o1");
+    public void doIntArithmeticOp(Operator o, STO expr) {
 
         if (o instanceof AddOp) {
             writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
@@ -520,10 +527,69 @@ public class AssemblyCodeGenerator {
         }
 
         storeIntoAddress(expr, "%o1", "%o0");
-
-        // System.out.println(a.getName() + " | " + b.getName());
     }
 
+    public void doComparisonOp(Operator o, STO expr) {
+
+        if (o instanceof GTOp) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%o1");
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BLE_OP, ".$$.cmp." + m_cmpCount);
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%g0", "%o0");
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.INC_OP, "%o0");
+            decreaseIndent();
+            writeAssembly(ACGstrs.LABEL, ".$$.cmp." + m_cmpCount++);
+            increaseIndent();
+        }
+
+        storeIntoAddress(expr, "%o1", "%o0");
+    }
+
+    // Statements
+    //----------------------------------------------------------------
+
+    public void doIfStmt(STO expr) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "if ( " + expr.getName() + " )");
+
+
+        // Folded constant
+        if (!expr.hasAddress()) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO)expr).getIntValue() + "", "%o0");
+
+        // Expr
+        } else {
+            loadSTO(expr, "%l7", "%o0");
+        }
+
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.else." + m_ifStmtCount);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+    }
+
+    public void doIfStmt_2() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.endif." + m_ifStmtCount);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        decreaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "else");
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.else." + m_ifStmtCount);
+        increaseIndent();
+        increaseIndent();
+        decreaseIndent();
+    }
+
+    public void doIfStmt_3() {
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "endif");
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.endif." + m_ifStmtCount++);
+    }
 
     // Functions
     //----------------------------------------------------------------

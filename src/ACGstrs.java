@@ -33,6 +33,7 @@ public final class ACGstrs {
     public static final String MOV_OP = "mov     ";
     public static final String SAVE_OP = "save    ";
     public static final String CMP_OP = "cmp     ";
+    public static final String BA_OP = "ba      ";
     public static final String BE_OP = "be      ";
     public static final String BNE_OP = "bne     ";
     public static final String BL_OP = "bl      ";
@@ -47,6 +48,8 @@ public final class ACGstrs {
     public static final String OR_OP = "or      ";
     public static final String XOR_OP = "xor     ";
     public static final String RET_OP = "ret     ";
+    public static final String INC_OP = "inc     ";
+    public static final String DEC_OP = "dec     ";
     public static final String RESTORE_OP = "restore ";
     public static final String CALL_OP = "call    ";
 
