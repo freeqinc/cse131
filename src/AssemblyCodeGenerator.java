@@ -38,6 +38,8 @@ public class AssemblyCodeGenerator {
     private int m_cmpCount = 1;
     private String m_localStaticAppend = "";
 
+    private ArrayList<String> m_ifStmtList = new ArrayList<String>();
+
 
     // ctor
     public AssemblyCodeGenerator(String fileToWrite) {
@@ -381,7 +383,7 @@ public class AssemblyCodeGenerator {
         // Constant to load
         } else if (sto instanceof ConstSTO && ((ConstSTO) sto).hasValue()) {
             if (sto.getType() instanceof FloatType) {
-
+                loadFloat(((ConstSTO) sto).getFloatValue() + "", set, "%f0");
             } else {
                 writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO) sto).getIntValue() + "", load);
             }
@@ -416,6 +418,16 @@ public class AssemblyCodeGenerator {
         doSection(".text");
 
         return stringLabel;
+    }
+
+    public void doCall(String function) {
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, function);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+    }
+
+    public void doReturn() {
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
     }
 
 
@@ -566,36 +578,60 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.else." + m_ifStmtCount);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
+        m_ifStmtList.add(m_ifStmtCount++ + "");
     }
 
     public void doIfStmt_2() {
+        String currStmt = m_ifStmtList.get(m_ifStmtList.size()-1);
+
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.endif." + m_ifStmtCount);
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.endif." + currStmt);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
         decreaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "else");
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, ".$$.else." + m_ifStmtCount);
+        writeAssembly(ACGstrs.LABEL, ".$$.else." + currStmt);
         increaseIndent();
         increaseIndent();
         decreaseIndent();
     }
 
     public void doIfStmt_3() {
+        String currStmt = m_ifStmtList.get(m_ifStmtList.size()-1);
+
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "endif");
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, ".$$.endif." + m_ifStmtCount++);
+        writeAssembly(ACGstrs.LABEL, ".$$.endif." + currStmt);
+
+        m_ifStmtList.remove(m_ifStmtList.size()-1);
     }
 
     // Functions
     //----------------------------------------------------------------
 
-    public void doFuncDecl_1(String id, Type returnType, boolean optRef) {
-        String functionName = id + "." + returnType.getName();
+    public String getFuncName(FuncSTO func) {
+        Vector<STO> params= func.getParams();
+
+        String functionName = func.getName();
+
+        if (params == null) {
+            functionName += ".void";
+        } else {
+            for (int i = 0; i < params.size(); i++) {
+                functionName += "." + params.get(i).getType().getName();
+            }
+        }
+
+        return functionName;
+    }
+
+    public void doFuncDecl_1(String id, FuncSTO func) {
+        String functionName = getFuncName(func);
+
         m_localStaticAppend = functionName + ".";
 
         increaseIndent();
@@ -618,6 +654,9 @@ public class AssemblyCodeGenerator {
     public void doFuncDecl_2(String functionName, FuncSTO func) {
         String stackSize = func == null ? "0" : func.stackSize();
 
+        if (functionName == null) {
+            functionName = getFuncName(func);
+        }
 
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "End of function " + functionName);
@@ -638,6 +677,28 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
 
         m_localStaticAppend = "";
+    }
+
+    public void doVoidReturnStmt(FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "return;");
+
+        doCall(getFuncName(func) + ".fini");
+        doReturn();
+        decreaseIndent();
+    }
+
+    public void doReturnStmt(FuncSTO func, STO expr) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "return " + expr.getName() + ";");
+
+        loadSTO(expr, "%l7", "%i0");
+
+        doCall(getFuncName(func) + ".fini");
+        doReturn();
+        decreaseIndent();
     }
 
     // IO

@@ -998,7 +998,6 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 
-		m_asGenerator.doFuncDecl_1(id, returnType, optRef);
 	}
 
 	void DoDefaultCtor(String id) {
@@ -1020,6 +1019,8 @@ class MyParser extends parser
 			m_errors.print(ErrorMsg.error6a_Return_expr);
 			return new ErrorSTO(func.getName());
 		}
+
+		m_asGenerator.doVoidReturnStmt(func);
 
 		return null;
 	}
@@ -1053,6 +1054,8 @@ class MyParser extends parser
 				return new ErrorSTO(func.getName());
 			}
 		}
+
+		m_asGenerator.doReturnStmt(func, returnExpr);
 
 
 		return null;
@@ -1097,8 +1100,7 @@ class MyParser extends parser
 
 		m_symtab.closeScope();
 
-		FuncSTO curr = m_symtab.getFunc();
-		m_asGenerator.doFuncDecl_2(curr.getName() + "." + curr.getReturnType().getName(), m_symtab.getFunc());
+		m_asGenerator.doFuncDecl_2(null, m_symtab.getFunc());
 
 		m_symtab.setFunc(null);
 	}
@@ -1227,6 +1229,7 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 
+		m_asGenerator.doFuncDecl_1(id, func);
 		m_asGenerator.doFormalParams();
 	}
 

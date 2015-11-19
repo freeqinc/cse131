@@ -37,6 +37,64 @@ static int st6 = st4;
 static int st7 = cgInt;
 static int st8 = st5;
 
+function : void pain () {
+    int pocal1;
+    int pocal11;
+    float pocal2 = 6.6;
+    int local111;
+    float pocal3 = pocal2;
+    int pocal4 = pocal1;
+    int pocal5 = pocal11;
+
+    auto var1 = ::var1;
+    auto var2 = pocal2;
+    const auto var3 = cgFloat;
+
+    if (5 > 10) {
+        if (var1 > 5) {
+            if (false) {
+
+            }
+        }
+    } else {
+        if (99 > cgInt) {
+            if (var1 > 11) {
+
+            }
+        } else {
+
+        }
+    }
+    int sometester = 5;
+    bool sometest = sometester > 10;
+}
+
+function : void zain () {
+    int var1 = 6;
+    int var2 = ::var1;
+}
+
+function : int func1 () {
+    // func1();
+
+    return 5;
+}
+
+function : int func1_2 () {
+    return var1 + 5;
+}
+
+function : float func2() {
+    return 5.5;
+}
+
+function : bool func3() {
+    return true;
+}
+
+function : void func4() {
+    return;
+}
 
 function : void main () {
     int local1;
@@ -76,6 +134,14 @@ function : void main () {
 
     if (3 > 1) {
         cout << "yay" << endl;
+
+        if (true) {
+            cout << "nested" << endl;
+        } else {
+            if (false) {
+                cout << "double nested" << endl;
+            }
+        }
     }
 
     if (local7 > arith5 - arith2) {
@@ -88,6 +154,7 @@ function : void main () {
 
     int sometester = 5;
     bool sometest = sometester > 10;
+    bool sometest2 = sometester > sometester;
 
     cout << c1 + 210 << endl; // outputs 420
     cout << c2 << endl; // outputs 214
@@ -105,47 +172,6 @@ function : void main () {
     cout << 5 << 6.6 << true << "string" << endl;
     cout << cgInt << cgFloat << cgBool << endl;
     cout << "poop" << endl;
-}
-
-function : void pain () {
-    int pocal1;
-    int pocal11;
-    float pocal2 = 6.6;
-    int local111;
-    float pocal3 = pocal2;
-    int pocal4 = pocal1;
-    int pocal5 = pocal11;
-
-    auto var1 = ::var1;
-    auto var2 = pocal2;
-    const auto var3 = cgFloat;
-
-    if (true) {
-
-    }
-    int sometester = 5;
-    bool sometest = sometester > 10;
-}
-
-function : void zain () {
-    int var1 = 6;
-    int var2 = ::var1;
-}
-
-function : int func1 () {
-    return 5;
-}
-
-function : float func2() {
-    return 5.5;
-}
-
-function : bool func3() {
-    return true;
-}
-
-function : void func4() {
-    return;
 }
 
 int local1;
