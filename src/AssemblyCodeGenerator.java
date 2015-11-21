@@ -616,7 +616,7 @@ public class AssemblyCodeGenerator {
     public String getFuncName(FuncSTO func) {
         Vector<STO> params= func.getParams();
 
-        String functionName = func.getName();
+        String functionName = func.getFuncName();
 
         if (params == null) {
             functionName += ".void";
@@ -698,6 +698,17 @@ public class AssemblyCodeGenerator {
 
         doCall(getFuncName(func) + ".fini");
         doReturn();
+        decreaseIndent();
+    }
+
+    public void doFuncCall(FuncSTO sto, Vector<STO> args) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, sto.getName() + "(...)");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, getFuncName(sto));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        storeIntoAddress(sto, "%o1", "%o0");
+
         decreaseIndent();
     }
 

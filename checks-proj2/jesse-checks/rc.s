@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Thu Nov 19 09:57:49 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Sat Nov 21 03:28:37 PST 2015
  */
 
 	
@@ -911,18 +911,32 @@ func1_2.void:
 		
 		! Store params
 		
+		! func1(...)
+		call    	func1.void
+		nop     
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! func1_2(...)
+		call    	func1_2.void
+		nop     
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
 		! (var1)+(5)
 		set     	var1, %l7
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		set     	5, %o1
 		add     	%o0, %o1, %o0
-		set     	-4, %o1
+		set     	-12, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! return (var1)+(5);
-		set     	-4, %l7
+		set     	-12, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %i0
 		call    	func1_2.void.fini
@@ -935,9 +949,71 @@ func1_2.void:
 	nop     
 	ret     
 	restore 
-	SAVE.func1_2.void = -(92 + 4) & -8
+	SAVE.func1_2.void = -(92 + 12) & -8
 	
 func1_2.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	func1_3
+func1_3:
+func1_3.void:
+	set     	SAVE.func1_3.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		
+		! func1(...)
+		call    	func1.void
+		nop     
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (func1(...))+(var1)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	var1, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! z = (func1(...))+(var1)
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! func1(...)
+		call    	func1.void
+		nop     
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! return func1(...);
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %i0
+		call    	func1_3.void.fini
+		nop     
+		ret     
+		restore 
+	
+	! End of function func1_3.void
+	call    	func1_3.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.func1_3.void = -(92 + 16) & -8
+	
+func1_3.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
@@ -976,6 +1052,41 @@ func2.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
+	.global 	func2_2
+func2_2:
+func2_2.void:
+	set     	SAVE.func2_2.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		
+		! return (5.5)+(cgFloat);
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.3:
+		.single 	0r11.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.3, %l7
+		ld      	[%l7], %f0
+		call    	func2_2.void.fini
+		nop     
+		ret     
+		restore 
+	
+	! End of function func2_2.void
+	call    	func2_2.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.func2_2.void = -(92 + 0) & -8
+	
+func2_2.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
 	.global 	func3
 func3:
 func3.void:
@@ -999,6 +1110,62 @@ func3.void:
 	SAVE.func3.void = -(92 + 0) & -8
 	
 func3.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	func3_2
+func3_2:
+func3_2.void:
+	set     	SAVE.func3_2.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		
+		! foo = 5
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! bar = 6
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		set     	6, %o0
+		st      	%o0, [%o1]
+		
+		! (foo)>(bar)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		cmp     	%o0, %o1
+		ble     	.$$.cmp.4
+		mov     	%g0, %o0
+		inc     	%o0
+	.$$.cmp.4:
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! return (foo)>(bar);
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %i0
+		call    	func3_2.void.fini
+		nop     
+		ret     
+		restore 
+	
+	! End of function func3_2.void
+	call    	func3_2.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.func3_2.void = -(92 + 12) & -8
+	
+func3_2.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
@@ -1041,12 +1208,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.3:
+	.$$.float.4:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.3, %l7
+		set     	.$$.float.4, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -1056,12 +1223,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.4:
+	.$$.float.5:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.4, %l7
+		set     	.$$.float.5, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -1121,12 +1288,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.5:
+	.$$.float.6:
 		.single 	0r4.4
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.5, %l7
+		set     	.$$.float.6, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -1765,10 +1932,10 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.4
+		ble     	.$$.cmp.5
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.4:
+	.$$.cmp.5:
 		set     	-236, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -1837,10 +2004,10 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.5
+		ble     	.$$.cmp.6
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.5:
+	.$$.cmp.6:
 		set     	-248, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -1892,10 +2059,10 @@ main.void:
 		ld      	[%l7], %o0
 		set     	10, %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.6
+		ble     	.$$.cmp.7
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.6:
+	.$$.cmp.7:
 		set     	-256, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -1916,10 +2083,10 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.7
+		ble     	.$$.cmp.8
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.7:
+	.$$.cmp.8:
 		set     	-264, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -1962,12 +2129,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.6:
+	.$$.float.7:
 		.single 	0r420.25
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.6, %l7
+		set     	.$$.float.7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -1975,12 +2142,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.7:
+	.$$.float.8:
 		.single 	0r1082.75
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.7, %l7
+		set     	.$$.float.8, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2013,12 +2180,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.8:
+	.$$.float.9:
 		.single 	0r16.2
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.8, %l7
+		set     	.$$.float.9, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2099,12 +2266,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.9:
+	.$$.float.10:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.9, %l7
+		set     	.$$.float.10, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2113,12 +2280,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.10:
+	.$$.float.11:
 		.single 	0r6.6666
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.10, %l7
+		set     	.$$.float.11, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2162,12 +2329,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.11:
+	.$$.float.12:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.11, %l7
+		set     	.$$.float.12, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -3185,10 +3352,10 @@ sometest:
 		ld      	[%l7], %o0
 		set     	10, %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.8
+		ble     	.$$.cmp.9
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.8:
+	.$$.cmp.9:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]

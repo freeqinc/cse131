@@ -75,21 +75,41 @@ function : void zain () {
 }
 
 function : int func1 () {
-    // func1();
 
     return 5;
 }
 
 function : int func1_2 () {
+    func1();
+    func1_2();
+
+
     return var1 + 5;
+}
+
+function : int func1_3() {
+    int z = func1() + var1;
+
+    return func1();
 }
 
 function : float func2() {
     return 5.5;
 }
 
+function : float func2_2() {
+    return 5.5 + cgFloat;
+}
+
 function : bool func3() {
     return true;
+}
+
+function : bool func3_2() {
+    int foo = 5;
+    int bar = 6;
+
+    return foo > bar;
 }
 
 function : void func4() {

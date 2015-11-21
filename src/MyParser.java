@@ -1225,6 +1225,7 @@ class MyParser extends parser
 			}
 		}
 
+
 		//----------------
 		// ASSEMBLY GEN
 		//----------------
@@ -1506,7 +1507,6 @@ class MyParser extends parser
 			return new ErrorSTO(sto.getName());
 		}
 
-
 		Scope structScope = null;
 		String structID = ((FuncSTO) sto).memberOf();
 
@@ -1532,7 +1532,16 @@ class MyParser extends parser
 
 		if (res instanceof ErrorSTO) return res;
 
-		return sto;
+
+
+		m_symtab.getFunc().allocateLocalVar(sto);
+		m_asGenerator.doFuncCall((FuncSTO)sto, args);
+
+		VarSTO retSTO = new VarSTO(sto.getName() + "(...)", ((FuncSTO) sto).getReturnType());
+		retSTO.setBase(sto.getBase());
+		retSTO.setOffset(sto.getOffset());
+
+		return retSTO;
 
 	}
 

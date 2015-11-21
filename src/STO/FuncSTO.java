@@ -16,6 +16,7 @@ public class FuncSTO extends STO
 	private boolean m_overloaded = false;
 	private String m_memberOf = null;
 	private int m_localVarPointer = 0;
+	private String m_funcName = "";
 
 	//----------------------------------------------------------------
 	//
@@ -23,6 +24,7 @@ public class FuncSTO extends STO
 	public FuncSTO(String strName)
 	{
 		super (strName);
+		setFuncName(strName);
 		setReturnType(null);
 		// You may want to change the isModifiable and isAddressable                      
 		// fields as necessary
@@ -36,6 +38,14 @@ public class FuncSTO extends STO
 		return true;
 		// You may want to change the isModifiable and isAddressable                      
 		// fields as necessary
+	}
+
+	public String getFuncName() {
+		return m_funcName;
+	}
+
+	public void setFuncName(String name) {
+		m_funcName = name;
 	}
 
 	public String memberOf() {
@@ -91,5 +101,9 @@ public class FuncSTO extends STO
 	public void allocateLocalVar(STO sto) {
 		sto.setBase("%fp");
 		sto.setOffset( (m_localVarPointer -= sto.getType().getSize()) + "" );
+	}
+
+	public void allocateFuncCall() {
+		m_localVarPointer -= 4;
 	}
 }
