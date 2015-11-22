@@ -1825,6 +1825,8 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(ErrorMsg.error7_Exit, expr.getType().getName()));
 		}
 
+		m_asGenerator.doExitStmt(expr);
+		
 		return null;
 	}
 

@@ -1,6 +1,6 @@
 	
 /*
- * Generated Sat Nov 21 03:28:38 PST 2015
+ * Generated Sat Nov 21 23:05:59 PST 2015
  */
 
 	
@@ -990,6 +990,13 @@ func1_3.void:
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
+		! exit(z)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		call    	exit
+		nop     
+		
 		! func1(...)
 		call    	func1.void
 		nop     
@@ -997,8 +1004,39 @@ func1_3.void:
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! return func1(...);
+		! (func1(...))+(var1)
 		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	var1, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! exit((func1(...))+(var1))
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		call    	exit
+		nop     
+		
+		! exit(5)
+		set     	5, %o0
+		call    	exit
+		nop     
+		
+		! func1(...)
+		call    	func1.void
+		nop     
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! return func1(...);
+		set     	-24, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %i0
 		call    	func1_3.void.fini
@@ -1011,7 +1049,7 @@ func1_3.void:
 	nop     
 	ret     
 	restore 
-	SAVE.func1_3.void = -(92 + 16) & -8
+	SAVE.func1_3.void = -(92 + 24) & -8
 	
 func1_3.void.fini:
 	save    	%sp, -96, %sp

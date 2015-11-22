@@ -90,6 +90,10 @@ function : int func1_2 () {
 function : int func1_3() {
     int z = func1() + var1;
 
+    exit(z);
+    exit(func1() + var1);
+    exit(5);
+
     return func1();
 }
 

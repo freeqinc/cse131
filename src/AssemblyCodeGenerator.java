@@ -712,6 +712,16 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
+    public void doExitStmt(STO expr) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "exit(" + expr.getName() + ")");
+        loadSTO(expr, "%l7", "%o0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, "exit");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+    }
+
     // IO
     //----------------------------------------------------------------
 
