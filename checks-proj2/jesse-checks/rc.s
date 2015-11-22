@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Sat Nov 21 23:05:57 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Sun Nov 22 03:52:23 PST 2015
  */
 
 	
@@ -1800,6 +1800,386 @@ main.void:
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
+		! ((5.5)+(10.10))-(local2)
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.7:
+		.single 	0r15.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.7, %l7
+		ld      	[%l7], %f0
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-232, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((5.5)+(10.10))-(local2))+(local2_2)
+		set     	-232, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-236, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! +(local2)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		fmovs   	%f0, %f0
+		set     	-240, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2))
+		set     	-236, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-240, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-244, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! -(local2_2)
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		fnegs   	%f0, %f0
+		set     	-248, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
+		set     	-244, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-248, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-252, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith8 = (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
+		set     	-256, %o1
+		add     	%fp, %o1, %o1
+		set     	-252, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! (local2)/(local2_2)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-260, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((local2)/(local2_2))*(local2)
+		set     	-260, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-264, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((local2)/(local2_2))*(local2))/(5.5)
+		set     	-264, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.8:
+		.single 	0r5.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.8, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-268, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		set     	-268, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.9:
+		.single 	0r10.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.9, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-272, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith9 = ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		set     	-276, %o1
+		add     	%fp, %o1, %o1
+		set     	-272, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! --(local2)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.10:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.10, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-280, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! arithtest1 = --(local2)
+		set     	-284, %o1
+		add     	%fp, %o1, %o1
+		set     	-280, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! (local2)-(1.0)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.11:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.11, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-288, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arithtest2 = (local2)-(1.0)
+		set     	-292, %o1
+		add     	%fp, %o1, %o1
+		set     	-288, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! --(local2)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.12:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.12, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-296, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! ((5.5)+(10.10))-(--(local2))
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.13:
+		.single 	0r15.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.13, %l7
+		ld      	[%l7], %f0
+		set     	-296, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-300, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ++(local2_2)
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.14:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.14, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f2
+		set     	-304, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! (((5.5)+(10.10))-(--(local2)))+(++(local2_2))
+		set     	-300, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-304, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-308, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! -(local2)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		fnegs   	%f0, %f0
+		set     	-312, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2))
+		set     	-308, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-312, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-316, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith8)++
+		set     	-256, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.15:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.15, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f2
+		set     	-320, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	-256, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! (((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++)
+		set     	-316, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-320, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-324, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith9)--
+		set     	-276, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.16:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.16, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-328, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	-276, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! ((((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++))-((arith9)--)
+		set     	-324, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-328, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-332, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith10 = ((((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++))-((arith9)--)
+		set     	-336, %o1
+		add     	%fp, %o1, %o1
+		set     	-332, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
 		! if ( (1)>(3) )
 		set     	0, %o0
 		cmp     	%o0, %g0
@@ -1958,7 +2338,7 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		sub     	%o0, %o1, %o0
-		set     	-232, %o1
+		set     	-340, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
@@ -1966,7 +2346,7 @@ main.void:
 		set     	-40, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-232, %l7
+		set     	-340, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -1974,12 +2354,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.5:
-		set     	-236, %o1
+		set     	-344, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( (local7)>((arith5)-(arith2)) )
-		set     	-236, %l7
+		set     	-344, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2021,7 +2401,7 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		add     	%o0, %o1, %o0
-		set     	-240, %o1
+		set     	-348, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
@@ -2030,15 +2410,15 @@ main.void:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		neg     	%o0, %o0
-		set     	-244, %o1
+		set     	-352, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((local7)+(arith5))>(-(arith2))
-		set     	-240, %l7
+		set     	-348, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-244, %l7
+		set     	-352, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2046,12 +2426,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.6:
-		set     	-248, %o1
+		set     	-356, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( ((local7)+(arith5))>(-(arith2)) )
-		set     	-248, %l7
+		set     	-356, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2086,13 +2466,13 @@ main.void:
 	.$$.endif.11:
 		
 		! sometester = 5
-		set     	-252, %o1
+		set     	-360, %o1
 		add     	%fp, %o1, %o1
 		set     	5, %o0
 		st      	%o0, [%o1]
 		
 		! (sometester)>(10)
-		set     	-252, %l7
+		set     	-360, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	10, %o1
@@ -2101,23 +2481,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.7:
-		set     	-256, %o1
+		set     	-364, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest = (sometester)>(10)
-		set     	-260, %o1
+		set     	-368, %o1
 		add     	%fp, %o1, %o1
-		set     	-256, %l7
+		set     	-364, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (sometester)>(sometester)
-		set     	-252, %l7
+		set     	-360, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-252, %l7
+		set     	-360, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2125,14 +2505,14 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.8:
-		set     	-264, %o1
+		set     	-372, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest2 = (sometester)>(sometester)
-		set     	-268, %o1
+		set     	-376, %o1
 		add     	%fp, %o1, %o1
-		set     	-264, %l7
+		set     	-372, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -2162,17 +2542,17 @@ main.void:
 		nop     
 		
 		! r1 = 420.25
-		set     	-272, %o1
+		set     	-380, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.7:
+	.$$.float.17:
 		.single 	0r420.25
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.7, %l7
+		set     	.$$.float.17, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2180,12 +2560,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.8:
+	.$$.float.18:
 		.single 	0r1082.75
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.8, %l7
+		set     	.$$.float.18, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2218,12 +2598,104 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.9:
+	.$$.float.19:
 		.single 	0r16.2
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.9, %l7
+		set     	.$$.float.19, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
+		! cout << endl
+		set     	.$$.strEndl, %o0
+		call    	printf
+		nop     
+		
+		! (arith10)--
+		set     	-336, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.20:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.20, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-384, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	-336, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! ((arith10)--)*(arith9)
+		set     	-384, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-276, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-388, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith10)++
+		set     	-336, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.21:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.21, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f2
+		set     	-392, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	-336, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! (((arith10)--)*(arith9))/((arith10)++)
+		set     	-388, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-392, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-396, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith9)+((((arith10)--)*(arith9))/((arith10)++))
+		set     	-276, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-396, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-400, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! cout << (arith9)+((((arith10)--)*(arith9))/((arith10)++))
+		set     	-400, %l7
+		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2304,12 +2776,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.10:
+	.$$.float.22:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.10, %l7
+		set     	.$$.float.22, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2318,12 +2790,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.11:
+	.$$.float.23:
 		.single 	0r6.6666
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.11, %l7
+		set     	.$$.float.23, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2367,12 +2839,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.12:
+	.$$.float.24:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.12, %l7
+		set     	.$$.float.24, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -2450,7 +2922,7 @@ main.void:
 	nop     
 	ret     
 	restore 
-	SAVE.main.void = -(92 + 272) & -8
+	SAVE.main.void = -(92 + 400) & -8
 	
 main.void.fini:
 	save    	%sp, -96, %sp
@@ -3358,6 +3830,546 @@ arith7:
 	.section	".init"
 	.align  	4
 	call    	.$.init.arith7
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith8
+arith8:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith8:
+	set     	SAVE..$.init.arith8, %g1
+	save    	%sp, %g1, %sp
+		
+		! ((5.5)+(10.10))-(local2)
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.25:
+		.single 	0r15.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.25, %l7
+		ld      	[%l7], %f0
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((5.5)+(10.10))-(local2))+(local2_2)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	local2_2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! +(local2)
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		fmovs   	%f0, %f0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2))
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! -(local2_2)
+		set     	local2_2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		fnegs   	%f0, %f0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith8 = (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
+		set     	arith8, %o1
+		add     	%g0, %o1, %o1
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.arith8
+	call    	.$.init.arith8.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith8 = -(92 + 24) & -8
+	
+.$.init.arith8.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith8
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith9
+arith9:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith9:
+	set     	SAVE..$.init.arith9, %g1
+	save    	%sp, %g1, %sp
+		
+		! (local2)/(local2_2)
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		set     	local2_2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((local2)/(local2_2))*(local2)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((local2)/(local2_2))*(local2))/(5.5)
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.26:
+		.single 	0r5.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.26, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.27:
+		.single 	0r10.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.27, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith9 = ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		set     	arith9, %o1
+		add     	%g0, %o1, %o1
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.arith9
+	call    	.$.init.arith9.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith9 = -(92 + 16) & -8
+	
+.$.init.arith9.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith9
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arithtest1
+arithtest1:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arithtest1:
+	set     	SAVE..$.init.arithtest1, %g1
+	save    	%sp, %g1, %sp
+		
+		! --(local2)
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.28:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.28, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		set     	local2, %o1
+		add     	%g0, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! arithtest1 = --(local2)
+		set     	arithtest1, %o1
+		add     	%g0, %o1, %o1
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.arithtest1
+	call    	.$.init.arithtest1.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arithtest1 = -(92 + 4) & -8
+	
+.$.init.arithtest1.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arithtest1
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arithtest2
+arithtest2:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arithtest2:
+	set     	SAVE..$.init.arithtest2, %g1
+	save    	%sp, %g1, %sp
+		
+		! (local2)-(1.0)
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.29:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.29, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arithtest2 = (local2)-(1.0)
+		set     	arithtest2, %o1
+		add     	%g0, %o1, %o1
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.arithtest2
+	call    	.$.init.arithtest2.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arithtest2 = -(92 + 4) & -8
+	
+.$.init.arithtest2.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arithtest2
+	nop     
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	arith10
+arith10:
+	.skip   	4
+	
+	.section	".text"
+	.align  	4
+.$.init.arith10:
+	set     	SAVE..$.init.arith10, %g1
+	save    	%sp, %g1, %sp
+		
+		! --(local2)
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.30:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.30, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		set     	local2, %o1
+		add     	%g0, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! ((5.5)+(10.10))-(--(local2))
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.31:
+		.single 	0r15.6
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.31, %l7
+		ld      	[%l7], %f0
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ++(local2_2)
+		set     	local2_2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.32:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.32, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f2
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		set     	local2_2, %o1
+		add     	%g0, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! (((5.5)+(10.10))-(--(local2)))+(++(local2_2))
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-16, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! -(local2)
+		set     	local2, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		fnegs   	%f0, %f0
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2))
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith8)++
+		set     	arith8, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.33:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.33, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f2
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	arith8, %o1
+		add     	%g0, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! (((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++)
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-28, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith9)--
+		set     	arith9, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.34:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.34, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	arith9, %o1
+		add     	%g0, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! ((((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++))-((arith9)--)
+		set     	-32, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-36, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith10 = ((((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++))-((arith9)--)
+		set     	arith10, %o1
+		add     	%g0, %o1, %o1
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function .$.init.arith10
+	call    	.$.init.arith10.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.arith10 = -(92 + 40) & -8
+	
+.$.init.arith10.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.arith10
 	nop     
 	
 	.section	".text"

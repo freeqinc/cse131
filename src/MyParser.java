@@ -1826,7 +1826,7 @@ class MyParser extends parser
 		}
 
 		m_asGenerator.doExitStmt(expr);
-		
+
 		return null;
 	}
 

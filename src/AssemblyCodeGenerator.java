@@ -376,6 +376,11 @@ public class AssemblyCodeGenerator {
 
     public void loadSTO(STO sto, String set, String load) {
 
+        // Deal with float
+        if (sto.getType() instanceof FloatType)
+            load = "%f" + load.charAt(2);
+
+
         // Variable
         if (sto.hasAddress() ) {
             setAddressLoad(sto, set, load);
@@ -383,7 +388,7 @@ public class AssemblyCodeGenerator {
         // Constant to load
         } else if (sto instanceof ConstSTO && ((ConstSTO) sto).hasValue()) {
             if (sto.getType() instanceof FloatType) {
-                loadFloat(((ConstSTO) sto).getFloatValue() + "", set, "%f0");
+                loadFloat(((ConstSTO) sto).getFloatValue() + "", set, load);
             } else {
                 writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO) sto).getIntValue() + "", load);
             }
@@ -440,69 +445,117 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, expr.getName());
 
+
+        String reg = "%o0";
+
+        if (a.getType() instanceof FloatType)
+            reg = "%f0";
+
+        loadSTO(a, "%l7", reg);
+
+
         // - +
         if (o instanceof UnaryPlus || o instanceof UnaryMinus) {
-            doUnarySignOp(o, a, expr);
+            doUnarySignOp(o, a, expr, reg);
 
         // -- ++
         } else if (o instanceof IncOp || o instanceof DecOp) {
-            doIncDecOp(o, a, expr);
+            doIncDecOp(o, a, expr, reg);
         }
 
         decreaseIndent();
     }
 
-    public void doUnarySignOp(Operator o, STO a, STO expr) {
-        loadSTO(a, "%l7", "%o0");
+    public void doUnarySignOp(Operator o, STO a, STO expr, String reg) {
+        String neg = ACGstrs.NEG_OP;
+        String mov = ACGstrs.MOV_OP;
 
-        if (o instanceof UnaryMinus) {
-            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.NEG_OP, "%o0", "%o0");
-        } else if (o instanceof UnaryPlus) {
-            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o0");
+        if (expr.getType() instanceof FloatType) {
+            neg = ACGstrs.FNEGS_OP;
+            mov = ACGstrs.FMOVS_OP;
         }
 
-        storeIntoAddress(expr, "%o1", "%o0");
+        if (o instanceof UnaryMinus) {
+            writeAssembly(ACGstrs.TWO_PARAM, neg, reg, reg);
+        } else if (o instanceof UnaryPlus) {
+            writeAssembly(ACGstrs.TWO_PARAM, mov, reg, reg);
+        }
+
+        storeIntoAddress(expr, "%o1", reg);
     }
 
-    public void doIncDecOp(Operator o, STO a, STO expr) {
+    public void doIncDecOp(Operator o, STO a, STO expr, String reg) {
         String valueToStore = "%o0";
+        String reg0 = "%o0";
+        String reg1 = "%o1";
+        String reg2 = "%o2";
+        String sub = ACGstrs.SUB_OP;
+        String add = ACGstrs.ADD_OP;
 
-        loadSTO(a, "%l7", "%o0");
+        if (expr.getType() instanceof FloatType) {
+            reg0 = "%f0";
+            reg1 = "%f1";
+            reg2 = "%f2";
+            valueToStore = "%f0";
+            sub = ACGstrs.FSUBS_OP;
+            add = ACGstrs.FADDS_OP;
 
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "1", "%o1");
+            loadFloat("1.0", "%l7", "%f1");
+        } else {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "1", "%o1");
+        }
+
 
         if (o instanceof DecOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o2");
+            writeAssembly(ACGstrs.THREE_PARAM, sub, reg0, reg1, reg2);
             if (((DecOp) o).isPre())
-                valueToStore = "%o2";
+                valueToStore = "%" + valueToStore.charAt(1) + "2";
         } else if (o instanceof IncOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o2");
+            writeAssembly(ACGstrs.THREE_PARAM, add, reg0, reg1, reg2);
             if (((IncOp) o).isPre())
-                valueToStore = "%o2";
+                valueToStore = "%" + valueToStore.charAt(1) + "2";
         }
 
 
         storeIntoAddress(expr, "%o1", valueToStore);
-        storeIntoAddress(a, "%o1", "%o2");
+        storeIntoAddress(a, "%o1", reg2);
     }
 
     // Binary ----
+    public Vector<String> getBinarySTORegs(STO a, STO b) {
+        Vector<String> regs = new Vector<String>();
+
+        if (a.getType() instanceof FloatType)
+            regs.addElement("%f0");
+        else
+            regs.addElement("%o0");
+
+        if (b.getType() instanceof FloatType)
+            regs.addElement("%f1");
+        else
+            regs.addElement("%o1");
+
+        return regs;
+    }
+
     public void doBinaryExpr(STO a, Operator o, STO b, STO expr) {
 
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, expr.getName());
 
-        loadSTO(a, "%l7", "%o0");
-        loadSTO(b, "%l7", "%o1");
+        Vector<String> regs = getBinarySTORegs(a, b);
+
+        loadSTO(a, "%l7", regs.get(0));
+        loadSTO(b, "%l7", regs.get(1));
 
         // + - * / %
         if (o instanceof ArithmeticOp) {
-            doIntArithmeticOp(o, expr);
+            doArithmeticOp(o, expr, regs);
 
         // & | ^
         } else if (o instanceof BitwiseOp) {
-            doIntArithmeticOp(o, expr);
+            doArithmeticOp(o, expr, regs);
 
         // > < >= <= ==
         } else if (o instanceof ComparisonOp) {
@@ -512,33 +565,50 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-    public void doIntArithmeticOp(Operator o, STO expr) {
+    public void doArithmeticOp(Operator o, STO expr, Vector<String> regs) {
+
+        String op1 = regs.get(0);
+        String op2 = regs.get(1);
+
+        String add = ACGstrs.ADD_OP;
+        String sub = ACGstrs.SUB_OP;
+
+        if (expr.getType() instanceof FloatType) {
+            add = ACGstrs.FADDS_OP;
+            sub = ACGstrs.FSUBS_OP;
+        }
 
         if (o instanceof AddOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
+            writeAssembly(ACGstrs.THREE_PARAM, add, op1, op2, op1);
         } else if (o instanceof MinusOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o0");
+            writeAssembly(ACGstrs.THREE_PARAM, sub, op1, op2, op1);
         } else if (o instanceof StarOp) {
-            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".mul");
+            if (expr.getType() instanceof FloatType)
+                writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.FMULS_OP, op1, op2, op1);
+            else
+                writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".mul");
         } else if (o instanceof SlashOp) {
-            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".div");
+            if (expr.getType() instanceof FloatType)
+                writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.FDIVS_OP, op1, op2, op1);
+            else
+                writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".div");
         } else if (o instanceof ModOp) {
             writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".rem");
         } else if (o instanceof BwAndOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.AND_OP, "%o0", "%o1", "%o0");
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.AND_OP, op1, op2, op1);
         } else if (o instanceof BwOrOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.OR_OP, "%o0", "%o1", "%o0");
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.OR_OP, op1, op2, op1);
         } else if (o instanceof BwXorOp) {
-            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.XOR_OP, "%o0", "%o1", "%o0");
+            writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.XOR_OP, op1, op2, op1);
         }
 
 
-        if (o instanceof StarOp || o instanceof SlashOp || o instanceof ModOp) {
+        if (!(expr.getType() instanceof FloatType) && (o instanceof StarOp || o instanceof SlashOp || o instanceof ModOp)) {
             writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
             writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o0");
         }
 
-        storeIntoAddress(expr, "%o1", "%o0");
+        storeIntoAddress(expr, "%o1", op1);
     }
 
     public void doComparisonOp(Operator o, STO expr) {

@@ -31,6 +31,7 @@ public final class ACGstrs {
 
     public static final String SET_OP = "set     ";
     public static final String MOV_OP = "mov     ";
+    public static final String FMOVS_OP = "fmovs   ";
     public static final String SAVE_OP = "save    ";
     public static final String CMP_OP = "cmp     ";
     public static final String BA_OP = "ba      ";
@@ -42,9 +43,12 @@ public final class ACGstrs {
     public static final String BGE_OP = "bge     ";
     public static final String NOP_OP = "nop     ";
     public static final String ADD_OP = "add     ";
+    public static final String FADDS_OP = "fadds   ";
     public static final String SUB_OP = "sub     ";
+    public static final String FSUBS_OP = "fsubs   ";
     public static final String AND_OP = "and     ";
     public static final String NEG_OP = "neg     ";
+    public static final String FNEGS_OP = "fnegs   ";
     public static final String OR_OP = "or      ";
     public static final String XOR_OP = "xor     ";
     public static final String RET_OP = "ret     ";
@@ -52,6 +56,8 @@ public final class ACGstrs {
     public static final String DEC_OP = "dec     ";
     public static final String RESTORE_OP = "restore ";
     public static final String CALL_OP = "call    ";
+    public static final String FDIVS_OP = "fdivs   ";
+    public static final String FMULS_OP = "fmuls   ";
 
 
     public static final String ZERO_PARAM = "%s\n";
