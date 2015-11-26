@@ -1716,9 +1716,14 @@ class MyParser extends parser
 		}
 
 
+
 		// Folded early exit
 		// Constant folded
 		if (result instanceof ConstSTO && ((ConstSTO) result).hasValue()) {
+			if (o instanceof BooleanOp) {
+				m_asGenerator.doShortCircuit(a, o, b, result, "%g0");
+			}
+
 			return result;
 		}
 
@@ -1738,9 +1743,13 @@ class MyParser extends parser
 		} else {
 			m_symtab.getFunc().allocateLocalVar(result);
 		}
+
+		if (o instanceof BooleanOp) {
+			m_asGenerator.doShortCircuit(a, o, b, result, "%o0");
+		}
+
 		 m_asGenerator.doBinaryExpr(a, o, b, result);
 
-		 // System.out.println(result.getName());
 
 		return result;
 	}

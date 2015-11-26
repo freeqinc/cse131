@@ -173,6 +173,8 @@ function : void main () {
             if (false) {
                 cout << "double nested" << endl;
             }
+            if (arith8 - arith8 > 6.9) {
+            }
         }
     }
 
@@ -184,9 +186,36 @@ function : void main () {
         cout << "yay" << endl;
     }
 
+    if (arith8 - arith8 > 6.9) {
+        cout << "stay" << endl;
+    }
+
     int sometester = 5;
     bool sometest = sometester > 10;
     bool sometest2 = sometester > sometester;
+
+    bool bFalse = false;
+    bool bTrue = true;
+
+    bool sometest3 = arith8 > 9.5;
+    bool sometest4 = arith8 > arith9;
+    bool sometest5 = arith4 >= arith5;
+    bool sometest6 = arith8 >= arith9;
+    bool sometest7 = arith4 < arith5;
+    bool sometest8 = arith8 < arith9;
+    bool sometest9 = arith4 <= arith5;
+    bool sometest10 = arith8 <= arith9;
+    bool sometest11 = arith4 == arith5;
+    bool sometest12 = arith8 == arith9;
+    bool sometest13 = arith4 != arith5;
+    bool sometest14 = arith8 != arith9;
+    bool sometest15 = !(arith8 != arith9);
+    bool sometest16 = !(sometest14);
+    bool sometest17 = true && true;
+    bool sometest18 = false && false;
+    bool sometest19 = bFalse && bTrue;
+    bool sometest20 = bTrue && bFalse;
+    bool sometest21 = bFalse && bFalse;
 
     cout << c1 + 210 << endl; // outputs 420
     cout << c2 << endl; // outputs 214

@@ -36,6 +36,7 @@ public class AssemblyCodeGenerator {
     private int m_stringCount = 1;
     private int m_ifStmtCount = 1;
     private int m_cmpCount = 1;
+    private int m_shortCircuitCount = 1;
     private String m_localStaticAppend = "";
 
     private ArrayList<String> m_ifStmtList = new ArrayList<String>();
@@ -461,6 +462,10 @@ public class AssemblyCodeGenerator {
         // -- ++
         } else if (o instanceof IncOp || o instanceof DecOp) {
             doIncDecOp(o, a, expr, reg);
+
+        // !
+        } else if (o instanceof NotOp) {
+            doNotOp(o, a, expr, reg);
         }
 
         decreaseIndent();
@@ -521,6 +526,11 @@ public class AssemblyCodeGenerator {
         storeIntoAddress(a, "%o1", reg2);
     }
 
+    public void doNotOp(Operator o, STO a, STO expr, String reg) {
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.XOR_OP, "%o0", "1" ,"%o0");
+        storeIntoAddress(expr, "%o1", "%o0");
+    }
+
     // Binary ----
     public Vector<String> getBinarySTORegs(STO a, STO b) {
         Vector<String> regs = new Vector<String>();
@@ -539,6 +549,10 @@ public class AssemblyCodeGenerator {
     }
 
     public void doBinaryExpr(STO a, Operator o, STO b, STO expr) {
+
+        if (o instanceof BooleanOp) {
+            return;
+        }
 
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
@@ -559,14 +573,14 @@ public class AssemblyCodeGenerator {
 
         // > < >= <= ==
         } else if (o instanceof ComparisonOp) {
-            doComparisonOp(o, expr);
+            doComparisonOp(o, expr, regs);
+            
         }
 
         decreaseIndent();
     }
 
     public void doArithmeticOp(Operator o, STO expr, Vector<String> regs) {
-
         String op1 = regs.get(0);
         String op2 = regs.get(1);
 
@@ -611,19 +625,90 @@ public class AssemblyCodeGenerator {
         storeIntoAddress(expr, "%o1", op1);
     }
 
-    public void doComparisonOp(Operator o, STO expr) {
+    public void doComparisonOp(Operator o, STO expr, Vector<String> regs) {
+        String op1 = regs.get(0);
+        String op2 = regs.get(1);
 
-        if (o instanceof GTOp) {
-            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%o1");
-            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BLE_OP, ".$$.cmp." + m_cmpCount);
-            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%g0", "%o0");
-            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.INC_OP, "%o0");
-            decreaseIndent();
-            writeAssembly(ACGstrs.LABEL, ".$$.cmp." + m_cmpCount++);
-            increaseIndent();
+        boolean floatExpr = op1.equals("%f0") || op2.equals("%f1");
+
+        String cmp = ACGstrs.CMP_OP, ble = ACGstrs.BLE_OP, bl = ACGstrs.BL_OP, bge = ACGstrs.BGE_OP, bg = ACGstrs.BG_OP;
+        String bne = ACGstrs.BNE_OP, be = ACGstrs.BE_OP;
+
+        if (floatExpr) {
+            cmp = ACGstrs.FCMPS_OP;
+            ble = ACGstrs.FBLE_OP;
+            bl = ACGstrs.FBL_OP;
+            bge = ACGstrs.FBGE_OP;
+            bg = ACGstrs.FBG_OP;
+            bne = ACGstrs.FBNE_OP;
+            be = ACGstrs.FBE_OP;
         }
 
+        writeAssembly(ACGstrs.TWO_PARAM, cmp, op1, op2);
+        if (floatExpr)
+            writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        if (o instanceof GTOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, ble, ".$$.cmp." + m_cmpCount);
+        } else if (o instanceof GTEOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, bl, ".$$.cmp." + m_cmpCount);
+        } else if (o instanceof LTOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, bge, ".$$.cmp." + m_cmpCount);
+        } else if (o instanceof LTEOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, bg, ".$$.cmp." + m_cmpCount);
+        } else if (o instanceof EQUOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, bne, ".$$.cmp." + m_cmpCount);
+        } else if (o instanceof NEQOp) {
+            writeAssembly(ACGstrs.ONE_PARAM, be, ".$$.cmp." + m_cmpCount);
+        }
+
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%g0", "%o0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.INC_OP, "%o0");
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.cmp." + m_cmpCount++);
+        increaseIndent();
+
         storeIntoAddress(expr, "%o1", "%o0");
+    }
+
+    public void doShortCircuit(STO a, Operator o, STO b, STO expr, String scOut) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "Short Circuit LHS");
+        loadSTO(a, "%l7", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.andorSkip." + m_shortCircuitCount);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        if (scOut.equals("%o0")) {
+            writeAssembly(ACGstrs.NEWLINE);
+            writeAssembly(ACGstrs.COMMENT, expr.getName());
+        }
+
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "Short Circuit RHS");
+        loadSTO(b, "%l7", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.andorSkip." + m_shortCircuitCount);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.andorEnd." + m_shortCircuitCount);
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "1", scOut);
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.andorSkip." + m_shortCircuitCount);
+        increaseIndent();
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "0", scOut);
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.andorEnd." + m_shortCircuitCount++);
+
+        if (scOut.equals("%o0")) {
+            increaseIndent();
+            storeIntoAddress(expr, "%o1", "%o0");
+            decreaseIndent();
+        }
+    }
+
+    public void doBooleanOp(Operator o, STO expr, Vector<String> regs) {
+
     }
 
     // Statements
