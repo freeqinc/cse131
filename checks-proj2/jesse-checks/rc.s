@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Fri Nov 27 11:12:05 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Fri Nov 27 15:18:22 PST 2015
  */
 
 	
@@ -4725,13 +4725,463 @@ main.void:
 		
 		! endif
 	.$$.endif.15:
+		
+		! Short Circuit LHS
+		set     	-364, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		cmp     	%o0, %g0
+		be      	.$$.andorSkip.29
+		nop     
+		
+		! (bTrue)&&(bFalse)
+		
+		! Short Circuit RHS
+		set     	-360, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		cmp     	%o0, %g0
+		be      	.$$.andorSkip.29
+		nop     
+		ba      	.$$.andorEnd.29
+		mov     	1, %o0
+	.$$.andorSkip.29:
+		mov     	0, %o0
+	.$$.andorEnd.29:
+		set     	-852, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! if ( (bTrue)&&(bFalse) )
+		set     	-852, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		cmp     	%o0, %g0
+		be      	.$$.else.16
+		nop     
+			
+			.section	".rodata"
+			.align  	4
+		.$$.str.13:
+			.asciz  	"This should not print."
+			
+			.section	".text"
+			.align  	4
+			! cout << "This should not print."
+			set     	.$$.strFmt, %o0
+			set     	.$$.str.13, %o1
+			call    	printf
+			nop     
+			
+			! cout << endl
+			set     	.$$.strEndl, %o0
+			call    	printf
+			nop     
+			
+			! (localFloat)>(10)
+			set     	-808, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %f0
+			set     	10, %o1
+			set     	-860, %l7
+			add     	%fp, %l7, %l7
+			st      	%o1, [%l7]
+			ld      	[%l7], %f1
+			fitos   	%f1, %f1
+			fcmps   	%f0, %f1
+			nop     
+			fble    	.$$.cmp.32
+			mov     	%g0, %o0
+			inc     	%o0
+		.$$.cmp.32:
+			set     	-856, %o1
+			add     	%fp, %o1, %o1
+			st      	%o0, [%o1]
+			
+			! localBool = (localFloat)>(10)
+			set     	-812, %o1
+			add     	%fp, %o1, %o1
+			set     	-856, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			st      	%o0, [%o1]
+			
+			! if ( (localBool)=((localFloat)>(10)) )
+			set     	-812, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			cmp     	%o0, %g0
+			be      	.$$.else.17
+			nop     
+				
+				ba      	.$$.endif.17
+				nop     
+			
+			! else
+		.$$.else.17:
+			
+			! endif
+		.$$.endif.17:
+			
+			ba      	.$$.endif.16
+			nop     
+		
+		! else
+	.$$.else.16:
+			
+			! Short Circuit LHS
+			set     	-360, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			cmp     	%o0, %g0
+			bne     	.$$.andorSkip.30
+			nop     
+			
+			! (bFalse)||(bFalse)
+			
+			! Short Circuit RHS
+			set     	-360, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			cmp     	%o0, %g0
+			bne     	.$$.andorSkip.30
+			nop     
+			ba      	.$$.andorEnd.30
+			mov     	0, %o0
+		.$$.andorSkip.30:
+			mov     	1, %o0
+		.$$.andorEnd.30:
+			set     	-864, %o1
+			add     	%fp, %o1, %o1
+			st      	%o0, [%o1]
+			
+			! ((bFalse)||(bFalse))==(bTrue)
+			set     	-864, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			set     	-364, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o1
+			cmp     	%o0, %o1
+			bne     	.$$.cmp.33
+			mov     	%g0, %o0
+			inc     	%o0
+		.$$.cmp.33:
+			set     	-868, %o1
+			add     	%fp, %o1, %o1
+			st      	%o0, [%o1]
+			
+			! if ( ((bFalse)||(bFalse))==(bTrue) )
+			set     	-868, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			cmp     	%o0, %g0
+			be      	.$$.else.18
+			nop     
+				
+				.section	".rodata"
+				.align  	4
+			.$$.str.14:
+				.asciz  	"This neither."
+				
+				.section	".text"
+				.align  	4
+				! cout << "This neither."
+				set     	.$$.strFmt, %o0
+				set     	.$$.str.14, %o1
+				call    	printf
+				nop     
+				
+				! cout << endl
+				set     	.$$.strEndl, %o0
+				call    	printf
+				nop     
+				
+				ba      	.$$.endif.18
+				nop     
+			
+			! else
+		.$$.else.18:
+				
+				.section	".rodata"
+				.align  	4
+			.$$.str.15:
+				.asciz  	"Yup"
+				
+				.section	".text"
+				.align  	4
+				! cout << "Yup"
+				set     	.$$.strFmt, %o0
+				set     	.$$.str.15, %o1
+				call    	printf
+				nop     
+				
+				! cout << endl
+				set     	.$$.strEndl, %o0
+				call    	printf
+				nop     
+			
+			! endif
+		.$$.endif.18:
+		
+		! endif
+	.$$.endif.16:
+		
+		! looper1 = 0
+		set     	-872, %o1
+		add     	%fp, %o1, %o1
+		set     	0, %o0
+		st      	%o0, [%o1]
+		
+		! while ( ... )
+	.$$.loopCheck.1:
+			
+			! (looper1)<(10)
+			set     	-872, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			set     	10, %o1
+			cmp     	%o0, %o1
+			bge     	.$$.cmp.34
+			mov     	%g0, %o0
+			inc     	%o0
+		.$$.cmp.34:
+			set     	-876, %o1
+			add     	%fp, %o1, %o1
+			st      	%o0, [%o1]
+			
+			! Check loop condition
+			set     	-876, %l7
+			add     	%fp, %l7, %l7
+			ld      	[%l7], %o0
+			cmp     	%o0, %g0
+			be      	.$$.loopEnd.1
+			nop     
+			
+			! Start of loop body
+				
+				! cout << looper1
+				set     	-872, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o1
+				set     	.$$.intFmt, %o0
+				call    	printf
+				nop     
+				
+				! cout << endl
+				set     	.$$.strEndl, %o0
+				call    	printf
+				nop     
+				
+				! (looper1)+(1)
+				set     	-872, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o0
+				set     	1, %o1
+				add     	%o0, %o1, %o0
+				set     	-880, %o1
+				add     	%fp, %o1, %o1
+				st      	%o0, [%o1]
+				
+				! looper1 = (looper1)+(1)
+				set     	-872, %o1
+				add     	%fp, %o1, %o1
+				set     	-880, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o0
+				st      	%o0, [%o1]
+				
+				! (looper1)==(3)
+				set     	-872, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o0
+				set     	3, %o1
+				cmp     	%o0, %o1
+				bne     	.$$.cmp.35
+				mov     	%g0, %o0
+				inc     	%o0
+			.$$.cmp.35:
+				set     	-884, %o1
+				add     	%fp, %o1, %o1
+				st      	%o0, [%o1]
+				
+				! if ( (looper1)==(3) )
+				set     	-884, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o0
+				cmp     	%o0, %g0
+				be      	.$$.else.19
+				nop     
+					
+					! continue
+					ba      	.$$.loopCheck.1
+					nop     
+					
+					ba      	.$$.endif.19
+					nop     
+				
+				! else
+			.$$.else.19:
+				
+				! endif
+			.$$.endif.19:
+				
+				! (looper1)==(6)
+				set     	-872, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o0
+				set     	6, %o1
+				cmp     	%o0, %o1
+				bne     	.$$.cmp.36
+				mov     	%g0, %o0
+				inc     	%o0
+			.$$.cmp.36:
+				set     	-888, %o1
+				add     	%fp, %o1, %o1
+				st      	%o0, [%o1]
+				
+				! if ( (looper1)==(6) )
+				set     	-888, %l7
+				add     	%fp, %l7, %l7
+				ld      	[%l7], %o0
+				cmp     	%o0, %g0
+				be      	.$$.else.20
+				nop     
+					
+					! break
+					ba      	.$$.loopEnd.1
+					nop     
+					
+					ba      	.$$.endif.20
+					nop     
+				
+				! else
+			.$$.else.20:
+				
+				! endif
+			.$$.endif.20:
+				
+				! while ( ... )
+			.$$.loopCheck.2:
+					
+					! (looper1)<(0)
+					set     	-872, %l7
+					add     	%fp, %l7, %l7
+					ld      	[%l7], %o0
+					set     	0, %o1
+					cmp     	%o0, %o1
+					bge     	.$$.cmp.37
+					mov     	%g0, %o0
+					inc     	%o0
+				.$$.cmp.37:
+					set     	-892, %o1
+					add     	%fp, %o1, %o1
+					st      	%o0, [%o1]
+					
+					! Check loop condition
+					set     	-892, %l7
+					add     	%fp, %l7, %l7
+					ld      	[%l7], %o0
+					cmp     	%o0, %g0
+					be      	.$$.loopEnd.2
+					nop     
+					
+					! Start of loop body
+						
+						! (looper1)==(8)
+						set     	-872, %l7
+						add     	%fp, %l7, %l7
+						ld      	[%l7], %o0
+						set     	8, %o1
+						cmp     	%o0, %o1
+						bne     	.$$.cmp.38
+						mov     	%g0, %o0
+						inc     	%o0
+					.$$.cmp.38:
+						set     	-896, %o1
+						add     	%fp, %o1, %o1
+						st      	%o0, [%o1]
+						
+						! if ( (looper1)==(8) )
+						set     	-896, %l7
+						add     	%fp, %l7, %l7
+						ld      	[%l7], %o0
+						cmp     	%o0, %g0
+						be      	.$$.else.21
+						nop     
+							
+							! continue
+							ba      	.$$.loopCheck.2
+							nop     
+							
+							ba      	.$$.endif.21
+							nop     
+						
+						! else
+					.$$.else.21:
+						
+						! endif
+					.$$.endif.21:
+						
+						! (looper1)==(9)
+						set     	-872, %l7
+						add     	%fp, %l7, %l7
+						ld      	[%l7], %o0
+						set     	9, %o1
+						cmp     	%o0, %o1
+						bne     	.$$.cmp.39
+						mov     	%g0, %o0
+						inc     	%o0
+					.$$.cmp.39:
+						set     	-900, %o1
+						add     	%fp, %o1, %o1
+						st      	%o0, [%o1]
+						
+						! if ( (looper1)==(9) )
+						set     	-900, %l7
+						add     	%fp, %l7, %l7
+						ld      	[%l7], %o0
+						cmp     	%o0, %g0
+						be      	.$$.else.22
+						nop     
+							
+							! break
+							ba      	.$$.loopEnd.2
+							nop     
+							
+							ba      	.$$.endif.22
+							nop     
+						
+						! else
+					.$$.else.22:
+						
+						! endif
+					.$$.endif.22:
+						
+						! continue
+						ba      	.$$.loopCheck.2
+						nop     
+						
+						! break
+						ba      	.$$.loopEnd.2
+						nop     
+					
+					! End of loop body
+					ba      	.$$.loopCheck.2
+					nop     
+				.$$.loopEnd.2:
+			
+			! End of loop body
+			ba      	.$$.loopCheck.1
+			nop     
+		.$$.loopEnd.1:
 	
 	! End of function main.void
 	call    	main.void.fini
 	nop     
 	ret     
 	restore 
-	SAVE.main.void = -(92 + 848) & -8
+	SAVE.main.void = -(92 + 900) & -8
 	
 main.void.fini:
 	save    	%sp, -96, %sp
@@ -6211,10 +6661,10 @@ sometest:
 		ld      	[%l7], %o0
 		set     	10, %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.32
+		ble     	.$$.cmp.40
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.32:
+	.$$.cmp.40:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6267,10 +6717,10 @@ sometest2:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		ble     	.$$.cmp.33
+		ble     	.$$.cmp.41
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.33:
+	.$$.cmp.41:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6349,10 +6799,10 @@ sometest3:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fble    	.$$.cmp.34
+		fble    	.$$.cmp.42
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.34:
+	.$$.cmp.42:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6406,10 +6856,10 @@ sometest4:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fble    	.$$.cmp.35
+		fble    	.$$.cmp.43
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.35:
+	.$$.cmp.43:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6462,10 +6912,10 @@ sometest5:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		bl      	.$$.cmp.36
+		bl      	.$$.cmp.44
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.36:
+	.$$.cmp.44:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6519,10 +6969,10 @@ sometest6:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbl     	.$$.cmp.37
+		fbl     	.$$.cmp.45
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.37:
+	.$$.cmp.45:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6575,10 +7025,10 @@ sometest7:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		bge     	.$$.cmp.38
+		bge     	.$$.cmp.46
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.38:
+	.$$.cmp.46:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6632,10 +7082,10 @@ sometest8:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbge    	.$$.cmp.39
+		fbge    	.$$.cmp.47
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.39:
+	.$$.cmp.47:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6688,10 +7138,10 @@ sometest9:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		bg      	.$$.cmp.40
+		bg      	.$$.cmp.48
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.40:
+	.$$.cmp.48:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6745,10 +7195,10 @@ sometest10:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbg     	.$$.cmp.41
+		fbg     	.$$.cmp.49
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.41:
+	.$$.cmp.49:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6801,10 +7251,10 @@ sometest11:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		bne     	.$$.cmp.42
+		bne     	.$$.cmp.50
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.42:
+	.$$.cmp.50:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6858,10 +7308,10 @@ sometest12:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbne    	.$$.cmp.43
+		fbne    	.$$.cmp.51
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.43:
+	.$$.cmp.51:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6914,10 +7364,10 @@ sometest13:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
-		be      	.$$.cmp.44
+		be      	.$$.cmp.52
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.44:
+	.$$.cmp.52:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -6971,10 +7421,10 @@ sometest14:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbe     	.$$.cmp.45
+		fbe     	.$$.cmp.53
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.45:
+	.$$.cmp.53:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7028,10 +7478,10 @@ sometest15:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbe     	.$$.cmp.46
+		fbe     	.$$.cmp.54
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.46:
+	.$$.cmp.54:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7157,7 +7607,7 @@ sometest19:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.31
+		be      	.$$.andorSkip.33
 		nop     
 		
 		! (bFalse)&&(bTrue)
@@ -7167,13 +7617,13 @@ sometest19:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.31
+		be      	.$$.andorSkip.33
 		nop     
-		ba      	.$$.andorEnd.31
+		ba      	.$$.andorEnd.33
 		mov     	1, %o0
-	.$$.andorSkip.31:
+	.$$.andorSkip.33:
 		mov     	0, %o0
-	.$$.andorEnd.31:
+	.$$.andorEnd.33:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7223,7 +7673,7 @@ sometest20:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.32
+		be      	.$$.andorSkip.34
 		nop     
 		
 		! (bTrue)&&(bFalse)
@@ -7233,13 +7683,13 @@ sometest20:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.32
+		be      	.$$.andorSkip.34
 		nop     
-		ba      	.$$.andorEnd.32
+		ba      	.$$.andorEnd.34
 		mov     	1, %o0
-	.$$.andorSkip.32:
+	.$$.andorSkip.34:
 		mov     	0, %o0
-	.$$.andorEnd.32:
+	.$$.andorEnd.34:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7289,7 +7739,7 @@ sometest21:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.33
+		be      	.$$.andorSkip.35
 		nop     
 		
 		! (bFalse)&&(bFalse)
@@ -7299,13 +7749,13 @@ sometest21:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.33
+		be      	.$$.andorSkip.35
 		nop     
-		ba      	.$$.andorEnd.33
+		ba      	.$$.andorEnd.35
 		mov     	1, %o0
-	.$$.andorSkip.33:
+	.$$.andorSkip.35:
 		mov     	0, %o0
-	.$$.andorEnd.33:
+	.$$.andorEnd.35:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7359,10 +7809,10 @@ sometest22:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fble    	.$$.cmp.47
+		fble    	.$$.cmp.55
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.47:
+	.$$.cmp.55:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7372,7 +7822,7 @@ sometest22:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.34
+		be      	.$$.andorSkip.36
 		nop     
 		
 		! (arith8)!=(arith9)
@@ -7384,10 +7834,10 @@ sometest22:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbe     	.$$.cmp.48
+		fbe     	.$$.cmp.56
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.48:
+	.$$.cmp.56:
 		set     	-8, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7408,13 +7858,13 @@ sometest22:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.34
+		be      	.$$.andorSkip.36
 		nop     
-		ba      	.$$.andorEnd.34
+		ba      	.$$.andorEnd.36
 		mov     	1, %o0
-	.$$.andorSkip.34:
+	.$$.andorSkip.36:
 		mov     	0, %o0
-	.$$.andorEnd.34:
+	.$$.andorEnd.36:
 		set     	-16, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7482,7 +7932,7 @@ sometest25:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.37
+		bne     	.$$.andorSkip.39
 		nop     
 		
 		! (bFalse)||(bTrue)
@@ -7492,13 +7942,13 @@ sometest25:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.37
+		bne     	.$$.andorSkip.39
 		nop     
-		ba      	.$$.andorEnd.37
+		ba      	.$$.andorEnd.39
 		mov     	0, %o0
-	.$$.andorSkip.37:
+	.$$.andorSkip.39:
 		mov     	1, %o0
-	.$$.andorEnd.37:
+	.$$.andorEnd.39:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7548,7 +7998,7 @@ sometest26:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.38
+		bne     	.$$.andorSkip.40
 		nop     
 		
 		! (bTrue)||(bFalse)
@@ -7558,13 +8008,13 @@ sometest26:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.38
+		bne     	.$$.andorSkip.40
 		nop     
-		ba      	.$$.andorEnd.38
+		ba      	.$$.andorEnd.40
 		mov     	0, %o0
-	.$$.andorSkip.38:
+	.$$.andorSkip.40:
 		mov     	1, %o0
-	.$$.andorEnd.38:
+	.$$.andorEnd.40:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7614,7 +8064,7 @@ sometest27:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.39
+		bne     	.$$.andorSkip.41
 		nop     
 		
 		! (bFalse)||(bFalse)
@@ -7624,13 +8074,13 @@ sometest27:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.39
+		bne     	.$$.andorSkip.41
 		nop     
-		ba      	.$$.andorEnd.39
+		ba      	.$$.andorEnd.41
 		mov     	0, %o0
-	.$$.andorSkip.39:
+	.$$.andorSkip.41:
 		mov     	1, %o0
-	.$$.andorEnd.39:
+	.$$.andorEnd.41:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7678,7 +8128,7 @@ sometest28:
 		! Short Circuit LHS
 		set     	1, %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.40
+		be      	.$$.andorSkip.42
 		nop     
 		
 		! (true)&&(bFalse)
@@ -7688,13 +8138,13 @@ sometest28:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.40
+		be      	.$$.andorSkip.42
 		nop     
-		ba      	.$$.andorEnd.40
+		ba      	.$$.andorEnd.42
 		mov     	1, %o0
-	.$$.andorSkip.40:
+	.$$.andorSkip.42:
 		mov     	0, %o0
-	.$$.andorEnd.40:
+	.$$.andorEnd.42:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7744,7 +8194,7 @@ sometest29:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.41
+		bne     	.$$.andorSkip.43
 		nop     
 		
 		! Short Circuit LHS
@@ -7752,7 +8202,7 @@ sometest29:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.42
+		be      	.$$.andorSkip.44
 		nop     
 		
 		! (bFalse)&&(bTrue)
@@ -7762,13 +8212,13 @@ sometest29:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.42
+		be      	.$$.andorSkip.44
 		nop     
-		ba      	.$$.andorEnd.42
+		ba      	.$$.andorEnd.44
 		mov     	1, %o0
-	.$$.andorSkip.42:
+	.$$.andorSkip.44:
 		mov     	0, %o0
-	.$$.andorEnd.42:
+	.$$.andorEnd.44:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7780,13 +8230,13 @@ sometest29:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.41
+		bne     	.$$.andorSkip.43
 		nop     
-		ba      	.$$.andorEnd.41
+		ba      	.$$.andorEnd.43
 		mov     	0, %o0
-	.$$.andorSkip.41:
+	.$$.andorSkip.43:
 		mov     	1, %o0
-	.$$.andorEnd.41:
+	.$$.andorEnd.43:
 		set     	-8, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7840,10 +8290,10 @@ sometest30:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fble    	.$$.cmp.49
+		fble    	.$$.cmp.57
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.49:
+	.$$.cmp.57:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7853,7 +8303,7 @@ sometest30:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.43
+		bne     	.$$.andorSkip.45
 		nop     
 		
 		! Short Circuit LHS
@@ -7861,7 +8311,7 @@ sometest30:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.44
+		be      	.$$.andorSkip.46
 		nop     
 		
 		! (sometest23)&&(sometest27)
@@ -7871,13 +8321,13 @@ sometest30:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.44
+		be      	.$$.andorSkip.46
 		nop     
-		ba      	.$$.andorEnd.44
+		ba      	.$$.andorEnd.46
 		mov     	1, %o0
-	.$$.andorSkip.44:
+	.$$.andorSkip.46:
 		mov     	0, %o0
-	.$$.andorEnd.44:
+	.$$.andorEnd.46:
 		set     	-8, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7889,13 +8339,13 @@ sometest30:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.43
+		bne     	.$$.andorSkip.45
 		nop     
-		ba      	.$$.andorEnd.43
+		ba      	.$$.andorEnd.45
 		mov     	0, %o0
-	.$$.andorSkip.43:
+	.$$.andorSkip.45:
 		mov     	1, %o0
-	.$$.andorEnd.43:
+	.$$.andorEnd.45:
 		set     	-12, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7905,7 +8355,7 @@ sometest30:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.45
+		bne     	.$$.andorSkip.47
 		nop     
 		
 		! Short Circuit LHS
@@ -7913,7 +8363,7 @@ sometest30:
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.46
+		be      	.$$.andorSkip.48
 		nop     
 		
 		! (sometest20)&&(true)
@@ -7921,13 +8371,13 @@ sometest30:
 		! Short Circuit RHS
 		set     	1, %o0
 		cmp     	%o0, %g0
-		be      	.$$.andorSkip.46
+		be      	.$$.andorSkip.48
 		nop     
-		ba      	.$$.andorEnd.46
+		ba      	.$$.andorEnd.48
 		mov     	1, %o0
-	.$$.andorSkip.46:
+	.$$.andorSkip.48:
 		mov     	0, %o0
-	.$$.andorEnd.46:
+	.$$.andorEnd.48:
 		set     	-16, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7939,13 +8389,13 @@ sometest30:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.45
+		bne     	.$$.andorSkip.47
 		nop     
-		ba      	.$$.andorEnd.45
+		ba      	.$$.andorEnd.47
 		mov     	0, %o0
-	.$$.andorSkip.45:
+	.$$.andorSkip.47:
 		mov     	1, %o0
-	.$$.andorEnd.45:
+	.$$.andorEnd.47:
 		set     	-20, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -7955,7 +8405,7 @@ sometest30:
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.47
+		bne     	.$$.andorSkip.49
 		nop     
 		
 		! ((((arith8)>(arith9))||((sometest23)&&(sometest27)))||((sometest20)&&(true)))||(false)
@@ -7963,13 +8413,13 @@ sometest30:
 		! Short Circuit RHS
 		set     	0, %o0
 		cmp     	%o0, %g0
-		bne     	.$$.andorSkip.47
+		bne     	.$$.andorSkip.49
 		nop     
-		ba      	.$$.andorEnd.47
+		ba      	.$$.andorEnd.49
 		mov     	0, %o0
-	.$$.andorSkip.47:
+	.$$.andorSkip.49:
 		mov     	1, %o0
-	.$$.andorEnd.47:
+	.$$.andorEnd.49:
 		set     	-24, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -8156,10 +8606,10 @@ fito3:
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
-		fbe     	.$$.cmp.50
+		fbe     	.$$.cmp.58
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.50:
+	.$$.cmp.58:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
@@ -8218,10 +8668,10 @@ fito4:
 		fitos   	%f1, %f1
 		fcmps   	%f0, %f1
 		nop     
-		fble    	.$$.cmp.51
+		fble    	.$$.cmp.59
 		mov     	%g0, %o0
 		inc     	%o0
-	.$$.cmp.51:
+	.$$.cmp.59:
 		set     	-4, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]

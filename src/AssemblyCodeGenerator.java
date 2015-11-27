@@ -34,13 +34,16 @@ public class AssemblyCodeGenerator {
     // counters and trackers
     private int m_floatCount = 1;
     private int m_stringCount = 1;
-    private int m_ifStmtCount = 1;
     private int m_cmpCount = 1;
+    private int m_ifStmtCount = 1;
     private int m_shortCircuitCount = 1;
+    private int m_loopCount = 1;
     private String m_localStaticAppend = "";
 
     private ArrayList<String> m_ifStmtList = new ArrayList<String>();
     private ArrayList<String> m_shortCircuitList = new ArrayList<String>();
+    private ArrayList<String> m_loopList = new ArrayList<String>();
+
 
 
     // ctor
@@ -862,6 +865,65 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.LABEL, ".$$.endif." + currStmt);
 
         m_ifStmtList.remove(m_ifStmtList.size()-1);
+    }
+
+    // Loops
+    //----------------------------------------------------------------
+    public void openLoop() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "Start of loop body");
+    }
+
+    public void closeLoop() {
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "End of loop body");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.loopCheck." + m_loopList.get(m_loopList.size()-1));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.loopEnd." + m_loopList.get(m_loopList.size()-1));
+        decreaseIndent();
+        m_loopList.remove(m_loopList.size()-1);
+    }
+
+    public void doContinueStmt() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "continue");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.loopCheck." + m_loopList.get(m_loopList.size()-1));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+    }
+
+    public void doBreakStmt() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "break");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.loopEnd." + m_loopList.get(m_loopList.size()-1));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+    }
+
+    public void doWhileLoop_1() {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "while ( ... )");
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.loopCheck." + m_loopCount);
+        increaseIndent();
+
+        m_loopList.add(m_loopCount++ + "");
+    }
+
+    public void doWhileLoop_2(STO expr) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "Check loop condition");
+        loadSTO(expr, "%l7", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.loopEnd." + m_loopList.get(m_loopList.size()-1));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
     }
 
     // Functions

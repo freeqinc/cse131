@@ -87,8 +87,14 @@ class MyParser extends parser
 	{
 	}
 
-	public void openLoop() { loopLevel += 1; }
-	public void closeLoop() { loopLevel -= 1; }
+	public void openLoop() {
+		loopLevel += 1;
+		m_asGenerator.openLoop();
+	}
+	public void closeLoop() {
+		loopLevel -= 1;
+		m_asGenerator.closeLoop();
+	}
 	public boolean inLoop() { return loopLevel > 0; }
 
 	//----------------------------------------------------------------
@@ -1846,7 +1852,11 @@ class MyParser extends parser
 		return result;
 	}
 
-	void checkConditionalExpr(STO expr) {
+	void doWhile_1() {
+		m_asGenerator.doWhileLoop_1();
+	}
+
+	void checkConditionalExpr(STO expr, String loop) {
 		if (expr instanceof ErrorSTO) {
 			return;
 		}
@@ -1856,7 +1866,11 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(ErrorMsg.error4_Test, expr.getType().getName()));
 		}
 
-		m_asGenerator.doIfStmt(expr);
+		if (loop.equals("if")) {
+			m_asGenerator.doIfStmt(expr);
+		} else if (loop.equals("while")) {
+			m_asGenerator.doWhileLoop_2(expr);
+		}
 	}
 
 	 void doIfCodeBlock() {
@@ -1915,6 +1929,8 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(ErrorMsg.error12_Break);
 		}
+
+		m_asGenerator.doBreakStmt();
 	}
 
 	void DoContinueStmt() {
@@ -1922,6 +1938,8 @@ class MyParser extends parser
 			m_nNumErrors++;
 			m_errors.print(ErrorMsg.error12_Continue);
 		}
+
+		m_asGenerator.doContinueStmt();
 	}
 
 

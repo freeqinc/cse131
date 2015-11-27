@@ -275,6 +275,47 @@ function : void main () {
         localFloat = localInt = localInt - cgInt;
         localBool = sometest25 = localFloat != localInt && cgBool;
     }
+
+    if (bTrue && bFalse) {
+        cout << "This should not print." << endl;
+        if (localBool = localFloat > 10) {
+        }
+    } else {
+        if ( (bFalse || bFalse) == bTrue) {
+            cout << "This neither." << endl;
+        } else {
+            cout << "Yup" << endl;
+        }
+
+    }
+
+    int looper1 = 0;
+    while (looper1 < 10) {
+        cout << looper1 << endl;
+        looper1 = looper1 + 1;
+
+        if (looper1 == 3) {
+            continue;
+        }
+
+        if (looper1 == 6) {
+            break;
+        }
+
+        while (looper1 < 0) {
+            if (looper1 == 8) {
+                continue;
+            }
+
+            if (looper1 == 9) {
+                break;
+            }
+
+            continue;
+            break;
+        }
+    }
+
 }
 
 int local1;
