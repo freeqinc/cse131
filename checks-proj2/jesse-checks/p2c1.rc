@@ -266,6 +266,15 @@ function : void main () {
 
     cout << intVarCin << " " << floatVarCin << endl;
 
+
+    int localInt = 5;
+    float localFloat = 5.5;
+    bool localBool = true;
+
+    if ((localFloat = localInt) > 0 && localBool) {
+        localFloat = localInt = localInt - cgInt;
+        localBool = sometest25 = localFloat != localInt && cgBool;
+    }
 }
 
 int local1;

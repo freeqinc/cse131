@@ -1102,7 +1102,6 @@ class MyParser extends parser
 	}
 
 	void DoWritePair(STO expr) {
-		// System.out.println(expr.getName() + " " + expr.getType().getName());
 		if (expr.getType() instanceof StringType)
 			m_asGenerator.doStringCout((ConstSTO)expr);
 		else
@@ -1402,7 +1401,16 @@ class MyParser extends parser
 			return new ErrorSTO(stoDes.getName());
 		}
 
-		return stoDes;
+		m_asGenerator.doAssignExpr(stoDes, stoExpr, m_symtab.getFunc());
+
+		String name = "(" + stoDes.getName() + ")=(" + stoExpr.getName() + ")";
+
+		VarSTO ret = new VarSTO(name, stoDes.getType());
+		ret.setBase(stoDes.getBase());
+		ret.setOffset(stoDes.getOffset());
+		ret.setModLValue();
+
+		return ret;
 	}
 
 	STO DoArgAssignExpr(STO stoDes, STO stoExpr) {

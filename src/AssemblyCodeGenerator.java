@@ -461,7 +461,6 @@ public class AssemblyCodeGenerator {
         }
     }
 
-
     // Operators / Arithmetic
     //----------------------------------------------------------------
 
@@ -791,8 +790,24 @@ public class AssemblyCodeGenerator {
         }
     }
 
-    public void doBooleanOp(Operator o, STO expr, Vector<String> regs) {
+    // Other expressions
+    //----------------------------------------------------------------
 
+    public void doAssignExpr(STO left, STO right, FuncSTO func) {
+        String stReg = "%o0";
+
+        if (left.getType() instanceof FloatType) {
+            stReg = "%f0";
+        }
+
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, left.getName() + " = " + right.getName());
+        setAddress(left, "%o1");
+        loadSTO(right, "%l7", "%o0");
+        assignFitos(left, right, func);
+        writeAssembly(ACGstrs.ST, stReg, "%o1");
+        decreaseIndent();
     }
 
     // Statements
