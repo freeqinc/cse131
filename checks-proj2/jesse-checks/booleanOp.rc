@@ -1,0 +1,12 @@
+function : void main () {
+    int a = 5;
+    int b = 6;
+
+    bool test1 = (a > b) && (b > a);
+
+    bool bFalse = false;
+    bool bTrue = true;
+
+    bool sometest29 = bTrue || bFalse && bTrue;
+    
+}

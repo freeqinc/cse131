@@ -175,6 +175,20 @@ class MyParser extends parser
 		m_symtab.openScope();
 	}
 
+	void startGenBuffer() {
+		m_asGenerator.startBuffer();
+	}
+
+	void writeGenBuffer() {
+		m_asGenerator.writeBuffer();
+	}
+
+	void stopGenBuffer() {
+		m_asGenerator.stopBuffer();
+	}
+
+	AssemblyCodeGenerator getAssemblyGen() { return m_asGenerator; }
+
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
@@ -1587,9 +1601,6 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 
-//		m_asGenerator.startBuffer();
-//		m_asGenerator.doDesignatorID(sto);
-//		m_asGenerator.stopBuffer();
 
 		return sto;
 	}
@@ -1669,6 +1680,17 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+
+	void DoShortCircuitLHS(STO a, Operator o) {
+		if (m_symtab.inGlobalScope()) {
+			m_asGenerator.startBuffer();
+		}
+		m_asGenerator.doShortCircuitLHS(a, o);
+	}
+
+	//----------------------------------------------------------------
+	//
+	//----------------------------------------------------------------
 	STO DoBinaryExpr(STO a, Operator o, STO b) {
 		if (b instanceof ErrorSTO) return b;
 		if (a instanceof ErrorSTO) return a;
@@ -1721,7 +1743,10 @@ class MyParser extends parser
 		// Constant folded
 		if (result instanceof ConstSTO && ((ConstSTO) result).hasValue()) {
 			if (o instanceof BooleanOp) {
-				m_asGenerator.doShortCircuit(a, o, b, result, "%g0");
+				if (m_symtab.inGlobalScope()) {
+				} else {
+					m_asGenerator.doShortCircuitRHS(a, o, b, result, "%g0");
+				}
 			}
 
 			return result;
@@ -1745,11 +1770,10 @@ class MyParser extends parser
 		}
 
 		if (o instanceof BooleanOp) {
-			m_asGenerator.doShortCircuit(a, o, b, result, "%o0");
+			m_asGenerator.doShortCircuitRHS(a, o, b, result, "%o0");
 		}
 
-		 m_asGenerator.doBinaryExpr(a, o, b, result);
-
+		m_asGenerator.doBinaryExpr(a, o, b, result);
 
 		return result;
 	}
@@ -1800,7 +1824,6 @@ class MyParser extends parser
 		}
 		m_asGenerator.doUnaryExpr(o, a, result);
 
-		// System.out.println(result.getName());
 
 		return result;
 	}

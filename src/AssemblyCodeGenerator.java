@@ -40,6 +40,7 @@ public class AssemblyCodeGenerator {
     private String m_localStaticAppend = "";
 
     private ArrayList<String> m_ifStmtList = new ArrayList<String>();
+    private ArrayList<String> m_shortCircuitList = new ArrayList<String>();
 
 
     // ctor
@@ -73,6 +74,8 @@ public class AssemblyCodeGenerator {
     public void stopBuffer() {
         m_isBuffering = false;
     }
+
+    public void increaseShortCircuit() { m_shortCircuitCount++; }
 
     public void closeWriter() {
         try {
@@ -238,6 +241,9 @@ public class AssemblyCodeGenerator {
 
 
     public void doInitGlobalStatic(STO sto, ConstSTO expr, boolean optStatic) {
+        clearBuffer();
+        stopBuffer();
+
         increaseIndent();
         doSection(".data");
 
@@ -574,7 +580,7 @@ public class AssemblyCodeGenerator {
         // > < >= <= ==
         } else if (o instanceof ComparisonOp) {
             doComparisonOp(o, expr, regs);
-            
+
         }
 
         decreaseIndent();
@@ -671,34 +677,59 @@ public class AssemblyCodeGenerator {
         storeIntoAddress(expr, "%o1", "%o0");
     }
 
-    public void doShortCircuit(STO a, Operator o, STO b, STO expr, String scOut) {
+    public void doShortCircuitLHS(STO a, Operator o) {
+        String branch = ACGstrs.BE_OP;
+        if (o instanceof OrOp) {
+            branch = ACGstrs.BNE_OP;
+        }
+
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "Short Circuit LHS");
         loadSTO(a, "%l7", "%o0");
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.andorSkip." + m_shortCircuitCount);
+        writeAssembly(ACGstrs.ONE_PARAM, branch, ".$$.andorSkip." + m_shortCircuitCount);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
 
-        if (scOut.equals("%o0")) {
-            writeAssembly(ACGstrs.NEWLINE);
-            writeAssembly(ACGstrs.COMMENT, expr.getName());
+        m_shortCircuitList.add(m_shortCircuitCount++ + "");
+    }
+
+    public void doShortCircuitRHS(STO a, Operator o, STO b, STO expr, String scOut) {
+        String shortCircuitCount = m_shortCircuitList.get(m_shortCircuitList.size() - 1);
+        String branch = ACGstrs.BE_OP;
+        String first = "1";
+        String second = "0";
+        if (o instanceof OrOp) {
+            branch = ACGstrs.BNE_OP;
+            first = "0";
+            second = "1";
         }
 
+        if (scOut.equals("%o0")) {
+            increaseIndent();
+            writeAssembly(ACGstrs.NEWLINE);
+            writeAssembly(ACGstrs.COMMENT, expr.getName());
+            decreaseIndent();
+        }
+
+        increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "Short Circuit RHS");
         loadSTO(b, "%l7", "%o0");
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.andorSkip." + m_shortCircuitCount);
+        writeAssembly(ACGstrs.ONE_PARAM, branch, ".$$.andorSkip." + shortCircuitCount);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.andorEnd." + m_shortCircuitCount);
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "1", scOut);
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BA_OP, ".$$.andorEnd." + shortCircuitCount);
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, first, scOut);
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, ".$$.andorSkip." + m_shortCircuitCount);
+        writeAssembly(ACGstrs.LABEL, ".$$.andorSkip." + shortCircuitCount);
         increaseIndent();
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "0", scOut);
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, second, scOut);
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, ".$$.andorEnd." + m_shortCircuitCount++);
+        writeAssembly(ACGstrs.LABEL, ".$$.andorEnd." + shortCircuitCount);
+
+        m_shortCircuitList.remove(m_shortCircuitList.size() - 1);
 
         if (scOut.equals("%o0")) {
             increaseIndent();
