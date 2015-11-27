@@ -299,7 +299,10 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getName(), "%o1");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
-        setAddressLoad(expr, "%l7", loadRegister);
+        loadSTO(expr, "%l7", "%o0");
+
+        assignFitos(sto, expr, bufferFunc);
+
         writeAssembly(ACGstrs.ST, loadRegister, "%o1");
         decreaseIndent();
 
@@ -317,18 +320,18 @@ public class AssemblyCodeGenerator {
 
     }
 
-    public void doLocalVariable(STO sto, STO expr, boolean optStatic) {
+    public void doLocalVariable(STO sto, STO expr, boolean optStatic, FuncSTO func) {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, sto.getName() + " = " + expr.getName());
         setAddress(sto, "%o1");
-
 
         // Handle float register
         String loadRegister = "%o0";
         if (sto.getType() instanceof FloatType)
             loadRegister = "%f0";
 
+        /*
         // Literal
         if (!expr.hasAddress()) {
 
@@ -345,6 +348,11 @@ public class AssemblyCodeGenerator {
         } else {
             setAddressLoad(expr, "%l7", loadRegister);
         }
+        */
+
+        loadSTO(expr, "%l7", "%o0");
+
+        assignFitos(sto, expr, func);
 
         writeAssembly(ACGstrs.ST, loadRegister, "%o1");
         decreaseIndent();
@@ -377,7 +385,7 @@ public class AssemblyCodeGenerator {
     }
 
     public void storeIntoAddress(STO sto, String set, String store) {
-        setAddress(sto,set);
+        setAddress(sto, set);
         writeAssembly(ACGstrs.ST, store, set);
     }
 
@@ -440,6 +448,17 @@ public class AssemblyCodeGenerator {
     public void doReturn() {
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RET_OP);
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.RESTORE_OP);
+    }
+
+
+    public void assignFitos(STO left, STO right, FuncSTO func) {
+        if (left.getType() instanceof FloatType && !(right.getType() instanceof FloatType)) {
+            VarSTO padding = new VarSTO("padding", new FloatType());
+            func.allocateLocalVar(padding);
+            storeIntoAddress(padding, "%l7", "%o0");
+            writeAssembly(ACGstrs.LD, "%l7", "%f0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f0", "%f0");
+        }
     }
 
 
@@ -554,7 +573,37 @@ public class AssemblyCodeGenerator {
         return regs;
     }
 
-    public void doBinaryExpr(STO a, Operator o, STO b, STO expr) {
+    public void doTypePromotionLeft(STO a, STO b, FuncSTO func, Vector<String> regs) {
+        Type aT = a.getType();
+        Type bT = b.getType();
+
+        if (!(aT instanceof FloatType) && (bT instanceof FloatType)) {
+            VarSTO padding = new VarSTO("padding", new FloatType());
+            func.allocateLocalVar(padding);
+
+            storeIntoAddress(padding, "%l7", regs.get(0));
+            writeAssembly(ACGstrs.LD, "%l7", "%f0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f0", "%f0");
+            regs.set(0, "%f0");
+        }
+    }
+
+    public void doTypePromotionRight(STO a, STO b, FuncSTO func, Vector<String> regs) {
+        Type aT = a.getType();
+        Type bT = b.getType();
+
+        if ((aT instanceof FloatType) && !(bT instanceof FloatType)) {
+            VarSTO padding = new VarSTO("padding", new FloatType());
+            func.allocateLocalVar(padding);
+
+            storeIntoAddress(padding, "%l7", regs.get(1));
+            writeAssembly(ACGstrs.LD, "%l7", "%f1");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f1", "%f1");
+            regs.set(1, "%f1");
+        }
+    }
+
+    public void doBinaryExpr(STO a, Operator o, STO b, STO expr, FuncSTO func) {
 
         if (o instanceof BooleanOp) {
             return;
@@ -567,7 +616,11 @@ public class AssemblyCodeGenerator {
         Vector<String> regs = getBinarySTORegs(a, b);
 
         loadSTO(a, "%l7", regs.get(0));
+        doTypePromotionLeft(a, b, func, regs);
+
         loadSTO(b, "%l7", regs.get(1));
+        doTypePromotionRight(a, b, func, regs);
+
 
         // + - * / %
         if (o instanceof ArithmeticOp) {
@@ -918,6 +971,24 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ".$$.strEndl", "%o0");
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, "printf");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+    }
+
+    public void doCin(STO sto) {
+        String funcCall = "inputInt";
+        String stReg = "%o0";
+
+        if (sto.getType() instanceof FloatType) {
+            funcCall = "inputFloat";
+            stReg = "%f0";
+        }
+
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "cin >> " + sto.getName());
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, funcCall);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        storeIntoAddress(sto, "%o1", stReg);
         decreaseIndent();
     }
 

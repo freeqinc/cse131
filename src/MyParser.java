@@ -760,6 +760,9 @@ class MyParser extends parser
 				} else {
 					m_asGenerator.stopBuffer();
 
+					if (m_bufferFunc == null)
+						m_bufferFunc = new FuncSTO("buffer");
+
 					m_asGenerator.doUninitGlobalStatic(sto, optStatic);
 					m_asGenerator.doAssignFlush(sto, expr, m_bufferFunc);
 
@@ -776,7 +779,7 @@ class MyParser extends parser
 
 			// Initialization
 			if (expr != null) {
-				m_asGenerator.doLocalVariable(sto, expr, optStatic);
+				m_asGenerator.doLocalVariable(sto, expr, optStatic, m_symtab.getFunc());
 			}
 		}
 
@@ -946,7 +949,7 @@ class MyParser extends parser
 
 				m_symtab.getFunc().allocateLocalVar(sto);
 
-				m_asGenerator.doLocalVariable(sto, expr, optStatic);
+				m_asGenerator.doLocalVariable(sto, expr, optStatic, m_symtab.getFunc());
 
 			}
 		}
@@ -1089,6 +1092,10 @@ class MyParser extends parser
 		}
 
 		return null;
+	}
+
+	void DoReadStmt(STO sto) {
+		m_asGenerator.doCin(sto);
 	}
 
 	void DoWriteStmt(Vector<STO> writeList) {
@@ -1756,6 +1763,8 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 		// Global
+		FuncSTO usedFunc = m_symtab.getFunc();
+
 		if (m_symtab.inGlobalScope()) {
 			m_asGenerator.startBuffer();
 
@@ -1763,6 +1772,7 @@ class MyParser extends parser
 				m_bufferFunc = new FuncSTO("buffer");
 
 			m_bufferFunc.allocateLocalVar(result);
+			usedFunc = m_bufferFunc;
 
 		// Function scope
 		} else {
@@ -1773,7 +1783,7 @@ class MyParser extends parser
 			m_asGenerator.doShortCircuitRHS(a, o, b, result, "%o0");
 		}
 
-		m_asGenerator.doBinaryExpr(a, o, b, result);
+		m_asGenerator.doBinaryExpr(a, o, b, result, usedFunc);
 
 		return result;
 	}

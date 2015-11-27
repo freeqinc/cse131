@@ -65,6 +65,9 @@ public final class ACGstrs {
     public static final String CALL_OP = "call    ";
     public static final String FDIVS_OP = "fdivs   ";
     public static final String FMULS_OP = "fmuls   ";
+    public static final String FITOS_OP = "fitos   ";
+    public static final String FSTOI_OP = "fstoi   ";
+
 
 
     public static final String ZERO_PARAM = "%s\n";
