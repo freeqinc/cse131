@@ -53,8 +53,23 @@ structdef MYS1 {
         this.i = 5;
         this.f = 5;
     }
+    MYS1(bool boop) {
+        this.i = 10;
+        this.f = 5.5;
+        this.b = boop;
+    }
+    MYS1(float floop) {
+        this.f = floop;
+    }
+    MYS1(int a, float b, bool c) {
+        this.i = a;
+        this.f = b;
+        this.b = c;
+    }
     function : void fun1() {}
     function : void fun1(int i) {}
+    function : float fun1(float f) { return f; }
+    function : float fun2() { return this.f; }
 };
 
 structdef MYS1_2 {
@@ -76,6 +91,18 @@ structdef MYS2 {
     bool b;
 };
 
+MYS1 struArr1[2];
+
+
+structdef MYS3 {
+    int i;
+    float f;
+    bool b;
+    MYS3(float floop, float floop1, float floop2, float floop4) {
+        this.f = floop;
+    }
+};
+
 MYS1 stru1;
 static MYS1 stru2;
 
@@ -85,8 +112,13 @@ function : void structs () {
     bool boolVar = true;
 
     MYS1 stru1;
+    MYS1 stru1crew1 : ();
+    MYS1 stru1crew2 : (floatVar);
+    MYS1 stru1crew3 : (intVar, floatVar, boolVar);
+    MYS1 stru1_copy : (true);
     MYS1_2 stru1_2;
     MYS2 stru2;
+    MYS3 stru3crew1 : (intVar, floatVar, intVar, intVar);
 
     ::stru1.i = 5;
     stru1.i = 10;
@@ -96,6 +128,12 @@ function : void structs () {
     ::stru1.fun1();
     stru1.fun1();
     stru1.fun1(intVar);
+    stru1.fun1(floatVar);
+    float balloon = stru1.fun2();
+
+    stru1_copy = stru1;
+
+    MYS1 struArr1[5];
 }
 
 function : void arrays () {

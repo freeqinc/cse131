@@ -105,6 +105,12 @@ public class FuncSTO extends STO
 		sto.setOffset( (m_localVarPointer -= sto.getType().getSize()) + "" );
 	}
 
+	public void allocateLocalVarPtr(STO sto) {
+		sto.setBase("%fp");
+		sto.setOffset( (m_localVarPointer -= 4) + "" );
+	}
+
+
 	public void allocateParam(STO sto) {
 		sto.setBase("%fp");
 		sto.setOffset( (m_paramPointer += sto.getType().getSize()) + "");

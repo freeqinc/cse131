@@ -480,6 +480,16 @@ public class AssemblyCodeGenerator {
         }
     }
 
+    public void assignFitos(STO left, STO right, FuncSTO func, int reg) {
+        if (left.getType() instanceof FloatType && !(right.getType() instanceof FloatType)) {
+            VarSTO padding = new VarSTO("padding", new FloatType());
+            func.allocateLocalVar(padding);
+            storeIntoAddress(padding, "%l7", "%o" + reg);
+            writeAssembly(ACGstrs.LD, "%l7", "%f" + reg);
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f" + reg, "%f" + reg);
+        }
+    }
+
     // Operators / Arithmetic
     //----------------------------------------------------------------
 
@@ -829,6 +839,23 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
+    public void doAssignCompositeExpr(STO left, STO right, FuncSTO func) {
+        String stReg = "%o0";
+
+        if (left.getType() instanceof FloatType) {
+            stReg = "%f0";
+        }
+
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, left.getName() + " = " + right.getName());
+        setAddressNoDeref(left, "%o0");
+        setAddressNoDeref(right, "%o1");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, left.getType().getSize() + "", "%o2");
+        doCall("memmove");
+        decreaseIndent();
+    }
+
     // Statements
     //----------------------------------------------------------------
 
@@ -1021,12 +1048,36 @@ public class AssemblyCodeGenerator {
         doFuncDecl_2(null, ctor2);
     }
 
-    public void doStructCtorCall(StructType sType, STO var, FuncSTO ctor, Vector<STO> args) {
+    public void doStructCtorCall(StructType sType, STO var, FuncSTO ctor, Vector<STO> args, FuncSTO currFunc) {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, var.getName() + "." + sType.getId() + "(...)");
         setAddressNoDeref(var, "%o0");
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, sType.getId() + "." + getFuncName(ctor));
+
+
+        if (args != null) {
+            Vector<STO> params = ctor.getParams();
+            STO param;
+            STO arg;
+            String setReg;
+
+            for (int i = 0; i < args.size(); i++) {
+                param = params.get(i);
+                arg = args.get(i);
+                setReg = (arg.getType() instanceof FloatType) ? "f" : "o";
+
+                writeAssembly(ACGstrs.COMMENT, param.getName() + " <- " + arg.getName());
+                if (param.isReference()) {
+                    setAddress(arg, "%o" + (i + 1));
+                } else {
+                    loadSTO(arg, "%l7", "%" + setReg + (i + 1));
+                }
+
+                assignFitos(param, arg, currFunc, i + 1);
+            }
+        }
+
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, getFuncName(ctor));
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
         decreaseIndent();
     }
@@ -1051,6 +1102,28 @@ public class AssemblyCodeGenerator {
 
         doSection(".text");
         decreaseIndent();
+    }
+
+    public void doStructArrayInst(STO sto) {
+        String functionName = ".$.init." + sto.getName();
+
+        writeAssembly(ACGstrs.LABEL, functionName);
+        increaseIndent();
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
+
+        writeBuffer();
+
+        doFuncDecl_2(functionName, null);
+
+        increaseIndent();
+        doSection(".init");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        doSection(".text");
+        decreaseIndent();
+
     }
 
     // Designators
@@ -1090,7 +1163,7 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.arrCheck");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "4", "%o1");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ArrayType) sto.getType()).next().getSize() + "", "%o1");
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".mul");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o1");
@@ -1099,7 +1172,11 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.ptrCheck");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
-        func.allocateLocalVar(result);
+        if (result.isReference()) {
+            func.allocateLocalVarPtr(result);
+        } else {
+            func.allocateLocalVar(result);
+        }
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
         storeIntoAddressNoDeref(result, "%o1", "%o0");
 
@@ -1154,6 +1231,12 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "Store params");
 
+        int shift = 0;
+        if (m_currStruct != null) {
+            writeAssembly(ACGstrs.ST, "%i0" , "%fp+68" );
+            shift += 1;
+        }
+
         int i = 0;
         if (params != null) {
             STO param;
@@ -1161,19 +1244,17 @@ public class AssemblyCodeGenerator {
 
             for (i = 0; i < params.size(); i++) {
                 param = params.get(i);
-                stReg = "%i" + i;
+                stReg = "%i" + (i + shift);
                 if ((param.getType() instanceof FloatType) && !param.isReference()) {
-                    stReg = "%f" + i;
+                    stReg = "%f" + (i + shift);
                 }
 
+                param.setOffset((Integer.parseInt(param.getOffset()) + (shift * 4)) + "");
                 writeAssembly(ACGstrs.ST, stReg, param.getBase() + "+" + param.getOffset());
             }
 
         }
 
-        if (m_currStruct != null) {
-            writeAssembly(ACGstrs.ST, "%i" + i, "%fp+" + (68 + (i * 4)) );
-        }
 
         decreaseIndent();
     }
@@ -1235,7 +1316,7 @@ public class AssemblyCodeGenerator {
         int shift = 0;
         if (sto.memberOf() != null) {
             writeAssembly(ACGstrs.COMMENT, sto.belongsTo().getName() + "." + sto.getName() + "(...)");
-            setAddressNoDeref(sto.belongsTo(), "%o0");
+            setAddress(sto.belongsTo(), "%o0");
             shift += 1;
         } else {
             writeAssembly(ACGstrs.COMMENT,  sto.getName() + "(...)");
@@ -1268,7 +1349,10 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
         if (!(sto.getReturnType() instanceof VoidType)) {
-            storeIntoAddress(sto, "%o1", "%o0");
+            if (sto.getReturnType() instanceof FloatType)
+                storeIntoAddress(sto, "%o1", "%f0");
+            else
+                storeIntoAddress(sto, "%o1", "%o0");
         }
 
         decreaseIndent();

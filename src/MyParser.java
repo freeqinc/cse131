@@ -326,6 +326,8 @@ class MyParser extends parser
 			if (preType instanceof ArrayType) {
 				if (((ArrayType) preType).next() instanceof ArrayType) {
 					sto = new VarSTO(sto.getName(), ((ArrayType) preType).next());
+				} else if (((ArrayType) preType).next() instanceof StructType) {
+					sto = new VarSTO(sto.getName(), ((ArrayType) preType).next());
 				} else {
 					sto = new ConstSTO(sto.getName(), ((ArrayType) preType).next());
 				}
@@ -341,7 +343,9 @@ class MyParser extends parser
 		sto.setName(name);
 		sto.setReference();
 
-		m_asGenerator.doArrayAccess(stoCopy, expr, sto, m_symtab.getFunc());
+		FuncSTO currFunc = m_symtab.getFunc() != null ? m_symtab.getFunc() : m_bufferFunc;
+
+		m_asGenerator.doArrayAccess(stoCopy, expr, sto, currFunc);
 
 		return sto;
 	}
@@ -362,6 +366,7 @@ class MyParser extends parser
 		// check if struct has member
 		Scope structScope = ((StructType) sto.getType()).getScope();
 		STO ret = structScope.accessLocal(strID);
+		boolean isRef = sto.isReference();
 
 
 
@@ -722,8 +727,11 @@ class MyParser extends parser
 
 		}
 
+
+		((FuncSTO)match).setMemberOf(((StructType)structType).getId());
+
 		STO var = new VarSTO(id, structType);
-		var.setReference();
+//		var.setReference();
 
 
 		//----------------
@@ -743,7 +751,7 @@ class MyParser extends parser
 			if (m_bufferFunc == null)
 				m_bufferFunc = new FuncSTO("buffer");
 
-			m_asGenerator.doStructCtorCall((StructType) structType, var, (FuncSTO) match, args);
+			m_asGenerator.doStructCtorCall((StructType) structType, var, (FuncSTO) match, args, m_bufferFunc);
 
 			m_asGenerator.stopBuffer();
 
@@ -758,14 +766,17 @@ class MyParser extends parser
 				m_symtab.getFunc().allocateLocalVar(var);
 			}
 
-			m_asGenerator.doStructCtorCall((StructType) structType, var, (FuncSTO) match, args);
+			m_asGenerator.doStructCtorCall((StructType) structType, var, (FuncSTO) match, args, m_symtab.getFunc());
 		}
 
 		m_symtab.insert(var);
 	}
 
 	void DoStructArrayInst(String id, Type structType, Vector<STO> args, Vector<STO> arrayList, boolean optStatic) {
-		DoArrayDecl(id, structType, arrayList, false);
+		DoArrayDecl(id, structType, arrayList, false, args);
+
+		STO sto = m_symtab.access(id);
+
 
 		if (args != null && args.size() > 0 && args.elementAt(0).getName().equals("empty ctor call")) {
 			args.remove(0);
@@ -790,6 +801,27 @@ class MyParser extends parser
 					m_errors.print(Formatter.toString(ErrorMsg.error9_Illegal, ((StructType) structType).getStructName()));
 				}
 			}
+		}
+
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+
+
+		// Global Scope or Static
+		if (optStatic || m_symtab.inGlobalScope()) {
+
+			m_asGenerator.stopBuffer();
+
+			m_asGenerator.doUninitGlobalStatic(sto, optStatic);
+			m_asGenerator.doStructArrayInst(sto);
+
+		// Local Scope
+		} else {
+
+
 		}
 	}
 
@@ -911,7 +943,7 @@ class MyParser extends parser
 		return sto;
 	}
 
-	void DoArrayDecl(String id, Type t, Vector<STO> arrayList, boolean optStatic) {
+	void DoArrayDecl(String id, Type t, Vector<STO> arrayList, boolean optStatic, Vector<STO> args) {
 		if (m_symtab.accessLocal(id) != null)
 		{
 			m_nNumErrors++;
@@ -962,6 +994,31 @@ class MyParser extends parser
 					arrType.setNext(t);
 				}
 			}
+
+			if (t instanceof StructType) {
+				FuncSTO func = m_symtab.getFunc();
+
+				if (m_symtab.inGlobalScope()) {
+					sto.setBase("%g0");
+					sto.setOffset(sto.getName());
+
+					if (m_bufferFunc == null)
+						m_bufferFunc = new FuncSTO("buffer");
+
+					func = m_bufferFunc;
+
+					m_asGenerator.startBuffer();
+				} else {
+					func.allocateLocalVar(sto);
+				}
+
+
+				for (int j = 0; j < ((ConstSTO) curr).getIntValue(); j++) {
+					STO des2 = DoDesignator2_Array(sto, new ConstSTO(j + "", new IntType(), j));
+					des2.setReference();
+					DoFuncCall(DoDesignator2_Dot(des2, ((StructType) t).getId()), args);
+				}
+			}
 		}
 
 
@@ -969,22 +1026,24 @@ class MyParser extends parser
 		// ASSEMBLY GEN
 		//----------------
 
+		if (!(t instanceof StructType)) {
 
 
-		// Global Scope or Static
-		if (optStatic || m_symtab.inGlobalScope()) {
+			// Global Scope or Static
+			if (optStatic || m_symtab.inGlobalScope()) {
 
-			sto.setBase("%g0");
-			sto.setOffset(id);
+				sto.setBase("%g0");
+				sto.setOffset(id);
 
+				m_asGenerator.doUninitGlobalStatic(sto, optStatic);
 
-			m_asGenerator.doUninitGlobalStatic(sto, optStatic);
-			// Local Scope
-		} else {
-			if (m_symtab.getFunc() != null) {
-				m_symtab.getFunc().allocateLocalVar(sto);
+				// Local Scope
+			} else {
+				if (m_symtab.getFunc() != null) {
+					m_symtab.getFunc().allocateLocalVar(sto);
+				}
+
 			}
-
 		}
 
 		m_symtab.insert(sto);
@@ -1138,7 +1197,7 @@ class MyParser extends parser
 
 
 			m_asGenerator.doStructCtor(id, sto, params);
-			m_asGenerator.doStructCtor_2(id, sto, params);
+			// m_asGenerator.doStructCtor_2(id, sto, params);
 		}
 	}
 
@@ -1522,7 +1581,11 @@ class MyParser extends parser
 			return new ErrorSTO(stoDes.getName());
 		}
 
-		m_asGenerator.doAssignExpr(stoDes, stoExpr, m_symtab.getFunc());
+		if (stoDes.getType() instanceof StructType) {
+			m_asGenerator.doAssignCompositeExpr(stoDes, stoExpr, m_symtab.getFunc());
+		} else {
+			m_asGenerator.doAssignExpr(stoDes, stoExpr, m_symtab.getFunc());
+		}
 
 		String name = "(" + stoDes.getName() + ")=(" + stoExpr.getName() + ")";
 

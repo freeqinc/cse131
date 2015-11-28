@@ -1,6 +1,6 @@
 	
 /*
- * Jesse Qin's CSE131 Compiler Generated Sat Nov 28 04:02:17 PST 2015
+ * Jesse Qin's CSE131 Compiler Generated Sat Nov 28 07:57:07 PST 2015
  */
 
 	
@@ -794,6 +794,210 @@ MYS1.MYS1.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
+MYS1.MYS1.bool:
+	set     	SAVE.MYS1.MYS1.bool, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%i1, [%fp+72]
+		
+		! this.i
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	0, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.i = 10
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	10, %o0
+		st      	%o0, [%o1]
+		
+		! this.f
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	4, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.f = 5.5
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.1:
+		.single 	0r5.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.1, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! this.b
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	8, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.b = boop
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function MYS1.MYS1.bool
+	call    	MYS1.MYS1.bool.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS1.MYS1.bool = -(92 + 12) & -8
+	
+MYS1.MYS1.bool.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+MYS1.MYS1.float:
+	set     	SAVE.MYS1.MYS1.float, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%f1, [%fp+72]
+		
+		! this.f
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	4, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.f = floop
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function MYS1.MYS1.float
+	call    	MYS1.MYS1.float.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS1.MYS1.float = -(92 + 4) & -8
+	
+MYS1.MYS1.float.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+MYS1.MYS1.int.float.bool:
+	set     	SAVE.MYS1.MYS1.int.float.bool, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%i1, [%fp+72]
+		st      	%f2, [%fp+76]
+		st      	%i3, [%fp+80]
+		
+		! this.i
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	0, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.i = a
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! this.f
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	4, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.f = b
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	76, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! this.b
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	8, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.b = c
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	80, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+	
+	! End of function MYS1.MYS1.int.float.bool
+	call    	MYS1.MYS1.int.float.bool.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS1.MYS1.int.float.bool = -(92 + 12) & -8
+	
+MYS1.MYS1.int.float.bool.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
 MYS1.$MYS1.void:
 	set     	SAVE.MYS1.$MYS1.void, %g1
 	save    	%sp, %g1, %sp
@@ -846,6 +1050,73 @@ MYS1.fun1.int:
 	SAVE.MYS1.fun1.int = -(92 + 0) & -8
 	
 MYS1.fun1.int.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+MYS1.fun1.float:
+	set     	SAVE.MYS1.fun1.float, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%f1, [%fp+72]
+		
+		! return f;
+		set     	72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		call    	MYS1.fun1.float.fini
+		nop     
+		ret     
+		restore 
+	
+	! End of function MYS1.fun1.float
+	call    	MYS1.fun1.float.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS1.fun1.float = -(92 + 0) & -8
+	
+MYS1.fun1.float.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+MYS1.fun2.void:
+	set     	SAVE.MYS1.fun2.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		
+		! this.f
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	4, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! return this.f;
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %l7
+		ld      	[%l7], %f0
+		call    	MYS1.fun2.void.fini
+		nop     
+		ret     
+		restore 
+	
+	! End of function MYS1.fun2.void
+	call    	MYS1.fun2.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS1.fun2.void = -(92 + 4) & -8
+	
+MYS1.fun2.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
@@ -1039,6 +1310,148 @@ MYS2.$MYS2.void.fini:
 	
 	.section	".bss"
 	.align  	4
+	.global 	struArr1
+struArr1:
+	.skip   	24
+	
+	.section	".text"
+	.align  	4
+.$.init.struArr1:
+	set     	SAVE..$.init.struArr1, %g1
+	save    	%sp, %g1, %sp
+		
+		! struArr1[0]
+		set     	0, %o0
+		set     	2, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	struArr1, %o0
+		add     	%g0, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[0].MYS1(...)
+		set     	-4, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
+		
+		! struArr1[1]
+		set     	1, %o0
+		set     	2, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	struArr1, %o0
+		add     	%g0, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[1].MYS1(...)
+		set     	-8, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
+	
+	! End of function .$.init.struArr1
+	call    	.$.init.struArr1.fini
+	nop     
+	ret     
+	restore 
+	SAVE..$.init.struArr1 = -(92 + 0) & -8
+	
+.$.init.struArr1.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".init"
+	.align  	4
+	call    	.$.init.struArr1
+	nop     
+	
+	.section	".text"
+	.align  	4
+MYS3.MYS3.float.float.float.float:
+	set     	SAVE.MYS3.MYS3.float.float.float.float, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%f1, [%fp+72]
+		st      	%f2, [%fp+76]
+		st      	%f3, [%fp+80]
+		st      	%f4, [%fp+84]
+		
+		! this.f
+		set     	68, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		set     	4, %o1
+		add     	%g0, %o1, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! this.f = floop
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	72, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+	
+	! End of function MYS3.MYS3.float.float.float.float
+	call    	MYS3.MYS3.float.float.float.float.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS3.MYS3.float.float.float.float = -(92 + 4) & -8
+	
+MYS3.MYS3.float.float.float.float.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+MYS3.$MYS3.void:
+	set     	SAVE.MYS3.$MYS3.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+	
+	! End of function MYS3.$MYS3.void
+	call    	MYS3.$MYS3.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.MYS3.$MYS3.void = -(92 + 0) & -8
+	
+MYS3.$MYS3.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	
+	.section	".bss"
+	.align  	4
 	.global 	stru1
 stru1:
 	.skip   	12
@@ -1060,7 +1473,7 @@ stru1:
 	nop     
 	ret     
 	restore 
-	SAVE..$.init.stru1 = -(92 + 0) & -8
+	SAVE..$.init.stru1 = -(92 + 8) & -8
 	
 .$.init.stru1.fini:
 	save    	%sp, -96, %sp
@@ -1131,12 +1544,12 @@ structs.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.1:
+	.$$.float.2:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.1, %l7
+		set     	.$$.float.2, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -1152,16 +1565,95 @@ structs.void:
 		call    	MYS1.MYS1.void
 		nop     
 		
-		! stru1_2.MYS1_2(...)
+		! stru1crew1.MYS1(...)
 		set     	-36, %o0
+		add     	%fp, %o0, %o0
+		call    	MYS1.MYS1.void
+		nop     
+		
+		! stru1crew2.MYS1(...)
+		set     	-48, %o0
+		add     	%fp, %o0, %o0
+		! floop <- floatVar
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		call    	MYS1.MYS1.float
+		nop     
+		
+		! stru1crew3.MYS1(...)
+		set     	-60, %o0
+		add     	%fp, %o0, %o0
+		! a <- intVar
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		! b <- floatVar
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f2
+		! c <- boolVar
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o3
+		call    	MYS1.MYS1.int.float.bool
+		nop     
+		
+		! stru1_copy.MYS1(...)
+		set     	-72, %o0
+		add     	%fp, %o0, %o0
+		! boop <- true
+		set     	1, %o1
+		call    	MYS1.MYS1.bool
+		nop     
+		
+		! stru1_2.MYS1_2(...)
+		set     	-84, %o0
 		add     	%fp, %o0, %o0
 		call    	MYS1_2.MYS1_2.void
 		nop     
 		
 		! stru2.MYS2(...)
-		set     	-48, %o0
+		set     	-96, %o0
 		add     	%fp, %o0, %o0
 		call    	MYS2.MYS2.void
+		nop     
+		
+		! stru3crew1.MYS3(...)
+		set     	-108, %o0
+		add     	%fp, %o0, %o0
+		! floop <- intVar
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		set     	-112, %l7
+		add     	%fp, %l7, %l7
+		st      	%o1, [%l7]
+		ld      	[%l7], %f1
+		fitos   	%f1, %f1
+		! floop1 <- floatVar
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f2
+		! floop2 <- intVar
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o3
+		set     	-116, %l7
+		add     	%fp, %l7, %l7
+		st      	%o3, [%l7]
+		ld      	[%l7], %f3
+		fitos   	%f3, %f3
+		! floop4 <- intVar
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o4
+		set     	-120, %l7
+		add     	%fp, %l7, %l7
+		st      	%o4, [%l7]
+		ld      	[%l7], %f4
+		fitos   	%f4, %f4
+		call    	MYS3.MYS3.float.float.float.float
 		nop     
 		
 		! stru1.i
@@ -1170,12 +1662,12 @@ structs.void:
 		set     	0, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-52, %o1
+		set     	-124, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru1.i = 5
-		set     	-52, %o1
+		set     	-124, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
 		set     	5, %o0
@@ -1187,33 +1679,33 @@ structs.void:
 		set     	0, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-56, %o1
+		set     	-128, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru1.i = 10
-		set     	-56, %o1
+		set     	-128, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
 		set     	10, %o0
 		st      	%o0, [%o1]
 		
 		! stru2.f
-		set     	-48, %o0
+		set     	-96, %o0
 		add     	%fp, %o0, %o0
 		set     	4, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-60, %o1
+		set     	-132, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru2.f = 5
-		set     	-60, %o1
+		set     	-132, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
 		set     	5, %o0
-		set     	-64, %l7
+		set     	-136, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -1226,25 +1718,25 @@ structs.void:
 		set     	4, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-68, %o1
+		set     	-140, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru2.f
-		set     	-48, %o0
+		set     	-96, %o0
 		add     	%fp, %o0, %o0
 		set     	4, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-72, %o1
+		set     	-144, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru1.f = stru2.f
-		set     	-68, %o1
+		set     	-140, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
-		set     	-72, %l7
+		set     	-144, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %l7
 		ld      	[%l7], %f0
@@ -1271,13 +1763,177 @@ structs.void:
 		ld      	[%l7], %o1
 		call    	MYS1.fun1.int
 		nop     
+		
+		! stru1.fun1(...)
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		! f <- floatVar
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		call    	MYS1.fun1.float
+		nop     
+		set     	-148, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! stru1.fun2(...)
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		call    	MYS1.fun2.void
+		nop     
+		set     	-152, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! balloon = fun2(...)
+		set     	-156, %o1
+		add     	%fp, %o1, %o1
+		set     	-152, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! stru1_copy = stru1
+		set     	-72, %o0
+		add     	%fp, %o0, %o0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		set     	12, %o2
+		call    	memmove
+		nop     
+		
+		! struArr1[0]
+		set     	0, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-216, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-220, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[0].MYS1(...)
+		set     	-220, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
+		
+		! struArr1[1]
+		set     	1, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-216, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-224, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[1].MYS1(...)
+		set     	-224, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
+		
+		! struArr1[2]
+		set     	2, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-216, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-228, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[2].MYS1(...)
+		set     	-228, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
+		
+		! struArr1[3]
+		set     	3, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-216, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-232, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[3].MYS1(...)
+		set     	-232, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
+		
+		! struArr1[4]
+		set     	4, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	12, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-216, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-236, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! struArr1[4].MYS1(...)
+		set     	-236, %o0
+		add     	%fp, %o0, %o0
+		ld      	[%o0], %o0
+		call    	MYS1.MYS1.void
+		nop     
 	
 	! End of function structs.void
 	call    	structs.void.fini
 	nop     
 	ret     
 	restore 
-	SAVE.structs.void = -(92 + 72) & -8
+	SAVE.structs.void = -(92 + 236) & -8
 	
 structs.void.fini:
 	save    	%sp, -96, %sp
@@ -1644,12 +2300,12 @@ pain.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.2:
+	.$$.float.3:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.2, %l7
+		set     	.$$.float.3, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2070,12 +2726,12 @@ func2.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.3:
+	.$$.float.4:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.3, %l7
+		set     	.$$.float.4, %l7
 		ld      	[%l7], %f0
 		call    	func2.void.fini
 		nop     
@@ -2105,12 +2761,12 @@ func2_2.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.4:
+	.$$.float.5:
 		.single 	0r11.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.4, %l7
+		set     	.$$.float.5, %l7
 		ld      	[%l7], %f0
 		call    	func2_2.void.fini
 		nop     
@@ -2496,12 +3152,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.5:
+	.$$.float.6:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.5, %l7
+		set     	.$$.float.6, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2638,12 +3294,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.6:
+	.$$.float.7:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.6, %l7
+		set     	.$$.float.7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2653,12 +3309,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.7:
+	.$$.float.8:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.7, %l7
+		set     	.$$.float.8, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2718,12 +3374,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.8:
+	.$$.float.9:
 		.single 	0r4.4
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.8, %l7
+		set     	.$$.float.9, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -3196,12 +3852,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.9:
+	.$$.float.10:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.9, %l7
+		set     	.$$.float.10, %l7
 		ld      	[%l7], %f0
 		set     	-40, %l7
 		add     	%fp, %l7, %l7
@@ -3304,12 +3960,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.10:
+	.$$.float.11:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.10, %l7
+		set     	.$$.float.11, %l7
 		ld      	[%l7], %f1
 		fdivs   	%f0, %f1, %f0
 		set     	-296, %o1
@@ -3323,12 +3979,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.11:
+	.$$.float.12:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.11, %l7
+		set     	.$$.float.12, %l7
 		ld      	[%l7], %f1
 		fmuls   	%f0, %f1, %f0
 		set     	-300, %o1
@@ -3350,12 +4006,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.12:
+	.$$.float.13:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.12, %l7
+		set     	.$$.float.13, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-308, %o1
@@ -3380,12 +4036,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.13:
+	.$$.float.14:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.13, %l7
+		set     	.$$.float.14, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
 		set     	-316, %o1
@@ -3407,12 +4063,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.14:
+	.$$.float.15:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.14, %l7
+		set     	.$$.float.15, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-324, %o1
@@ -3426,12 +4082,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.15:
+	.$$.float.16:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.15, %l7
+		set     	.$$.float.16, %l7
 		ld      	[%l7], %f0
 		set     	-324, %l7
 		add     	%fp, %l7, %l7
@@ -3448,12 +4104,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.16:
+	.$$.float.17:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.16, %l7
+		set     	.$$.float.17, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-332, %o1
@@ -3503,12 +4159,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.17:
+	.$$.float.18:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.17, %l7
+		set     	.$$.float.18, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-348, %o1
@@ -3537,12 +4193,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.18:
+	.$$.float.19:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.18, %l7
+		set     	.$$.float.19, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-356, %o1
@@ -3643,12 +4299,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.19:
+	.$$.float.20:
 		.single 	0r9.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.19, %l7
+		set     	.$$.float.20, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
@@ -4617,12 +5273,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.20:
+	.$$.float.21:
 		.single 	0r0.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.20, %l7
+		set     	.$$.float.21, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -4789,12 +5445,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.21:
+	.$$.float.22:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.21, %l7
+		set     	.$$.float.22, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -5176,12 +5832,12 @@ main.void:
 				
 				.section	".rodata"
 				.align  	4
-			.$$.float.22:
+			.$$.float.23:
 				.single 	0r6.9
 				
 				.section	".text"
 				.align  	4
-				set     	.$$.float.22, %l7
+				set     	.$$.float.23, %l7
 				ld      	[%l7], %f1
 				fcmps   	%f0, %f1
 				nop     
@@ -5376,12 +6032,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.23:
+	.$$.float.24:
 		.single 	0r6.9
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.23, %l7
+		set     	.$$.float.24, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
@@ -5458,12 +6114,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.24:
+	.$$.float.25:
 		.single 	0r420.25
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.24, %l7
+		set     	.$$.float.25, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -5471,12 +6127,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.25:
+	.$$.float.26:
 		.single 	0r1082.75
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.25, %l7
+		set     	.$$.float.26, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5509,12 +6165,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.26:
+	.$$.float.27:
 		.single 	0r16.2
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.26, %l7
+		set     	.$$.float.27, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5531,12 +6187,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.27:
+	.$$.float.28:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.27, %l7
+		set     	.$$.float.28, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-812, %o1
@@ -5565,12 +6221,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.28:
+	.$$.float.29:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.28, %l7
+		set     	.$$.float.29, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-820, %o1
@@ -5687,12 +6343,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.29:
+	.$$.float.30:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.29, %l7
+		set     	.$$.float.30, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5701,12 +6357,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.30:
+	.$$.float.31:
 		.single 	0r6.6666
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.30, %l7
+		set     	.$$.float.31, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5750,12 +6406,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.31:
+	.$$.float.32:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.31, %l7
+		set     	.$$.float.32, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -7418,12 +8074,12 @@ arith8:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.32:
+	.$$.float.33:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.32, %l7
+		set     	.$$.float.33, %l7
 		ld      	[%l7], %f0
 		set     	local2, %l7
 		add     	%g0, %l7, %l7
@@ -7558,12 +8214,12 @@ arith9:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.33:
+	.$$.float.34:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.33, %l7
+		set     	.$$.float.34, %l7
 		ld      	[%l7], %f1
 		fdivs   	%f0, %f1, %f0
 		set     	-12, %o1
@@ -7577,12 +8233,12 @@ arith9:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.34:
+	.$$.float.35:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.34, %l7
+		set     	.$$.float.35, %l7
 		ld      	[%l7], %f1
 		fmuls   	%f0, %f1, %f0
 		set     	-16, %o1
@@ -7636,12 +8292,12 @@ arithtest1:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.35:
+	.$$.float.36:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.35, %l7
+		set     	.$$.float.36, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-4, %o1
@@ -7698,12 +8354,12 @@ arithtest2:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.36:
+	.$$.float.37:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.36, %l7
+		set     	.$$.float.37, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
 		set     	-4, %o1
@@ -7757,12 +8413,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.37:
+	.$$.float.38:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.37, %l7
+		set     	.$$.float.38, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-4, %o1
@@ -7776,12 +8432,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.38:
+	.$$.float.39:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.38, %l7
+		set     	.$$.float.39, %l7
 		ld      	[%l7], %f0
 		set     	-4, %l7
 		add     	%fp, %l7, %l7
@@ -7798,12 +8454,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.39:
+	.$$.float.40:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.39, %l7
+		set     	.$$.float.40, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-12, %o1
@@ -7853,12 +8509,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.40:
+	.$$.float.41:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.40, %l7
+		set     	.$$.float.41, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-28, %o1
@@ -7887,12 +8543,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.41:
+	.$$.float.42:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.41, %l7
+		set     	.$$.float.42, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-36, %o1
@@ -8098,12 +8754,12 @@ sometest3:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.42:
+	.$$.float.43:
 		.single 	0r9.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.42, %l7
+		set     	.$$.float.43, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     

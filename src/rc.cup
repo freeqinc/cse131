@@ -250,7 +250,7 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
                         if (_1 == null) _1 = false;
 
                         if ( _4 != null)
-                            ((MyParser) parser).DoArrayDecl (_3, _2, _4, _1);
+                            ((MyParser) parser).DoArrayDecl (_3, _2, _4, _1, null);
                         else
                             ((MyParser) parser).DoVarDecl (_3, _2, _5, _1);
 
@@ -310,6 +310,7 @@ StructdefDecl ::=   T_STRUCTDEF T_ID_U:_1 T_LBRACE
                     {:
                         // Put logic here to create default ctor if needed
                         ((MyParser) parser).DoDefaultCtor(_1);
+                        ((MyParser) parser).DoCtor_2(_1, null);
                     :}
                     OptFieldFuncsList
                     {:
@@ -327,7 +328,7 @@ FieldVarsList ::=   FieldVarDecl
 FieldVarDecl ::=    DecoratedType:_2 T_ID:_3 OptArrayList:_4 T_SEMI
                     {:
                         if ( _4 != null)
-                            ((MyParser) parser).DoArrayDecl (_3, _2, _4, false);
+                            ((MyParser) parser).DoArrayDecl (_3, _2, _4, false, null);
                         else
                             ((MyParser) parser).DoVarDecl (_3, _2, null, false);
                     :}
@@ -378,7 +379,6 @@ CtorDef ::=         T_ID_U:_3
                     T_LBRACE OptStmtList T_RBRACE
                     {:
                         ((MyParser) parser).DoFuncDecl_2();
-                        ((MyParser) parser).DoCtor_2(_3, _4);
                     :}
     ;
 
