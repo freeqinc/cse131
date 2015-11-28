@@ -80,12 +80,22 @@ MYS1 stru1;
 static MYS1 stru2;
 
 function : void structs () {
+    int intVar = 5;
+    float floatVar = 5.5;
+    bool boolVar = true;
+
     MYS1 stru1;
+    MYS1_2 stru1_2;
+    MYS2 stru2;
 
     ::stru1.i = 5;
     stru1.i = 10;
     stru2.f = 5;
     stru1.f = stru2.f;
+
+    ::stru1.fun1();
+    stru1.fun1();
+    stru1.fun1(intVar);
 }
 
 function : void arrays () {

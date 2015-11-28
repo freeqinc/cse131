@@ -1070,7 +1070,10 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
 
-        func.allocateLocalVar(result);
+        if (result instanceof FuncSTO) {
+        } else {
+            func.allocateLocalVar(result);
+        }
         storeIntoAddressNoDeref(result, "%o1", "%o0");
         decreaseIndent();
     }
@@ -1114,6 +1117,8 @@ public class AssemblyCodeGenerator {
 
         if (m_currStruct != null) {
             functionName = m_currStruct.getId() + "." + functionName;
+        } else if (func.memberOf() != null) {
+            functionName = func.memberOf() + "." + functionName;
         }
 
         if (params == null) {
@@ -1227,8 +1232,15 @@ public class AssemblyCodeGenerator {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
 
+        int shift = 0;
+        if (sto.memberOf() != null) {
+            writeAssembly(ACGstrs.COMMENT, sto.belongsTo().getName() + "." + sto.getName() + "(...)");
+            setAddressNoDeref(sto.belongsTo(), "%o0");
+            shift += 1;
+        } else {
+            writeAssembly(ACGstrs.COMMENT,  sto.getName() + "(...)");
+        }
 
-        writeAssembly(ACGstrs.COMMENT,  sto.getName() + "(...)");
 
         if (args != null) {
             Vector<STO> params = sto.getParams();
@@ -1243,9 +1255,9 @@ public class AssemblyCodeGenerator {
 
                 writeAssembly(ACGstrs.COMMENT, param.getName() + " <- " + arg.getName());
                 if (param.isReference()) {
-                    setAddress(arg, "%o" + i);
+                    setAddress(arg, "%o" + (i + shift));
                 } else {
-                    loadSTO(arg, "%l7", "%" + setReg + i);
+                    loadSTO(arg, "%l7", "%" + setReg + (i + shift));
                 }
 
                 assignFitos(param, arg, currFunc);

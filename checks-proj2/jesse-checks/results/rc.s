@@ -1,6 +1,6 @@
 	
 /*
- * Generated Sat Nov 28 01:59:56 PST 2015
+ * Generated Sat Nov 28 04:02:19 PST 2015
  */
 
 	
@@ -1145,8 +1145,35 @@ structs.void:
 		
 		! Store params
 		
+		! intVar = 5
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! floatVar = 5.5
+		set     	-8, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.1:
+		.single 	0r5.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.1, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! boolVar = true
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		set     	1, %o0
+		st      	%o0, [%o1]
+		
 		! stru1.MYS1(...)
-		set     	-12, %o0
+		set     	-24, %o0
 		add     	%fp, %o0, %o0
 		call    	MYS1.MYS1.void
 		nop     
@@ -1160,7 +1187,45 @@ structs.void:
 		.align  	4
 		
 		set     	.$$.ctorDtor.3, %o0
-		set     	-12, %o1
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o1, [%o0]
+		
+		! stru1_2.MYS1_2(...)
+		set     	-36, %o0
+		add     	%fp, %o0, %o0
+		call    	MYS1_2.MYS1_2.void
+		nop     
+		
+		.section	".bss"
+		.align  	4
+	.$$.ctorDtor.4:
+		.skip   	4
+		
+		.section	".text"
+		.align  	4
+		
+		set     	.$$.ctorDtor.4, %o0
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		st      	%o1, [%o0]
+		
+		! stru2.MYS2(...)
+		set     	-48, %o0
+		add     	%fp, %o0, %o0
+		call    	MYS2.MYS2.void
+		nop     
+		
+		.section	".bss"
+		.align  	4
+	.$$.ctorDtor.5:
+		.skip   	4
+		
+		.section	".text"
+		.align  	4
+		
+		set     	.$$.ctorDtor.5, %o0
+		set     	-48, %o1
 		add     	%fp, %o1, %o1
 		st      	%o1, [%o0]
 		
@@ -1170,50 +1235,50 @@ structs.void:
 		set     	0, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-16, %o1
+		set     	-52, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru1.i = 5
-		set     	-16, %o1
+		set     	-52, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
 		set     	5, %o0
 		st      	%o0, [%o1]
 		
 		! stru1.i
-		set     	-12, %o0
+		set     	-24, %o0
 		add     	%fp, %o0, %o0
 		set     	0, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-20, %o1
+		set     	-56, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru1.i = 10
-		set     	-20, %o1
+		set     	-56, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
 		set     	10, %o0
 		st      	%o0, [%o1]
 		
 		! stru2.f
-		set     	stru2, %o0
-		add     	%g0, %o0, %o0
+		set     	-48, %o0
+		add     	%fp, %o0, %o0
 		set     	4, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-24, %o1
+		set     	-60, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru2.f = 5
-		set     	-24, %o1
+		set     	-60, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
 		set     	5, %o0
-		set     	-28, %l7
+		set     	-64, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -1221,44 +1286,86 @@ structs.void:
 		st      	%f0, [%o1]
 		
 		! stru1.f
-		set     	-12, %o0
+		set     	-24, %o0
 		add     	%fp, %o0, %o0
 		set     	4, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-32, %o1
+		set     	-68, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru2.f
-		set     	stru2, %o0
-		add     	%g0, %o0, %o0
+		set     	-48, %o0
+		add     	%fp, %o0, %o0
 		set     	4, %o1
 		add     	%g0, %o1, %o1
 		add     	%o0, %o1, %o0
-		set     	-36, %o1
+		set     	-72, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! stru1.f = stru2.f
-		set     	-32, %o1
+		set     	-68, %o1
 		add     	%fp, %o1, %o1
 		ld      	[%o1], %o1
-		set     	-36, %l7
+		set     	-72, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
+		
+		! stru1.fun1(...)
+		set     	stru1, %o0
+		add     	%g0, %o0, %o0
+		call    	MYS1.fun1.void
+		nop     
+		
+		! stru1.fun1(...)
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		call    	MYS1.fun1.void
+		nop     
+		
+		! stru1.fun1(...)
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		! i <- intVar
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	MYS1.fun1.int
+		nop     
 	
 	! End of function structs.void
 	call    	structs.void.fini
 	nop     
 	ret     
 	restore 
-	SAVE.structs.void = -(92 + 36) & -8
+	SAVE.structs.void = -(92 + 72) & -8
 	
 structs.void.fini:
 	save    	%sp, -96, %sp
+	set     	.$$.ctorDtor.5, %o0
+	ld      	[%o0], %o0
+	cmp     	%o0, %g0
+	be      	.$$.ctorDtor.5.fini.skip
+	nop     
+	call    	MYS2.$MYS2.void
+	nop     
+	set     	.$$.ctorDtor.5, %o0
+	st      	%g0, [%o0]
+.$$.ctorDtor.5.fini.skip:
+	set     	.$$.ctorDtor.4, %o0
+	ld      	[%o0], %o0
+	cmp     	%o0, %g0
+	be      	.$$.ctorDtor.4.fini.skip
+	nop     
+	call    	MYS1_2.$MYS1_2.void
+	nop     
+	set     	.$$.ctorDtor.4, %o0
+	st      	%g0, [%o0]
+.$$.ctorDtor.4.fini.skip:
 	set     	.$$.ctorDtor.3, %o0
 	ld      	[%o0], %o0
 	cmp     	%o0, %g0
@@ -1632,12 +1739,12 @@ pain.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.1:
+	.$$.float.2:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.1, %l7
+		set     	.$$.float.2, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2058,12 +2165,12 @@ func2.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.2:
+	.$$.float.3:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.2, %l7
+		set     	.$$.float.3, %l7
 		ld      	[%l7], %f0
 		call    	func2.void.fini
 		nop     
@@ -2093,12 +2200,12 @@ func2_2.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.3:
+	.$$.float.4:
 		.single 	0r11.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.3, %l7
+		set     	.$$.float.4, %l7
 		ld      	[%l7], %f0
 		call    	func2_2.void.fini
 		nop     
@@ -2484,12 +2591,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.4:
+	.$$.float.5:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.4, %l7
+		set     	.$$.float.5, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2626,12 +2733,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.5:
+	.$$.float.6:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.5, %l7
+		set     	.$$.float.6, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2641,12 +2748,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.6:
+	.$$.float.7:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.6, %l7
+		set     	.$$.float.7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -2706,12 +2813,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.7:
+	.$$.float.8:
 		.single 	0r4.4
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.7, %l7
+		set     	.$$.float.8, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -3184,12 +3291,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.8:
+	.$$.float.9:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.8, %l7
+		set     	.$$.float.9, %l7
 		ld      	[%l7], %f0
 		set     	-40, %l7
 		add     	%fp, %l7, %l7
@@ -3292,12 +3399,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.9:
+	.$$.float.10:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.9, %l7
+		set     	.$$.float.10, %l7
 		ld      	[%l7], %f1
 		fdivs   	%f0, %f1, %f0
 		set     	-296, %o1
@@ -3311,12 +3418,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.10:
+	.$$.float.11:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.10, %l7
+		set     	.$$.float.11, %l7
 		ld      	[%l7], %f1
 		fmuls   	%f0, %f1, %f0
 		set     	-300, %o1
@@ -3338,12 +3445,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.11:
+	.$$.float.12:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.11, %l7
+		set     	.$$.float.12, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-308, %o1
@@ -3368,12 +3475,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.12:
+	.$$.float.13:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.12, %l7
+		set     	.$$.float.13, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
 		set     	-316, %o1
@@ -3395,12 +3502,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.13:
+	.$$.float.14:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.13, %l7
+		set     	.$$.float.14, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-324, %o1
@@ -3414,12 +3521,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.14:
+	.$$.float.15:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.14, %l7
+		set     	.$$.float.15, %l7
 		ld      	[%l7], %f0
 		set     	-324, %l7
 		add     	%fp, %l7, %l7
@@ -3436,12 +3543,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.15:
+	.$$.float.16:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.15, %l7
+		set     	.$$.float.16, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-332, %o1
@@ -3491,12 +3598,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.16:
+	.$$.float.17:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.16, %l7
+		set     	.$$.float.17, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-348, %o1
@@ -3525,12 +3632,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.17:
+	.$$.float.18:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.17, %l7
+		set     	.$$.float.18, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-356, %o1
@@ -3631,12 +3738,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.18:
+	.$$.float.19:
 		.single 	0r9.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.18, %l7
+		set     	.$$.float.19, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
@@ -4605,12 +4712,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.19:
+	.$$.float.20:
 		.single 	0r0.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.19, %l7
+		set     	.$$.float.20, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -4777,12 +4884,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.20:
+	.$$.float.21:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.20, %l7
+		set     	.$$.float.21, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -5164,12 +5271,12 @@ main.void:
 				
 				.section	".rodata"
 				.align  	4
-			.$$.float.21:
+			.$$.float.22:
 				.single 	0r6.9
 				
 				.section	".text"
 				.align  	4
-				set     	.$$.float.21, %l7
+				set     	.$$.float.22, %l7
 				ld      	[%l7], %f1
 				fcmps   	%f0, %f1
 				nop     
@@ -5364,12 +5471,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.22:
+	.$$.float.23:
 		.single 	0r6.9
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.22, %l7
+		set     	.$$.float.23, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
@@ -5446,12 +5553,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.23:
+	.$$.float.24:
 		.single 	0r420.25
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.23, %l7
+		set     	.$$.float.24, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -5459,12 +5566,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.24:
+	.$$.float.25:
 		.single 	0r1082.75
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.24, %l7
+		set     	.$$.float.25, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5497,12 +5604,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.25:
+	.$$.float.26:
 		.single 	0r16.2
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.25, %l7
+		set     	.$$.float.26, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5519,12 +5626,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.26:
+	.$$.float.27:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.26, %l7
+		set     	.$$.float.27, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-812, %o1
@@ -5553,12 +5660,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.27:
+	.$$.float.28:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.27, %l7
+		set     	.$$.float.28, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-820, %o1
@@ -5675,12 +5782,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.28:
+	.$$.float.29:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.28, %l7
+		set     	.$$.float.29, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5689,12 +5796,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.29:
+	.$$.float.30:
 		.single 	0r6.6666
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.29, %l7
+		set     	.$$.float.30, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -5738,12 +5845,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.30:
+	.$$.float.31:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.30, %l7
+		set     	.$$.float.31, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -7406,12 +7513,12 @@ arith8:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.31:
+	.$$.float.32:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.31, %l7
+		set     	.$$.float.32, %l7
 		ld      	[%l7], %f0
 		set     	local2, %l7
 		add     	%g0, %l7, %l7
@@ -7546,12 +7653,12 @@ arith9:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.32:
+	.$$.float.33:
 		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.32, %l7
+		set     	.$$.float.33, %l7
 		ld      	[%l7], %f1
 		fdivs   	%f0, %f1, %f0
 		set     	-12, %o1
@@ -7565,12 +7672,12 @@ arith9:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.33:
+	.$$.float.34:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.33, %l7
+		set     	.$$.float.34, %l7
 		ld      	[%l7], %f1
 		fmuls   	%f0, %f1, %f0
 		set     	-16, %o1
@@ -7624,12 +7731,12 @@ arithtest1:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.34:
+	.$$.float.35:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.34, %l7
+		set     	.$$.float.35, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-4, %o1
@@ -7686,12 +7793,12 @@ arithtest2:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.35:
+	.$$.float.36:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.35, %l7
+		set     	.$$.float.36, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
 		set     	-4, %o1
@@ -7745,12 +7852,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.36:
+	.$$.float.37:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.36, %l7
+		set     	.$$.float.37, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-4, %o1
@@ -7764,12 +7871,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.37:
+	.$$.float.38:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.37, %l7
+		set     	.$$.float.38, %l7
 		ld      	[%l7], %f0
 		set     	-4, %l7
 		add     	%fp, %l7, %l7
@@ -7786,12 +7893,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.38:
+	.$$.float.39:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.38, %l7
+		set     	.$$.float.39, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-12, %o1
@@ -7841,12 +7948,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.39:
+	.$$.float.40:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.39, %l7
+		set     	.$$.float.40, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
 		set     	-28, %o1
@@ -7875,12 +7982,12 @@ arith10:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.40:
+	.$$.float.41:
 		.single 	0r1.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.40, %l7
+		set     	.$$.float.41, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
 		set     	-36, %o1
@@ -8086,12 +8193,12 @@ sometest3:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.41:
+	.$$.float.42:
 		.single 	0r9.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.41, %l7
+		set     	.$$.float.42, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     

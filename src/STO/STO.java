@@ -16,11 +16,21 @@ public abstract class STO
 	private boolean m_isThis = false;
 	private String m_base;
 	private String m_offset;
-
+	private STO m_belongsTo = null;
 
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+
+	public void setBelongsTo(STO sto) {
+		m_belongsTo = sto;
+	}
+
+	public STO belongsTo() {
+		return m_belongsTo;
+	}
+
+
 	public STO(String strName)
 	{
 		this(strName, null);

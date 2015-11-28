@@ -362,6 +362,10 @@ class MyParser extends parser
 		// check if struct has member
 		Scope structScope = ((StructType) sto.getType()).getScope();
 		STO ret = structScope.accessLocal(strID);
+
+
+
+		//findOverloadedFunction
 		if (ret == null) {
 			m_nNumErrors++;
 			if (sto.isThis())
@@ -372,16 +376,26 @@ class MyParser extends parser
 			return new ErrorSTO(sto.getName());
 		}
 
-		if (ret instanceof FuncSTO)
-			((FuncSTO) ret).setMemberOf(((StructType) sto.getType()).getId());
-
 
 		String name = sto.getName() + "." + strID;
 
-		ret = new VarSTO(name, ret.getType());
-		ret.setReference();
+		if (ret instanceof FuncSTO) {
 
-		m_asGenerator.doDesignatorDot(strID, sto, ret, m_symtab.getFunc());
+			// Set all funcs
+			Vector<STO> funclist= structScope.accessLocalList(strID);
+			for (int i = 0; i < funclist.size(); i++) {
+				funclist.get(i).setBelongsTo(sto);
+				((FuncSTO)funclist.get(i)).setMemberOf(((StructType) sto.getType()).getId());
+			}
+
+		} else {
+			ret = new VarSTO(name, ret.getType());
+			ret.setReference();
+			m_asGenerator.doDesignatorDot(strID, sto, ret, m_symtab.getFunc());
+		}
+
+
+		ret.setBelongsTo(sto);
 
 		return ret;
 	}
