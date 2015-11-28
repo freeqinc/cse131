@@ -737,9 +737,11 @@ WhileStmt ::=       T_WHILE
 ForeachStmt ::=     T_FOREACH T_LPAREN Type:_1 OptRef:_4 T_ID:_2 T_COLON Expr:_3 T_RPAREN
                     {:
                         ((MyParser) parser).DoBlockOpen();
-                        ((MyParser) parser).openLoop();
 
                         ((MyParser) parser).DoForEachStmt(_1, _2, _3, _4);
+
+                        ((MyParser) parser).openLoop();
+
                     :}
                     CodeBlock
                     {:

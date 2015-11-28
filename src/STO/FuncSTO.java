@@ -14,6 +14,7 @@ public class FuncSTO extends STO
 	private Vector<STO> m_params = null;
 	private boolean m_returnByRef = false;
 	private boolean m_overloaded = false;
+	private boolean m_isPointer = false;
 	private String m_memberOf = null;
 	private int m_localVarPointer = 0;
 	private int m_paramPointer = 64;

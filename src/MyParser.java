@@ -281,6 +281,7 @@ class MyParser extends parser
 		if (sto instanceof ErrorSTO) return sto;
 
 		Type preType = sto.getType();
+		STO stoCopy = sto;
 
 		// if is nullpointer
 		if (preType instanceof NullPointerType) {
@@ -335,6 +336,12 @@ class MyParser extends parser
 			sto.setNonModLValue();
 		else
 			sto.setModLValue();
+
+		String name = sto.getName() + "[" + expr.getName() + "]";
+		sto.setName(name);
+		sto.setReference();
+
+		m_asGenerator.doArrayAccess(stoCopy, expr, sto, m_symtab.getFunc());
 
 		return sto;
 	}
@@ -890,7 +897,28 @@ class MyParser extends parser
 				}
 			}
 		}
-		// System.out.println();
+
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+
+
+		// Global Scope or Static
+		if (optStatic || m_symtab.inGlobalScope()) {
+
+			sto.setBase("%g0");
+			sto.setOffset(id);
+
+
+			m_asGenerator.doUninitGlobalStatic(sto, optStatic);
+			// Local Scope
+		} else {
+
+			m_symtab.getFunc().allocateLocalVar(sto);
+
+		}
 
 		m_symtab.insert(sto);
 
@@ -1922,6 +1950,9 @@ class MyParser extends parser
 		}
 
 		DoVarDecl(id, type, null, false);
+		STO iter = m_symtab.access(id);
+
+		m_asGenerator.doForEach_1(iter, expr, m_symtab.getFunc());
 	}
 
 	// Check break and continue

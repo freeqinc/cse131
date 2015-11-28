@@ -38,6 +38,32 @@ static int st6 = st4;
 static int st7 = cgInt;
 static int st8 = st5;
 
+int intArr1[4];
+float floatArr1[5];
+bool boolArr1[6];
+static int intArr2[5];
+static float floatArr2[6];
+static bool boolArr2[7];
+
+function : void arrays () {
+    int index = 3;
+
+    int intArr1[5];
+    intArr1[0] = 99;
+    intArr1[1] = 5;
+    intArr1[index] = 69;
+
+    ::intArr1[0] = 0;
+    ::intArr2[0] = 0;
+    floatArr2[index + 1] = intArr1[1];
+
+    foreach (int val1 : intArr1) {
+        foreach (float val2 : intArr2) {
+            cout << val1 << " " << val2 << endl;
+        }
+    }
+}
+
 function : void pain () {
     int pocal1;
     int pocal11;
@@ -155,6 +181,8 @@ function : int fun5(int &i) {
 }
 
 function : void main () {
+    arrays();
+
     int localInt = 5;
     float localFloat = 5.5;
     bool localBool = true;

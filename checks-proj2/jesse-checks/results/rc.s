@@ -1,6 +1,6 @@
 	
 /*
- * Generated Fri Nov 27 17:19:04 PST 2015
+ * Generated Fri Nov 27 21:08:19 PST 2015
  */
 
 	
@@ -684,6 +684,388 @@ st8:
 	
 	.section	".text"
 	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	intArr1
+intArr1:
+	.skip   	16
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	floatArr1
+floatArr1:
+	.skip   	20
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+	.global 	boolArr1
+boolArr1:
+	.skip   	24
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+intArr2:
+	.skip   	20
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+floatArr2:
+	.skip   	24
+	
+	.section	".text"
+	.align  	4
+	
+	.section	".bss"
+	.align  	4
+boolArr2:
+	.skip   	28
+	
+	.section	".text"
+	.align  	4
+	.global 	arrays
+arrays:
+arrays.void:
+	set     	SAVE.arrays.void, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		
+		! index = 3
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		set     	3, %o0
+		st      	%o0, [%o1]
+		
+		! intArr1[0]
+		set     	0, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! intArr1[0] = 99
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	99, %o0
+		st      	%o0, [%o1]
+		
+		! intArr1[1]
+		set     	1, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! intArr1[1] = 5
+		set     	-32, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! intArr1[index]
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! intArr1[index] = 69
+		set     	-36, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	69, %o0
+		st      	%o0, [%o1]
+		
+		! intArr1[0]
+		set     	0, %o0
+		set     	4, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	intArr1, %o0
+		add     	%g0, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! intArr1[0] = 0
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	0, %o0
+		st      	%o0, [%o1]
+		
+		! intArr2[0]
+		set     	0, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	intArr2, %o0
+		add     	%g0, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-44, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! intArr2[0] = 0
+		set     	-44, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	0, %o0
+		st      	%o0, [%o1]
+		
+		! (index)+(1)
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o0
+		set     	-48, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! floatArr2[(index)+(1)]
+		set     	-48, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	6, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	floatArr2, %o0
+		add     	%g0, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-52, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! intArr1[1]
+		set     	1, %o0
+		set     	5, %o1
+		call    	.$$.arrCheck
+		nop     
+		set     	4, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o1
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		call    	.$$.ptrCheck
+		nop     
+		add     	%o0, %o1, %o0
+		set     	-56, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! floatArr2[(index)+(1)] = intArr1[1]
+		set     	-52, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	-56, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %l7
+		ld      	[%l7], %o0
+		set     	-60, %l7
+		add     	%fp, %l7, %l7
+		st      	%o0, [%l7]
+		ld      	[%l7], %f0
+		fitos   	%f0, %f0
+		st      	%f0, [%o1]
+		
+		! foreach ( ... )
+		! traversal ptr = --array
+		set     	-24, %o0
+		add     	%fp, %o0, %o0
+		set     	4, %o1
+		sub     	%o0, %o1, %o0
+		set     	-68, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+	.$$.loopCheck.1:
+			! ++traversal ptr
+			set     	-68, %o1
+			add     	%fp, %o1, %o1
+			ld      	[%o1], %o0
+			set     	4, %o2
+			add     	%o0, %o2, %o0
+			st      	%o0, [%o1]
+			! traversal ptr < array end addr?
+			set     	-24, %o0
+			add     	%fp, %o0, %o0
+			set     	20, %o1
+			add     	%o0, %o1, %o1
+			set     	-68, %o0
+			add     	%fp, %o0, %o0
+			ld      	[%o0], %o0
+			cmp     	%o0, %o1
+			bge     	.$$.loopEnd.1
+			nop     
+			! iterVar = currentElem
+			set     	-64, %o1
+			add     	%fp, %o1, %o1
+			ld      	[%o0], %o0
+			st      	%o0, [%o1]
+			
+			! Start of loop body
+				
+				! foreach ( ... )
+				! traversal ptr = --array
+				set     	intArr2, %o0
+				add     	%g0, %o0, %o0
+				set     	4, %o1
+				sub     	%o0, %o1, %o0
+				set     	-76, %o1
+				add     	%fp, %o1, %o1
+				st      	%o0, [%o1]
+			.$$.loopCheck.2:
+					! ++traversal ptr
+					set     	-76, %o1
+					add     	%fp, %o1, %o1
+					ld      	[%o1], %o0
+					set     	4, %o2
+					add     	%o0, %o2, %o0
+					st      	%o0, [%o1]
+					! traversal ptr < array end addr?
+					set     	intArr2, %o0
+					add     	%g0, %o0, %o0
+					set     	20, %o1
+					add     	%o0, %o1, %o1
+					set     	-76, %o0
+					add     	%fp, %o0, %o0
+					ld      	[%o0], %o0
+					cmp     	%o0, %o1
+					bge     	.$$.loopEnd.2
+					nop     
+					! iterVar = currentElem
+					set     	-72, %o1
+					add     	%fp, %o1, %o1
+					ld      	[%o0], %f0
+					fitos   	%f0, %f0
+					st      	%f0, [%o1]
+					
+					! Start of loop body
+						
+						! cout << val1
+						set     	-64, %l7
+						add     	%fp, %l7, %l7
+						ld      	[%l7], %o1
+						set     	.$$.intFmt, %o0
+						call    	printf
+						nop     
+						
+						.section	".rodata"
+						.align  	4
+					.$$.str.1:
+						.asciz  	" "
+						
+						.section	".text"
+						.align  	4
+						! cout << " "
+						set     	.$$.strFmt, %o0
+						set     	.$$.str.1, %o1
+						call    	printf
+						nop     
+						
+						! cout << val2
+						set     	-72, %l7
+						add     	%fp, %l7, %l7
+						ld      	[%l7], %f0
+						call    	printFloat
+						nop     
+						
+						! cout << endl
+						set     	.$$.strEndl, %o0
+						call    	printf
+						nop     
+					
+					! End of loop body
+					ba      	.$$.loopCheck.2
+					nop     
+				.$$.loopEnd.2:
+			
+			! End of loop body
+			ba      	.$$.loopCheck.1
+			nop     
+		.$$.loopEnd.1:
+	
+	! End of function arrays.void
+	call    	arrays.void.fini
+	nop     
+	ret     
+	restore 
+	SAVE.arrays.void = -(92 + 76) & -8
+	
+arrays.void.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
 	.global 	pain
 pain:
 pain.void:
@@ -1529,6 +1911,10 @@ main.void:
 	save    	%sp, %g1, %sp
 		
 		! Store params
+		
+		! arrays(...)
+		call    	arrays.void
+		nop     
 		
 		! localInt = 5
 		set     	-4, %o1
@@ -4073,14 +4459,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.1:
+		.$$.str.2:
 			.asciz  	"yay"
 			
 			.section	".text"
 			.align  	4
 			! cout << "yay"
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.1, %o1
+			set     	.$$.str.2, %o1
 			call    	printf
 			nop     
 			
@@ -4097,14 +4483,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.2:
+		.$$.str.3:
 			.asciz  	"bae"
 			
 			.section	".text"
 			.align  	4
 			! cout << "bae"
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.2, %o1
+			set     	.$$.str.3, %o1
 			call    	printf
 			nop     
 			
@@ -4124,14 +4510,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.3:
+		.$$.str.4:
 			.asciz  	"yay"
 			
 			.section	".text"
 			.align  	4
 			! cout << "yay"
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.3, %o1
+			set     	.$$.str.4, %o1
 			call    	printf
 			nop     
 			
@@ -4148,14 +4534,14 @@ main.void:
 				
 				.section	".rodata"
 				.align  	4
-			.$$.str.4:
+			.$$.str.5:
 				.asciz  	"nested"
 				
 				.section	".text"
 				.align  	4
 				! cout << "nested"
 				set     	.$$.strFmt, %o0
-				set     	.$$.str.4, %o1
+				set     	.$$.str.5, %o1
 				call    	printf
 				nop     
 				
@@ -4178,14 +4564,14 @@ main.void:
 					
 					.section	".rodata"
 					.align  	4
-				.$$.str.5:
+				.$$.str.6:
 					.asciz  	"double nested"
 					
 					.section	".text"
 					.align  	4
 					! cout << "double nested"
 					set     	.$$.strFmt, %o0
-					set     	.$$.str.5, %o1
+					set     	.$$.str.6, %o1
 					call    	printf
 					nop     
 					
@@ -4306,14 +4692,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.6:
+		.$$.str.7:
 			.asciz  	"yay"
 			
 			.section	".text"
 			.align  	4
 			! cout << "yay"
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.6, %o1
+			set     	.$$.str.7, %o1
 			call    	printf
 			nop     
 			
@@ -4378,14 +4764,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.7:
+		.$$.str.8:
 			.asciz  	"yay"
 			
 			.section	".text"
 			.align  	4
 			! cout << "yay"
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.7, %o1
+			set     	.$$.str.8, %o1
 			call    	printf
 			nop     
 			
@@ -4449,14 +4835,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.8:
+		.$$.str.9:
 			.asciz  	"stay"
 			
 			.section	".text"
 			.align  	4
 			! cout << "stay"
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.8, %o1
+			set     	.$$.str.9, %o1
 			call    	printf
 			nop     
 			
@@ -4529,14 +4915,14 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.str.9:
+	.$$.str.10:
 		.asciz  	"\n"
 		
 		.section	".text"
 		.align  	4
 		! cout << "\n"
 		set     	.$$.strFmt, %o0
-		set     	.$$.str.9, %o1
+		set     	.$$.str.10, %o1
 		call    	printf
 		nop     
 		
@@ -4813,14 +5199,14 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.str.10:
+	.$$.str.11:
 		.asciz  	"string"
 		
 		.section	".text"
 		.align  	4
 		! cout << "string"
 		set     	.$$.strFmt, %o0
-		set     	.$$.str.10, %o1
+		set     	.$$.str.11, %o1
 		call    	printf
 		nop     
 		
@@ -4858,14 +5244,14 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.str.11:
+	.$$.str.12:
 		.asciz  	"poop"
 		
 		.section	".text"
 		.align  	4
 		! cout << "poop"
 		set     	.$$.strFmt, %o0
-		set     	.$$.str.11, %o1
+		set     	.$$.str.12, %o1
 		call    	printf
 		nop     
 		
@@ -4884,14 +5270,14 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.str.12:
+	.$$.str.13:
 		.asciz  	" "
 		
 		.section	".text"
 		.align  	4
 		! cout << " "
 		set     	.$$.strFmt, %o0
-		set     	.$$.str.12, %o1
+		set     	.$$.str.13, %o1
 		call    	printf
 		nop     
 		
@@ -5116,14 +5502,14 @@ main.void:
 			
 			.section	".rodata"
 			.align  	4
-		.$$.str.13:
+		.$$.str.14:
 			.asciz  	"This should not print."
 			
 			.section	".text"
 			.align  	4
 			! cout << "This should not print."
 			set     	.$$.strFmt, %o0
-			set     	.$$.str.13, %o1
+			set     	.$$.str.14, %o1
 			call    	printf
 			nop     
 			
@@ -5235,14 +5621,14 @@ main.void:
 				
 				.section	".rodata"
 				.align  	4
-			.$$.str.14:
+			.$$.str.15:
 				.asciz  	"This neither."
 				
 				.section	".text"
 				.align  	4
 				! cout << "This neither."
 				set     	.$$.strFmt, %o0
-				set     	.$$.str.14, %o1
+				set     	.$$.str.15, %o1
 				call    	printf
 				nop     
 				
@@ -5259,14 +5645,14 @@ main.void:
 				
 				.section	".rodata"
 				.align  	4
-			.$$.str.15:
+			.$$.str.16:
 				.asciz  	"Yup"
 				
 				.section	".text"
 				.align  	4
 				! cout << "Yup"
 				set     	.$$.strFmt, %o0
-				set     	.$$.str.15, %o1
+				set     	.$$.str.16, %o1
 				call    	printf
 				nop     
 				
@@ -5288,7 +5674,7 @@ main.void:
 		st      	%o0, [%o1]
 		
 		! while ( ... )
-	.$$.loopCheck.1:
+	.$$.loopCheck.3:
 			
 			! (looper1)<(10)
 			set     	-888, %l7
@@ -5309,7 +5695,7 @@ main.void:
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
-			be      	.$$.loopEnd.1
+			be      	.$$.loopEnd.3
 			nop     
 			
 			! Start of loop body
@@ -5368,7 +5754,7 @@ main.void:
 				nop     
 					
 					! continue
-					ba      	.$$.loopCheck.1
+					ba      	.$$.loopCheck.3
 					nop     
 					
 					ba      	.$$.endif.19
@@ -5403,7 +5789,7 @@ main.void:
 				nop     
 					
 					! break
-					ba      	.$$.loopEnd.1
+					ba      	.$$.loopEnd.3
 					nop     
 					
 					ba      	.$$.endif.20
@@ -5416,7 +5802,7 @@ main.void:
 			.$$.endif.20:
 				
 				! while ( ... )
-			.$$.loopCheck.2:
+			.$$.loopCheck.4:
 					
 					! (looper1)<(0)
 					set     	-888, %l7
@@ -5437,7 +5823,7 @@ main.void:
 					add     	%fp, %l7, %l7
 					ld      	[%l7], %o0
 					cmp     	%o0, %g0
-					be      	.$$.loopEnd.2
+					be      	.$$.loopEnd.4
 					nop     
 					
 					! Start of loop body
@@ -5465,7 +5851,7 @@ main.void:
 						nop     
 							
 							! continue
-							ba      	.$$.loopCheck.2
+							ba      	.$$.loopCheck.4
 							nop     
 							
 							ba      	.$$.endif.21
@@ -5500,7 +5886,7 @@ main.void:
 						nop     
 							
 							! break
-							ba      	.$$.loopEnd.2
+							ba      	.$$.loopEnd.4
 							nop     
 							
 							ba      	.$$.endif.22
@@ -5513,22 +5899,22 @@ main.void:
 					.$$.endif.22:
 						
 						! continue
-						ba      	.$$.loopCheck.2
+						ba      	.$$.loopCheck.4
 						nop     
 						
 						! break
-						ba      	.$$.loopEnd.2
+						ba      	.$$.loopEnd.4
 						nop     
 					
 					! End of loop body
-					ba      	.$$.loopCheck.2
+					ba      	.$$.loopCheck.4
 					nop     
-				.$$.loopEnd.2:
+				.$$.loopEnd.4:
 			
 			! End of loop body
-			ba      	.$$.loopCheck.1
+			ba      	.$$.loopCheck.3
 			nop     
-		.$$.loopEnd.1:
+		.$$.loopEnd.3:
 	
 	! End of function main.void
 	call    	main.void.fini

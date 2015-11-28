@@ -43,6 +43,7 @@ public class AssemblyCodeGenerator {
     private ArrayList<String> m_ifStmtList = new ArrayList<String>();
     private ArrayList<String> m_shortCircuitList = new ArrayList<String>();
     private ArrayList<String> m_loopList = new ArrayList<String>();
+    private ArrayList<STO> m_iteratorList = new ArrayList<STO>();
 
 
 
@@ -277,7 +278,7 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
         writeAssembly(ACGstrs.LABEL, m_localStaticAppend + sto.getName());
         increaseIndent();
-        writeAssembly(ACGstrs.SKIP, "4");
+        writeAssembly(ACGstrs.SKIP, sto.getType().getSize() + "");
 
         doSection(".text");
         decreaseIndent();
@@ -392,6 +393,12 @@ public class AssemblyCodeGenerator {
 
     public void storeIntoAddress(STO sto, String set, String store) {
         setAddress(sto, set);
+        writeAssembly(ACGstrs.ST, store, set);
+    }
+
+    public void storeIntoAddressNoDeref(STO sto, String set, String store) {
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
         writeAssembly(ACGstrs.ST, store, set);
     }
 
@@ -927,6 +934,88 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.loopEnd." + m_loopList.get(m_loopList.size()-1));
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
         decreaseIndent();
+    }
+
+
+    public void doForEach_1(STO iter, STO arr, FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "foreach ( ... )");
+        writeAssembly(ACGstrs.COMMENT, "traversal ptr = --array");
+        setAddress(arr, "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "4", "%o1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o0");
+
+        VarSTO traversalPtr = new VarSTO("traversalPtr", new IntType());
+        func.allocateLocalVar(traversalPtr);
+        m_iteratorList.add(traversalPtr);
+
+        storeIntoAddress(traversalPtr, "%o1", "%o0");
+
+        decreaseIndent();
+        writeAssembly(ACGstrs.LABEL, ".$$.loopCheck." + m_loopCount);
+        m_loopList.add(m_loopCount++ + "");
+        increaseIndent();
+
+        increaseIndent();
+        writeAssembly(ACGstrs.COMMENT, "++traversal ptr");
+        loadSTO(m_iteratorList.get(m_iteratorList.size() - 1), "%o1", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "4", "%o2");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o2", "%o0");
+        writeAssembly(ACGstrs.ST, "%o0", "%o1");
+
+        writeAssembly(ACGstrs.COMMENT, "traversal ptr < array end addr?");
+        setAddress(arr, "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, arr.getType().getSize() + "", "%o1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o1");
+        loadSTO(m_iteratorList.get(m_iteratorList.size() - 1), "%o0", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%o1");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BGE_OP, ".$$.loopEnd." + m_loopList.get(m_loopList.size()-1));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        writeAssembly(ACGstrs.COMMENT, "iterVar = currentElem");
+        setAddress(iter, "%o1");
+        if ((iter.getType() instanceof FloatType) && !(((ArrayType) arr.getType()).getBaseType() instanceof FloatType)) {
+            writeAssembly(ACGstrs.LD, "%o0", "%f0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f0", "%f0");
+            writeAssembly(ACGstrs.ST, "%f0", "%o1");
+        } else {
+            writeAssembly(ACGstrs.LD, "%o0", "%o0");
+            writeAssembly(ACGstrs.ST, "%o0", "%o1");
+        }
+
+
+        decreaseIndent();
+    }
+
+
+    // Arrays
+    //----------------------------------------------------------------
+
+    public void doArrayAccess(STO sto, STO expr, STO result, FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, result.getName());
+        loadSTO(expr, "%l7", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ArrayType)sto.getType()).getDimSize() + "", "%o1");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.arrCheck");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "4", "%o1");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".mul");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o1");
+
+        setAddress(sto, "%o0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.ptrCheck");
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        func.allocateLocalVar(result);
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
+        storeIntoAddressNoDeref(result, "%o1", "%o0");
+
+        decreaseIndent();
+
     }
 
     // Functions
