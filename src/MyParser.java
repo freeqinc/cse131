@@ -1248,6 +1248,7 @@ class MyParser extends parser
 		if (!bad && params != null) {
 			for (int i = 0; i < params.size(); i++) {
 				m_symtab.insert(params.elementAt(i));
+				m_symtab.getFunc().allocateParam(params.get(i));
 			}
 		}
 
@@ -1257,7 +1258,7 @@ class MyParser extends parser
 		//----------------
 
 		m_asGenerator.doFuncDecl_1(id, func);
-		m_asGenerator.doFormalParams();
+		m_asGenerator.doFormalParams(params);
 	}
 
 	//----------------------------------------------------------------
@@ -1570,7 +1571,7 @@ class MyParser extends parser
 
 
 		m_symtab.getFunc().allocateLocalVar(sto);
-		m_asGenerator.doFuncCall((FuncSTO)sto, args);
+		m_asGenerator.doFuncCall((FuncSTO)sto, args, m_symtab.getFunc());
 
 		VarSTO retSTO = new VarSTO(sto.getName() + "(...)", ((FuncSTO) sto).getReturnType());
 		retSTO.setBase(sto.getBase());

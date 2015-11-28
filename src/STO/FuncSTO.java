@@ -16,6 +16,7 @@ public class FuncSTO extends STO
 	private boolean m_overloaded = false;
 	private String m_memberOf = null;
 	private int m_localVarPointer = 0;
+	private int m_paramPointer = 64;
 	private String m_funcName = "";
 
 	//----------------------------------------------------------------
@@ -101,6 +102,11 @@ public class FuncSTO extends STO
 	public void allocateLocalVar(STO sto) {
 		sto.setBase("%fp");
 		sto.setOffset( (m_localVarPointer -= sto.getType().getSize()) + "" );
+	}
+
+	public void allocateParam(STO sto) {
+		sto.setBase("%fp");
+		sto.setOffset( (m_paramPointer += sto.getType().getSize()) + "");
 	}
 
 	public void allocateFuncCall() {

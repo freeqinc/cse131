@@ -121,7 +121,54 @@ function : void func4() {
     return;
 }
 
+function : void fun1(int &i) {
+}
+
+function : void fun1(float f, int i) {
+}
+
+function : void fun1(float &f, int i, bool &b) {
+}
+
+function : void fun1(float &a, int b, bool &c, int &d, int f, int &z) {
+}
+
+function : void fun1(bool b) {
+}
+
+function : void fun1(float &f) {
+}
+
+function : void fun2(int i, float f, bool b) {
+}
+
+function : void fun3(float f) {
+}
+
+function : void fun4(int i) {
+    fun4(5);
+}
+
+function : int fun5(int &i) {
+    i = 10;
+    return i + 5;
+}
+
 function : void main () {
+    int localInt = 5;
+    float localFloat = 5.5;
+    bool localBool = true;
+
+
+    fun1(localInt);
+    fun1(localFloat, localInt);
+    fun1(localFloat, localInt, localBool);
+    fun1(localFloat, localInt, localBool, localInt, localInt, localInt);
+    fun1(localFloat);
+    fun3(localInt);
+    fun2(localInt, localFloat, localBool);
+    int funcall1 = fun5(localInt) + 10;
+
     int local1;
     int local11;
     float local2 = 6.6;
@@ -266,11 +313,6 @@ function : void main () {
 
     cout << intVarCin << " " << floatVarCin << endl;
 
-
-    int localInt = 5;
-    float localFloat = 5.5;
-    bool localBool = true;
-
     if ((localFloat = localInt) > 0 && localBool) {
         localFloat = localInt = localInt - cgInt;
         localBool = sometest25 = localFloat != localInt && cgBool;
@@ -315,7 +357,6 @@ function : void main () {
             break;
         }
     }
-
 }
 
 int local1;

@@ -380,6 +380,9 @@ public class AssemblyCodeGenerator {
     public void setAddress(STO sto, String set) {
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
+        if (sto.isReference()) {
+            writeAssembly(ACGstrs.LD, set, set);
+        }
     }
 
     public void setAddressLoad(STO sto, String set, String load) {
@@ -950,20 +953,37 @@ public class AssemblyCodeGenerator {
 
         m_localStaticAppend = functionName + ".";
 
-        increaseIndent();
-        writeAssembly(ACGstrs.GLOBAL, id);
-        decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, id);
+        if (!func.isOverloaded()) {
+            increaseIndent();
+            writeAssembly(ACGstrs.GLOBAL, id);
+            decreaseIndent();
+            writeAssembly(ACGstrs.LABEL, id);
+        }
         writeAssembly(ACGstrs.LABEL, functionName);
         increaseIndent();
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
     }
 
-    public void doFormalParams() {
+    public void doFormalParams(Vector<STO> params) {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "Store params");
+
+        if (params != null) {
+            STO param;
+            String stReg;
+            for (int i = 0; i < params.size(); i++) {
+                param = params.get(i);
+                stReg = "%i" + i;
+                if ((param.getType() instanceof FloatType) && !param.isReference()) {
+                    stReg = "%f" + i;
+                }
+
+                writeAssembly(ACGstrs.ST, stReg, param.getBase() + "+" + param.getOffset());
+            }
+        }
+
         decreaseIndent();
     }
 
@@ -1017,13 +1037,39 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-    public void doFuncCall(FuncSTO sto, Vector<STO> args) {
+    public void doFuncCall(FuncSTO sto, Vector<STO> args, FuncSTO currFunc) {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, sto.getName() + "(...)");
+
+        if (args != null) {
+            Vector<STO> params = sto.getParams();
+            STO param;
+            STO arg;
+            String setReg;
+
+            for (int i = 0; i < args.size(); i++) {
+                param = params.get(i);
+                arg = args.get(i);
+                setReg = (arg.getType() instanceof FloatType) ? "f" : "o";
+
+                writeAssembly(ACGstrs.COMMENT, param.getName() + " <- " + arg.getName());
+                if (param.isReference()) {
+                    setAddress(arg, "%o" + i);
+                } else {
+                    loadSTO(arg, "%l7", "%" + setReg + i);
+                }
+
+                assignFitos(param, arg, currFunc);
+            }
+        }
+
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, getFuncName(sto));
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
-        storeIntoAddress(sto, "%o1", "%o0");
+
+        if (!(sto.getReturnType() instanceof VoidType)) {
+            storeIntoAddress(sto, "%o1", "%o0");
+        }
 
         decreaseIndent();
     }

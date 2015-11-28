@@ -1,6 +1,6 @@
 	
 /*
- * Generated Fri Nov 27 15:18:23 PST 2015
+ * Generated Fri Nov 27 17:19:04 PST 2015
  */
 
 	
@@ -1289,6 +1289,239 @@ func4.void.fini:
 	save    	%sp, -96, %sp
 	ret     
 	restore 
+	.global 	fun1
+fun1:
+fun1.int:
+	set     	SAVE.fun1.int, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+	
+	! End of function fun1.int
+	call    	fun1.int.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun1.int = -(92 + 0) & -8
+	
+fun1.int.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+fun1.float.int:
+	set     	SAVE.fun1.float.int, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%f0, [%fp+68]
+		st      	%i1, [%fp+72]
+	
+	! End of function fun1.float.int
+	call    	fun1.float.int.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun1.float.int = -(92 + 0) & -8
+	
+fun1.float.int.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+fun1.float.int.bool:
+	set     	SAVE.fun1.float.int.bool, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%i1, [%fp+72]
+		st      	%i2, [%fp+76]
+	
+	! End of function fun1.float.int.bool
+	call    	fun1.float.int.bool.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun1.float.int.bool = -(92 + 0) & -8
+	
+fun1.float.int.bool.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+fun1.float.int.bool.int.int.int:
+	set     	SAVE.fun1.float.int.bool.int.int.int, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%i1, [%fp+72]
+		st      	%i2, [%fp+76]
+		st      	%i3, [%fp+80]
+		st      	%i4, [%fp+84]
+		st      	%i5, [%fp+88]
+	
+	! End of function fun1.float.int.bool.int.int.int
+	call    	fun1.float.int.bool.int.int.int.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun1.float.int.bool.int.int.int = -(92 + 0) & -8
+	
+fun1.float.int.bool.int.int.int.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+fun1.bool:
+	set     	SAVE.fun1.bool, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+	
+	! End of function fun1.bool
+	call    	fun1.bool.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun1.bool = -(92 + 0) & -8
+	
+fun1.bool.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+fun1.float:
+	set     	SAVE.fun1.float, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+	
+	! End of function fun1.float
+	call    	fun1.float.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun1.float = -(92 + 0) & -8
+	
+fun1.float.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	fun2
+fun2:
+fun2.int.float.bool:
+	set     	SAVE.fun2.int.float.bool, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		st      	%f1, [%fp+72]
+		st      	%i2, [%fp+76]
+	
+	! End of function fun2.int.float.bool
+	call    	fun2.int.float.bool.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun2.int.float.bool = -(92 + 0) & -8
+	
+fun2.int.float.bool.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	fun3
+fun3:
+fun3.float:
+	set     	SAVE.fun3.float, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%f0, [%fp+68]
+	
+	! End of function fun3.float
+	call    	fun3.float.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun3.float = -(92 + 0) & -8
+	
+fun3.float.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	fun4
+fun4:
+fun4.int:
+	set     	SAVE.fun4.int, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		
+		! fun4(...)
+		! i <- 5
+		set     	5, %o0
+		call    	fun4.int
+		nop     
+	
+	! End of function fun4.int
+	call    	fun4.int.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun4.int = -(92 + 0) & -8
+	
+fun4.int.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
+	.global 	fun5
+fun5:
+fun5.int:
+	set     	SAVE.fun5.int, %g1
+	save    	%sp, %g1, %sp
+		
+		! Store params
+		st      	%i0, [%fp+68]
+		
+		! i = 10
+		set     	68, %o1
+		add     	%fp, %o1, %o1
+		ld      	[%o1], %o1
+		set     	10, %o0
+		st      	%o0, [%o1]
+		
+		! (i)+(5)
+		set     	68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		add     	%o0, %o1, %o0
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! return (i)+(5);
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %i0
+		call    	fun5.int.fini
+		nop     
+		ret     
+		restore 
+	
+	! End of function fun5.int
+	call    	fun5.int.fini
+	nop     
+	ret     
+	restore 
+	SAVE.fun5.int = -(92 + 4) & -8
+	
+fun5.int.fini:
+	save    	%sp, -96, %sp
+	ret     
+	restore 
 	.global 	main
 main:
 main.void:
@@ -1297,14 +1530,20 @@ main.void:
 		
 		! Store params
 		
-		! local2 = 6.6
-		set     	-12, %o1
+		! localInt = 5
+		set     	-4, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! localFloat = 5.5
+		set     	-8, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
 		.align  	4
 	.$$.float.4:
-		.single 	0r6.6
+		.single 	0r5.5
 		
 		.section	".text"
 		.align  	4
@@ -1312,8 +1551,135 @@ main.void:
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
-		! local2_2 = 6.6
-		set     	-16, %o1
+		! localBool = true
+		set     	-12, %o1
+		add     	%fp, %o1, %o1
+		set     	1, %o0
+		st      	%o0, [%o1]
+		
+		! fun1(...)
+		! i <- localInt
+		set     	-4, %o0
+		add     	%fp, %o0, %o0
+		call    	fun1.int
+		nop     
+		
+		! fun1(...)
+		! f <- localFloat
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		! i <- localInt
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	fun1.float.int
+		nop     
+		
+		! fun1(...)
+		! f <- localFloat
+		set     	-8, %o0
+		add     	%fp, %o0, %o0
+		! i <- localInt
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		! b <- localBool
+		set     	-12, %o2
+		add     	%fp, %o2, %o2
+		call    	fun1.float.int.bool
+		nop     
+		
+		! fun1(...)
+		! a <- localFloat
+		set     	-8, %o0
+		add     	%fp, %o0, %o0
+		! b <- localInt
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		! c <- localBool
+		set     	-12, %o2
+		add     	%fp, %o2, %o2
+		! d <- localInt
+		set     	-4, %o3
+		add     	%fp, %o3, %o3
+		! f <- localInt
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o4
+		! z <- localInt
+		set     	-4, %o5
+		add     	%fp, %o5, %o5
+		call    	fun1.float.int.bool.int.int.int
+		nop     
+		
+		! fun1(...)
+		! f <- localFloat
+		set     	-8, %o0
+		add     	%fp, %o0, %o0
+		call    	fun1.float
+		nop     
+		
+		! fun3(...)
+		! f <- localInt
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-16, %l7
+		add     	%fp, %l7, %l7
+		st      	%o0, [%l7]
+		ld      	[%l7], %f0
+		fitos   	%f0, %f0
+		call    	fun3.float
+		nop     
+		
+		! fun2(...)
+		! i <- localInt
+		set     	-4, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		! f <- localFloat
+		set     	-8, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		! b <- localBool
+		set     	-12, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o2
+		call    	fun2.int.float.bool
+		nop     
+		
+		! fun5(...)
+		! i <- localInt
+		set     	-4, %o0
+		add     	%fp, %o0, %o0
+		call    	fun5.int
+		nop     
+		set     	-20, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (fun5(...))+(10)
+		set     	-20, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	10, %o1
+		add     	%o0, %o1, %o0
+		set     	-24, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! funcall1 = (fun5(...))+(10)
+		set     	-28, %o1
+		add     	%fp, %o1, %o1
+		set     	-24, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local2 = 6.6
+		set     	-40, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
@@ -1327,64 +1693,14 @@ main.void:
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
-		! local3 = local2
-		set     	-24, %o1
-		add     	%fp, %o1, %o1
-		set     	-12, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		st      	%f0, [%o1]
-		
-		! local4 = local1
-		set     	-28, %o1
-		add     	%fp, %o1, %o1
-		set     	-4, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		st      	%o0, [%o1]
-		
-		! local5 = local11
-		set     	-32, %o1
-		add     	%fp, %o1, %o1
-		set     	-8, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		st      	%o0, [%o1]
-		
-		! local6 = cgInt
-		set     	-36, %o1
-		add     	%fp, %o1, %o1
-		set     	cgInt, %l7
-		add     	%g0, %l7, %l7
-		ld      	[%l7], %o0
-		st      	%o0, [%o1]
-		
-		! local7 = 5
-		set     	-40, %o1
-		add     	%fp, %o1, %o1
-		set     	5, %o0
-		st      	%o0, [%o1]
-		
-		! clocal = 5
+		! local2_2 = 6.6
 		set     	-44, %o1
-		add     	%fp, %o1, %o1
-		set     	5, %o0
-		st      	%o0, [%o1]
-		
-		! clocal2 = 5
-		set     	-48, %o1
-		add     	%fp, %o1, %o1
-		set     	5, %o0
-		st      	%o0, [%o1]
-		
-		! clocal3 = 4.4
-		set     	-52, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
 		.align  	4
 	.$$.float.6:
-		.single 	0r4.4
+		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
@@ -1392,250 +1708,229 @@ main.void:
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
-		! clocal4 = clocal3
+		! local3 = local2
+		set     	-52, %o1
+		add     	%fp, %o1, %o1
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! local4 = local1
 		set     	-56, %o1
 		add     	%fp, %o1, %o1
-		set     	-52, %l7
+		set     	-32, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local5 = local11
+		set     	-60, %o1
+		add     	%fp, %o1, %o1
+		set     	-36, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local6 = cgInt
+		set     	-64, %o1
+		add     	%fp, %o1, %o1
+		set     	cgInt, %l7
+		add     	%g0, %l7, %l7
+		ld      	[%l7], %o0
+		st      	%o0, [%o1]
+		
+		! local7 = 5
+		set     	-68, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! clocal = 5
+		set     	-72, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! clocal2 = 5
+		set     	-76, %o1
+		add     	%fp, %o1, %o1
+		set     	5, %o0
+		st      	%o0, [%o1]
+		
+		! clocal3 = 4.4
+		set     	-80, %o1
+		add     	%fp, %o1, %o1
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.7:
+		.single 	0r4.4
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! clocal4 = clocal3
+		set     	-84, %o1
+		add     	%fp, %o1, %o1
+		set     	-80, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
 		! c1 = 210
-		set     	-60, %o1
+		set     	-88, %o1
 		add     	%fp, %o1, %o1
 		set     	210, %o0
 		st      	%o0, [%o1]
 		
 		! c2 = (sizeof(int))+(c1)
-		set     	-64, %o1
+		set     	-92, %o1
 		add     	%fp, %o1, %o1
 		set     	214, %o0
 		st      	%o0, [%o1]
 		
 		! -(local7)
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		neg     	%o0, %o0
-		set     	-68, %o1
+		set     	-96, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((5)+(10))-(-(local7))
 		set     	15, %o0
-		set     	-68, %l7
+		set     	-96, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		sub     	%o0, %o1, %o0
-		set     	-72, %o1
+		set     	-100, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (((5)+(10))-(-(local7)))+(-(clocal2))
-		set     	-72, %l7
+		set     	-100, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	-5, %o1
 		add     	%o0, %o1, %o0
-		set     	-76, %o1
+		set     	-104, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! +(local7)
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		mov     	%o0, %o0
-		set     	-80, %o1
+		set     	-108, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7))
-		set     	-76, %l7
+		set     	-104, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-80, %l7
+		set     	-108, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		add     	%o0, %o1, %o0
-		set     	-84, %o1
+		set     	-112, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7)))+(+(clocal2))
-		set     	-84, %l7
+		set     	-112, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	5, %o1
 		add     	%o0, %o1, %o0
-		set     	-88, %o1
+		set     	-116, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! arith1 = (((((5)+(10))-(-(local7)))+(-(clocal2)))+(+(local7)))+(+(clocal2))
-		set     	-92, %o1
+		set     	-120, %o1
 		add     	%fp, %o1, %o1
-		set     	-88, %l7
+		set     	-116, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (local7)+(local7)
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		add     	%o0, %o1, %o0
-		set     	-96, %o1
+		set     	-124, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((local7)+(local7))+(5)
-		set     	-96, %l7
+		set     	-124, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	5, %o1
 		add     	%o0, %o1, %o0
-		set     	-100, %o1
+		set     	-128, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! arith2 = ((local7)+(local7))+(5)
-		set     	-104, %o1
+		set     	-132, %o1
 		add     	%fp, %o1, %o1
-		set     	-100, %l7
+		set     	-128, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (local7)-(local7)
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		sub     	%o0, %o1, %o0
-		set     	-108, %o1
+		set     	-136, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((local7)-(local7))-(5)
-		set     	-108, %l7
+		set     	-136, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	5, %o1
 		sub     	%o0, %o1, %o0
-		set     	-112, %o1
+		set     	-140, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! arith3 = ((local7)-(local7))-(5)
-		set     	-116, %o1
+		set     	-144, %o1
 		add     	%fp, %o1, %o1
-		set     	-112, %l7
+		set     	-140, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! +(local7)
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		mov     	%o0, %o0
-		set     	-120, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! arith4 = +(local7)
-		set     	-124, %o1
-		add     	%fp, %o1, %o1
-		set     	-120, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		st      	%o0, [%o1]
-		
-		! (local7)/(clocal2)
-		set     	-40, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-48, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		call    	.div
-		nop     
-		mov     	%o0, %o0
-		set     	-128, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! ((local7)/(clocal2))*(local7)
-		set     	-128, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-40, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		call    	.mul
-		nop     
-		mov     	%o0, %o0
-		set     	-132, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! (((local7)/(clocal2))*(local7))%(clocal)
-		set     	-132, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-44, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		call    	.rem
-		nop     
-		mov     	%o0, %o0
-		set     	-136, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! ((((local7)/(clocal2))*(local7))%(clocal))/(5)
-		set     	-136, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	5, %o1
-		call    	.div
-		nop     
-		mov     	%o0, %o0
-		set     	-140, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! (((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10)
-		set     	-140, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	10, %o1
-		call    	.mul
-		nop     
-		mov     	%o0, %o0
-		set     	-144, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
-		set     	-144, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	5, %o1
-		call    	.rem
-		nop     
 		mov     	%o0, %o0
 		set     	-148, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! arith5 = ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
+		! arith4 = +(local7)
 		set     	-152, %o1
 		add     	%fp, %o1, %o1
 		set     	-148, %l7
@@ -1643,204 +1938,205 @@ main.void:
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
-		! (local7)&(5)
-		set     	-40, %l7
+		! (local7)/(clocal2)
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	5, %o1
-		and     	%o0, %o1, %o0
+		set     	-76, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.div
+		nop     
+		mov     	%o0, %o0
 		set     	-156, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! (local6)&(5)
-		set     	-36, %l7
+		! ((local7)/(clocal2))*(local7)
+		set     	-156, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	5, %o1
-		and     	%o0, %o1, %o0
+		set     	-68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o0
 		set     	-160, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! (clocal2)^((local6)&(5))
-		set     	-48, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
+		! (((local7)/(clocal2))*(local7))%(clocal)
 		set     	-160, %l7
 		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-72, %l7
+		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
-		xor     	%o0, %o1, %o0
+		call    	.rem
+		nop     
+		mov     	%o0, %o0
 		set     	-164, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! ((local7)&(5))|((clocal2)^((local6)&(5)))
-		set     	-156, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
+		! ((((local7)/(clocal2))*(local7))%(clocal))/(5)
 		set     	-164, %l7
 		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		or      	%o0, %o1, %o0
+		ld      	[%l7], %o0
+		set     	5, %o1
+		call    	.div
+		nop     
+		mov     	%o0, %o0
 		set     	-168, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! (((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3))
+		! (((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10)
 		set     	-168, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	9, %o1
-		or      	%o0, %o1, %o0
+		set     	10, %o1
+		call    	.mul
+		nop     
+		mov     	%o0, %o0
 		set     	-172, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! (local7)&(local6)
-		set     	-40, %l7
+		! ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
+		set     	-172, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-36, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		and     	%o0, %o1, %o0
+		set     	5, %o1
+		call    	.rem
+		nop     
+		mov     	%o0, %o0
 		set     	-176, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! (local7)^((local7)&(local6))
-		set     	-40, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-176, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		xor     	%o0, %o1, %o0
+		! arith5 = ((((((local7)/(clocal2))*(local7))%(clocal))/(5))*(10))%(5)
 		set     	-180, %o1
 		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
-		set     	-172, %l7
+		set     	-176, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-180, %l7
+		st      	%o0, [%o1]
+		
+		! (local7)&(5)
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		or      	%o0, %o1, %o0
+		ld      	[%l7], %o0
+		set     	5, %o1
+		and     	%o0, %o1, %o0
 		set     	-184, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! arith6 = ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		! (local6)&(5)
+		set     	-64, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	5, %o1
+		and     	%o0, %o1, %o0
 		set     	-188, %o1
 		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (clocal2)^((local6)&(5))
+		set     	-76, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-188, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		xor     	%o0, %o1, %o0
+		set     	-192, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((local7)&(5))|((clocal2)^((local6)&(5)))
 		set     	-184, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-192, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		or      	%o0, %o1, %o0
+		set     	-196, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3))
+		set     	-196, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	9, %o1
+		or      	%o0, %o1, %o0
+		set     	-200, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local7)&(local6)
+		set     	-68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-64, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		and     	%o0, %o1, %o0
+		set     	-204, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (local7)^((local7)&(local6))
+		set     	-68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-204, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		xor     	%o0, %o1, %o0
+		set     	-208, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		set     	-200, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-208, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		or      	%o0, %o1, %o0
+		set     	-212, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith6 = ((((local7)&(5))|((clocal2)^((local6)&(5))))|((10)^(3)))|((local7)^((local7)&(local6)))
+		set     	-216, %o1
+		add     	%fp, %o1, %o1
+		set     	-212, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! --(local7)
-		set     	-40, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	1, %o1
-		sub     	%o0, %o1, %o2
-		set     	-192, %o1
-		add     	%fp, %o1, %o1
-		st      	%o2, [%o1]
-		set     	-40, %o1
-		add     	%fp, %o1, %o1
-		st      	%o2, [%o1]
-		
-		! ((5)+(10))-(--(local7))
-		set     	15, %o0
-		set     	-192, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		sub     	%o0, %o1, %o0
-		set     	-196, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! ++(local7)
-		set     	-40, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	1, %o1
-		add     	%o0, %o1, %o2
-		set     	-200, %o1
-		add     	%fp, %o1, %o1
-		st      	%o2, [%o1]
-		set     	-40, %o1
-		add     	%fp, %o1, %o1
-		st      	%o2, [%o1]
-		
-		! (((5)+(10))-(--(local7)))+(++(local7))
-		set     	-196, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-200, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		add     	%o0, %o1, %o0
-		set     	-204, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! ((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2))
-		set     	-204, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-5, %o1
-		add     	%o0, %o1, %o0
-		set     	-208, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! (arith6)++
-		set     	-188, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	1, %o1
-		add     	%o0, %o1, %o2
-		set     	-212, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		set     	-188, %o1
-		add     	%fp, %o1, %o1
-		st      	%o2, [%o1]
-		
-		! (((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++)
-		set     	-208, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
-		set     	-212, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o1
-		add     	%o0, %o1, %o0
-		set     	-216, %o1
-		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		
-		! (arith5)--
-		set     	-152, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	1, %o1
 		sub     	%o0, %o1, %o2
 		set     	-220, %o1
 		add     	%fp, %o1, %o1
-		st      	%o0, [%o1]
-		set     	-152, %o1
+		st      	%o2, [%o1]
+		set     	-68, %o1
 		add     	%fp, %o1, %o1
 		st      	%o2, [%o1]
 		
-		! ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
-		set     	-216, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %o0
+		! ((5)+(10))-(--(local7))
+		set     	15, %o0
 		set     	-220, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
@@ -1849,10 +2145,95 @@ main.void:
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
-		! arith7 = ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		! ++(local7)
+		set     	-68, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o2
 		set     	-228, %o1
 		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		set     	-68, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! (((5)+(10))-(--(local7)))+(++(local7))
 		set     	-224, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-228, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-232, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! ((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2))
+		set     	-232, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-5, %o1
+		add     	%o0, %o1, %o0
+		set     	-236, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (arith6)++
+		set     	-216, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		add     	%o0, %o1, %o2
+		set     	-240, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		set     	-216, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! (((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++)
+		set     	-236, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-240, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		add     	%o0, %o1, %o0
+		set     	-244, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! (arith5)--
+		set     	-180, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	1, %o1
+		sub     	%o0, %o1, %o2
+		set     	-248, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		set     	-180, %o1
+		add     	%fp, %o1, %o1
+		st      	%o2, [%o1]
+		
+		! ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		set     	-244, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o0
+		set     	-248, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %o1
+		sub     	%o0, %o1, %o0
+		set     	-252, %o1
+		add     	%fp, %o1, %o1
+		st      	%o0, [%o1]
+		
+		! arith7 = ((((((5)+(10))-(--(local7)))+(++(local7)))+(-(clocal2)))+((arith6)++))-((arith5)--)
+		set     	-256, %o1
+		add     	%fp, %o1, %o1
+		set     	-252, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -1861,176 +2242,76 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.7:
+	.$$.float.8:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.7, %l7
+		set     	.$$.float.8, %l7
 		ld      	[%l7], %f0
-		set     	-12, %l7
+		set     	-40, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
-		set     	-232, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! (((5.5)+(10.10))-(local2))+(local2_2)
-		set     	-232, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-16, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fadds   	%f0, %f1, %f0
-		set     	-236, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! +(local2)
-		set     	-12, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		fmovs   	%f0, %f0
-		set     	-240, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! ((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2))
-		set     	-236, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-240, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fsubs   	%f0, %f1, %f0
-		set     	-244, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! -(local2_2)
-		set     	-16, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		fnegs   	%f0, %f0
-		set     	-248, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
-		set     	-244, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-248, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fadds   	%f0, %f1, %f0
-		set     	-252, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! arith8 = (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
-		set     	-256, %o1
-		add     	%fp, %o1, %o1
-		set     	-252, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		st      	%f0, [%o1]
-		
-		! (local2)/(local2_2)
-		set     	-12, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-16, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fdivs   	%f0, %f1, %f0
 		set     	-260, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
-		! ((local2)/(local2_2))*(local2)
+		! (((5.5)+(10.10))-(local2))+(local2_2)
 		set     	-260, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-12, %l7
+		set     	-44, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
-		fmuls   	%f0, %f1, %f0
+		fadds   	%f0, %f1, %f0
 		set     	-264, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
-		! (((local2)/(local2_2))*(local2))/(5.5)
-		set     	-264, %l7
+		! +(local2)
+		set     	-40, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		
-		.section	".rodata"
-		.align  	4
-	.$$.float.8:
-		.single 	0r5.5
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.8, %l7
-		ld      	[%l7], %f1
-		fdivs   	%f0, %f1, %f0
+		fmovs   	%f0, %f0
 		set     	-268, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
-		! ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
-		set     	-268, %l7
+		! ((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2))
+		set     	-264, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		
-		.section	".rodata"
-		.align  	4
-	.$$.float.9:
-		.single 	0r10.5
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.9, %l7
+		set     	-268, %l7
+		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
-		fmuls   	%f0, %f1, %f0
+		fsubs   	%f0, %f1, %f0
 		set     	-272, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
-		! arith9 = ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		! -(local2_2)
+		set     	-44, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		fnegs   	%f0, %f0
 		set     	-276, %o1
 		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
 		set     	-272, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		st      	%f0, [%o1]
-		
-		! --(local2)
-		set     	-12, %l7
+		set     	-276, %l7
 		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		
-		.section	".rodata"
-		.align  	4
-	.$$.float.10:
-		.single 	0r1.0
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.10, %l7
 		ld      	[%l7], %f1
-		fsubs   	%f0, %f1, %f2
+		fadds   	%f0, %f1, %f0
 		set     	-280, %o1
 		add     	%fp, %o1, %o1
-		st      	%f2, [%o1]
-		set     	-12, %o1
-		add     	%fp, %o1, %o1
-		st      	%f2, [%o1]
+		st      	%f0, [%o1]
 		
-		! arithtest1 = --(local2)
+		! arith8 = (((((5.5)+(10.10))-(local2))+(local2_2))-(+(local2)))+(-(local2_2))
 		set     	-284, %o1
 		add     	%fp, %o1, %o1
 		set     	-280, %l7
@@ -2038,8 +2319,78 @@ main.void:
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
-		! (local2)-(1.0)
-		set     	-12, %l7
+		! (local2)/(local2_2)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-44, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-288, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((local2)/(local2_2))*(local2)
+		set     	-288, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-292, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (((local2)/(local2_2))*(local2))/(5.5)
+		set     	-292, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.9:
+		.single 	0r5.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.9, %l7
+		ld      	[%l7], %f1
+		fdivs   	%f0, %f1, %f0
+		set     	-296, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		set     	-296, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.10:
+		.single 	0r10.5
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.10, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-300, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arith9 = ((((local2)/(local2_2))*(local2))/(5.5))*(10.5)
+		set     	-304, %o1
+		add     	%fp, %o1, %o1
+		set     	-300, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! --(local2)
+		set     	-40, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
@@ -2052,21 +2403,24 @@ main.void:
 		.align  	4
 		set     	.$$.float.11, %l7
 		ld      	[%l7], %f1
-		fsubs   	%f0, %f1, %f0
-		set     	-288, %o1
+		fsubs   	%f0, %f1, %f2
+		set     	-308, %o1
 		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
+		st      	%f2, [%o1]
+		set     	-40, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
 		
-		! arithtest2 = (local2)-(1.0)
-		set     	-292, %o1
+		! arithtest1 = --(local2)
+		set     	-312, %o1
 		add     	%fp, %o1, %o1
-		set     	-288, %l7
+		set     	-308, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
-		! --(local2)
-		set     	-12, %l7
+		! (local2)-(1.0)
+		set     	-40, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
@@ -2079,11 +2433,38 @@ main.void:
 		.align  	4
 		set     	.$$.float.12, %l7
 		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f0
+		set     	-316, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! arithtest2 = (local2)-(1.0)
+		set     	-320, %o1
+		add     	%fp, %o1, %o1
+		set     	-316, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		st      	%f0, [%o1]
+		
+		! --(local2)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.13:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.13, %l7
+		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f2
-		set     	-296, %o1
+		set     	-324, %o1
 		add     	%fp, %o1, %o1
 		st      	%f2, [%o1]
-		set     	-12, %o1
+		set     	-40, %o1
 		add     	%fp, %o1, %o1
 		st      	%f2, [%o1]
 		
@@ -2091,78 +2472,23 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.13:
+	.$$.float.14:
 		.single 	0r15.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.13, %l7
+		set     	.$$.float.14, %l7
 		ld      	[%l7], %f0
-		set     	-296, %l7
+		set     	-324, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
-		set     	-300, %o1
+		set     	-328, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! ++(local2_2)
-		set     	-16, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		
-		.section	".rodata"
-		.align  	4
-	.$$.float.14:
-		.single 	0r1.0
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.14, %l7
-		ld      	[%l7], %f1
-		fadds   	%f0, %f1, %f2
-		set     	-304, %o1
-		add     	%fp, %o1, %o1
-		st      	%f2, [%o1]
-		set     	-16, %o1
-		add     	%fp, %o1, %o1
-		st      	%f2, [%o1]
-		
-		! (((5.5)+(10.10))-(--(local2)))+(++(local2_2))
-		set     	-300, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-304, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fadds   	%f0, %f1, %f0
-		set     	-308, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! -(local2)
-		set     	-12, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		fnegs   	%f0, %f0
-		set     	-312, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! ((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2))
-		set     	-308, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-312, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fadds   	%f0, %f1, %f0
-		set     	-316, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! (arith8)++
-		set     	-256, %l7
+		set     	-44, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
@@ -2176,27 +2502,48 @@ main.void:
 		set     	.$$.float.15, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f2
-		set     	-320, %o1
+		set     	-332, %o1
 		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		set     	-256, %o1
+		st      	%f2, [%o1]
+		set     	-44, %o1
 		add     	%fp, %o1, %o1
 		st      	%f2, [%o1]
 		
-		! (((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++)
-		set     	-316, %l7
+		! (((5.5)+(10.10))-(--(local2)))+(++(local2_2))
+		set     	-328, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-320, %l7
+		set     	-332, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f0
-		set     	-324, %o1
+		set     	-336, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
-		! (arith9)--
-		set     	-276, %l7
+		! -(local2)
+		set     	-40, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		fnegs   	%f0, %f0
+		set     	-340, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! ((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2))
+		set     	-336, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-340, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-344, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith8)++
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
@@ -2209,42 +2556,76 @@ main.void:
 		.align  	4
 		set     	.$$.float.16, %l7
 		ld      	[%l7], %f1
-		fsubs   	%f0, %f1, %f2
-		set     	-328, %o1
+		fadds   	%f0, %f1, %f2
+		set     	-348, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
-		set     	-276, %o1
+		set     	-284, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! (((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++)
+		set     	-344, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-348, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f0
+		set     	-352, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith9)--
+		set     	-304, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.17:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.17, %l7
+		ld      	[%l7], %f1
+		fsubs   	%f0, %f1, %f2
+		set     	-356, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	-304, %o1
 		add     	%fp, %o1, %o1
 		st      	%f2, [%o1]
 		
 		! ((((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++))-((arith9)--)
-		set     	-324, %l7
+		set     	-352, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-328, %l7
+		set     	-356, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
-		set     	-332, %o1
+		set     	-360, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! arith10 = ((((((5.5)+(10.10))-(--(local2)))+(++(local2_2)))+(-(local2)))+((arith8)++))-((arith9)--)
-		set     	-336, %o1
+		set     	-364, %o1
 		add     	%fp, %o1, %o1
-		set     	-332, %l7
+		set     	-360, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
 		! sometester = 5
-		set     	-340, %o1
+		set     	-368, %o1
 		add     	%fp, %o1, %o1
 		set     	5, %o0
 		st      	%o0, [%o1]
 		
 		! (sometester)>(10)
-		set     	-340, %l7
+		set     	-368, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		set     	10, %o1
@@ -2253,23 +2634,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.5:
-		set     	-344, %o1
+		set     	-372, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest = (sometester)>(10)
-		set     	-348, %o1
+		set     	-376, %o1
 		add     	%fp, %o1, %o1
-		set     	-344, %l7
+		set     	-372, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (sometester)>(sometester)
-		set     	-340, %l7
+		set     	-368, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-340, %l7
+		set     	-368, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2277,43 +2658,43 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.6:
-		set     	-352, %o1
+		set     	-380, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest2 = (sometester)>(sometester)
-		set     	-356, %o1
+		set     	-384, %o1
 		add     	%fp, %o1, %o1
-		set     	-352, %l7
+		set     	-380, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! bFalse = false
-		set     	-360, %o1
+		set     	-388, %o1
 		add     	%fp, %o1, %o1
 		set     	0, %o0
 		st      	%o0, [%o1]
 		
 		! bTrue = true
-		set     	-364, %o1
+		set     	-392, %o1
 		add     	%fp, %o1, %o1
 		set     	1, %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)>(9.5)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.17:
+	.$$.float.18:
 		.single 	0r9.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.17, %l7
+		set     	.$$.float.18, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
@@ -2321,23 +2702,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.7:
-		set     	-368, %o1
+		set     	-396, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest3 = (arith8)>(9.5)
-		set     	-372, %o1
+		set     	-400, %o1
 		add     	%fp, %o1, %o1
-		set     	-368, %l7
+		set     	-396, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)>(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2346,23 +2727,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.8:
-		set     	-376, %o1
+		set     	-404, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest4 = (arith8)>(arith9)
-		set     	-380, %o1
+		set     	-408, %o1
 		add     	%fp, %o1, %o1
-		set     	-376, %l7
+		set     	-404, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith4)>=(arith5)
-		set     	-124, %l7
+		set     	-152, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2370,23 +2751,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.9:
-		set     	-384, %o1
+		set     	-412, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest5 = (arith4)>=(arith5)
-		set     	-388, %o1
+		set     	-416, %o1
 		add     	%fp, %o1, %o1
-		set     	-384, %l7
+		set     	-412, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)>=(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2395,23 +2776,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.10:
-		set     	-392, %o1
+		set     	-420, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest6 = (arith8)>=(arith9)
-		set     	-396, %o1
+		set     	-424, %o1
 		add     	%fp, %o1, %o1
-		set     	-392, %l7
+		set     	-420, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith4)<(arith5)
-		set     	-124, %l7
+		set     	-152, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2419,23 +2800,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.11:
-		set     	-400, %o1
+		set     	-428, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest7 = (arith4)<(arith5)
-		set     	-404, %o1
+		set     	-432, %o1
 		add     	%fp, %o1, %o1
-		set     	-400, %l7
+		set     	-428, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)<(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2444,23 +2825,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.12:
-		set     	-408, %o1
+		set     	-436, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest8 = (arith8)<(arith9)
-		set     	-412, %o1
+		set     	-440, %o1
 		add     	%fp, %o1, %o1
-		set     	-408, %l7
+		set     	-436, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith4)<=(arith5)
-		set     	-124, %l7
+		set     	-152, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2468,23 +2849,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.13:
-		set     	-416, %o1
+		set     	-444, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest9 = (arith4)<=(arith5)
-		set     	-420, %o1
+		set     	-448, %o1
 		add     	%fp, %o1, %o1
-		set     	-416, %l7
+		set     	-444, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)<=(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2493,23 +2874,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.14:
-		set     	-424, %o1
+		set     	-452, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest10 = (arith8)<=(arith9)
-		set     	-428, %o1
+		set     	-456, %o1
 		add     	%fp, %o1, %o1
-		set     	-424, %l7
+		set     	-452, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith4)==(arith5)
-		set     	-124, %l7
+		set     	-152, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2517,23 +2898,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.15:
-		set     	-432, %o1
+		set     	-460, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest11 = (arith4)==(arith5)
-		set     	-436, %o1
+		set     	-464, %o1
 		add     	%fp, %o1, %o1
-		set     	-432, %l7
+		set     	-460, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)==(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2542,23 +2923,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.16:
-		set     	-440, %o1
+		set     	-468, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest12 = (arith8)==(arith9)
-		set     	-444, %o1
+		set     	-472, %o1
 		add     	%fp, %o1, %o1
-		set     	-440, %l7
+		set     	-468, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith4)!=(arith5)
-		set     	-124, %l7
+		set     	-152, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -2566,23 +2947,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.17:
-		set     	-448, %o1
+		set     	-476, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest13 = (arith4)!=(arith5)
-		set     	-452, %o1
+		set     	-480, %o1
 		add     	%fp, %o1, %o1
-		set     	-448, %l7
+		set     	-476, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)!=(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2591,23 +2972,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.18:
-		set     	-456, %o1
+		set     	-484, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest14 = (arith8)!=(arith9)
-		set     	-460, %o1
+		set     	-488, %o1
 		add     	%fp, %o1, %o1
-		set     	-456, %l7
+		set     	-484, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)!=(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2616,40 +2997,40 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.19:
-		set     	-464, %o1
+		set     	-492, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! !((arith8)!=(arith9))
-		set     	-464, %l7
+		set     	-492, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		xor     	%o0, 1, %o0
-		set     	-468, %o1
+		set     	-496, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest15 = !((arith8)!=(arith9))
-		set     	-472, %o1
+		set     	-500, %o1
 		add     	%fp, %o1, %o1
-		set     	-468, %l7
+		set     	-496, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! !(sometest14)
-		set     	-460, %l7
+		set     	-488, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		xor     	%o0, 1, %o0
-		set     	-476, %o1
+		set     	-504, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest16 = !(sometest14)
-		set     	-480, %o1
+		set     	-508, %o1
 		add     	%fp, %o1, %o1
-		set     	-476, %l7
+		set     	-504, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -2672,7 +3053,7 @@ main.void:
 	.$$.andorEnd.1:
 		
 		! sometest17 = (true)&&(true)
-		set     	-484, %o1
+		set     	-512, %o1
 		add     	%fp, %o1, %o1
 		set     	1, %o0
 		st      	%o0, [%o1]
@@ -2695,13 +3076,13 @@ main.void:
 	.$$.andorEnd.2:
 		
 		! sometest18 = (false)&&(false)
-		set     	-488, %o1
+		set     	-516, %o1
 		add     	%fp, %o1, %o1
 		set     	0, %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2711,7 +3092,7 @@ main.void:
 		! (bFalse)&&(bTrue)
 		
 		! Short Circuit RHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2722,20 +3103,20 @@ main.void:
 	.$$.andorSkip.3:
 		mov     	0, %o0
 	.$$.andorEnd.3:
-		set     	-492, %o1
+		set     	-520, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest19 = (bFalse)&&(bTrue)
-		set     	-496, %o1
+		set     	-524, %o1
 		add     	%fp, %o1, %o1
-		set     	-492, %l7
+		set     	-520, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2745,7 +3126,7 @@ main.void:
 		! (bTrue)&&(bFalse)
 		
 		! Short Circuit RHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2756,20 +3137,20 @@ main.void:
 	.$$.andorSkip.4:
 		mov     	0, %o0
 	.$$.andorEnd.4:
-		set     	-500, %o1
+		set     	-528, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest20 = (bTrue)&&(bFalse)
-		set     	-504, %o1
+		set     	-532, %o1
 		add     	%fp, %o1, %o1
-		set     	-500, %l7
+		set     	-528, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2779,7 +3160,7 @@ main.void:
 		! (bFalse)&&(bFalse)
 		
 		! Short Circuit RHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2790,23 +3171,23 @@ main.void:
 	.$$.andorSkip.5:
 		mov     	0, %o0
 	.$$.andorEnd.5:
-		set     	-508, %o1
+		set     	-536, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest21 = (bFalse)&&(bFalse)
-		set     	-512, %o1
+		set     	-540, %o1
 		add     	%fp, %o1, %o1
-		set     	-508, %l7
+		set     	-536, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)>(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2815,12 +3196,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.20:
-		set     	-516, %o1
+		set     	-544, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-516, %l7
+		set     	-544, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2828,10 +3209,10 @@ main.void:
 		nop     
 		
 		! (arith8)!=(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -2840,23 +3221,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.21:
-		set     	-520, %o1
+		set     	-548, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! !((arith8)!=(arith9))
-		set     	-520, %l7
+		set     	-548, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		xor     	%o0, 1, %o0
-		set     	-524, %o1
+		set     	-552, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((arith8)>(arith9))&&(!((arith8)!=(arith9)))
 		
 		! Short Circuit RHS
-		set     	-524, %l7
+		set     	-552, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2867,14 +3248,14 @@ main.void:
 	.$$.andorSkip.6:
 		mov     	0, %o0
 	.$$.andorEnd.6:
-		set     	-528, %o1
+		set     	-556, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest22 = ((arith8)>(arith9))&&(!((arith8)!=(arith9)))
-		set     	-532, %o1
+		set     	-560, %o1
 		add     	%fp, %o1, %o1
-		set     	-528, %l7
+		set     	-556, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -2897,7 +3278,7 @@ main.void:
 	.$$.andorEnd.7:
 		
 		! sometest23 = (true)||(true)
-		set     	-536, %o1
+		set     	-564, %o1
 		add     	%fp, %o1, %o1
 		set     	1, %o0
 		st      	%o0, [%o1]
@@ -2920,13 +3301,13 @@ main.void:
 	.$$.andorEnd.8:
 		
 		! sometest24 = (false)||(false)
-		set     	-540, %o1
+		set     	-568, %o1
 		add     	%fp, %o1, %o1
 		set     	0, %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2936,7 +3317,7 @@ main.void:
 		! (bFalse)||(bTrue)
 		
 		! Short Circuit RHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2947,20 +3328,20 @@ main.void:
 	.$$.andorSkip.9:
 		mov     	1, %o0
 	.$$.andorEnd.9:
-		set     	-544, %o1
+		set     	-572, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest25 = (bFalse)||(bTrue)
-		set     	-548, %o1
+		set     	-576, %o1
 		add     	%fp, %o1, %o1
-		set     	-544, %l7
+		set     	-572, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2970,7 +3351,7 @@ main.void:
 		! (bTrue)||(bFalse)
 		
 		! Short Circuit RHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -2981,20 +3362,20 @@ main.void:
 	.$$.andorSkip.10:
 		mov     	1, %o0
 	.$$.andorEnd.10:
-		set     	-552, %o1
+		set     	-580, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest26 = (bTrue)||(bFalse)
-		set     	-556, %o1
+		set     	-584, %o1
 		add     	%fp, %o1, %o1
-		set     	-552, %l7
+		set     	-580, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3004,7 +3385,7 @@ main.void:
 		! (bFalse)||(bFalse)
 		
 		! Short Circuit RHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3015,14 +3396,14 @@ main.void:
 	.$$.andorSkip.11:
 		mov     	1, %o0
 	.$$.andorEnd.11:
-		set     	-560, %o1
+		set     	-588, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest27 = (bFalse)||(bFalse)
-		set     	-564, %o1
+		set     	-592, %o1
 		add     	%fp, %o1, %o1
-		set     	-560, %l7
+		set     	-588, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
@@ -3036,7 +3417,7 @@ main.void:
 		! (true)&&(bFalse)
 		
 		! Short Circuit RHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3047,20 +3428,20 @@ main.void:
 	.$$.andorSkip.12:
 		mov     	0, %o0
 	.$$.andorEnd.12:
-		set     	-568, %o1
+		set     	-596, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest28 = (true)&&(bFalse)
-		set     	-572, %o1
+		set     	-600, %o1
 		add     	%fp, %o1, %o1
-		set     	-568, %l7
+		set     	-596, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3068,7 +3449,7 @@ main.void:
 		nop     
 		
 		! Short Circuit LHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3078,7 +3459,7 @@ main.void:
 		! (bFalse)&&(bTrue)
 		
 		! Short Circuit RHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3089,14 +3470,14 @@ main.void:
 	.$$.andorSkip.14:
 		mov     	0, %o0
 	.$$.andorEnd.14:
-		set     	-576, %o1
+		set     	-604, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (bTrue)||((bFalse)&&(bTrue))
 		
 		! Short Circuit RHS
-		set     	-576, %l7
+		set     	-604, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3107,23 +3488,23 @@ main.void:
 	.$$.andorSkip.13:
 		mov     	1, %o0
 	.$$.andorEnd.13:
-		set     	-580, %o1
+		set     	-608, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest29 = (bTrue)||((bFalse)&&(bTrue))
-		set     	-584, %o1
+		set     	-612, %o1
 		add     	%fp, %o1, %o1
-		set     	-580, %l7
+		set     	-608, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (arith8)>(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -3132,12 +3513,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.22:
-		set     	-588, %o1
+		set     	-616, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-588, %l7
+		set     	-616, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3145,7 +3526,7 @@ main.void:
 		nop     
 		
 		! Short Circuit LHS
-		set     	-536, %l7
+		set     	-564, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3155,7 +3536,7 @@ main.void:
 		! (sometest23)&&(sometest27)
 		
 		! Short Circuit RHS
-		set     	-564, %l7
+		set     	-592, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3166,14 +3547,14 @@ main.void:
 	.$$.andorSkip.16:
 		mov     	0, %o0
 	.$$.andorEnd.16:
-		set     	-592, %o1
+		set     	-620, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((arith8)>(arith9))||((sometest23)&&(sometest27))
 		
 		! Short Circuit RHS
-		set     	-592, %l7
+		set     	-620, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3184,12 +3565,12 @@ main.void:
 	.$$.andorSkip.15:
 		mov     	1, %o0
 	.$$.andorEnd.15:
-		set     	-596, %o1
+		set     	-624, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-596, %l7
+		set     	-624, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3197,7 +3578,7 @@ main.void:
 		nop     
 		
 		! Short Circuit LHS
-		set     	-504, %l7
+		set     	-532, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3216,14 +3597,14 @@ main.void:
 	.$$.andorSkip.18:
 		mov     	0, %o0
 	.$$.andorEnd.18:
-		set     	-600, %o1
+		set     	-628, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (((arith8)>(arith9))||((sometest23)&&(sometest27)))||((sometest20)&&(true))
 		
 		! Short Circuit RHS
-		set     	-600, %l7
+		set     	-628, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3234,12 +3615,12 @@ main.void:
 	.$$.andorSkip.17:
 		mov     	1, %o0
 	.$$.andorEnd.17:
-		set     	-604, %o1
+		set     	-632, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-604, %l7
+		set     	-632, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3258,95 +3639,95 @@ main.void:
 	.$$.andorSkip.19:
 		mov     	1, %o0
 	.$$.andorEnd.19:
-		set     	-608, %o1
+		set     	-636, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! sometest30 = ((((arith8)>(arith9))||((sometest23)&&(sometest27)))||((sometest20)&&(true)))||(false)
-		set     	-612, %o1
+		set     	-640, %o1
 		add     	%fp, %o1, %o1
-		set     	-608, %l7
+		set     	-636, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! intVarCin = 0
-		set     	-616, %o1
+		set     	-644, %o1
 		add     	%fp, %o1, %o1
 		set     	0, %o0
 		st      	%o0, [%o1]
 		
 		! floatVarCin = .0
-		set     	-620, %o1
+		set     	-648, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.18:
+	.$$.float.19:
 		.single 	0r0.0
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.18, %l7
+		set     	.$$.float.19, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
 		! (0)*(floatVarCin)
 		set     	0, %o0
-		set     	-628, %l7
+		set     	-656, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
 		fitos   	%f0, %f0
-		set     	-620, %l7
+		set     	-648, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fmuls   	%f0, %f1, %f0
-		set     	-624, %o1
+		set     	-652, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! fito1 = (0)*(floatVarCin)
-		set     	-632, %o1
+		set     	-660, %o1
 		add     	%fp, %o1, %o1
-		set     	-624, %l7
+		set     	-652, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
 		! (floatVarCin)*(0)
-		set     	-620, %l7
+		set     	-648, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		set     	0, %o1
-		set     	-640, %l7
+		set     	-668, %l7
 		add     	%fp, %l7, %l7
 		st      	%o1, [%l7]
 		ld      	[%l7], %f1
 		fitos   	%f1, %f1
 		fmuls   	%f0, %f1, %f0
-		set     	-636, %o1
+		set     	-664, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! fito2 = (floatVarCin)*(0)
-		set     	-644, %o1
+		set     	-672, %o1
 		add     	%fp, %o1, %o1
-		set     	-636, %l7
+		set     	-664, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
 		! (intVarCin)!=(floatVarCin)
-		set     	-616, %l7
+		set     	-644, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-652, %l7
+		set     	-680, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
 		fitos   	%f0, %f0
-		set     	-620, %l7
+		set     	-648, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -3355,26 +3736,26 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.23:
-		set     	-648, %o1
+		set     	-676, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! fito3 = (intVarCin)!=(floatVarCin)
-		set     	-656, %o1
+		set     	-684, %o1
 		add     	%fp, %o1, %o1
-		set     	-648, %l7
+		set     	-676, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! (floatVarCin)>(intVarCin)
-		set     	-620, %l7
+		set     	-648, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-616, %l7
+		set     	-644, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
-		set     	-664, %l7
+		set     	-692, %l7
 		add     	%fp, %l7, %l7
 		st      	%o1, [%l7]
 		ld      	[%l7], %f1
@@ -3385,23 +3766,23 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.24:
-		set     	-660, %o1
+		set     	-688, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! fito4 = (floatVarCin)>(intVarCin)
-		set     	-668, %o1
+		set     	-696, %o1
 		add     	%fp, %o1, %o1
-		set     	-660, %l7
+		set     	-688, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		st      	%o0, [%o1]
 		
 		! fito5 = 5
-		set     	-672, %o1
+		set     	-700, %o1
 		add     	%fp, %o1, %o1
 		set     	5, %o0
-		set     	-676, %l7
+		set     	-704, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -3409,12 +3790,12 @@ main.void:
 		st      	%f0, [%o1]
 		
 		! fito6 = intVarCin
-		set     	-680, %o1
+		set     	-708, %o1
 		add     	%fp, %o1, %o1
-		set     	-616, %l7
+		set     	-644, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-684, %l7
+		set     	-712, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -3422,26 +3803,26 @@ main.void:
 		st      	%f0, [%o1]
 		
 		! (intVarCin)*(intVarCin)
-		set     	-616, %l7
+		set     	-644, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-616, %l7
+		set     	-644, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		call    	.mul
 		nop     
 		mov     	%o0, %o0
-		set     	-688, %o1
+		set     	-716, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! fito7 = (intVarCin)*(intVarCin)
-		set     	-692, %o1
+		set     	-720, %o1
 		add     	%fp, %o1, %o1
-		set     	-688, %l7
+		set     	-716, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-696, %l7
+		set     	-724, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -3449,27 +3830,27 @@ main.void:
 		st      	%f0, [%o1]
 		
 		! fito8 = (cgInt)+(cgFloat)
-		set     	-700, %o1
+		set     	-728, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.19:
+	.$$.float.20:
 		.single 	0r10.5
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.19, %l7
+		set     	.$$.float.20, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
 		! fito9 = cgInt
-		set     	-704, %o1
+		set     	-732, %o1
 		add     	%fp, %o1, %o1
 		set     	cgInt, %l7
 		add     	%g0, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-708, %l7
+		set     	-736, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -3489,10 +3870,10 @@ main.void:
 		nop     
 		
 		! (arith8)>(arith9)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
@@ -3501,14 +3882,14 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.25:
-		set     	-712, %o1
+		set     	-740, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (true)&&((arith8)>(arith9))
 		
 		! Short Circuit RHS
-		set     	-712, %l7
+		set     	-740, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3519,14 +3900,14 @@ main.void:
 	.$$.andorSkip.21:
 		mov     	0, %o0
 	.$$.andorEnd.21:
-		set     	-716, %o1
+		set     	-744, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (!(false))||((true)&&((arith8)>(arith9)))
 		
 		! Short Circuit RHS
-		set     	-716, %l7
+		set     	-744, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3537,12 +3918,12 @@ main.void:
 	.$$.andorSkip.20:
 		mov     	1, %o0
 	.$$.andorEnd.20:
-		set     	-720, %o1
+		set     	-748, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-720, %l7
+		set     	-748, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3550,7 +3931,7 @@ main.void:
 		nop     
 		
 		! Short Circuit LHS
-		set     	-536, %l7
+		set     	-564, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3560,7 +3941,7 @@ main.void:
 		! (sometest23)&&(sometest27)
 		
 		! Short Circuit RHS
-		set     	-564, %l7
+		set     	-592, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3571,14 +3952,14 @@ main.void:
 	.$$.andorSkip.23:
 		mov     	0, %o0
 	.$$.andorEnd.23:
-		set     	-724, %o1
+		set     	-752, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((!(false))||((true)&&((arith8)>(arith9))))||((sometest23)&&(sometest27))
 		
 		! Short Circuit RHS
-		set     	-724, %l7
+		set     	-752, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3589,12 +3970,12 @@ main.void:
 	.$$.andorSkip.22:
 		mov     	1, %o0
 	.$$.andorEnd.22:
-		set     	-728, %o1
+		set     	-756, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-728, %l7
+		set     	-756, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3602,7 +3983,7 @@ main.void:
 		nop     
 		
 		! Short Circuit LHS
-		set     	-504, %l7
+		set     	-532, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3621,14 +4002,14 @@ main.void:
 	.$$.andorSkip.25:
 		mov     	0, %o0
 	.$$.andorEnd.25:
-		set     	-732, %o1
+		set     	-760, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (((!(false))||((true)&&((arith8)>(arith9))))||((sometest23)&&(sometest27)))||((sometest20)&&(true))
 		
 		! Short Circuit RHS
-		set     	-732, %l7
+		set     	-760, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3639,12 +4020,12 @@ main.void:
 	.$$.andorSkip.24:
 		mov     	1, %o0
 	.$$.andorEnd.24:
-		set     	-736, %o1
+		set     	-764, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-736, %l7
+		set     	-764, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3663,12 +4044,12 @@ main.void:
 	.$$.andorSkip.26:
 		mov     	1, %o0
 	.$$.andorEnd.26:
-		set     	-740, %o1
+		set     	-768, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( ((((!(false))||((true)&&((arith8)>(arith9))))||((sometest23)&&(sometest27)))||((sometest20)&&(true)))||(false) )
-		set     	-740, %l7
+		set     	-768, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3823,30 +4204,30 @@ main.void:
 			.$$.endif.10:
 				
 				! (arith8)-(arith8)
-				set     	-256, %l7
+				set     	-284, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %f0
-				set     	-256, %l7
+				set     	-284, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %f1
 				fsubs   	%f0, %f1, %f0
-				set     	-744, %o1
+				set     	-772, %o1
 				add     	%fp, %o1, %o1
 				st      	%f0, [%o1]
 				
 				! ((arith8)-(arith8))>(6.9)
-				set     	-744, %l7
+				set     	-772, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %f0
 				
 				.section	".rodata"
 				.align  	4
-			.$$.float.20:
+			.$$.float.21:
 				.single 	0r6.9
 				
 				.section	".text"
 				.align  	4
-				set     	.$$.float.20, %l7
+				set     	.$$.float.21, %l7
 				ld      	[%l7], %f1
 				fcmps   	%f0, %f1
 				nop     
@@ -3854,12 +4235,12 @@ main.void:
 				mov     	%g0, %o0
 				inc     	%o0
 			.$$.cmp.26:
-				set     	-748, %o1
+				set     	-776, %o1
 				add     	%fp, %o1, %o1
 				st      	%o0, [%o1]
 				
 				! if ( ((arith8)-(arith8))>(6.9) )
-				set     	-748, %l7
+				set     	-776, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				cmp     	%o0, %g0
@@ -3888,22 +4269,22 @@ main.void:
 	.$$.endif.8:
 		
 		! (arith5)-(arith2)
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-104, %l7
+		set     	-132, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		sub     	%o0, %o1, %o0
-		set     	-752, %o1
+		set     	-780, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! (local7)>((arith5)-(arith2))
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-752, %l7
+		set     	-780, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -3911,12 +4292,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.27:
-		set     	-756, %o1
+		set     	-784, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( (local7)>((arith5)-(arith2)) )
-		set     	-756, %l7
+		set     	-784, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -3951,31 +4332,31 @@ main.void:
 	.$$.endif.12:
 		
 		! (local7)+(arith5)
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-152, %l7
+		set     	-180, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		add     	%o0, %o1, %o0
-		set     	-760, %o1
+		set     	-788, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! -(arith2)
-		set     	-104, %l7
+		set     	-132, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		neg     	%o0, %o0
-		set     	-764, %o1
+		set     	-792, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! ((local7)+(arith5))>(-(arith2))
-		set     	-760, %l7
+		set     	-788, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-764, %l7
+		set     	-792, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		cmp     	%o0, %o1
@@ -3983,12 +4364,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.28:
-		set     	-768, %o1
+		set     	-796, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( ((local7)+(arith5))>(-(arith2)) )
-		set     	-768, %l7
+		set     	-796, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4023,30 +4404,30 @@ main.void:
 	.$$.endif.13:
 		
 		! (arith8)-(arith8)
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-256, %l7
+		set     	-284, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fsubs   	%f0, %f1, %f0
-		set     	-772, %o1
+		set     	-800, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! ((arith8)-(arith8))>(6.9)
-		set     	-772, %l7
+		set     	-800, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.21:
+	.$$.float.22:
 		.single 	0r6.9
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.21, %l7
+		set     	.$$.float.22, %l7
 		ld      	[%l7], %f1
 		fcmps   	%f0, %f1
 		nop     
@@ -4054,12 +4435,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.29:
-		set     	-776, %o1
+		set     	-804, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( ((arith8)-(arith8))>(6.9) )
-		set     	-776, %l7
+		set     	-804, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4105,7 +4486,7 @@ main.void:
 		nop     
 		
 		! cout << c2
-		set     	-64, %l7
+		set     	-92, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		set     	.$$.intFmt, %o0
@@ -4118,17 +4499,17 @@ main.void:
 		nop     
 		
 		! r1 = 420.25
-		set     	-780, %o1
+		set     	-808, %o1
 		add     	%fp, %o1, %o1
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.22:
+	.$$.float.23:
 		.single 	0r420.25
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.22, %l7
+		set     	.$$.float.23, %l7
 		ld      	[%l7], %f0
 		st      	%f0, [%o1]
 		
@@ -4136,12 +4517,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.23:
+	.$$.float.24:
 		.single 	0r1082.75
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.23, %l7
+		set     	.$$.float.24, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -4174,12 +4555,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.24:
+	.$$.float.25:
 		.single 	0r16.2
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.24, %l7
+		set     	.$$.float.25, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -4190,41 +4571,7 @@ main.void:
 		nop     
 		
 		! (arith10)--
-		set     	-336, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		
-		.section	".rodata"
-		.align  	4
-	.$$.float.25:
-		.single 	0r1.0
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.25, %l7
-		ld      	[%l7], %f1
-		fsubs   	%f0, %f1, %f2
-		set     	-784, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		set     	-336, %o1
-		add     	%fp, %o1, %o1
-		st      	%f2, [%o1]
-		
-		! ((arith10)--)*(arith9)
-		set     	-784, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f0
-		set     	-276, %l7
-		add     	%fp, %l7, %l7
-		ld      	[%l7], %f1
-		fmuls   	%f0, %f1, %f0
-		set     	-788, %o1
-		add     	%fp, %o1, %o1
-		st      	%f0, [%o1]
-		
-		! (arith10)++
-		set     	-336, %l7
+		set     	-364, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		
@@ -4237,40 +4584,74 @@ main.void:
 		.align  	4
 		set     	.$$.float.26, %l7
 		ld      	[%l7], %f1
-		fadds   	%f0, %f1, %f2
-		set     	-792, %o1
+		fsubs   	%f0, %f1, %f2
+		set     	-812, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
-		set     	-336, %o1
+		set     	-364, %o1
+		add     	%fp, %o1, %o1
+		st      	%f2, [%o1]
+		
+		! ((arith10)--)*(arith9)
+		set     	-812, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		set     	-304, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f1
+		fmuls   	%f0, %f1, %f0
+		set     	-816, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		
+		! (arith10)++
+		set     	-364, %l7
+		add     	%fp, %l7, %l7
+		ld      	[%l7], %f0
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.27:
+		.single 	0r1.0
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.27, %l7
+		ld      	[%l7], %f1
+		fadds   	%f0, %f1, %f2
+		set     	-820, %o1
+		add     	%fp, %o1, %o1
+		st      	%f0, [%o1]
+		set     	-364, %o1
 		add     	%fp, %o1, %o1
 		st      	%f2, [%o1]
 		
 		! (((arith10)--)*(arith9))/((arith10)++)
-		set     	-788, %l7
+		set     	-816, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-792, %l7
+		set     	-820, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fdivs   	%f0, %f1, %f0
-		set     	-796, %o1
+		set     	-824, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! (arith9)+((((arith10)--)*(arith9))/((arith10)++))
-		set     	-276, %l7
+		set     	-304, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
-		set     	-796, %l7
+		set     	-824, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f1
 		fadds   	%f0, %f1, %f0
-		set     	-800, %o1
+		set     	-828, %o1
 		add     	%fp, %o1, %o1
 		st      	%f0, [%o1]
 		
 		! cout << (arith9)+((((arith10)--)*(arith9))/((arith10)++))
-		set     	-800, %l7
+		set     	-828, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
@@ -4282,7 +4663,7 @@ main.void:
 		nop     
 		
 		! cout << local7
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		set     	.$$.intFmt, %o0
@@ -4295,7 +4676,7 @@ main.void:
 		nop     
 		
 		! cout << local7
-		set     	-40, %l7
+		set     	-68, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		set     	.$$.intFmt, %o0
@@ -4352,22 +4733,8 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.27:
-		.single 	0r6.6
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.27, %l7
-		ld      	[%l7], %f0
-		call    	printFloat
-		nop     
-		
-		! cout << 6.6666
-		
-		.section	".rodata"
-		.align  	4
 	.$$.float.28:
-		.single 	0r6.6666
+		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
@@ -4376,8 +4743,22 @@ main.void:
 		call    	printFloat
 		nop     
 		
+		! cout << 6.6666
+		
+		.section	".rodata"
+		.align  	4
+	.$$.float.29:
+		.single 	0r6.6666
+		
+		.section	".text"
+		.align  	4
+		set     	.$$.float.29, %l7
+		ld      	[%l7], %f0
+		call    	printFloat
+		nop     
+		
 		! cout << local2
-		set     	-12, %l7
+		set     	-40, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
@@ -4415,12 +4796,12 @@ main.void:
 		
 		.section	".rodata"
 		.align  	4
-	.$$.float.29:
+	.$$.float.30:
 		.single 	0r6.6
 		
 		.section	".text"
 		.align  	4
-		set     	.$$.float.29, %l7
+		set     	.$$.float.30, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
 		nop     
@@ -4494,7 +4875,7 @@ main.void:
 		nop     
 		
 		! cout << intVarCin
-		set     	-616, %l7
+		set     	-644, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o1
 		set     	.$$.intFmt, %o0
@@ -4515,7 +4896,7 @@ main.void:
 		nop     
 		
 		! cout << floatVarCin
-		set     	-620, %l7
+		set     	-648, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		call    	printFloat
@@ -4526,40 +4907,13 @@ main.void:
 		call    	printf
 		nop     
 		
-		! localInt = 5
-		set     	-804, %o1
-		add     	%fp, %o1, %o1
-		set     	5, %o0
-		st      	%o0, [%o1]
-		
-		! localFloat = 5.5
-		set     	-808, %o1
-		add     	%fp, %o1, %o1
-		
-		.section	".rodata"
-		.align  	4
-	.$$.float.30:
-		.single 	0r5.5
-		
-		.section	".text"
-		.align  	4
-		set     	.$$.float.30, %l7
-		ld      	[%l7], %f0
-		st      	%f0, [%o1]
-		
-		! localBool = true
-		set     	-812, %o1
-		add     	%fp, %o1, %o1
-		set     	1, %o0
-		st      	%o0, [%o1]
-		
 		! localFloat = localInt
-		set     	-808, %o1
+		set     	-8, %o1
 		add     	%fp, %o1, %o1
-		set     	-804, %l7
+		set     	-4, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
-		set     	-816, %l7
+		set     	-832, %l7
 		add     	%fp, %l7, %l7
 		st      	%o0, [%l7]
 		ld      	[%l7], %f0
@@ -4567,11 +4921,11 @@ main.void:
 		st      	%f0, [%o1]
 		
 		! ((localFloat)=(localInt))>(0)
-		set     	-808, %l7
+		set     	-8, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %f0
 		set     	0, %o1
-		set     	-824, %l7
+		set     	-840, %l7
 		add     	%fp, %l7, %l7
 		st      	%o1, [%l7]
 		ld      	[%l7], %f1
@@ -4582,12 +4936,12 @@ main.void:
 		mov     	%g0, %o0
 		inc     	%o0
 	.$$.cmp.30:
-		set     	-820, %o1
+		set     	-836, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! Short Circuit LHS
-		set     	-820, %l7
+		set     	-836, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4597,7 +4951,7 @@ main.void:
 		! (((localFloat)=(localInt))>(0))&&(localBool)
 		
 		! Short Circuit RHS
-		set     	-812, %l7
+		set     	-12, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4608,12 +4962,12 @@ main.void:
 	.$$.andorSkip.27:
 		mov     	0, %o0
 	.$$.andorEnd.27:
-		set     	-828, %o1
+		set     	-844, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( (((localFloat)=(localInt))>(0))&&(localBool) )
-		set     	-828, %l7
+		set     	-844, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4621,32 +4975,32 @@ main.void:
 		nop     
 			
 			! (localInt)-(cgInt)
-			set     	-804, %l7
+			set     	-4, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			set     	cgInt, %l7
 			add     	%g0, %l7, %l7
 			ld      	[%l7], %o1
 			sub     	%o0, %o1, %o0
-			set     	-832, %o1
+			set     	-848, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! localInt = (localInt)-(cgInt)
-			set     	-804, %o1
+			set     	-4, %o1
 			add     	%fp, %o1, %o1
-			set     	-832, %l7
+			set     	-848, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			st      	%o0, [%o1]
 			
 			! localFloat = (localInt)=((localInt)-(cgInt))
-			set     	-808, %o1
+			set     	-8, %o1
 			add     	%fp, %o1, %o1
-			set     	-804, %l7
+			set     	-4, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
-			set     	-836, %l7
+			set     	-852, %l7
 			add     	%fp, %l7, %l7
 			st      	%o0, [%l7]
 			ld      	[%l7], %f0
@@ -4654,13 +5008,13 @@ main.void:
 			st      	%f0, [%o1]
 			
 			! (localFloat)!=(localInt)
-			set     	-808, %l7
+			set     	-8, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %f0
-			set     	-804, %l7
+			set     	-4, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o1
-			set     	-844, %l7
+			set     	-860, %l7
 			add     	%fp, %l7, %l7
 			st      	%o1, [%l7]
 			ld      	[%l7], %f1
@@ -4671,12 +5025,12 @@ main.void:
 			mov     	%g0, %o0
 			inc     	%o0
 		.$$.cmp.31:
-			set     	-840, %o1
+			set     	-856, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! Short Circuit LHS
-			set     	-840, %l7
+			set     	-856, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
@@ -4697,22 +5051,22 @@ main.void:
 		.$$.andorSkip.28:
 			mov     	0, %o0
 		.$$.andorEnd.28:
-			set     	-848, %o1
+			set     	-864, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! sometest25 = ((localFloat)!=(localInt))&&(cgBool)
-			set     	-548, %o1
+			set     	-576, %o1
 			add     	%fp, %o1, %o1
-			set     	-848, %l7
+			set     	-864, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			st      	%o0, [%o1]
 			
 			! localBool = (sometest25)=(((localFloat)!=(localInt))&&(cgBool))
-			set     	-812, %o1
+			set     	-12, %o1
 			add     	%fp, %o1, %o1
-			set     	-548, %l7
+			set     	-576, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			st      	%o0, [%o1]
@@ -4727,7 +5081,7 @@ main.void:
 	.$$.endif.15:
 		
 		! Short Circuit LHS
-		set     	-364, %l7
+		set     	-392, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4737,7 +5091,7 @@ main.void:
 		! (bTrue)&&(bFalse)
 		
 		! Short Circuit RHS
-		set     	-360, %l7
+		set     	-388, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4748,12 +5102,12 @@ main.void:
 	.$$.andorSkip.29:
 		mov     	0, %o0
 	.$$.andorEnd.29:
-		set     	-852, %o1
+		set     	-868, %o1
 		add     	%fp, %o1, %o1
 		st      	%o0, [%o1]
 		
 		! if ( (bTrue)&&(bFalse) )
-		set     	-852, %l7
+		set     	-868, %l7
 		add     	%fp, %l7, %l7
 		ld      	[%l7], %o0
 		cmp     	%o0, %g0
@@ -4779,11 +5133,11 @@ main.void:
 			nop     
 			
 			! (localFloat)>(10)
-			set     	-808, %l7
+			set     	-8, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %f0
 			set     	10, %o1
-			set     	-860, %l7
+			set     	-876, %l7
 			add     	%fp, %l7, %l7
 			st      	%o1, [%l7]
 			ld      	[%l7], %f1
@@ -4794,20 +5148,20 @@ main.void:
 			mov     	%g0, %o0
 			inc     	%o0
 		.$$.cmp.32:
-			set     	-856, %o1
+			set     	-872, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! localBool = (localFloat)>(10)
-			set     	-812, %o1
+			set     	-12, %o1
 			add     	%fp, %o1, %o1
-			set     	-856, %l7
+			set     	-872, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			st      	%o0, [%o1]
 			
 			! if ( (localBool)=((localFloat)>(10)) )
-			set     	-812, %l7
+			set     	-12, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
@@ -4830,7 +5184,7 @@ main.void:
 	.$$.else.16:
 			
 			! Short Circuit LHS
-			set     	-360, %l7
+			set     	-388, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
@@ -4840,7 +5194,7 @@ main.void:
 			! (bFalse)||(bFalse)
 			
 			! Short Circuit RHS
-			set     	-360, %l7
+			set     	-388, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
@@ -4851,15 +5205,15 @@ main.void:
 		.$$.andorSkip.30:
 			mov     	1, %o0
 		.$$.andorEnd.30:
-			set     	-864, %o1
+			set     	-880, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! ((bFalse)||(bFalse))==(bTrue)
-			set     	-864, %l7
+			set     	-880, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
-			set     	-364, %l7
+			set     	-392, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o1
 			cmp     	%o0, %o1
@@ -4867,12 +5221,12 @@ main.void:
 			mov     	%g0, %o0
 			inc     	%o0
 		.$$.cmp.33:
-			set     	-868, %o1
+			set     	-884, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! if ( ((bFalse)||(bFalse))==(bTrue) )
-			set     	-868, %l7
+			set     	-884, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
@@ -4928,7 +5282,7 @@ main.void:
 	.$$.endif.16:
 		
 		! looper1 = 0
-		set     	-872, %o1
+		set     	-888, %o1
 		add     	%fp, %o1, %o1
 		set     	0, %o0
 		st      	%o0, [%o1]
@@ -4937,7 +5291,7 @@ main.void:
 	.$$.loopCheck.1:
 			
 			! (looper1)<(10)
-			set     	-872, %l7
+			set     	-888, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			set     	10, %o1
@@ -4946,12 +5300,12 @@ main.void:
 			mov     	%g0, %o0
 			inc     	%o0
 		.$$.cmp.34:
-			set     	-876, %o1
+			set     	-892, %o1
 			add     	%fp, %o1, %o1
 			st      	%o0, [%o1]
 			
 			! Check loop condition
-			set     	-876, %l7
+			set     	-892, %l7
 			add     	%fp, %l7, %l7
 			ld      	[%l7], %o0
 			cmp     	%o0, %g0
@@ -4961,7 +5315,7 @@ main.void:
 			! Start of loop body
 				
 				! cout << looper1
-				set     	-872, %l7
+				set     	-888, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o1
 				set     	.$$.intFmt, %o0
@@ -4974,25 +5328,25 @@ main.void:
 				nop     
 				
 				! (looper1)+(1)
-				set     	-872, %l7
+				set     	-888, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				set     	1, %o1
 				add     	%o0, %o1, %o0
-				set     	-880, %o1
+				set     	-896, %o1
 				add     	%fp, %o1, %o1
 				st      	%o0, [%o1]
 				
 				! looper1 = (looper1)+(1)
-				set     	-872, %o1
+				set     	-888, %o1
 				add     	%fp, %o1, %o1
-				set     	-880, %l7
+				set     	-896, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				st      	%o0, [%o1]
 				
 				! (looper1)==(3)
-				set     	-872, %l7
+				set     	-888, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				set     	3, %o1
@@ -5001,12 +5355,12 @@ main.void:
 				mov     	%g0, %o0
 				inc     	%o0
 			.$$.cmp.35:
-				set     	-884, %o1
+				set     	-900, %o1
 				add     	%fp, %o1, %o1
 				st      	%o0, [%o1]
 				
 				! if ( (looper1)==(3) )
-				set     	-884, %l7
+				set     	-900, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				cmp     	%o0, %g0
@@ -5027,7 +5381,7 @@ main.void:
 			.$$.endif.19:
 				
 				! (looper1)==(6)
-				set     	-872, %l7
+				set     	-888, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				set     	6, %o1
@@ -5036,12 +5390,12 @@ main.void:
 				mov     	%g0, %o0
 				inc     	%o0
 			.$$.cmp.36:
-				set     	-888, %o1
+				set     	-904, %o1
 				add     	%fp, %o1, %o1
 				st      	%o0, [%o1]
 				
 				! if ( (looper1)==(6) )
-				set     	-888, %l7
+				set     	-904, %l7
 				add     	%fp, %l7, %l7
 				ld      	[%l7], %o0
 				cmp     	%o0, %g0
@@ -5065,7 +5419,7 @@ main.void:
 			.$$.loopCheck.2:
 					
 					! (looper1)<(0)
-					set     	-872, %l7
+					set     	-888, %l7
 					add     	%fp, %l7, %l7
 					ld      	[%l7], %o0
 					set     	0, %o1
@@ -5074,12 +5428,12 @@ main.void:
 					mov     	%g0, %o0
 					inc     	%o0
 				.$$.cmp.37:
-					set     	-892, %o1
+					set     	-908, %o1
 					add     	%fp, %o1, %o1
 					st      	%o0, [%o1]
 					
 					! Check loop condition
-					set     	-892, %l7
+					set     	-908, %l7
 					add     	%fp, %l7, %l7
 					ld      	[%l7], %o0
 					cmp     	%o0, %g0
@@ -5089,7 +5443,7 @@ main.void:
 					! Start of loop body
 						
 						! (looper1)==(8)
-						set     	-872, %l7
+						set     	-888, %l7
 						add     	%fp, %l7, %l7
 						ld      	[%l7], %o0
 						set     	8, %o1
@@ -5098,12 +5452,12 @@ main.void:
 						mov     	%g0, %o0
 						inc     	%o0
 					.$$.cmp.38:
-						set     	-896, %o1
+						set     	-912, %o1
 						add     	%fp, %o1, %o1
 						st      	%o0, [%o1]
 						
 						! if ( (looper1)==(8) )
-						set     	-896, %l7
+						set     	-912, %l7
 						add     	%fp, %l7, %l7
 						ld      	[%l7], %o0
 						cmp     	%o0, %g0
@@ -5124,7 +5478,7 @@ main.void:
 					.$$.endif.21:
 						
 						! (looper1)==(9)
-						set     	-872, %l7
+						set     	-888, %l7
 						add     	%fp, %l7, %l7
 						ld      	[%l7], %o0
 						set     	9, %o1
@@ -5133,12 +5487,12 @@ main.void:
 						mov     	%g0, %o0
 						inc     	%o0
 					.$$.cmp.39:
-						set     	-900, %o1
+						set     	-916, %o1
 						add     	%fp, %o1, %o1
 						st      	%o0, [%o1]
 						
 						! if ( (looper1)==(9) )
-						set     	-900, %l7
+						set     	-916, %l7
 						add     	%fp, %l7, %l7
 						ld      	[%l7], %o0
 						cmp     	%o0, %g0
@@ -5181,7 +5535,7 @@ main.void:
 	nop     
 	ret     
 	restore 
-	SAVE.main.void = -(92 + 900) & -8
+	SAVE.main.void = -(92 + 916) & -8
 	
 main.void.fini:
 	save    	%sp, -96, %sp
