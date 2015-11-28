@@ -35,6 +35,10 @@ public class StructType extends CompositeType {
         return getScope().getSize();
     }
 
+    public int offsetOf(String member) {
+        return getScope().offsetOf(member);
+    }
+
     public Vector<STO> getConstructors() {
         Vector<STO> list;
 

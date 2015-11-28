@@ -17,6 +17,10 @@ public class ArrayType extends CompositeType {
     public void setDimSize(int size) { m_dimensionSize = size; }
     public int getDimSize() { return m_dimensionSize; }
 
+    public int offsetOf(int index) {
+        return index * m_nextType.getSize();
+    }
+
     public int getSize() {
         int dimensions = m_dimensionSize;
         Type next = m_nextType;

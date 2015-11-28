@@ -265,10 +265,12 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
                     T_SEMI
     |               OptStatic:_1 StructType:_2 T_ID:_3 OptArrayList:_4 OptCtorCall:_5
                     {:
+                        if (_1 == null) _1 = false;
+
                         if (_4 != null)
-                            ((MyParser) parser).DoStructArrayInst (_3, _2, _5, _4);
+                            ((MyParser) parser).DoStructArrayInst (_3, _2, _5, _4, _1);
                         else
-                            ((MyParser) parser).DoStructInst (_3, _2, _5);
+                            ((MyParser) parser).DoStructInst (_3, _2, _5, _1);
                     :}
                     T_SEMI
     ;
@@ -376,6 +378,7 @@ CtorDef ::=         T_ID_U:_3
                     T_LBRACE OptStmtList T_RBRACE
                     {:
                         ((MyParser) parser).DoFuncDecl_2();
+                        ((MyParser) parser).DoCtor_2(_3, _4);
                     :}
     ;
 

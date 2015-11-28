@@ -77,6 +77,23 @@ public class Scope
 
 		return size;
 	}
+
+	public int offsetOf(String id) {
+		Vector<STO> list = m_lstLocals;
+		int size = 0;
+
+		for (int i = 0; i < list.size(); i++) {
+
+			if (list.elementAt(i).getName().equals(id)) {
+				break;
+			}
+
+			if (list.elementAt(i) instanceof VarSTO)
+				size += list.elementAt(i).getType().getSize();
+		}
+
+		return size;
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

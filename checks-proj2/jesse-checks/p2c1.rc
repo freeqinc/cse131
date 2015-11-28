@@ -45,6 +45,49 @@ static int intArr2[5];
 static float floatArr2[6];
 static bool boolArr2[7];
 
+structdef MYS1 {
+    int i;
+    float f;
+    bool b;
+    MYS1() {
+        this.i = 5;
+        this.f = 5;
+    }
+    function : void fun1() {}
+    function : void fun1(int i) {}
+};
+
+structdef MYS1_2 {
+    int i;
+    float f;
+    bool b;
+    MYS1_2() {
+        this.i = 5;
+        this.f = 5;
+        this.b = true && cgBool;
+    }
+    function : void fun1() {}
+    function : void fun1(int i) {}
+};
+
+structdef MYS2 {
+    int i;
+    float f;
+    bool b;
+};
+
+MYS1 stru1;
+static MYS1 stru2;
+
+function : void structs () {
+    MYS1 stru1;
+
+    ::stru1.i = 5;
+    stru1.i = 10;
+    stru2.f = 5;
+    stru1.f = stru2.f;
+}
+
 function : void arrays () {
     int index = 3;
 
@@ -60,7 +103,11 @@ function : void arrays () {
     foreach (int val1 : intArr1) {
         foreach (float val2 : intArr2) {
             cout << val1 << " " << val2 << endl;
+            continue;
+            break;
         }
+        continue;
+        break;
     }
 }
 
@@ -181,6 +228,7 @@ function : int fun5(int &i) {
 }
 
 function : void main () {
+    structs();
     arrays();
 
     int localInt = 5;

@@ -32,6 +32,7 @@ public class AssemblyCodeGenerator {
     private boolean m_isBuffering = false;
 
     // counters and trackers
+    private StructType m_currStruct = null;
     private int m_floatCount = 1;
     private int m_stringCount = 1;
     private int m_cmpCount = 1;
@@ -384,6 +385,11 @@ public class AssemblyCodeGenerator {
         if (sto.isReference()) {
             writeAssembly(ACGstrs.LD, set, set);
         }
+    }
+
+    public void setAddressNoDeref(STO sto, String set) {
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
     }
 
     public void setAddressLoad(STO sto, String set, String load) {
@@ -988,6 +994,86 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
+    // Structs
+    //----------------------------------------------------------------
+
+    public void doStructOpen(StructType struct) {
+        m_currStruct = struct;
+    }
+
+    public void doStructClose() {
+        m_currStruct = null;
+    }
+
+    public void doStructCtor(String id, FuncSTO ctor, Vector<STO> params) {
+        doFuncDecl_1(id, ctor);
+        doFormalParams(params);
+        doFuncDecl_2(null, ctor);
+    }
+
+    public void doStructCtor_2(String id, FuncSTO ctor, Vector<STO> params) {
+        FuncSTO ctor2 = new FuncSTO("$" + id);
+        ctor2.setReturnType(new VoidType());
+
+
+        doFuncDecl_1("$" + id, ctor2);
+        doFormalParams(params);
+        doFuncDecl_2(null, ctor2);
+    }
+
+    public void doStructCtorCall(StructType sType, STO var, FuncSTO ctor, Vector<STO> args) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, var.getName() + "." + sType.getId() + "(...)");
+        setAddressNoDeref(var, "%o0");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, sType.getId() + "." + getFuncName(ctor));
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        decreaseIndent();
+    }
+
+
+    public void doStructInst(STO sto, FuncSTO bufferFunc) {
+        String functionName = ".$.init." + sto.getName();
+
+        writeAssembly(ACGstrs.LABEL, functionName);
+        increaseIndent();
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "SAVE." + functionName, "%g1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SAVE_OP, "%sp", "%g1", "%sp");
+
+        writeBuffer();
+
+        doFuncDecl_2(functionName, bufferFunc);
+
+        increaseIndent();
+        doSection(".init");
+        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, functionName);
+        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+
+        doSection(".text");
+        decreaseIndent();
+    }
+
+    // Designators
+    //----------------------------------------------------------------
+
+    public void doDesignatorDot(String member, STO sto, STO result, FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, result.getName());
+
+        if (sto.getName().equals("this"))
+            setAddress(sto, "%o0");
+        else
+            setAddressNoDeref(sto, "%o0");
+
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((StructType)sto.getType()).offsetOf(member) + "", "%o1" );
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
+        writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
+
+        func.allocateLocalVar(result);
+        storeIntoAddressNoDeref(result, "%o1", "%o0");
+        decreaseIndent();
+    }
 
     // Arrays
     //----------------------------------------------------------------
@@ -1026,6 +1112,10 @@ public class AssemblyCodeGenerator {
 
         String functionName = func.getFuncName();
 
+        if (m_currStruct != null) {
+            functionName = m_currStruct.getId() + "." + functionName;
+        }
+
         if (params == null) {
             functionName += ".void";
         } else {
@@ -1042,7 +1132,7 @@ public class AssemblyCodeGenerator {
 
         m_localStaticAppend = functionName + ".";
 
-        if (!func.isOverloaded()) {
+        if (!func.isOverloaded() && m_currStruct == null) {
             increaseIndent();
             writeAssembly(ACGstrs.GLOBAL, id);
             decreaseIndent();
@@ -1059,10 +1149,12 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "Store params");
 
+        int i = 0;
         if (params != null) {
             STO param;
             String stReg;
-            for (int i = 0; i < params.size(); i++) {
+
+            for (i = 0; i < params.size(); i++) {
                 param = params.get(i);
                 stReg = "%i" + i;
                 if ((param.getType() instanceof FloatType) && !param.isReference()) {
@@ -1071,6 +1163,11 @@ public class AssemblyCodeGenerator {
 
                 writeAssembly(ACGstrs.ST, stReg, param.getBase() + "+" + param.getOffset());
             }
+
+        }
+
+        if (m_currStruct != null) {
+            writeAssembly(ACGstrs.ST, "%i" + i, "%fp+" + (68 + (i * 4)) );
         }
 
         decreaseIndent();
@@ -1129,7 +1226,9 @@ public class AssemblyCodeGenerator {
     public void doFuncCall(FuncSTO sto, Vector<STO> args, FuncSTO currFunc) {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
-        writeAssembly(ACGstrs.COMMENT, sto.getName() + "(...)");
+
+
+        writeAssembly(ACGstrs.COMMENT,  sto.getName() + "(...)");
 
         if (args != null) {
             Vector<STO> params = sto.getParams();
