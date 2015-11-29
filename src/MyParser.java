@@ -210,6 +210,7 @@ class MyParser extends parser
 	STO DoDesignator1_Star(STO sto) {
 		if (sto instanceof ErrorSTO) return sto;
 
+		STO stoCopy = sto;
 		// if is nullpointer
 		if (sto.getType() instanceof NullPointerType) {
 			m_nNumErrors++;
@@ -224,12 +225,25 @@ class MyParser extends parser
 		}
 
 
-		sto = new VarSTO(sto.getName(), ((PointerType) sto.getType()).deReference());
+		sto = new VarSTO("*" + sto.getName(), ((PointerType) sto.getType()).deReference());
 
 		if(sto.getType() instanceof ArrayType)
 			sto.setNonModLValue();
 		else
 			sto.setModLValue();
+
+
+		FuncSTO func = m_symtab.getFunc();
+		if (m_symtab.inGlobalScope()) {
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
+			func = m_bufferFunc;
+
+			m_asGenerator.startBuffer();
+		}
+
+		m_asGenerator.doDesignatorStar(stoCopy, sto, func);
 
 		return sto;
 	}
@@ -245,8 +259,21 @@ class MyParser extends parser
 
 		PointerType pType = new PointerType();
 		pType.setPointsTo(sto.getType());
-		ExprSTO ret = new ExprSTO(sto.getName(), pType);
+		ExprSTO ret = new ExprSTO("&" + sto.getName(), pType);
 		ret.setRValue();
+
+
+		FuncSTO func = m_symtab.getFunc();
+		if (m_symtab.inGlobalScope()) {
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
+			func = m_bufferFunc;
+
+			m_asGenerator.startBuffer();
+		}
+
+		m_asGenerator.doDesignatorAmpersand(sto, ret, func);
 
 		return ret;
 	}

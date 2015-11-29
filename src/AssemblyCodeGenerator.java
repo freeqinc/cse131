@@ -363,13 +363,6 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
-    // Designators
-    //----------------------------------------------------------------
-
-    public void doDesignatorID(STO sto) {
-        setAddressLoad(sto, "%l7", "%o0");
-    }
-
 
     // Helpers
     //----------------------------------------------------------------
@@ -550,7 +543,9 @@ public class AssemblyCodeGenerator {
         String sub = ACGstrs.SUB_OP;
         String add = ACGstrs.ADD_OP;
 
-        if (expr.getType() instanceof FloatType) {
+        if (a.getType() instanceof PointerType) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((PointerType)a.getType()).deReference().getSize() + "", "%o1");
+        } else if (expr.getType() instanceof FloatType) {
             reg0 = "%f0";
             reg1 = "%f1";
             reg2 = "%f2";
@@ -1151,6 +1146,29 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
+    public void doDesignatorAmpersand(STO sto, STO result, FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, result.getName());
+        setAddress(sto, "%o0");
+
+        func.allocateLocalVar(result);
+        storeIntoAddress(result, "%o1", "%o0");
+        decreaseIndent();
+    }
+
+    public void doDesignatorStar(STO sto, STO result, FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, result.getName());
+        loadSTO(sto, "%l7", "%o0");
+        doCall(".$$.ptrCheck");
+        func.allocateLocalVar(result);
+        storeIntoAddress(result, "%o1", "%o0");
+        result.setReference();
+        decreaseIndent();
+    }
+
     // Arrays
     //----------------------------------------------------------------
 
@@ -1319,7 +1337,7 @@ public class AssemblyCodeGenerator {
             setAddress(sto.belongsTo(), "%o0");
             shift += 1;
         } else {
-            writeAssembly(ACGstrs.COMMENT,  sto.getName() + "(...)");
+            writeAssembly(ACGstrs.COMMENT, sto.getName() + "(...)");
         }
 
 

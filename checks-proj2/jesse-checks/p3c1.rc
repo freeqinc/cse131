@@ -1,0 +1,109 @@
+structdef MYS1 {
+    int i;
+    float f;
+    bool b;
+    MYS1() {
+        this.i = 5;
+        this.f = 5;
+    }
+    MYS1(bool boop) {
+        this.i = 10;
+        this.f = 5.5;
+        this.b = boop;
+    }
+    MYS1(float floop) {
+        this.f = floop;
+    }
+    MYS1(int a, float b, bool c) {
+        this.i = a;
+        this.f = b;
+        this.b = c;
+    }
+    function : void fun1() {}
+    function : void fun1(int i) {}
+    function : float fun1(float f) { return f; }
+    function : float fun2() { return this.f; }
+};
+
+
+int intVar = 5;
+float floatVar = 5.5;
+bool boolVar = true;
+
+int * intPtr;
+float * floatPtr;
+bool * boolPtr;
+
+static int * stintPtr;
+static float * stfloatPtr;
+static bool * stboolPtr;
+
+int * arr1[5];
+
+MYS1 stru1;
+MYS1 * struPtr1;
+MYS1 * struPtr2 = &stru1;
+
+int * myPtr1 = &intVar;
+
+
+function : void main () {
+    int intVar = 5;
+    float floatVar = 5.5;
+    bool boolVar = true;
+
+    int * intPtr;
+    float * floatPtr;
+    bool * boolPtr;
+
+    int * arr[5];
+    int intArr[5];
+
+    MYS1 stru2;
+    MYS1 * struPtr1;
+    struPtr1 = ::struPtr2;
+    struPtr1 = &stru1;
+    struPtr1 = &stru2;
+
+    intPtr = &intVar;
+    intPtr = &intArr[3];
+    intPtr = &::intVar;
+
+    int intVar2 = 10;
+    int intVar3 = 15;
+    int * ptr1 = &intVar;
+    int * ptr2 = &intVar;
+    int * ptr3 = &intVar2;
+    int * ptr4 = &::intVar;
+    int * ptr5 = &intVar3;
+
+    bool booltest = ptr1 == ptr2;
+    booltest = ptr1 == ptr3;
+    booltest = ptr1 != ptr2;
+    booltest = ptr1 != ptr3;
+    booltest = ptr4 == myPtr1;
+    booltest = ptr3 == myPtr1;
+    booltest = ptr2 != myPtr1;
+
+    booltest = ptr3++ == ptr5;
+    ptr3--;
+    ptr5--;
+    booltest = ptr3 == ptr5;
+
+    ptr1 = nullptr;
+    ptr2 = nullptr;
+
+    struPtr1++;
+
+    int * p1;
+    int * p2;
+    p1 = p2;
+
+    intVar = *ptr1;
+    *ptr1 = intVar3;
+
+    int ** pptr = &ptr1;
+    ptr2 = *pptr;
+    int ***ppptr = &pptr;
+    ptr2 = **ppptr;
+}

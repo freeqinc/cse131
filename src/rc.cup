@@ -1195,7 +1195,7 @@ Designator3 ::=     T_LPAREN Expr:_2 T_RPAREN
                     :}
     |               T_NULLPTR
                     {:
-                        RESULT = new ConstSTO ("nullptr", new NullPointerType());
+                        RESULT = new ConstSTO ("nullptr", new NullPointerType(), 0);
                         RESULT.setRValue();
                     :}
     |               T_THIS

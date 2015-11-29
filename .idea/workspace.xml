@@ -4,15 +4,13 @@
     <list default="true" id="14182e9f-0c6e-4ffa-9334-e52f78055438" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/AssemblyCodeGenerator.class" afterPath="$PROJECT_DIR$/bin/AssemblyCodeGenerator.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/CUP$parser$actions.class" afterPath="$PROJECT_DIR$/bin/CUP$parser$actions.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/STO/FuncSTO.class" afterPath="$PROJECT_DIR$/bin/STO/FuncSTO.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/MyParser.class" afterPath="$PROJECT_DIR$/bin/MyParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s.output" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s.output" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" afterPath="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/STO/FuncSTO.java" afterPath="$PROJECT_DIR$/src/STO/FuncSTO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MyParser.java" afterPath="$PROJECT_DIR$/src/MyParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/p2c1.rc" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/p2c1.rc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/parser.java" afterPath="$PROJECT_DIR$/src/parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/rc.cup" afterPath="$PROJECT_DIR$/src/rc.cup" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s.output" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s.output" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s.output" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s.output" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/rc.s" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/results/rc.s" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sym.java" afterPath="$PROJECT_DIR$/src/sym.java" />
@@ -41,58 +39,36 @@
       <file leaf-file-name="rc.cup" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/rc.cup">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.3333335">
-              <caret line="345" column="12" selection-start-line="345" selection-start-column="0" selection-end-line="345" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="535" column="26" selection-start-line="535" selection-start-column="20" selection-end-line="535" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MyParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9321267">
-              <caret line="730" column="69" selection-start-line="730" selection-start-column="69" selection-end-line="730" selection-end-column="69" />
+            <state vertical-scroll-proportion="-4.2777777">
+              <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
               <folding>
-                <element signature="e#0#55125#0" expanded="true" />
+                <element signature="e#0#55681#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#16062#16063#0" expanded="true" />
-                <element signature="e#16115#16116#0" expanded="true" />
-                <element signature="e#33392#33393#0" expanded="true" />
-                <element signature="e#33423#33424#0" expanded="true" />
-                <element signature="e#33654#33655#0" expanded="true" />
-                <element signature="e#33686#33687#0" expanded="true" />
-                <element signature="e#46934#46941#0" expanded="true" />
-                <element signature="e#52964#52965#0" expanded="true" />
-                <element signature="e#53000#53001#0" expanded="true" />
-                <element signature="e#53429#53430#0" expanded="true" />
-                <element signature="e#53463#53464#0" expanded="true" />
-                <element signature="e#53488#53489#0" expanded="true" />
-                <element signature="e#53521#53522#0" expanded="true" />
+                <element signature="e#47490#47497#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AssemblyCodeGenerator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AssemblyCodeGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.2222223">
-              <caret line="1192" column="46" selection-start-line="1192" selection-start-column="35" selection-end-line="1192" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.58848614">
+              <caret line="1167" column="30" selection-start-line="1167" selection-start-column="30" selection-end-line="1167" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scope.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/scope/Scope.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.037037">
-              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -102,16 +78,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Makefile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -186,8 +152,8 @@
         <option value="$PROJECT_DIR$/src/STO/STO.java" />
         <option value="$PROJECT_DIR$/src/STO/FuncSTO.java" />
         <option value="$PROJECT_DIR$/src/rc.cup" />
-        <option value="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
         <option value="$PROJECT_DIR$/src/MyParser.java" />
+        <option value="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
       </list>
     </option>
   </component>
@@ -258,60 +224,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cse131-proj1-jeqin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cse131-proj1-jeqin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="types" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cse131-proj1-jeqin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cse131-proj1-jeqin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="STO" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cse131-proj1-jeqin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cse131-proj1-jeqin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scope" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -497,7 +409,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="RC" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-debug checks-proj2/jesse-checks/p2c1.rc" />
+      <option name="PROGRAM_PARAMETERS" value="-debug checks-proj2/jesse-checks/p3c1.rc" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -595,28 +507,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/custom-tests/jesse-checks/phase3_disc.rc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/java-cup-v11a.jar!/java_cup/runtime/lr_parser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35181236">
-          <caret line="191" column="0" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/STO/VarSTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18346775">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/STO/ExprSTO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3951613">
@@ -682,6 +572,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15120968">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -867,18 +758,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/STO/ConstSTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74413645">
-          <caret line="142" column="27" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/operators/AndOp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.671371">
           <caret line="26" column="16" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -938,25 +822,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scope/Scope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.037037">
-          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.4858871">
           <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
@@ -970,45 +838,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/rc.cup">
+    <entry file="file://$PROJECT_DIR$/src/scope/Scope.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.3333335">
-          <caret line="345" column="12" selection-start-line="345" selection-start-column="0" selection-end-line="345" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.52025586">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/STO/ConstSTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.2222223">
-          <caret line="1192" column="46" selection-start-line="1192" selection-start-column="35" selection-end-line="1192" selection-end-column="46" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="3.205645">
+          <caret line="142" column="27" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/types/PointerType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15120968">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RC">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RC.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6330645">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rc.cup">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="535" column="26" selection-start-line="535" selection-start-column="20" selection-end-line="535" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MyParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9321267">
-          <caret line="730" column="69" selection-start-line="730" selection-start-column="69" selection-end-line="730" selection-end-column="69" />
+        <state vertical-scroll-proportion="-4.2777777">
+          <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
           <folding>
-            <element signature="e#0#55125#0" expanded="true" />
+            <element signature="e#0#55681#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#16062#16063#0" expanded="true" />
-            <element signature="e#16115#16116#0" expanded="true" />
-            <element signature="e#33392#33393#0" expanded="true" />
-            <element signature="e#33423#33424#0" expanded="true" />
-            <element signature="e#33654#33655#0" expanded="true" />
-            <element signature="e#33686#33687#0" expanded="true" />
-            <element signature="e#46934#46941#0" expanded="true" />
-            <element signature="e#52964#52965#0" expanded="true" />
-            <element signature="e#53000#53001#0" expanded="true" />
-            <element signature="e#53429#53430#0" expanded="true" />
-            <element signature="e#53463#53464#0" expanded="true" />
-            <element signature="e#53488#53489#0" expanded="true" />
-            <element signature="e#53521#53522#0" expanded="true" />
+            <element signature="e#47490#47497#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58848614">
+          <caret line="1167" column="30" selection-start-line="1167" selection-start-column="30" selection-end-line="1167" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
