@@ -916,6 +916,18 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
+    public void doDeleteStmt(STO sto) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "delete( " + sto.getName() + " )");
+        loadSTO(sto, "%l7", "%o0");
+        doCall(".$$.ptrCheck");
+        loadSTO(sto, "%l7", "%o0");
+        doCall("free");
+        storeIntoAddress(sto, "%o1", "%g0");
+        decreaseIndent();
+    }
+
     // Loops
     //----------------------------------------------------------------
     public void openLoop() {
@@ -1245,6 +1257,8 @@ public class AssemblyCodeGenerator {
         }
 
         if (params == null) {
+            functionName += ".void";
+        } else if (params.size() == 0) {
             functionName += ".void";
         } else {
             for (int i = 0; i < params.size(); i++) {

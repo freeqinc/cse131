@@ -81,6 +81,8 @@ structdef MYS1_2 {
         this.f = 5;
         this.b = true && cgBool;
     }
+    ~MYS1_2() {
+    }
     function : void fun1() {}
     function : void fun1(int i) {}
 };

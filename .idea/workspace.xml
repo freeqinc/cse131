@@ -67,7 +67,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/parser.class" afterPath="$PROJECT_DIR$/bin/parser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/sym.class" afterPath="$PROJECT_DIR$/bin/sym.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" afterPath="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/STO/FuncSTO.java" afterPath="$PROJECT_DIR$/src/STO/FuncSTO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MyParser.java" afterPath="$PROJECT_DIR$/src/MyParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/p2c1.rc" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/p2c1.rc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/checks-proj2/jesse-checks/p3c1.rc" afterPath="$PROJECT_DIR$/checks-proj2/jesse-checks/p3c1.rc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/parser.java" afterPath="$PROJECT_DIR$/src/parser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rc.s" afterPath="$PROJECT_DIR$/rc.s" />
@@ -95,89 +97,68 @@
     <favorites_list name="cse131-proj1-jeqin" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="rc.cup" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/rc.cup">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-6.888889">
-                  <caret line="661" column="22" selection-start-line="661" selection-start-column="22" selection-end-line="661" selection-end-column="22" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/MyParser.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.6719457">
-                  <caret line="290" column="43" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
-                  <folding>
-                    <element signature="e#0#55832#0" expanded="true" />
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#47641#47648#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AssemblyCodeGenerator.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="907" column="18" selection-start-line="907" selection-start-column="16" selection-end-line="907" selection-end-column="18" />
-                  <folding>
-                    <element signature="n#!!doc" expanded="true" />
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="FuncSTO.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/STO/FuncSTO.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-9.185185">
-                  <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ACGstrs.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/MyParser.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.77375567">
-                  <caret line="686" column="30" selection-start-line="686" selection-start-column="30" selection-end-line="686" selection-end-column="30" />
-                  <folding>
-                    <element signature="e#0#55832#0" expanded="true" />
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#16766#16767#0" expanded="true" />
-                    <element signature="e#16821#16822#0" expanded="true" />
-                    <element signature="e#47641#47648#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="rc.cup" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rc.cup">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.888889">
+              <caret line="317" column="58" selection-start-line="317" selection-start-column="47" selection-end-line="317" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/MyParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7963801">
+              <caret line="714" column="0" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#56115#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#47924#47931#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FuncSTO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/STO/FuncSTO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.4444447">
+              <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+              <folding>
+                <element signature="e#1377#1378#0" expanded="true" />
+                <element signature="e#1401#1402#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AssemblyCodeGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.4444444">
+              <caret line="1244" column="16" selection-start-line="1244" selection-start-column="16" selection-end-line="1244" selection-end-column="16" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ACGstrs.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ACGstrs.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -245,8 +226,8 @@
         <option value="$PROJECT_DIR$/src/scope/Scope.java" />
         <option value="$PROJECT_DIR$/src/STO/STO.java" />
         <option value="$PROJECT_DIR$/src/rc.cup" />
-        <option value="$PROJECT_DIR$/src/STO/FuncSTO.java" />
         <option value="$PROJECT_DIR$/src/AssemblyCodeGenerator.java" />
+        <option value="$PROJECT_DIR$/src/STO/FuncSTO.java" />
         <option value="$PROJECT_DIR$/src/MyParser.java" />
       </list>
     </option>
@@ -990,26 +971,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/STO/FuncSTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.185185">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rc.cup">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.888889">
-          <caret line="661" column="22" selection-start-line="661" selection-start-column="22" selection-end-line="661" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AssemblyCodeGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="907" column="18" selection-start-line="907" selection-start-column="16" selection-end-line="907" selection-end-column="18" />
+        <state vertical-scroll-proportion="-2.4444444">
+          <caret line="1244" column="16" selection-start-line="1244" selection-start-column="16" selection-end-line="1244" selection-end-column="16" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -1017,14 +982,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/rc.cup">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.888889">
+          <caret line="317" column="58" selection-start-line="317" selection-start-column="47" selection-end-line="317" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/STO/FuncSTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.4444447">
+          <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
+          <folding>
+            <element signature="e#1377#1378#0" expanded="true" />
+            <element signature="e#1401#1402#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MyParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6719457">
-          <caret line="290" column="43" selection-start-line="290" selection-start-column="43" selection-end-line="290" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.7963801">
+          <caret line="714" column="0" selection-start-line="714" selection-start-column="0" selection-end-line="714" selection-end-column="0" />
           <folding>
-            <element signature="e#0#55832#0" expanded="true" />
+            <element signature="e#0#56115#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#47641#47648#0" expanded="true" />
+            <element signature="e#47924#47931#0" expanded="true" />
           </folding>
         </state>
       </provider>

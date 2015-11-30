@@ -47,6 +47,8 @@ public class FuncSTO extends STO
 	}
 
 	public void setFuncName(String name) {
+		name = name.replace("~", "$");
+
 		m_funcName = name;
 	}
 

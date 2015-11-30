@@ -703,6 +703,17 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(ErrorMsg.error16_Delete, sto.getType().getName()));
 			return;
 		}
+
+		if (((PointerType) sto.getType()).deReference() instanceof StructType) {
+			String id = ((StructType) ((PointerType) sto.getType()).deReference()).getId();
+
+			STO res = DoDesignator2_Arrow(sto, "~" + id);
+			DoFuncCall(res, null);
+		}
+
+		m_asGenerator.doDeleteStmt(sto);
+
+
 	}
 
 	void DoStructInst(String id, Type structType, Vector<STO> args, boolean optStatic) {
@@ -1213,7 +1224,7 @@ class MyParser extends parser
 	}
 
 	void DoCtor_2(String id, Vector<STO> params) {
-		if (m_symtab.accessLocal(id) != null) {
+		if (m_symtab.accessLocal("~" + id) == null) {
 			FuncSTO sto = (FuncSTO)m_symtab.accessLocal(id);
 
 			m_asGenerator.doStructCtor_2(id, sto, params);
