@@ -844,8 +844,8 @@ public class AssemblyCodeGenerator {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, left.getName() + " = " + right.getName());
-        setAddressNoDeref(left, "%o0");
-        setAddressNoDeref(right, "%o1");
+        setAddress(left, "%o0");
+        setAddress(right, "%o1");
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, left.getType().getSize() + "", "%o2");
         doCall("memmove");
         decreaseIndent();
@@ -903,6 +903,17 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.LABEL, ".$$.endif." + currStmt);
 
         m_ifStmtList.remove(m_ifStmtList.size()-1);
+    }
+
+    public void doNewStmt(STO sto) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, "new( " + sto.getName() + " )");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "1", "%o0");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((PointerType) sto.getType()).deReference().getSize() + "", "%o1");
+        doCall("calloc");
+        storeIntoAddress(sto, "%o1", "%o0");
+        decreaseIndent();
     }
 
     // Loops
@@ -1132,7 +1143,7 @@ public class AssemblyCodeGenerator {
         if (sto.getName().equals("this"))
             setAddress(sto, "%o0");
         else
-            setAddressNoDeref(sto, "%o0");
+            setAddress(sto, "%o0");
 
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((StructType)sto.getType()).offsetOf(member) + "", "%o1" );
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%g0", "%o1", "%o1");
@@ -1163,30 +1174,43 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.COMMENT, result.getName());
         loadSTO(sto, "%l7", "%o0");
         doCall(".$$.ptrCheck");
-        func.allocateLocalVar(result);
+        func.allocateLocalVarPtr(result);
         storeIntoAddress(result, "%o1", "%o0");
         result.setReference();
         decreaseIndent();
     }
 
-    // Arrays
-    //----------------------------------------------------------------
+    public void doDesignatorBracket(STO sto, STO expr, STO result, FuncSTO func) {
+        String multiplier = "4";
 
-    public void doArrayAccess(STO sto, STO expr, STO result, FuncSTO func) {
+        if (sto.getType() instanceof ArrayType) {
+            multiplier = ((ArrayType) sto.getType()).next().getSize() + "";
+        } else if (sto.getType() instanceof PointerType) {
+            multiplier = ((PointerType) sto.getType()).deReference().getSize() + "";
+        }
+
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, result.getName());
         loadSTO(expr, "%l7", "%o0");
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ArrayType)sto.getType()).getDimSize() + "", "%o1");
-        writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.arrCheck");
-        writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ArrayType) sto.getType()).next().getSize() + "", "%o1");
+        if (sto.getType() instanceof ArrayType) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ArrayType) sto.getType()).getDimSize() + "", "%o1");
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.arrCheck");
+            writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+        }
+
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, multiplier, "%o1");
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".mul");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%o0", "%o1");
 
-        setAddress(sto, "%o0");
+        if (sto.getType() instanceof ArrayType) {
+            setAddress(sto, "%o0");
+        } else if (sto.getType() instanceof PointerType) {
+            loadSTO(sto, "%l7", "%o0");
+        }
+
         writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.CALL_OP, ".$$.ptrCheck");
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
@@ -1195,12 +1219,16 @@ public class AssemblyCodeGenerator {
         } else {
             func.allocateLocalVar(result);
         }
+
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o1", "%o0");
         storeIntoAddressNoDeref(result, "%o1", "%o0");
 
         decreaseIndent();
 
     }
+
+    // Arrays
+    //----------------------------------------------------------------
 
     // Functions
     //----------------------------------------------------------------

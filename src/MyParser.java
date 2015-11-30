@@ -296,9 +296,11 @@ class MyParser extends parser
 			return new ErrorSTO(sto.getName());
 		}
 
-		VarSTO ret = new VarSTO(sto.getName(), ((PointerType) sto.getType()).deReference());
+		//VarSTO ret = new VarSTO(sto.getName(), ((PointerType) sto.getType()).deReference());
 
-		return DoDesignator2_Dot(ret, id);
+
+
+		return DoDesignator2_Dot(DoDesignator1_Star(sto), id);
 	}
 
 
@@ -372,7 +374,7 @@ class MyParser extends parser
 
 		FuncSTO currFunc = m_symtab.getFunc() != null ? m_symtab.getFunc() : m_bufferFunc;
 
-		m_asGenerator.doArrayAccess(stoCopy, expr, sto, currFunc);
+		m_asGenerator.doDesignatorBracket(stoCopy, expr, sto, currFunc);
 
 		return sto;
 	}
@@ -634,6 +636,8 @@ class MyParser extends parser
 			return;
 		}
 
+		m_asGenerator.doNewStmt(sto);
+
 
 		if (args != null) {
 			if (args.size() > 0 && args.elementAt(0).getName().equals("empty ctor call")) {
@@ -645,7 +649,7 @@ class MyParser extends parser
 
 				StructType dereffed = ((StructType) ((PointerType) sto.getType()).deReference());
 
-				DoCtorCalls(dereffed.getId(), dereffed.getConstructors(), new Vector<STO>(), dereffed.getScope());
+				DoCtorCalls(sto, dereffed.getId(), dereffed.getConstructors(), new Vector<STO>(), dereffed.getScope());
 
 				return;
 			}
@@ -661,11 +665,12 @@ class MyParser extends parser
 		if (((((PointerType) sto.getType()).deReference()) instanceof StructType)) {
 			StructType dereffed = ((StructType) ((PointerType) sto.getType()).deReference());
 
-			DoCtorCalls(dereffed.getId(), dereffed.getConstructors(), args, dereffed.getScope());
+			DoCtorCalls(sto, dereffed.getId(), dereffed.getConstructors(), args, dereffed.getScope());
 		}
+
 	}
 
-	void DoCtorCalls(String id, Vector<STO> ctors, Vector<STO> args, Scope structScope) {
+	void DoCtorCalls(STO sto, String id, Vector<STO> ctors, Vector<STO> args, Scope structScope) {
 		if (ctors.size() == 1 && ctors.elementAt(0) instanceof FuncSTO) {
 			STO res = tryNonOverloadedCall(((FuncSTO) ctors.elementAt(0)).getParams() , args);
 			if (res instanceof ErrorSTO) return;
@@ -677,6 +682,9 @@ class MyParser extends parser
 				return;
 			}
 		}
+
+		STO res = DoDesignator2_Arrow(sto, id);
+		DoFuncCall(res, args);
 
 	}
 

@@ -23,6 +23,7 @@ structdef MYS1 {
     function : void fun1(int i) {}
     function : float fun1(float f) { return f; }
     function : float fun2() { return this.f; }
+    function : int fun3() { return this.i; }
 };
 
 
@@ -46,7 +47,6 @@ MYS1 * struPtr2 = &stru1;
 
 int * myPtr1 = &intVar;
 
-
 function : void main () {
     int intVar = 5;
     float floatVar = 5.5;
@@ -64,6 +64,19 @@ function : void main () {
     struPtr1 = ::struPtr2;
     struPtr1 = &stru1;
     struPtr1 = &stru2;
+
+    stru2 = *struPtr1;
+    *struPtr2 = *struPtr1;
+    (*struPtr1).i = 5;
+
+    struPtr1->i = 0;
+    int strupper = 5 + struPtr1->fun3();
+    float strupper2 = 5 + struPtr1->fun1(5.5);
+
+    new intPtr;
+    new struPtr1 : ();
+    new struPtr1 : (5.5);
+    new struPtr2 : (5, 5.5, true);
 
     intPtr = &intVar;
     intPtr = &intArr[3];
@@ -106,4 +119,12 @@ function : void main () {
     ptr2 = *pptr;
     int ***ppptr = &pptr;
     ptr2 = **ppptr;
+
+    intVar = ptr1[0];
+    intVar = ptr1[3];
+    ptr1[2] = intVar2;
+
+    foreach (int * looper : arr1) {
+        *looper = 5;
+    }
 }
