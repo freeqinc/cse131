@@ -4,6 +4,8 @@ package STO;//------------------------------------------------------------------
 // University of California, San Diego
 //---------------------------------------------------------------------
 
+import types.ArrayType;
+import types.PointerType;
 import types.Type;
 
 import java.util.Vector;
@@ -115,7 +117,14 @@ public class FuncSTO extends STO
 
 	public void allocateParam(STO sto) {
 		sto.setBase("%fp");
-		sto.setOffset( (m_paramPointer += sto.getType().getSize()) + "");
+
+		if (sto.isReference()) {
+			sto.setOffset( (m_paramPointer += 4) + "");
+		} else if (sto.getType() instanceof ArrayType && ((ArrayType) sto.getType()).next() instanceof PointerType) {
+			sto.setOffset( (m_paramPointer += 4) + "");
+		}else {
+			sto.setOffset( (m_paramPointer += sto.getType().getSize()) + "");
+		}
 	}
 
 	public void allocateFuncCall() {

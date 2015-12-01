@@ -1406,6 +1406,9 @@ class MyParser extends parser
 			else if (aType instanceof ArrayType && bType instanceof ArrayType) {
 				if (!aType.getName().equals(bType.getName())) return false;
 				return true;
+			} else if (aType instanceof PointerType && bType instanceof PointerType) {
+				if (!((PointerType) aType).isEqualToPointer(bType)) return false;
+				return true;
 			}
 			else if (aParams.elementAt(i).isReference() && !bParams.elementAt(i).isModLValue())
 				return false;
@@ -1715,7 +1718,6 @@ class MyParser extends parser
 
 		for (int i = 0; i < funcList.size(); i++) {
 			FuncSTO currFunc = (FuncSTO )funcList.elementAt(i);
-
 			if (hasSameParamsExact(currFunc, tempFunc)) {
 				return currFunc;
 			}
@@ -1804,6 +1806,8 @@ class MyParser extends parser
 		VarSTO retSTO = new VarSTO(sto.getName() + "(...)", ((FuncSTO) sto).getReturnType());
 		retSTO.setBase(sto.getBase());
 		retSTO.setOffset(sto.getOffset());
+		if (((FuncSTO) sto).returnsByReference())
+			retSTO.setReference();
 
 		return retSTO;
 

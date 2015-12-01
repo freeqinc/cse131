@@ -390,6 +390,11 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.LD, set, load);
     }
 
+    public void setAddressLoadNoDeref(STO sto, String set, String load) {
+        setAddressNoDeref(sto, set);
+        writeAssembly(ACGstrs.LD, set, load);
+    }
+
     public void storeIntoAddress(STO sto, String set, String store) {
         setAddress(sto, set);
         writeAssembly(ACGstrs.ST, store, set);
@@ -399,6 +404,27 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, sto.getOffset(), set);
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, sto.getBase(), set, set);
         writeAssembly(ACGstrs.ST, store, set);
+    }
+
+    public void loadSTONoDeref(STO sto, String set, String load) {
+
+        // Deal with float
+        if (sto.getType() instanceof FloatType)
+            load = "%f" + load.charAt(2);
+
+
+        // Variable
+        if (sto.hasAddress() ) {
+            setAddressLoadNoDeref(sto, set, load);
+
+            // Constant to load
+        } else if (sto instanceof ConstSTO && ((ConstSTO) sto).hasValue()) {
+            if (sto.getType() instanceof FloatType) {
+                loadFloat(((ConstSTO) sto).getFloatValue() + "", set, load);
+            } else {
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, ((ConstSTO) sto).getIntValue() + "", load);
+            }
+        }
     }
 
     public void loadSTO(STO sto, String set, String load) {
@@ -482,6 +508,17 @@ public class AssemblyCodeGenerator {
             writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f" + reg, "%f" + reg);
         }
     }
+
+    public void assignFitosReturnStmt(STO left, STO right, FuncSTO func) {
+        if (left.getType() instanceof FloatType && !(right.getType() instanceof FloatType)) {
+            VarSTO padding = new VarSTO("padding", new FloatType());
+            func.allocateLocalVar(padding);
+            storeIntoAddress(padding, "%l7", "%i0");
+            writeAssembly(ACGstrs.LD, "%l7", "%f0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f0", "%f0");
+        }
+    }
+
 
     // Operators / Arithmetic
     //----------------------------------------------------------------
@@ -1266,6 +1303,10 @@ public class AssemblyCodeGenerator {
             }
         }
 
+        functionName = functionName.replace("[", "$");
+        functionName = functionName.replace("]", "$");
+        functionName = functionName.replace("*", "$");
+
         return functionName;
     }
 
@@ -1362,7 +1403,13 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "return " + expr.getName() + ";");
 
-        loadSTO(expr, "%l7", "%i0");
+        if (func.returnsByReference()) {
+            setAddress(expr, "%i0");
+        } else {
+            loadSTO(expr, "%l7", "%i0");
+        }
+
+        assignFitosReturnStmt(new VarSTO("temp", func.getReturnType()), expr, func);
 
         doCall(getFuncName(func) + ".fini");
         doReturn();
@@ -1372,6 +1419,7 @@ public class AssemblyCodeGenerator {
     public void doFuncCall(FuncSTO sto, Vector<STO> args, FuncSTO currFunc) {
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
+
 
         int shift = 0;
         if (sto.memberOf() != null) {

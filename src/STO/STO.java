@@ -150,6 +150,7 @@ public abstract class STO
 	public void setReference() {
 		m_isReference = true;
 	}
+	public void setNotReference() { m_isReference = false; }
 
 	public boolean isReference() {
 		return m_isReference;
