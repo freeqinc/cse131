@@ -530,6 +530,19 @@ public class AssemblyCodeGenerator {
     }
 
 
+    public void castFitos(Type type, STO sto, STO result, FuncSTO func) {
+        if (type instanceof FloatType && !(sto.getType() instanceof FloatType)) {
+            VarSTO padding = new VarSTO("padding", new FloatType());
+            func.allocateLocalVar(padding);
+            storeIntoAddress(padding, "%l7", "%o0");
+            writeAssembly(ACGstrs.LD, "%l7", "%f0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f0", "%f0");
+            storeIntoAddress(result, "%o1", "%f0");
+        } else {
+            storeIntoAddress(result, "%o1", "%o0");
+        }
+    }
+
     public void assignFitos(STO left, STO right, FuncSTO func) {
         if (left.getType() instanceof FloatType && !(right.getType() instanceof FloatType)) {
             VarSTO padding = new VarSTO("padding", new FloatType());
@@ -1491,6 +1504,65 @@ public class AssemblyCodeGenerator {
 
         decreaseIndent();
 
+    }
+
+
+    public void doDesignatorCast(Type type, STO sto, STO result, FuncSTO func) {
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, result.getName());
+        loadSTO(sto, "%l7", "%o0");
+
+        func.allocateLocalVar(result);
+
+
+        // bool -> int float pointer
+        if (sto.getType() instanceof BoolType) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
+            writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.cmp." + m_cmpCount);
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%g0", "%o0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "1", "%o0");
+            decreaseIndent();
+            writeAssembly(ACGstrs.LABEL, ".$$.cmp." + m_cmpCount++);
+            increaseIndent();
+
+        // int float pointer -> bool
+        } else if (type instanceof BoolType) {
+
+            if (sto.getType() instanceof FloatType) {
+                VarSTO padding = new VarSTO("padding", new FloatType());
+                func.allocateLocalVar(padding);
+                storeIntoAddress(padding, "%l7", "%g0");
+                writeAssembly(ACGstrs.LD, "%l7", "%f1");
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f1", "%f1");
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FCMPS_OP, "%f0", "%f1");
+                writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
+                writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.FBE_OP, ".$$.cmp." + m_cmpCount);
+            } else {
+                writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.CMP_OP, "%o0", "%g0");
+                writeAssembly(ACGstrs.ONE_PARAM, ACGstrs.BE_OP, ".$$.cmp." + m_cmpCount);
+            }
+
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "%g0", "%o0");
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.MOV_OP, "1", "%o0");
+            decreaseIndent();
+            writeAssembly(ACGstrs.LABEL, ".$$.cmp." + m_cmpCount++);
+            increaseIndent();
+
+        // float -> int pointer
+        } else if (sto.getType() instanceof FloatType && !(type instanceof FloatType)) {
+            writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FSTOI_OP, "%f0", "%f0");
+        }
+
+
+        if (sto.getType() instanceof FloatType && !(type instanceof BoolType)) {
+            storeIntoAddress(result, "%o1", "%f0");
+        } else {
+            castFitos(type, sto, result, func);
+        }
+
+
+        decreaseIndent();
     }
 
     // Arrays

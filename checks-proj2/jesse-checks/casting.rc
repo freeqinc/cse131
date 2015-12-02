@@ -1,0 +1,27 @@
+int intVar = 5;
+float floatVar = 5.5;
+bool boolVar = true;
+
+int * intPtr = &intVar;
+
+int test1 = (int) boolVar;
+float test2 = (float) boolVar;
+int * test3 = (int * ) boolVar;
+
+bool test4 = (bool) intVar;
+bool test5 = (bool) floatVar;
+bool test6 = (bool) intPtr;
+
+int test7 = (int) floatVar;
+int * test8 = (int *) floatVar;
+
+float test9 = (float) intVar;
+float test10 = (float) intPtr;
+
+int test11 = (int) intPtr;
+int * test12 = (int *) intVar;
+
+int test13 = (int) intVar;
+float test14 = (float) floatVar;
+bool test15 = (bool) boolVar;
+int * test16 = (int *) intPtr;

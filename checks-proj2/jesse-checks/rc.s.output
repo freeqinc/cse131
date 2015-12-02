@@ -1,14 +1,1 @@
-ctor called on 1
-ctor called on 2
-ctor called on 6
-ctor called on 3
-ctor called on 4
-ctor called on 5
-dtor called on 5
-dtor called on 3
-ctor called on 3
-dtor called on 3
-dtor called on 6
-dtor called on 4
-dtor called on 2
-dtor called on 1
+999

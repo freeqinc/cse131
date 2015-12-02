@@ -608,7 +608,24 @@ class MyParser extends parser
 		}*/
 
 
+		FuncSTO currFunc = m_symtab.getFunc() != null ? m_symtab.getFunc() : m_bufferFunc;
+
+		if (m_symtab.inGlobalScope()) {
+			m_asGenerator.startBuffer();
+
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
+			currFunc = m_bufferFunc;
+		} else if (m_symtab.inStaticDecl()) {
+			m_asGenerator.startBuffer();
+		}
+
+
+		ret.setName("(" + type.getName() + ")" + sto.getName());
+		m_asGenerator.doDesignatorCast(type, sto, ret, currFunc);
 		ret.setRValue();
+
 		return ret;
 	}
 
