@@ -151,7 +151,6 @@ non terminal Operator
     AddOp,
     MulOp,
     Relation,
-    BitwiseOp,
     IncDecOpPre,
     IncDecOpPost,
     Equality,
@@ -239,7 +238,10 @@ GlobalDecl ::=      ExternDecl
 
 ExternDecl ::=      T_EXTERN DecoratedBasicType:_2 T_ID:_3 OptArrayList:_4
                     {:
-                        ((MyParser) parser).DoExternDecl (_3);
+                        if ( _4 != null)
+                            ((MyParser) parser).DoExternArrayDecl (_3, _2, _4);
+                        else
+                            ((MyParser) parser).DoExternDecl (_3, _2);
                     :}
                     T_SEMI
     ;
@@ -451,14 +453,14 @@ FuncDef ::=         T_FUNCTION T_COLON ReturnType:_1 OptRef:_2 T_ID:_3
     ;
 
 
-FuncDecl ::=        T_EXTERN T_FUNCTION T_COLON ReturnType:_1 T_ID:_3
+FuncDecl ::=        T_EXTERN:_5 T_FUNCTION T_COLON ReturnType:_1 T_ID:_3
                     {:
-                        ((MyParser) parser).DoFuncDecl_1(_3, _1, false);
+                        ((MyParser) parser).DoExternFuncDecl_1(_3, _1, false);
                     :}
                     T_LPAREN OptParamList:_4 T_RPAREN
                     {:
-                        ((MyParser) parser).DoFormalParams(_4, _3);
-                        ((MyParser) parser).DoFuncDecl_2();
+                        ((MyParser) parser).DoExternFormalParams(_4, _3);
+                        ((MyParser) parser).DoExternFuncDecl_2();
                     :}
                     T_SEMI
     ;
@@ -1072,20 +1074,6 @@ BooleanOp ::=       T_AND
                     :}
     ;
 */
-
-BitwiseOp ::=       T_AMPERSAND
-                    {:
-                        RESULT = new BwAndOp();
-                    :}
-    |               T_BAR
-                    {:
-                        RESULT = new BwOrOp();
-                    :}
-    |               T_CARET
-                    {:
-                        RESULT = new BwXorOp();
-                    :}
-    ;
 
 IncDecOpPre ::=     T_PLUSPLUS
                     {:

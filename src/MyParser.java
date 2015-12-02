@@ -1167,7 +1167,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
-	void DoExternDecl(String id)
+	void DoExternDecl(String id, Type t)
 	{
 		if (m_symtab.accessLocal(id) != null)
 		{
@@ -1176,7 +1176,48 @@ class MyParser extends parser
 			m_errors.print(Formatter.toString(error, id));
 		}
 
+
 		VarSTO sto = new VarSTO(id);
+		if (t != null) {
+			sto = new VarSTO(id, t);
+		}
+
+		sto.setBase("%g0");
+		sto.setOffset(id);
+
+		m_symtab.insert(sto);
+	}
+
+	void DoExternArrayDecl(String id, Type t, Vector<STO> arrayList) {
+		if (m_symtab.accessLocal(id) != null)
+		{
+			m_nNumErrors++;
+			String error = m_inStruct ? ErrorMsg.error13a_Struct : ErrorMsg.redeclared_id;
+			m_errors.print(Formatter.toString(error, id));
+		}
+
+		ArrayType arrType = new ArrayType();
+		ArrayType insertType = arrType;
+
+		STO sto = new VarSTO(id, insertType);
+		sto.setNonModLValue();
+
+		for (int i = 0; i < arrayList.size(); i ++) {
+			STO curr = arrayList.elementAt(i);
+
+			int dimSize = ((ConstSTO) curr).getIntValue();
+			arrType.setDimSize(dimSize);
+			if (i < arrayList.size() - 1) {
+				arrType.setNext(new ArrayType());
+				arrType = (ArrayType) arrType.next();
+			} else {
+				arrType.setNext(t);
+			}
+		}
+
+		sto.setBase("%g0");
+		sto.setOffset(id);
+
 		m_symtab.insert(sto);
 	}
 
@@ -1280,6 +1321,60 @@ class MyParser extends parser
 		}
 
 
+
+		m_symtab.insert(sto);
+		m_symtab.openScope();
+		m_symtab.setFunc(sto);
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
+	}
+
+
+	void DoExternFuncDecl_1(String id, Type returnType, boolean optRef)
+	{
+
+
+		// if it's a ctor/dtor
+		if (id.equals(id.toUpperCase())) {
+			if (id.charAt(0) == '~') { // DTOR
+				if (!id.equals("~" + m_currStructId)) {
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error13b_Dtor, id, m_currStructId));
+				}
+			} else { // CTOR
+				if (!id.equals(m_currStructId)) {
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error13b_Ctor, id, m_currStructId));
+				}
+			}
+		}
+
+		if (m_symtab.accessLocal(id) != null && !(m_symtab.accessLocal(id) instanceof FuncSTO))
+		{
+			m_nNumErrors++;
+			String error = m_inStruct ? ErrorMsg.error13a_Struct : ErrorMsg.redeclared_id;
+			m_errors.print(Formatter.toString(error, id));
+		}
+
+
+		FuncSTO sto = new FuncSTO(id);
+		sto.setReturnType(returnType);
+
+		// if overloaded
+		if (m_symtab.accessLocal(id) != null && (m_symtab.accessLocal(id) instanceof FuncSTO)) {
+			((FuncSTO )m_symtab.accessLocal(id)).setOverloaded();
+			sto.setOverloaded();
+		}
+
+		if (optRef) {
+			sto.setReturnsByReference();
+			sto.setModLValue();
+		}
+
+		sto.setExtern();
 
 		m_symtab.insert(sto);
 		m_symtab.openScope();
@@ -1408,6 +1503,14 @@ class MyParser extends parser
 		m_symtab.closeScope();
 
 		m_asGenerator.doFuncDecl_2(null, m_symtab.getFunc());
+
+		m_symtab.setFunc(null);
+	}
+
+	void DoExternFuncDecl_2()
+	{
+
+		m_symtab.closeScope();
 
 		m_symtab.setFunc(null);
 	}
@@ -1543,6 +1646,62 @@ class MyParser extends parser
 
 		m_asGenerator.doFuncDecl_1(id, func);
 		m_asGenerator.doFormalParams(params);
+	}
+
+
+	void DoExternFormalParams(Vector<STO> params, String id)
+	{
+
+		if (m_symtab.getFunc() == null)
+		{
+			m_nNumErrors++;
+			m_errors.print ("internal: DoFormalParams says no proc!");
+		}
+
+		boolean bad = false;
+
+
+		FuncSTO func;
+		func = m_symtab.getFunc();
+
+		func.setParams(params);
+
+		if (func.isOverloaded()) {
+			m_symtab.closeScope();
+			Vector <STO> funcList = m_symtab.accessLocalList(id);
+			m_symtab.openScope();
+
+			FuncSTO currFunc;
+			// System.out.println("OBSERRVING " + id);
+
+			for (int i = 0; i < funcList.size() - 1; i++) {
+				currFunc = (FuncSTO) funcList.elementAt(i);
+				if (hasSameParams(currFunc, func)) {
+					bad = true;
+					m_nNumErrors++;
+					m_errors.print(Formatter.toString(ErrorMsg.error9_Decl, id));
+
+					// if error, remove it
+					m_symtab.closeScope();
+					m_symtab.pop();
+					m_symtab.openScope();
+					break;
+				}
+			}
+		}
+
+		if (!bad && params != null) {
+			for (int i = 0; i < params.size(); i++) {
+				m_symtab.insert(params.elementAt(i));
+				m_symtab.getFunc().allocateParam(params.get(i));
+			}
+		}
+
+
+		//----------------
+		// ASSEMBLY GEN
+		//----------------
+
 	}
 
 	//----------------------------------------------------------------
@@ -1829,12 +1988,14 @@ class MyParser extends parser
 	{
 		if (sto instanceof ErrorSTO) return sto;
 
+
 		if (!sto.isFunc())
 		{
 			m_nNumErrors++;
 			m_errors.print(Formatter.toString(ErrorMsg.not_function, sto.getName()));
 			return new ErrorSTO(sto.getName());
 		}
+
 
 		Scope structScope = null;
 		String structID = ((FuncSTO) sto).memberOf();

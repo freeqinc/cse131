@@ -21,6 +21,7 @@ public class FuncSTO extends STO
 	private int m_localVarPointer = 0;
 	private int m_paramPointer = 64;
 	private String m_funcName = "";
+	private boolean m_isExtern = false;
 
 	//----------------------------------------------------------------
 	//
@@ -37,6 +38,9 @@ public class FuncSTO extends STO
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+	public boolean isExtern() { return m_isExtern; }
+	public void setExtern() { m_isExtern = true; }
+
 	public boolean isFunc() 
 	{ 
 		return true;

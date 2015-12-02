@@ -39,6 +39,43 @@ structdef MYS2 {
     float f;
     bool b;
 };
+/*
+extern int x1;
+extern float x2;
+extern bool x3;
+extern int * x4;
+extern float ** x5;
+extern int x6[5];
+extern bool * x7[2];
+
+extern function : int xf1();
+extern function : bool xf2(int a, float f);
+
+function : void externMadness () {
+
+    bool beach;
+    x1 = 5;
+    x2 = 5.5;
+    x3 = false;
+    *x4 = 5;
+    **x5 = 5.5;
+
+    x6[2] = 5;
+    x7[1] = &beach;
+
+    int a = xf1();
+    bool b = xf2(5, 5.5);
+}*/
+
+function : void extraCreds() {
+    int * x;
+    int * y;
+
+    new x;
+    y = x;
+    delete x;
+    delete y;
+}
 
 int intVar = 5;
 float floatVar = 5.5;
@@ -70,6 +107,19 @@ int xtraTest = arr2[0];
 int xtraTest2 = stru1.fun3();
 
 int * myPtr1 = &intVar;
+
+function : void checkers() {
+    int intVar = 5;
+
+    int arr[5];
+
+    arr[intVar - 10];
+    arr[intVar + 5];
+
+    int * intPtr;
+    *intPtr = 5;
+
+}
 
 function : void typeCasts() {
     int intVar = 5;
@@ -105,8 +155,6 @@ function : void typeCasts() {
 function : void someStructs() {
     MYS1 s1;
     MYS2 s2;
-
-    exit(0);
 
     MYS1 s3;
 
@@ -342,8 +390,6 @@ function : void main () {
     delete struPtr2;
     delete ::struPtr1;
 
-    exit(0);
-
     intPtr = &intVar;
     intPtr = &intArr[3];
     intPtr = &::intVar;
@@ -395,6 +441,11 @@ function : void main () {
         cout << *looper << " " << *intPtr << endl;
     }
 
+    extraCreds();
+    //externMadness();
+    checkers();
+
+    exit(0);
 
 
 }

@@ -1582,7 +1582,9 @@ public class AssemblyCodeGenerator {
             functionName = func.memberOf() + "." + functionName;
         }
 
-        if (params == null) {
+        if (func.isExtern()) {
+
+        } else if (params == null) {
             functionName += ".void";
         } else if (params.size() == 0) {
             functionName += ".void";
