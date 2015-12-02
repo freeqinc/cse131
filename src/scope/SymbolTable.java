@@ -15,7 +15,20 @@ public class SymbolTable
 	private int m_nLevel;
 	private Scope m_scopeGlobal;
 	private FuncSTO m_func = null;
-    
+	private String m_staticDecl = null;
+
+
+	public void setStaticDecl(String s) {
+		m_staticDecl = s;
+	}
+
+	public boolean inStaticDecl() {
+		return m_staticDecl != null;
+	}
+
+	public String getStaticDecl() {
+		return m_staticDecl;
+	}
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------

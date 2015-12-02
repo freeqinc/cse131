@@ -1,3 +1,7 @@
+function : int someVal() {
+    return 5;
+}
+
 structdef MYS1 {
     int i;
     float f;
@@ -30,10 +34,21 @@ structdef MYS1 {
     function : int fun3() { return this.i; }
 };
 
+structdef MYS2 {
+    int i;
+    float f;
+    bool b;
+};
 
 int intVar = 5;
 float floatVar = 5.5;
 bool boolVar = true;
+
+int temptemp = intVar;
+
+const int cgInt = 5;
+const float cgFloat = 5.5;
+const bool cgBool = false;
 
 int * intPtr;
 float * floatPtr;
@@ -44,12 +59,63 @@ static float * stfloatPtr;
 static bool * stboolPtr;
 
 int * arr1[5];
+int arr2[5];
 
 MYS1 stru1;
+MYS1 stoooooper[5];
 MYS1 * struPtr1;
 MYS1 * struPtr2 = &stru1;
 
+int xtraTest = arr2[0];
+int xtraTest2 = stru1.fun3();
+
 int * myPtr1 = &intVar;
+
+function : void someStructs() {
+    MYS1 s1;
+    MYS2 s2;
+
+    exit(0);
+
+    MYS1 s3;
+
+    return;
+
+    MYS2 s4;
+
+    MYS1 * sptr1 = &s1;
+    delete sptr1;
+}
+
+static int statA = 5;
+function : void staticjesus () {
+    int intVar = 10;
+    MYS1 myStruct;
+
+    static int statA = 10;
+    static int statB;
+    static int statC = intVar;
+    static int statC_2 = intVar + intVar;
+    static int statC_3 = someVal();
+    static int statD[5];
+    static MYS1 statE : ();
+    static MYS1 statF;
+    static MYS1 statF_1 : (5, 5.5, true);
+    static MYS1 statG[2];
+    MYS1 statG_2[2];
+    static MYS1 statH[1] : (5, 5.5, true);
+    static int * statI = &intVar;
+    static int statJ = *myPtr1;
+    static int statK = struPtr2->fun3();
+
+    int temp = statA + statB;
+
+    statA = 50;
+    statB = 500;
+
+    int * ptr = &statA;
+    ptr = &statB;
+}
 
 function : void func1 (int & arr[5]) {
     arr[1] = 5;
@@ -197,6 +263,8 @@ function : void heapjesus() {
 function : void main () {
     passbyjesus();
     heapjesus();
+    staticjesus();
+    someStructs();
 
     int intVar = 5;
     float floatVar = 5.5;
@@ -241,6 +309,8 @@ function : void main () {
     delete struPtr1;
     delete struPtr2;
     delete ::struPtr1;
+
+    exit(0);
 
     intPtr = &intVar;
     intPtr = &intArr[3];

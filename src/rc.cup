@@ -245,7 +245,12 @@ ExternDecl ::=      T_EXTERN DecoratedBasicType:_2 T_ID:_3 OptArrayList:_4
     ;
 
 
-VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptInit:_5
+VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3
+                    {:
+                        if (_1 != null)
+                            ((MyParser) parser).OpenStaticDecl(_3);
+                    :}
+                    OptArrayList:_4 OptInit:_5
                     {:
                         if (_1 == null) _1 = false;
 
@@ -254,16 +259,29 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
                         else
                             ((MyParser) parser).DoVarDecl (_3, _2, _5, _1);
 
+                        ((MyParser) parser).CloseStaticDecl();
                     :}
                     T_SEMI
-    |               OptStatic:_1 T_AUTO T_ID:_3 T_ASSIGN Expr:_5
+    |               OptStatic:_1 T_AUTO T_ID:_3
+                    {:
+                        if (_1 != null)
+                            ((MyParser) parser).OpenStaticDecl(_3);
+                    :}
+                    T_ASSIGN Expr:_5
                     {:
                         if (_1 == null) _1 = false;
 
                         ((MyParser) parser).DoAutoVarDecl(_3, _5, _1);
+
+                        ((MyParser) parser).CloseStaticDecl();
                     :}
                     T_SEMI
-    |               OptStatic:_1 StructType:_2 T_ID:_3 OptArrayList:_4 OptCtorCall:_5
+    |               OptStatic:_1 StructType:_2 T_ID:_3
+                    {:
+                         if (_1 != null)
+                             ((MyParser) parser).OpenStaticDecl(_3);
+                    :}
+                    OptArrayList:_4 OptCtorCall:_5
                     {:
                         if (_1 == null) _1 = false;
 
@@ -271,6 +289,8 @@ VarDecl ::=         OptStatic:_1 DecoratedType:_2 T_ID:_3 OptArrayList:_4 OptIni
                             ((MyParser) parser).DoStructArrayInst (_3, _2, _5, _4, _1);
                         else
                             ((MyParser) parser).DoStructInst (_3, _2, _5, _1);
+
+                        ((MyParser) parser).CloseStaticDecl();
                     :}
                     T_SEMI
     ;

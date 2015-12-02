@@ -17,10 +17,15 @@ public abstract class STO
 	private String m_base;
 	private String m_offset;
 	private STO m_belongsTo = null;
+	private STO m_arrayParent = null;
 
 	//----------------------------------------------------------------
 	//
 	//----------------------------------------------------------------
+
+	public void setArrayParent(STO sto) { m_arrayParent = sto; }
+
+	public STO arrayParent() { return m_arrayParent; }
 
 	public void setBelongsTo(STO sto) {
 		m_belongsTo = sto;

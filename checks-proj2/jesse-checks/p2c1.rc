@@ -95,7 +95,6 @@ structdef MYS2 {
 
 MYS1 struArr1[2];
 
-
 structdef MYS3 {
     int i;
     float f;

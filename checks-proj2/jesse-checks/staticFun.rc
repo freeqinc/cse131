@@ -1,0 +1,19 @@
+function : int foo()
+{
+    static int x = 5;
+    return x++;
+}
+function : int bar()
+{
+    static int x = 5;
+    return ++x;
+}
+function : void main()
+{
+    cout << foo() << endl; // 5
+    cout << foo() << endl; // 6
+    cout << foo() << endl; // 7
+    cout << bar() << endl; // 6
+    cout << bar() << endl; // 7
+    cout << bar() << endl; // 8
+}

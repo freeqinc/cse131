@@ -193,6 +193,14 @@ class MyParser extends parser
 		m_asGenerator.stopBuffer();
 	}
 
+	void OpenStaticDecl(String id) {
+		m_symtab.setStaticDecl(id);
+	}
+
+	void CloseStaticDecl() {
+		m_symtab.setStaticDecl(null);
+	}
+
 	AssemblyCodeGenerator getAssemblyGen() { return m_asGenerator; }
 
 	//----------------------------------------------------------------
@@ -200,6 +208,7 @@ class MyParser extends parser
 	//----------------------------------------------------------------
 	void DoProgramEnd()
 	{
+		m_asGenerator.doDtorTeardowns_G();
 		m_symtab.closeScope();
 	}
 
@@ -241,6 +250,8 @@ class MyParser extends parser
 			func = m_bufferFunc;
 
 			m_asGenerator.startBuffer();
+		} else if (m_symtab.inStaticDecl()) {
+			m_asGenerator.startBuffer();
 		}
 
 		m_asGenerator.doDesignatorStar(stoCopy, sto, func);
@@ -270,6 +281,8 @@ class MyParser extends parser
 
 			func = m_bufferFunc;
 
+			m_asGenerator.startBuffer();
+		} else if (m_symtab.inStaticDecl()) {
 			m_asGenerator.startBuffer();
 		}
 
@@ -374,8 +387,20 @@ class MyParser extends parser
 
 		FuncSTO currFunc = m_symtab.getFunc() != null ? m_symtab.getFunc() : m_bufferFunc;
 
+		if (m_symtab.inGlobalScope()) {
+			m_asGenerator.startBuffer();
+
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
+			currFunc = m_bufferFunc;
+		} else if (m_symtab.inStaticDecl()) {
+			m_asGenerator.startBuffer();
+		}
+
 		m_asGenerator.doDesignatorBracket(stoCopy, expr, sto, currFunc);
 
+		sto.setArrayParent(stoCopy);
 		return sto;
 	}
 
@@ -796,13 +821,19 @@ class MyParser extends parser
 
 			if (m_bufferFunc == null)
 				m_bufferFunc = new FuncSTO("buffer");
-
+			if (m_symtab.inStaticDecl() && !m_symtab.inGlobalScope()) {
+				var.setOffset(m_asGenerator.getFuncName(m_symtab.getFunc()) + "." + var.getName());
+			}
 			m_asGenerator.doStructCtorCall((StructType) structType, var, (FuncSTO) match, args, m_bufferFunc);
 
 			m_asGenerator.stopBuffer();
 
 			m_asGenerator.doUninitGlobalStatic(var, optStatic);
-			m_asGenerator.doStructInst(var, m_bufferFunc);
+			if (optStatic && !m_symtab.inGlobalScope()) {
+				m_asGenerator.doStaticStructInst(var, m_symtab.getFunc());
+			} else {
+				m_asGenerator.doStructInst(var, m_bufferFunc);
+			}
 
 
 			m_bufferFunc = null;
@@ -861,8 +892,20 @@ class MyParser extends parser
 
 			m_asGenerator.stopBuffer();
 
+
 			m_asGenerator.doUninitGlobalStatic(sto, optStatic);
-			m_asGenerator.doStructArrayInst(sto);
+
+			if (optStatic && !m_symtab.inGlobalScope()) {
+				m_asGenerator.doStaticStructArrayInst(sto, m_symtab.getFunc());
+			} else {
+				if (m_bufferFunc == null)
+					m_bufferFunc = new FuncSTO("buffer");
+
+				m_asGenerator.doStructArrayInst(sto, m_bufferFunc);
+
+				m_bufferFunc = null;
+
+			}
 
 		// Local Scope
 		} else {
@@ -906,6 +949,8 @@ class MyParser extends parser
 			sto.setBase("%g0");
 			sto.setOffset(id);
 
+			m_asGenerator.stopBuffer();
+
 			// Initialization
 			if (expr != null) {
 				// Immediate value
@@ -913,13 +958,16 @@ class MyParser extends parser
 					m_asGenerator.doInitGlobalStatic(sto, (ConstSTO)expr, optStatic);
 				// Buffer value
 				} else {
-					m_asGenerator.stopBuffer();
 
 					if (m_bufferFunc == null)
 						m_bufferFunc = new FuncSTO("buffer");
 
 					m_asGenerator.doUninitGlobalStatic(sto, optStatic);
-					m_asGenerator.doAssignFlush(sto, expr, m_bufferFunc);
+					if (optStatic && !m_symtab.inGlobalScope()) {
+						m_asGenerator.doInternalStaticFlush(sto, expr, m_symtab.getFunc());
+					} else {
+						m_asGenerator.doAssignFlush(sto, expr, m_bufferFunc);
+					}
 
 					m_bufferFunc = null;
 				}
@@ -1054,10 +1102,13 @@ class MyParser extends parser
 					func = m_bufferFunc;
 
 					m_asGenerator.startBuffer();
+
+				} else if (m_symtab.inStaticDecl()) {
+					sto.setOffset(m_asGenerator.getFuncName(m_symtab.getFunc()) +  "." + sto.getName());
+					sto.setBase("%g0");
 				} else {
 					func.allocateLocalVar(sto);
 				}
-
 
 				for (int j = 0; j < ((ConstSTO) curr).getIntValue(); j++) {
 					STO des2 = DoDesignator2_Array(sto, new ConstSTO(j + "", new IntType(), j));
@@ -1794,13 +1845,32 @@ class MyParser extends parser
 		if (res instanceof ErrorSTO) return res;
 
 
-		if (m_symtab.getFunc() != null) {
-			m_symtab.getFunc().allocateLocalVar(sto);
-			m_asGenerator.doFuncCall((FuncSTO)sto, args, m_symtab.getFunc());
-		} else {
+		FuncSTO usedFunc = m_symtab.getFunc();
+
+		if (m_symtab.inGlobalScope()) {
+			m_asGenerator.startBuffer();
+
+			if (m_bufferFunc == null)
+				m_bufferFunc = new FuncSTO("buffer");
+
 			m_bufferFunc.allocateLocalVar(sto);
-			m_asGenerator.doFuncCall((FuncSTO)sto, args, m_bufferFunc);
+			usedFunc = m_bufferFunc;
+		} else if (m_symtab.inStaticDecl()) {
+			m_symtab.getFunc().allocateLocalVar(sto);
+			m_asGenerator.startBuffer();
+		} else {
+			m_symtab.getFunc().allocateLocalVar(sto);
 		}
+
+		m_asGenerator.doFuncCall((FuncSTO)sto, args, usedFunc);
+
+//		if (m_symtab.getFunc() != null) {
+//			m_symtab.getFunc().allocateLocalVar(sto);
+//			m_asGenerator.doFuncCall((FuncSTO)sto, args, m_symtab.getFunc());
+//		} else {
+//			m_bufferFunc.allocateLocalVar(sto);
+//			m_asGenerator.doFuncCall((FuncSTO)sto, args, m_bufferFunc);
+//		}
 
 
 		VarSTO retSTO = new VarSTO(sto.getName() + "(...)", ((FuncSTO) sto).getReturnType());
@@ -1808,6 +1878,14 @@ class MyParser extends parser
 		retSTO.setOffset(sto.getOffset());
 		if (((FuncSTO) sto).returnsByReference())
 			retSTO.setReference();
+
+//		if (m_symtab.inStaticDecl()) {
+//			String newBase;
+//			newBase = m_asGenerator.getFuncName(m_symtab.getFunc());
+//			newBase += sto.getName();
+//			retSTO.setBase(newBase);
+//		}
+
 
 		return retSTO;
 
@@ -1944,6 +2022,8 @@ class MyParser extends parser
 	void DoShortCircuitLHS(STO a, Operator o) {
 		if (m_symtab.inGlobalScope()) {
 			m_asGenerator.startBuffer();
+		} else if (m_symtab.inStaticDecl()) {
+			m_asGenerator.startBuffer();
 		}
 		m_asGenerator.doShortCircuitLHS(a, o);
 	}
@@ -2028,6 +2108,9 @@ class MyParser extends parser
 			usedFunc = m_bufferFunc;
 
 		// Function scope
+		} else if (m_symtab.inStaticDecl()) {
+			m_symtab.getFunc().allocateLocalVar(result);
+			m_asGenerator.startBuffer();
 		} else {
 			m_symtab.getFunc().allocateLocalVar(result);
 		}
@@ -2082,6 +2165,9 @@ class MyParser extends parser
 			m_bufferFunc.allocateLocalVar(result);
 
 			// Function scope
+		} else if (m_symtab.inStaticDecl()) {
+			m_symtab.getFunc().allocateLocalVar(result);
+			m_asGenerator.startBuffer();
 		} else {
 			m_symtab.getFunc().allocateLocalVar(result);
 		}

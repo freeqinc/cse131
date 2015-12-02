@@ -1,0 +1,13 @@
+int x = 3;
+static int y;
+function : int foo() {
+    return 17;
+}
+
+int z = foo();
+int w = z;
+
+function : void main()
+{
+    static int w = z;
+}
