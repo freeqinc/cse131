@@ -124,7 +124,7 @@ public class FuncSTO extends STO
 
 		if (sto.isReference()) {
 			sto.setOffset( (m_paramPointer += 4) + "");
-		} else if (sto.getType() instanceof ArrayType && ((ArrayType) sto.getType()).next() instanceof PointerType) {
+		} else if (sto.getType() instanceof ArrayType) {
 			sto.setOffset( (m_paramPointer += 4) + "");
 		}else {
 			sto.setOffset( (m_paramPointer += sto.getType().getSize()) + "");

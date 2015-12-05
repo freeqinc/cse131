@@ -1,0 +1,10 @@
+function : void fun(int & x) {
+    int * p = &x;
+    *p = 4;
+    cout << x << endl;
+}
+
+function : void main () {
+    int x = 5;
+    fun(x);
+}

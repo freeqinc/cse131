@@ -2,6 +2,9 @@ function : int someVal() {
     return 5;
 }
 
+float negre = 5.5;
+float negre2 = 5;
+
 structdef MYS1 {
     int i;
     float f;

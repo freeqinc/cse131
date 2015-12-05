@@ -15,7 +15,7 @@ public class UnaryPlus extends UnaryOp {
 
         String name = getName() + "(" + a.getName() +  ")";
 
-        STO retSTO = new ConstSTO(name, aType);
+        STO retSTO = new VarSTO(name, aType);
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue();
 
         if (operableConsts) {

@@ -19,21 +19,26 @@ public class SlashOp extends ArithmeticOp {
         STO retSTO;
         boolean operableConsts = (a instanceof ConstSTO) && ((ConstSTO) a).hasValue() && (b instanceof ConstSTO) && ((ConstSTO) b).hasValue();
 
+
         if (!(aType instanceof NumericType) || !(bType instanceof NumericType)) {
             if (!(aType instanceof NumericType))
                 return new ErrorSTO("error1n_Expr_left");
             else
                 return new ErrorSTO("error1n_Expr_right");
-        } else if (b instanceof ConstSTO && ((ConstSTO) b).getIntValue() == 0) {
-            return new ErrorSTO("error8_Arithmetic");
-        } else if (aType instanceof IntType && bType instanceof IntType) {
+        }else if (aType instanceof IntType && bType instanceof IntType) {
             if (operableConsts) {
+                if (b instanceof ConstSTO && ((ConstSTO) b).getIntValue() == 0) {
+                    return new ErrorSTO("error8_Arithmetic");
+                }
                 retSTO = new ConstSTO(name, new IntType(), ((ConstSTO) a).getIntValue() / ((ConstSTO) b).getIntValue());
             } else {
                 retSTO = new ExprSTO(name, new IntType());
             }
         } else {
             if (operableConsts) {
+                if (b instanceof ConstSTO && ((ConstSTO) b).getIntValue() == 0) {
+                    return new ErrorSTO("error8_Arithmetic");
+                }
                 retSTO = new ConstSTO(name, new FloatType(), ((ConstSTO) a).getFloatValue() / ((ConstSTO) b).getFloatValue());
             } else {
                 retSTO = new ExprSTO(name, new FloatType());

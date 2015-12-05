@@ -1,0 +1,15 @@
+int i = 9;
+function : float f () {
+    float b = i / 0;
+    float z = i + i;
+    cout << "f\n";
+    return z;
+    z = z / 0;
+    return 0;
+}
+
+function : void main () {
+    cout << "gjewaklga\n";
+    cout << f() + f();
+    cout << "\ngewaga\n";
+}

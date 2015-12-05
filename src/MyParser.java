@@ -749,8 +749,21 @@ class MyParser extends parser
 		if (((PointerType) sto.getType()).deReference() instanceof StructType) {
 			String id = ((StructType) ((PointerType) sto.getType()).deReference()).getId();
 
-			STO res = DoDesignator2_Arrow(sto, "~" + id);
-			DoFuncCall(res, null);
+			if (((StructType) ((PointerType) sto.getType()).deReference()).getScope().access("~" + id) != null) {
+				STO res = DoDesignator2_Arrow(sto, "~" + id);
+				DoFuncCall(res, null);
+			} else {
+				FuncSTO func = m_symtab.getFunc();
+
+				if (func == null) {
+					if (m_bufferFunc == null)
+						m_bufferFunc = new FuncSTO("buffer");
+
+					func = m_bufferFunc;
+				}
+
+				m_asGenerator.callDtor(sto, func, id);
+			}
 		}
 
 		m_asGenerator.doDeleteStmt(sto);
@@ -1866,6 +1879,8 @@ class MyParser extends parser
 		String name = "(" + stoDes.getName() + ")=(" + stoExpr.getName() + ")";
 
 		VarSTO ret = new VarSTO(name, stoDes.getType());
+		if (stoDes.isReference())
+			ret.setReference();
 		ret.setBase(stoDes.getBase());
 		ret.setOffset(stoDes.getOffset());
 		ret.setModLValue();
@@ -2425,8 +2440,10 @@ class MyParser extends parser
 
 		DoVarDecl(id, type, null, false);
 		STO iter = m_symtab.access(id);
-
-		m_asGenerator.doForEach_1(iter, expr, m_symtab.getFunc());
+		if (optRef) {
+			iter.setReference();
+		}
+		m_asGenerator.doForEach_1(iter, expr, m_symtab.getFunc(), optRef);
 	}
 
 	// Check break and continue

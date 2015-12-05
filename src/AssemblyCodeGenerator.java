@@ -51,7 +51,7 @@ public class AssemblyCodeGenerator {
     private ArrayList<STO> m_iteratorList = new ArrayList<STO>();
     private ArrayList<ArrayList<String>> m_ctorDtorList = new ArrayList<ArrayList<String>>();
     private ArrayList<ArrayList<String>> m_ctorDtorList_G = new ArrayList<ArrayList<String>>();
-
+    private HashMap<String, Integer> m_staticMangle = new HashMap<String, Integer>();
 
 
     // ctor
@@ -258,13 +258,26 @@ public class AssemblyCodeGenerator {
         increaseIndent();
         doSection(".data");
 
+
+        String mangle = "";
         if (!optStatic) {
             writeAssembly(ACGstrs.GLOBAL, sto.getName());
         } else {
-            sto.setOffset(m_localStaticAppend + sto.getName());
+
+            if (m_staticMangle.containsKey(sto.getName())) {
+                mangle = "$" + m_staticMangle.get(sto.getName());
+                m_staticMangle.put(sto.getName(), m_staticMangle.get(sto.getName())+1);
+            } else {
+                m_staticMangle.put(sto.getName(), 1);
+            }
+
+            sto.setOffset(m_localStaticAppend + sto.getName() + mangle);
+
         }
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL,  m_localStaticAppend + sto.getName());
+
+
+        writeAssembly(ACGstrs.LABEL,  m_localStaticAppend + sto.getName() + mangle);
         increaseIndent();
 
 
@@ -283,13 +296,25 @@ public class AssemblyCodeGenerator {
     public void doUninitGlobalStatic(STO sto, boolean optStatic) {
         increaseIndent();
         doSection(".bss");
+
+
+        String mangle = "";
+
         if (!optStatic) {
             writeAssembly(ACGstrs.GLOBAL, sto.getName());
         } else {
-            sto.setOffset(m_localStaticAppend + sto.getName());
+
+            if (m_staticMangle.containsKey(sto.getName())) {
+                mangle = "$" + m_staticMangle.get(sto.getName());
+                m_staticMangle.put(sto.getName(), m_staticMangle.get(sto.getName())+1);
+            } else {
+                m_staticMangle.put(sto.getName(), 1);
+            }
+
+            sto.setOffset(m_localStaticAppend + sto.getName() + mangle);
         }
         decreaseIndent();
-        writeAssembly(ACGstrs.LABEL, m_localStaticAppend + sto.getName());
+        writeAssembly(ACGstrs.LABEL, m_localStaticAppend + sto.getName() + mangle);
         increaseIndent();
         writeAssembly(ACGstrs.SKIP, sto.getType().getSize() + "");
 
@@ -1022,6 +1047,19 @@ public class AssemblyCodeGenerator {
         decreaseIndent();
     }
 
+    public void callDtor(STO sto, FuncSTO func, String id) {
+        VarSTO starred = new VarSTO("*" + sto.getName());
+        doDesignatorStar(sto, starred, func);
+
+        increaseIndent();
+        writeAssembly(ACGstrs.NEWLINE);
+        writeAssembly(ACGstrs.COMMENT, starred.getName() + ".~" + id + "(...)");
+        setAddressNoDeref(starred, "%o0");
+        writeAssembly(ACGstrs.LD, "%o0", "%o0");
+        doCall(id+".$"+id+".void");
+        decreaseIndent();
+    }
+
     // Loops
     //----------------------------------------------------------------
     public void openLoop() {
@@ -1082,13 +1120,17 @@ public class AssemblyCodeGenerator {
     }
 
 
-    public void doForEach_1(STO iter, STO arr, FuncSTO func) {
+    public void doForEach_1(STO iter, STO arr, FuncSTO func, boolean optref) {
+        String size = "4";
+        size = ((ArrayType)arr.getType()).next().getSize() + "";
+
+
         increaseIndent();
         writeAssembly(ACGstrs.NEWLINE);
         writeAssembly(ACGstrs.COMMENT, "foreach ( ... )");
         writeAssembly(ACGstrs.COMMENT, "traversal ptr = --array");
         setAddress(arr, "%o0");
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "4", "%o1");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, size, "%o1");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.SUB_OP, "%o0", "%o1", "%o0");
 
         VarSTO traversalPtr = new VarSTO("traversalPtr", new IntType());
@@ -1105,7 +1147,7 @@ public class AssemblyCodeGenerator {
         increaseIndent();
         writeAssembly(ACGstrs.COMMENT, "++traversal ptr");
         loadSTO(m_iteratorList.get(m_iteratorList.size() - 1), "%o1", "%o0");
-        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, "4", "%o2");
+        writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.SET_OP, size, "%o2");
         writeAssembly(ACGstrs.THREE_PARAM, ACGstrs.ADD_OP, "%o0", "%o2", "%o0");
         writeAssembly(ACGstrs.ST, "%o0", "%o1");
 
@@ -1119,13 +1161,14 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
         writeAssembly(ACGstrs.COMMENT, "iterVar = currentElem");
-        setAddress(iter, "%o1");
+        setAddressNoDeref(iter, "%o1");
         if ((iter.getType() instanceof FloatType) && !(((ArrayType) arr.getType()).getBaseType() instanceof FloatType)) {
             writeAssembly(ACGstrs.LD, "%o0", "%f0");
             writeAssembly(ACGstrs.TWO_PARAM, ACGstrs.FITOS_OP, "%f0", "%f0");
             writeAssembly(ACGstrs.ST, "%f0", "%o1");
         } else {
-            writeAssembly(ACGstrs.LD, "%o0", "%o0");
+            if (!optref)
+                writeAssembly(ACGstrs.LD, "%o0", "%o0");
             writeAssembly(ACGstrs.ST, "%o0", "%o1");
         }
 
@@ -1430,7 +1473,7 @@ public class AssemblyCodeGenerator {
 
         if (result instanceof FuncSTO) {
         } else {
-            func.allocateLocalVar(result);
+            func.allocateLocalVarPtr(result);
         }
         storeIntoAddressNoDeref(result, "%o1", "%o0");
         decreaseIndent();
@@ -1608,6 +1651,7 @@ public class AssemblyCodeGenerator {
         String functionName = getFuncName(func);
 
         m_localStaticAppend = functionName + ".";
+        m_staticMangle.clear();
 
         if (!func.isOverloaded() && m_currStruct == null) {
             increaseIndent();
@@ -1747,7 +1791,7 @@ public class AssemblyCodeGenerator {
                     loadSTO(arg, "%l7", "%" + setReg + (i + shift));
                 }
 
-                assignFitos(param, arg, currFunc);
+                assignFitos(param, arg, currFunc, i);
             }
         }
 
@@ -1755,7 +1799,7 @@ public class AssemblyCodeGenerator {
         writeAssembly(ACGstrs.ZERO_PARAM, ACGstrs.NOP_OP);
 
         if (!(sto.getReturnType() instanceof VoidType)) {
-            if (sto.getReturnType() instanceof FloatType)
+            if (sto.getReturnType() instanceof FloatType && !sto.returnsByReference())
                 storeIntoAddress(sto, "%o1", "%f0");
             else
                 storeIntoAddress(sto, "%o1", "%o0");

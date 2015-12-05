@@ -939,7 +939,7 @@ Expr2 ::=           Expr2:_1 T_BAR Expr2_1:_3
                     {:
                         RESULT = ((MyParser) parser).DoBinaryExpr (_1, new BwOrOp(), _3);
                     :}
-    |               Expr2_2:_1
+    |               Expr2_1:_1
                     {:
                         RESULT = _1;
                     :}

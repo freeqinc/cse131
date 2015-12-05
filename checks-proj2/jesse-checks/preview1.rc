@@ -1,0 +1,77 @@
+structdef MYS2 {
+    int a;
+    float b;
+    bool c;
+};
+
+structdef MYS1 {
+    int a;
+    int * a_2;
+    float b;
+    bool c;
+    int d[5];
+    int * e[5];
+    MYS1 * f;
+    MYS1 () {
+    }
+    MYS1 (int & a) {
+        this.a_2 = &a;
+    }
+    function : int fun1() {
+        int a = 5;
+        return a;
+    }
+};
+
+function : float fun1() {
+    return 5.5;
+}
+
+function : void fun1(MYS1 & a) {
+    cout << a.a << a.b << a.c << a.d[0];
+}
+
+MYS1 a;
+MYS1 * aPtr = &a;
+
+function : void main () {
+    MYS1 * boop[2];
+
+    boop[0]->a = 5;
+
+
+
+    MYS1 a;
+    int zarr[5];
+    int abbb = 5;
+
+    a.a = 5;
+    a.b = 5.5;
+    a.c = false;
+    a.d[0] = 5;
+
+    fun1(a);
+
+    aPtr->a = 5;
+    aPtr->d[0] = 10;
+
+    cout << a.a << a.b << a.c << a.d[0];
+
+    foreach( int & a : a.d) {
+        a = 10;
+        cout << a;
+    }
+
+    foreach (int * z : a.e) {
+        continue;
+        z = &a.a;
+        cout << "poop";
+    }
+
+    MYS1 aArr[3];
+
+    cout << aArr[2].fun1() + fun1();
+
+    MYS1 a2 : (abbb);
+    cout << *a2.a_2;
+}
